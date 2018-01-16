@@ -1,0 +1,11 @@
+{
+  "eslint.enable": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/lib": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tslint.enable": true,
+  "typescript.autoImportSuggestions.enabled": true,
+}

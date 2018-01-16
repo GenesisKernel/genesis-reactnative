@@ -1,0 +1,24 @@
+{
+  "presets": ["react-native"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "modules": "./lib/modules",
+          "components": "./lib/components",
+          "containers": "./lib/containers",
+          "screens": "./lib/screens",
+          "sagas": "./lib/sagas",
+          "utils": "./lib/utils",
+          "config": "./lib/config"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "production": {
+      "plugins": ["transform-remove-console"]
+    }
+  }
+}
