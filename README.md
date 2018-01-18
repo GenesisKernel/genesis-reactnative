@@ -6,11 +6,15 @@
 
 ## Run & Build
 
-Create a `variables.gradle` in `/android` folder and copy values from `/android/variables.gradle.template`.
+- ANDROID:
+  Create a `variables.gradle` in `/android` folder and copy values from `/android/variables.gradle.template`.
 
-Register in `https://firebase.google.com/` and follow the instructions.
-Register in `https://appcenter.ms/` to get the `MYAPP_CODEPUSH_KEY`.
-Go to `https://facebook.github.io/react-native/docs/signed-apk-android.html` and follow the instructions to get `MYAPP_RELEASE_STORE_PASSWORD` and `MYAPP_RELEASE_KEY_PASSWORD`.
+  Register in `https://firebase.google.com/` and follow the instructions.
+  Register in `https://appcenter.ms/` to get the `MYAPP_CODEPUSH_KEY`.
+  Go to `https://facebook.github.io/react-native/docs/signed-apk-android.html` and follow the instructions to get `MYAPP_RELEASE_STORE_PASSWORD` and `MYAPP_RELEASE_KEY_PASSWORD`.
+
+- IOS:
+  Go to `ios/Apla.xcodeproj/`, find a variable `CODEPUSH_KEY = "PUT-YOUR-RELEASE-KEY-HERE";`, or `CODEPUSH_KEY = "PUT-YOUR-DEBUG-KEY-HERE";` and change its value to your codepush key.
 
 Run the app for developing `yarn start && yarn watch`
 
