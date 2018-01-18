@@ -67,6 +67,7 @@ export default reducerWithInitialState<IState>(initialState)
     ...state,
     alert
   }))
+  .case(actions.checkForTouchID, (state, isSupports) => ({ ...state, touchIdSupport: isSupports }))
   .cases([actions.cancelAlert, actions.confirmAlert], state => ({
     ...state,
     alert: undefined

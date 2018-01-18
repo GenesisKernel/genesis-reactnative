@@ -9,6 +9,7 @@ import Button from 'components/ui/Button';
 import AccountListContainer from 'containers/AccountListContainer';
 import Logo from 'components/ui/Logo';
 import Text from 'components/ui/Text';
+import TouchIdContainer from 'containers/TouchIdContainer';
 import { navTypes } from '../../navigatorConfig';
 import styles from './styles';
 
@@ -47,6 +48,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
             onPress={this.handleKnownAccountButtonPress}
             intl={addAccountButtonLabel}
           />
+          <TouchIdContainer />
         </View>
       </View>
     );

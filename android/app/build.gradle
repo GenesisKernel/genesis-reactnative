@@ -163,6 +163,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-touch-id')
     compile project(":appcenter-push")
     compile project(":react-native-image-crop-picker")
     compile project(":appcenter-crashes")

@@ -15,6 +15,7 @@ export const receiveSeed = actionCreator<string>('RECEIVE_SEED');
 export const generateSeed = actionCreator('GENERATE_SEED');
 export const removeSeed = actionCreator('REMOVE_SEED');
 
+export const checkForTouchID = actionCreator<Boolean>('CHECK_FOR_TOUCH_ID');
 export const receiveCurrentPage = actionCreator<string>('RECEIVE_CURRENT_PAGE');
 export const receivePageParams = actionCreator<{
   vde?: boolean;

@@ -5,9 +5,10 @@ import { takeEvery, put, call, select, all } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 import { apiSetToken } from 'utils/api';
+import { checkTouchIDAvailiability } from 'utils/common';
 import { waitForError } from '../sagas/utils';
 import { navTypes } from '../../navigatorConfig';
-import { initStart, initFinish, receiveAlert } from './actions';
+import { initStart, initFinish, receiveAlert, checkForTouchID } from './actions';
 
 import * as auth from 'modules/auth';
 import * as page from 'modules/page';
@@ -15,11 +16,13 @@ import * as account from 'modules/account';
 import * as navigator from 'modules/navigator';
 
 export function* initWorker(): SagaIterator {
-  const { hasAccounts, hasValidToken, token } = yield all({
+  const { hasValidToken, token, isTouchIDAvailable } = yield all({
     token: select(auth.selectors.getToken),
-    hasValidToken: select(auth.selectors.hasValidToken)
+    hasValidToken: select(auth.selectors.hasValidToken),
+    isTouchIDAvailable: call(checkTouchIDAvailiability),
   });
 
+  yield put(checkForTouchID(isTouchIDAvailable));
   yield call(delay, 300); // Just for visual effect
 
   if (hasValidToken) {
