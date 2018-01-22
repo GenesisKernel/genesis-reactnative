@@ -48,7 +48,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
             onPress={this.handleKnownAccountButtonPress}
             intl={addAccountButtonLabel}
           />
-          <TouchIdContainer />
+          {/* <TouchIdContainer /> */}
         </View>
       </View>
     );

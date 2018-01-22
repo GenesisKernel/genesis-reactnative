@@ -8,4 +8,5 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "tslint.enable": true,
   "typescript.autoImportSuggestions.enabled": true,
+  "java.configuration.updateBuildConfiguration": "disabled",
 }
