@@ -85,8 +85,8 @@ class Alert extends React.PureComponent<IAlertProps> {
           dialogStyle={styles.dialog}
           dialogTitle={props.title && title}
           onDismissed={this.handleCancelButton}
-          width="80%"
-          height="30%"
+          width={0.8}
+          height={0.3}
         >
           <View style={styles.dialogContent}>
             <Text>{props.message}</Text>
