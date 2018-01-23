@@ -4134,9 +4134,9 @@ react-native-tab-view@^0.0.74:
   dependencies:
     prop-types "^15.6.0"
 
-react-native-touch-id@^4.0.0:
+"react-native-touch-id@git+https://github.com/2vm/react-native-touch-id.git":
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-touch-id/-/react-native-touch-id-4.0.0.tgz#ad8163e91828805dcd3c90b565ba536187503ac8"
+  resolved "git+https://github.com/2vm/react-native-touch-id.git#377254eb6b89c40007728e1d2e5735d726e98786"
 
 react-native-vector-icons@^4.4.2:
   version "4.4.3"
