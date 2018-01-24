@@ -12,6 +12,8 @@ import * as applicationActions from 'modules/application/actions';
 import * as authActions from './actions';
 import * as authSelectors from './selectors';
 import * as accountActions from 'modules/account/actions';
+import * as accountSelectors from 'modules/account/selectors';
+import * as navigatorActions from 'modules/navigator/actions';
 import { getAccount } from 'modules/account/selectors';
 import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navigateWithReset } from 'modules/navigator/actions';
@@ -252,8 +254,39 @@ export function* switchAccountWorker(action: Action<any>): SagaIterator {
 }
 
 export function* logoutWorker() {
+  const { currentAccountId, token, refresh, tokenExpiry } = yield all({
+    currentAccountId: select(authSelectors.getCurrentAccountId),
+    token: select(authSelectors.getToken),
+    refresh: select(authSelectors.getRefresh),
+    tokenExpiry: select(authSelectors.getTokenExpiry),
+  })
+  yield put(accountActions.saveTokenToAccount({ currentAccountId, token, refresh, tokenExpiry }));
   yield put(authActions.detachSession());
   yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
+}
+
+export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, id: string }, } ) {
+  const accountData = yield select(accountSelectors.getAccount(action.payload.id));
+
+  if (accountData.token && accountData.tokenExpiry > Date.now()) {
+    apiSetToken(accountData.token);
+    yield put(
+      authActions.attachSession({
+        currentAccountId: accountData.address,
+        currentEcosystemId: action.payload.ecosystemId,
+        token: accountData.token,
+        refresh: accountData.refresh,
+        publicKey: accountData.public,
+        privateKey: accountData.private
+      })
+    );
+
+    yield put(navigatorActions.navigate(navTypes.HOME));
+  } else {
+    yield put(
+      navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
+    );
+  }
 }
 
 export function* tokenWorker() {
@@ -290,6 +323,8 @@ export function* authSaga(): SagaIterator {
     ],
     tokenWorker
   );
+
+  yield takeEvery(authActions.receiveSelectedAccount, receiveSelectedAccountWorker)
 }
 
 export default authSaga;

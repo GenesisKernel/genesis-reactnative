@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { receiveSelectedAccount } from 'modules/auth/actions';
 import AccountList from 'components/AccountList';
 import * as account from 'modules/account';
 import * as ecosystem from 'modules/ecosystem';
@@ -13,7 +14,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   onSelect: (id: string, ecosystemId: string) =>
-    dispatch(navigator.actions.navigate(navTypes.SIGN_IN, { id, ecosystemId })),
+    dispatch(receiveSelectedAccount({ id, ecosystemId })),
   onRemove: (accountId: string) =>
     dispatch(account.actions.removeAccount.started({ accountId }))
 });

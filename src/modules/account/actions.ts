@@ -16,3 +16,10 @@ export const attachEcosystem = actionCreator<{
   accountId: string;
   ecosystemId: string;
 }>('ATTACH_ECOSYSTEM');
+
+export const saveTokenToAccount = actionCreator<{
+  currentAccountId?: string;
+  token: string;
+  refresh: string;
+  tokenExpiry: number;
+}>('SAVE_TOKEN_TO_ACCOUNT');

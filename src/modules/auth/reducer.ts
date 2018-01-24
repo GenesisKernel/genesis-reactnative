@@ -15,8 +15,8 @@ export interface IState {
 const initialState: IState = {
   isAuthenticated: false
 };
-
-const generateTime = () => new Date(Date.now() + 36000 * 1000).getTime();
+// 3 month in milliseconds = 7776000000
+const generateTime = () => Date.now() + 7776000000;
 
 export default reducerWithInitialState(initialState)
   .case(actions.attachSession, (state, payload) => ({
@@ -26,7 +26,12 @@ export default reducerWithInitialState(initialState)
     isAuthenticated: true
   }))
   .case(actions.detachSession, state => initialState)
+  .case(actions.loginRequest, state => ({
+    ...state,
+    isAuthenticated: false,
+  }))
   .case(actions.refreshSession, (state, paylod) => ({
+    ...state,
     token: paylod.token,
     refresh: paylod.refresh,
     tokenExpiry: generateTime()

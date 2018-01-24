@@ -2,6 +2,8 @@ export const getKeyPair = state => state.auth.keyPair;
 
 export const getToken = state => state.auth.token;
 
+export const getRefresh = state => state.auth.refresh;
+
 export const getRefreshToken = state => state.auth.refresh;
 
 export const getPublicKey = state => state.auth.publicKey;

@@ -401,6 +401,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2A27D14281654DEBAD47CAC8 /* TouchID.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../node_modules/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		3874248E6F9A102EFAF322F0 /* Pods-Apla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.release.xcconfig"; sourceTree = "<group>"; };
+		3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.staging.xcconfig"; sourceTree = "<group>"; };
 		40398418595944D6B58404AE /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
 		5AD1FFA93B154B36B032989B /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -421,6 +422,7 @@
 		C074B02AA9E24D9D9D80D863 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		C12E9D2E8D344DE58F8BA1FE /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		CB7C521369FCAC11371E2AB4 /* Pods-Apla-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOS/Pods-Apla-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.staging.xcconfig"; sourceTree = "<group>"; };
 		CFACA0C37D7F4B078762EAE3 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		D06629249EB34F40AFA9AD0B /* AppCenterReactNativePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativePush.xcodeproj; path = "../node_modules/appcenter-push/ios/AppCenterReactNativePush.xcodeproj"; sourceTree = "<group>"; };
 		D2D4C4E35EDC19F095E0B85D /* Pods-Apla-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOSTests/Pods-Apla-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -805,6 +807,8 @@
 				D2D4C4E35EDC19F095E0B85D /* Pods-Apla-tvOSTests.release.xcconfig */,
 				FE41B420E233CA410BB5529B /* Pods-AplaTests.debug.xcconfig */,
 				F4C65CC14B68F2CAB27DD3F0 /* Pods-AplaTests.release.xcconfig */,
+				3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */,
+				CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1413,12 +1417,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Apla/Pods-Apla-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/QBImagePickerController/QBImagePicker.bundle",
 				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1751,7 +1756,7 @@
 		};
 		A3C503B2201079670008C9EA /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3874248E6F9A102EFAF322F0 /* Pods-Apla.release.xcconfig */;
+			baseConfigurationReference = 3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1789,7 +1794,7 @@
 		};
 		A3C503B3201079670008C9EA /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4C65CC14B68F2CAB27DD3F0 /* Pods-AplaTests.release.xcconfig */;
+			baseConfigurationReference = CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
