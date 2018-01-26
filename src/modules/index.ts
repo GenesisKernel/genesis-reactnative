@@ -8,6 +8,7 @@ import * as navigator from './navigator';
 import * as ecosystem from './ecosystem';
 import * as page from './page';
 import * as transaction from './transaction';
+import * as notifications from './notifications';
 import commonSagas from './sagas';
 
 export interface IRootState {
@@ -18,12 +19,14 @@ export interface IRootState {
   pages: page.IState;
   transactions: transaction.IState;
   form: IFormReducer;
+  notifications: notifications.IState;
 }
 
 export function* rootSaga() {
   yield all([
     application.saga(),
     auth.saga(),
+    notifications.saga(),
     page.saga(),
     transaction.saga(),
     ecosystem.saga(),
@@ -39,5 +42,6 @@ export default {
   pages: page.reducer,
   navigation: navigator.reducer,
   transactions: transaction.reducer,
-  form: formReducer
+  form: formReducer,
+  notifications: notifications.reducer,
 };

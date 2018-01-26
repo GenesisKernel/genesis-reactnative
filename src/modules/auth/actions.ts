@@ -40,6 +40,7 @@ export const attachSession = actionCreator<{
   privateKey: string;
   token: string;
   refresh: string;
+  key_id?: string;
 }>('ATTATCH_SESSION');
 
 export const detachSession = actionCreator('DETACH_SESSION');
@@ -50,3 +51,6 @@ export const refreshSession = actionCreator<{
 }>('REFRESH_SESSION');
 
 export const logout = actionCreator('LOGOUT');
+export const saveLastLoggedAccount = actionCreator('SAVE_LAST_LOGGED_ACCOUNT');
+
+export const setSocketConnectionStatus = actionCreator<boolean>('SET_SOCKET_CONNECTION_STATUS');

@@ -15,6 +15,7 @@ declare module 'appcenter-push';
 declare module 'redux-persist';
 declare module 'redux-persist/es/storage';
 declare module 'redux-persist/lib/constants';
+declare module 'centrifuge';
 
 declare module 'react-native-stylable' {
   export type Rule = {

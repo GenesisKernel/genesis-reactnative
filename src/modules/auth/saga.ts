@@ -24,6 +24,8 @@ interface IAuthPayload {
   private: string;
   public: string;
   ecosystem: string;
+  notify_key: string;
+  timestamp: string;
 }
 
 export function* auth(payload: IAuthPayload) {
@@ -44,20 +46,24 @@ export function* auth(payload: IAuthPayload) {
 
   yield put(
     authActions.attachSession({
+      key_id: accountData.key_id,
       currentAccountId: accountData.address,
       currentEcosystemId: accountData.ecosystem_id,
       token: accountData.token,
       refresh: accountData.refresh,
       publicKey: payload.public,
-      privateKey: payload.private
+      privateKey: payload.private,
     })
   ); // Save token
 
   return {
-    id: accountData.address,
+    id: accountData.address, // todo: check, if this field not used - remove it
+    key_id: accountData.key_id,
     address: accountData.address,
     publicKey: payload.public,
-    ecosystems: [accountData.ecosystem_id]
+    ecosystems: [accountData.ecosystem_id],
+    notify_key: accountData.notify_key,
+    timestamp: accountData.timestamp,
   };
 }
 
@@ -114,6 +120,8 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
       })
     );
 
+    yield put(authActions.saveLastLoggedAccount(account));
+
     yield put(
       navigateWithReset([
         {
@@ -158,6 +166,8 @@ export function* loginWorker(action: Action<any>): SagaIterator {
       })
     );
 
+    yield put(authActions.saveLastLoggedAccount(account));
+
     yield put(navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
   } catch (error) {
     yield put(
@@ -195,6 +205,9 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
     yield put(
       applicationActions.removeSeed()
     );
+
+    yield put(authActions.saveLastLoggedAccount(account));
+
     yield put(
       navigateWithReset([
         {
@@ -277,10 +290,10 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
         token: accountData.token,
         refresh: accountData.refresh,
         publicKey: accountData.public,
-        privateKey: accountData.private
+        privateKey: accountData.private,
+        key_id: accountData.key_id,
       })
     );
-
     yield put(navigatorActions.navigate(navTypes.HOME));
   } else {
     yield put(

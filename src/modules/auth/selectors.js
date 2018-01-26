@@ -18,3 +18,7 @@ export const getTokenExpiry = state => state.auth.tokenExpiry;
 export const getCurrentAccountId = state => state.auth.currentAccountId;
 
 export const getCurrentEcosystemId = state => state.auth.currentEcosystemId;
+
+export const getLastLoggedAccount = state => state.auth.lastLoggedAccount || null;
+
+export const getSocketConnectionStatus = state => state.auth.socketConnectionStatus;
