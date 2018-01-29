@@ -52,9 +52,11 @@ class AccountList extends React.Component<IAccountListProps> {
   }
 
   private iterateEcosystems = (account: any) => {
-    return account.ecosystems.map((ecosystem: any) =>
-      this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem])
-    );
+    if (account.ecosystems) {
+      return account.ecosystems.map((ecosystem: any) =>
+        this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem])
+      );
+    }
   }
 
   private renderAccountPerEcosystem = (account: any, ecosystem: any) => {

@@ -40,6 +40,7 @@ export const attachSession = actionCreator<{
   privateKey: string;
   token: string;
   refresh: string;
+  tokenExpiry?: number;
 }>('ATTATCH_SESSION');
 
 export const detachSession = actionCreator('DETACH_SESSION');
