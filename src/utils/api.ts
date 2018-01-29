@@ -151,5 +151,9 @@ export default {
     api.post(`contract/${name}`, params),
 
   transactionStatus: (hash: string) =>
-    api.get<ITxStatusResponse>(`/txstatus/${hash}`)
+    api.get<ITxStatusResponse>(`/txstatus/${hash}`),
+
+  updateNotifications: (ids: string) =>
+    api.post('/api/v2/updnotificator', { ids }),
+
 };

@@ -11,22 +11,30 @@ export interface INotification {
 }
 
 export interface IState {
-  [id: string]: {
-    role_id: number;
-    ecosystem: number;
-    count: number;
+  groupedByEcosystemId: {
+    [id: string]: {
+      role_id: number;
+      ecosystem: number;
+      count: number;
+    };
   };
 }
 
 const initialState: IState = {
+  groupedByEcosystemId: {},
 };
 
 export default reducerWithInitialState(initialState)
 .case(actions.receiveNotification, (state, payload: INotification) => {
   return {
     ...state,
-    [payload.address]: {
-      ...payload.data,
-    },
-  };
+    groupedByEcosystemId: {
+      [payload.data.ecosystem]: {
+        ...state.groupedByEcosystemId[payload.data.ecosystem],
+        [payload.address]: {
+          ...payload.data
+        }
+      }
+    }
+  }
 });

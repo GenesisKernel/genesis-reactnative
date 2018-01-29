@@ -11,12 +11,10 @@ export interface IState {
   currentEcosystemId?: string;
   isAuthenticated?: boolean;
   lastLoggedAccount?: object;
-  socketConnectionStatus?: boolean;
 }
 
 const initialState: IState = {
   isAuthenticated: false,
-  socketConnectionStatus: false,
 };
 // 3 month in milliseconds = 7776000000
 const generateTime = () => Date.now() + 7776000000;
@@ -31,7 +29,6 @@ export default reducerWithInitialState(initialState)
   .case(actions.detachSession, state => ({
     ...initialState,
     lastLoggedAccount: state.lastLoggedAccount,
-    socketConnectionStatus: state.socketConnectionStatus,
   }))
   .case(actions.loginRequest, state => ({
     ...state,
@@ -40,10 +37,6 @@ export default reducerWithInitialState(initialState)
   .case(actions.saveLastLoggedAccount, (state, payload) => ({
     ...state,
     lastLoggedAccount: payload,
-  }))
-  .case(actions.setSocketConnectionStatus, (state, payload: boolean) => ({
-    ...state,
-    socketConnectionStatus: payload,
   }))
   .case(actions.refreshSession, (state, paylod) => ({
     ...state,

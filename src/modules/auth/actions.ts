@@ -52,5 +52,3 @@ export const refreshSession = actionCreator<{
 
 export const logout = actionCreator('LOGOUT');
 export const saveLastLoggedAccount = actionCreator('SAVE_LAST_LOGGED_ACCOUNT');
-
-export const setSocketConnectionStatus = actionCreator<boolean>('SET_SOCKET_CONNECTION_STATUS');

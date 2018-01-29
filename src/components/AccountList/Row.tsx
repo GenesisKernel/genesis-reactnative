@@ -18,13 +18,14 @@ export interface IRow {
   id: string;
   title: string;
   ecosystemId: string;
+  notificationsCount?: number;
   onPress(id: string, ecosystemId: string): void;
   onRemove(id: string): void;
 }
 
 class Row extends React.Component<IRow> {
   public render() {
-    const { title, id } = this.props;
+    const { title, id, notificationsCount } = this.props;
     return (
       <TouchableOpacity
         style={styles.touchableContainer}
@@ -39,6 +40,9 @@ class Row extends React.Component<IRow> {
             <Text numberOfLines={1} style={styles.subTitle}>
               {id}
             </Text>
+            {notificationsCount && (
+              <Text>{`${notificationsCount.toString()} new notifications`}</Text>
+            )}
           </View>
           <Icon {...avatarDefaultProps} />
         </Field>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmpty } from 'ramda';
+import { isEmpty, path } from 'ramda';
 import { View, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -13,6 +13,17 @@ import styles from './styles';
 export interface IAccountListProps {
   accounts: { [id: string]: object };
   ecosystems: { [id: string]: object };
+  notifications: {
+    groupedByEcosystemId: {
+      [id: string]: {
+        [address: string]: {
+          role_id: number;
+          ecosystem: number;
+          count: number;
+        };
+      };
+    };
+  };
   onSelect(id: string, ecosystemId: string): void;
   onRemove(): void;
 }
@@ -52,12 +63,12 @@ class AccountList extends React.Component<IAccountListProps> {
   }
 
   private iterateEcosystems = (account: any) => {
-    return account.ecosystems.map((ecosystem: any) =>
-      this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem])
-    );
+    return account.ecosystems.map((ecosystem: any) => {
+      return this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem], path(['groupedByEcosystemId', `${ecosystem}`, `${account.address}`, 'count'],this.props.notifications));
+    });
   }
 
-  private renderAccountPerEcosystem = (account: any, ecosystem: any) => {
+  private renderAccountPerEcosystem = (account: any, ecosystem: any, notificationsCount: number | undefined) => {
     if (!ecosystem) {
       return null;
     }
@@ -67,6 +78,7 @@ class AccountList extends React.Component<IAccountListProps> {
         <Row
           id={account.id}
           ecosystemId={ecosystem.id}
+          notificationsCount={notificationsCount}
           title={getTitle(account, ecosystem)}
           onPress={this.props.onSelect}
           onRemove={this.props.onRemove}

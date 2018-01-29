@@ -32,11 +32,15 @@ export interface IState {
   history: IHistory[];
   installId?: string;
   isVDEMode: boolean;
+  socketConnectedAccounts: {
+    [addres: string]: boolean,
+  };
 }
 
 export const initialState: IState = {
   isStarted: false,
   isVDEMode: false,
+  socketConnectedAccounts: {},
   title: DEFAULT_TITLE,
   history: [],
   network: {
@@ -97,4 +101,11 @@ export default reducerWithInitialState<IState>(initialState)
   .case(actions.receiveVDEMode, (state, isVDEMode = false) => ({
     ...state,
     isVDEMode
+  }))
+  .case(actions.setSocketConnectionStatus, (state, payload) => ({
+    ...state,
+    socketConnectedAccounts: {
+      ...state.socketConnectedAccounts,
+      [payload.accountAddress]: payload.status,
+    }
   }));

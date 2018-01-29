@@ -30,3 +30,8 @@ export const getHistory = createSelector(
   getApplication,
   application => application.history
 );
+
+export const getSocketConnectedAccounts = createSelector(
+  getApplication,
+  application => application.socketConnectedAccounts,
+);
