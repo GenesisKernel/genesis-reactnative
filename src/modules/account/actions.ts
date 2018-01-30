@@ -23,3 +23,9 @@ export const saveTokenToAccount = actionCreator<{
   refresh: string;
   tokenExpiry: number;
 }>('SAVE_TOKEN_TO_ACCOUNT');
+
+export const setAccountUserdata = actionCreator<{
+  address: string;
+  username: string;
+  avatar: string;
+}>('SET_ACCOUNT_USERDATA')

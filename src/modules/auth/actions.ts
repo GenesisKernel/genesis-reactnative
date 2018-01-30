@@ -40,6 +40,7 @@ export const attachSession = actionCreator<{
   privateKey: string;
   token: string;
   refresh: string;
+  key_id: string;
   tokenExpiry?: number;
 }>('ATTATCH_SESSION');
 

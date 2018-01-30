@@ -2,7 +2,7 @@ import * as actions from './actions';
 import { Action } from 'redux';
 import { mergeDeepWith, union, omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount } from './actions';
+import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setAccountUserdata } from './actions';
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccout {
@@ -12,6 +12,8 @@ export interface IAccout {
   ecosystems: string[];
   encKey: string;
   publicKey: string;
+  avatar: string;
+  username: string;
   token?: string,
   tokenExpiry?: number,
   refresh?: string;
@@ -48,4 +50,12 @@ export default reducerWithInitialState(initialState)
     [payload.accountId]: mergeAccount(state[payload.accountId], {
       ecosystems: [payload.ecosystemId]
     })
+  }))
+  .case(setAccountUserdata, (state, payload) => ({
+    ...state,
+    [payload.address]: {
+      ...state[payload.address],
+      avatar: payload.avatar,
+      username: payload.username,
+    }
   }));
