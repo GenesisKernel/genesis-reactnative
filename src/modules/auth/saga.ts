@@ -47,7 +47,7 @@ export function* auth(payload: IAuthPayload) {
   yield put(
     authActions.attachSession({
       key_id: accountData.key_id,
-      currentAccountId: accountData.address,
+      currentAccountAddress: accountData.address,
       currentEcosystemId: accountData.ecosystem_id,
       token: accountData.token,
       refresh: accountData.refresh,
@@ -58,14 +58,13 @@ export function* auth(payload: IAuthPayload) {
 
   const tokenExpiry = yield select(authSelectors.getTokenExpiry);
   yield put(accountActions.saveTokenToAccount({
-    currentAccountId: accountData.address,
+    currentAccountAddress: accountData.address,
     token: accountData.token,
     refresh: accountData.refresh,
     tokenExpiry
   }));
 
   return {
-    id: accountData.address, // todo: check, if this field not used - remove it
     key_id: accountData.key_id,
     address: accountData.address,
     publicKey: payload.public,
@@ -152,7 +151,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 
 export function* loginWorker(action: Action<any>): SagaIterator {
   try {
-    const savedAccount = yield select(getAccount(action.payload.accountId));
+    const savedAccount = yield select(getAccount(action.payload.accountAdress));
     const privateKey = yield call(
       Keyring.decryptAES,
       savedAccount.encKey,
@@ -279,14 +278,14 @@ export function* logoutWorker() {
   yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, id: string }, } ) {
-  const accountData = yield select(accountSelectors.getAccount(action.payload.id));
+export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, address: string }, } ) {
+  const accountData = yield select(accountSelectors.getAccount(action.payload.address));
 
   if (accountData.token && accountData.tokenExpiry > Date.now()) {
     apiSetToken(accountData.token);
     yield put(
       authActions.attachSession({
-        currentAccountId: accountData.address,
+        currentAccountAddress: accountData.address,
         currentEcosystemId: action.payload.ecosystemId,
         token: accountData.token,
         refresh: accountData.refresh,
@@ -320,7 +319,7 @@ export function* tokenWorker() {
 export function* authSaga(): SagaIterator {
   yield takeEvery(accountActions.createAccount.started, createAccountWorker);
   yield takeEvery(
-    waitForActionWithParams(authActions.login.started.type, ['accountId']),
+    waitForActionWithParams(authActions.login.started.type, ['accountAdress']),
     loginWorker
   );
   yield takeEvery(

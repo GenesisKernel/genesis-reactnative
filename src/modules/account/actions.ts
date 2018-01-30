@@ -8,17 +8,17 @@ export const createAccount = actionCreator.async<
   IAccout
 >('CREATE');
 
-export const removeAccount = actionCreator.async<{ accountId: string }, any>(
+export const removeAccount = actionCreator.async<{ accountAddress: string }, any>(
   'REMOVE'
 );
 
 export const attachEcosystem = actionCreator<{
-  accountId: string;
+  accountAddress: string;
   ecosystemId: string;
 }>('ATTACH_ECOSYSTEM');
 
 export const saveTokenToAccount = actionCreator<{
-  currentAccountId?: string;
+  currentAccountAddress: string;
   token: string;
   refresh: string;
   tokenExpiry: number;

@@ -24,7 +24,7 @@ export interface IAccountListProps {
       };
     };
   };
-  onSelect(id: string, ecosystemId: string): void;
+  onSelect(address: string, ecosystemId: string): void;
   onRemove(): void;
 }
 
@@ -33,13 +33,13 @@ const findEcosystemName = (parameter: any) =>
 
 const getTitle = (account: any, ecosystem: any) => {
   if (!ecosystem) {
-    return `${account.state || ''} (${account.id})`;
+    return `${account.state || ''} (${account.address})`;
   }
 
   const nameParameter = ecosystem.parameters.find(findEcosystemName);
 
   return (
-    (nameParameter && nameParameter.value) || `${ecosystem.id} (${account.id})`
+    (nameParameter && nameParameter.value) || `${ecosystem.id} (${account.address})`
   );
 };
 
@@ -76,9 +76,9 @@ class AccountList extends React.Component<IAccountListProps> {
     }
 
     return (
-      <View key={`${account.id}_${ecosystem.id}`}>
+      <View key={`${account.address}_${ecosystem.id}`}>
         <Row
-          id={account.id}
+          address={account.address}
           ecosystemId={ecosystem.id}
           notificationsCount={notificationsCount}
           title={getTitle(account, ecosystem)}

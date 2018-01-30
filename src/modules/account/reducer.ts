@@ -6,7 +6,6 @@ import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount } fro
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccout {
-  id: string;
   address: string;
   state: string;
   ecosystems: string[];
@@ -28,16 +27,16 @@ const mergeAccount = mergeDeepWith<IAccout, Partial<IAccout>>(union);
 export default reducerWithInitialState(initialState)
   .case(createAccount.done, (state, payload) => ({
     ...state,
-    [payload.result.id]: {
-      ...state[payload.result.id],
+    [payload.result.address]: {
+      ...state[payload.result.address],
       ...payload.result
     }
   }))
-  .case(removeAccount.done, (state, payload) => omit([payload.params.accountId])(state))
+  .case(removeAccount.done, (state, payload) => omit([payload.params.accountAddress])(state))
   .case(saveTokenToAccount, (state, payload: any) => ({
     ...state,
-    [payload.currentAccountId]: {
-      ...state[payload.currentAccountId],
+    [payload.currentAccountAddress]: {
+      ...state[payload.currentAccountAddress],
       token: payload.token,
       tokenExpiry: payload.tokenExpiry,
       refresh: payload.refresh,
@@ -45,7 +44,7 @@ export default reducerWithInitialState(initialState)
   }))
   .case(attachEcosystem, (state, payload) => ({
     ...state,
-    [payload.accountId]: mergeAccount(state[payload.accountId], {
+    [payload.accountAddress]: mergeAccount(state[payload.accountAddress], {
       ecosystems: [payload.ecosystemId]
     })
   }));

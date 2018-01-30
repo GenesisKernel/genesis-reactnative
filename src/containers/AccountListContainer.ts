@@ -15,10 +15,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  onSelect: (id: string, ecosystemId: string) =>
-    dispatch(receiveSelectedAccount({ id, ecosystemId })),
-  onRemove: (accountId: string) =>
-    dispatch(account.actions.removeAccount.started({ accountId }))
+  onSelect: (address: string, ecosystemId: string) =>
+    dispatch(receiveSelectedAccount({ address, ecosystemId })),
+  onRemove: (accountAddress: string) =>
+    dispatch(account.actions.removeAccount.started({ accountAddress }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountList);
