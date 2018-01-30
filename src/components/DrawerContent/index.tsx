@@ -12,9 +12,9 @@ import AppVersion from 'components/AppVersion';
 import styles from './styles';
 
 interface IDrawerContentProps {
-  currentAccountId: string;
+  currentAccountAddress: string;
   logout: () => void;
-  switchAccount: (accountId: string, ecosystemId: string) => void;
+  switchAccount: (accountAdress: string, ecosystemId: string) => void;
 }
 
 interface IDrawerContentState {
@@ -73,7 +73,7 @@ class DrawerContent extends React.Component<
             >
               <View style={styles.accountAdress}>
                 <Text style={styles.accountAdressText} numberOfLines={1} ellipsizeMode="middle">
-                  {this.props.currentAccountId}
+                  {this.props.currentAccountAddress}
                 </Text>
                 <Icon
                   name={
@@ -116,9 +116,9 @@ class DrawerContent extends React.Component<
     }));
   }
 
-  private handleAccountSelect = (accountId: string, ecosystemId: string) => {
+  private handleAccountSelect = (accountAdress: string, ecosystemId: string) => {
     this.context.drawer.close(() => {
-      this.props.switchAccount(accountId, ecosystemId);
+      this.props.switchAccount(accountAdress, ecosystemId);
     });
   }
 

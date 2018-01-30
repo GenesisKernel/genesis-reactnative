@@ -7,7 +7,7 @@ export interface IState {
   tokenExpiry?: number;
   publicKey?: string;
   privateKey?: string;
-  currentAccountId?: string;
+  currentAccountAddress?: string;
   currentEcosystemId?: string;
   isAuthenticated?: boolean;
 }

@@ -14,7 +14,7 @@ export const getAccounts = createSelector(
   (accounts: AccountReduceState) => accounts
 );
 
-export const getAccount = (id: string) => createSelector(
+export const getAccount = (address: string) => createSelector(
   (state: IRootState) => state.accounts,
-  (accounts: AccountReduceState) => accounts[id]
+  (accounts: AccountReduceState) => accounts[address]
 );

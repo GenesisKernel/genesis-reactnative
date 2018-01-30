@@ -10,13 +10,13 @@ import * as ecosystem from 'modules/ecosystem';
 export function* attachNewEcosystemWorker(
   action: Action<Success<any, any>>
 ): SagaIterator {
-  const accountId: string = yield select(auth.selectors.getCurrentAccountId);
+  const accountAddress: string = yield select(auth.selectors.getCurrentAccountAddress);
 
   if (action.payload.params.contract === 'NewEcosystem') {
     const ecosystemId: string = action.payload.result.id;
 
     yield all([
-      put(account.actions.attachEcosystem({ accountId, ecosystemId })),
+      put(account.actions.attachEcosystem({ accountAddress, ecosystemId })),
       put(ecosystem.actions.requestEcosystem.started({ id: ecosystemId }))
     ]);
   }
