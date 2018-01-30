@@ -15,16 +15,16 @@ const avatarDefaultProps = {
 };
 
 export interface IRow {
-  id: string;
+  address: string;
   title: string;
   ecosystemId: string;
-  onPress(id: string, ecosystemId: string): void;
-  onRemove(id: string): void;
+  onPress(address: string, ecosystemId: string): void;
+  onRemove(address: string): void;
 }
 
 class Row extends React.Component<IRow> {
   public render() {
-    const { title, id } = this.props;
+    const { title, address } = this.props;
     return (
       <TouchableOpacity
         style={styles.touchableContainer}
@@ -37,7 +37,7 @@ class Row extends React.Component<IRow> {
               {title}
             </Text>
             <Text numberOfLines={1} style={styles.subTitle}>
-              {id}
+              {address}
             </Text>
           </View>
           <Icon {...avatarDefaultProps} />
@@ -46,11 +46,11 @@ class Row extends React.Component<IRow> {
     );
   }
   private handleClick = (): void => {
-    this.props.onPress(this.props.id, this.props.ecosystemId);
+    this.props.onPress(this.props.address, this.props.ecosystemId);
   }
 
   private handleRemove = (): void => {
-    this.props.onRemove(this.props.id);
+    this.props.onRemove(this.props.address);
   }
 }
 

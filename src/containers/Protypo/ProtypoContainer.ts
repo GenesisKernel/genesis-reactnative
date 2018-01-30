@@ -7,7 +7,7 @@ import * as application from 'modules/application';
 
 const generateId = state =>
   [
-    auth.selectors.getCurrentAccountId(state),
+    auth.selectors.getCurrentAccountAddress(state),
     auth.selectors.getCurrentEcosystemId(state),
     application.selectors.getCurrentPageId(state)
   ].join('_');

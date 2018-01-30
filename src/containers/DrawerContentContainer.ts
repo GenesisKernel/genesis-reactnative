@@ -3,13 +3,13 @@ import DrawerContent from 'components/DrawerContent';
 import * as auth from 'modules/auth';
 
 const mapStateToProps = state => ({
-  currentAccountId: auth.selectors.getCurrentAccountId(state)
+  currentAccountAddress: auth.selectors.getCurrentAccountAddress(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   logout: () => dispatch(auth.actions.logout()),
-  switchAccount: (accountId: string, ecosystemId: string) =>
-    dispatch(auth.actions.switchAccount.started({ accountId, ecosystemId }))
+  switchAccount: (accountAdress: string, ecosystemId: string) =>
+    dispatch(auth.actions.switchAccount.started({ accountAdress, ecosystemId }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);

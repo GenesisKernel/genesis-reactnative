@@ -47,7 +47,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
         )}
 
         <SingInFormContainer
-          accountId={id}
+          accountAdress={id}
           ecosystemId={ecosystemId}
           privateKey={privateKey}
         />
