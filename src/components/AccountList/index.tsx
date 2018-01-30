@@ -63,9 +63,11 @@ class AccountList extends React.Component<IAccountListProps> {
   }
 
   private iterateEcosystems = (account: any) => {
-    return account.ecosystems.map((ecosystem: any) => {
-      return this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem], path(['groupedByEcosystemId', `${ecosystem}`, `${account.address}`, 'count'],this.props.notifications));
-    });
+    if (account.ecosystems) {
+      return account.ecosystems.map((ecosystem: any) => {
+        return this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem], path(['groupedByEcosystemId', `${ecosystem}`, `${account.address}`, 'count'],this.props.notifications));
+      });
+    }
   }
 
   private renderAccountPerEcosystem = (account: any, ecosystem: any, notificationsCount: number | undefined) => {

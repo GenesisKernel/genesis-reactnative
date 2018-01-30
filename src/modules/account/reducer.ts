@@ -28,10 +28,13 @@ const mergeAccount = mergeDeepWith<IAccout, Partial<IAccout>>(union);
 export default reducerWithInitialState(initialState)
   .case(createAccount.done, (state, payload) => ({
     ...state,
-    [payload.result.id]: payload.result
+    [payload.result.id]: {
+      ...state[payload.result.id],
+      ...payload.result
+    }
   }))
   .case(removeAccount.done, (state, payload) => omit([payload.params.accountId])(state))
-  .case(saveTokenToAccount, (state, payload) => ({
+  .case(saveTokenToAccount, (state, payload: any) => ({
     ...state,
     [payload.currentAccountId]: {
       ...state[payload.currentAccountId],

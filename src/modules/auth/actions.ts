@@ -41,6 +41,7 @@ export const attachSession = actionCreator<{
   token: string;
   refresh: string;
   key_id?: string;
+  tokenExpiry?: number;
 }>('ATTATCH_SESSION');
 
 export const detachSession = actionCreator('DETACH_SESSION');

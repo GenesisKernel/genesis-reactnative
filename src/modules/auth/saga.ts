@@ -56,6 +56,14 @@ export function* auth(payload: IAuthPayload) {
     })
   ); // Save token
 
+  const tokenExpiry = yield select(authSelectors.getTokenExpiry);
+  yield put(accountActions.saveTokenToAccount({
+    currentAccountId: accountData.address,
+    token: accountData.token,
+    refresh: accountData.refresh,
+    tokenExpiry
+  }));
+
   return {
     id: accountData.address, // todo: check, if this field not used - remove it
     key_id: accountData.key_id,
@@ -267,13 +275,6 @@ export function* switchAccountWorker(action: Action<any>): SagaIterator {
 }
 
 export function* logoutWorker() {
-  const { currentAccountId, token, refresh, tokenExpiry } = yield all({
-    currentAccountId: select(authSelectors.getCurrentAccountId),
-    token: select(authSelectors.getToken),
-    refresh: select(authSelectors.getRefresh),
-    tokenExpiry: select(authSelectors.getTokenExpiry),
-  })
-  yield put(accountActions.saveTokenToAccount({ currentAccountId, token, refresh, tokenExpiry }));
   yield put(authActions.detachSession());
   yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
