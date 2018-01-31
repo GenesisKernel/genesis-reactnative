@@ -10,6 +10,7 @@ import MenuGridContainer from 'containers/MenuGridContainer';
 import PageTitleContainer from 'containers/PageTitleContainer';
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 import StatusIconContainer from 'containers/StatusIconContainer';
+import NotificationsIconContainer from 'containers/NotificationsIconContainer';
 import styles from './styles';
 
 import { DEFAULT_PAGE } from '../../constants';
@@ -22,8 +23,8 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     headerBackTitle: null,
     gesturesEnabled: false,
     headerLeft: <DrawerButtonContainer />,
-    headerRight: <StatusIconContainer />
-  })
+    headerRight: <View style={styles.iconsContainer}><StatusIconContainer /><NotificationsIconContainer /></View>
+  }) //<StatusIconContainer />
 
   public render() {
     return (

@@ -20,6 +20,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
 import TransactionsScreen from 'screens/TransactionsScreen';
+import NotificationsScreen from 'screens/NotificationsScreen';
 
 enum NAV {
   AUTH = 'AUTH',
@@ -40,7 +41,8 @@ export const navTypes = {
   PAGE: `${NAV.MAIN}/PAGE`,
   KEY: `${NAV.MAIN}/KEY`,
   TRANSACTIONS: `${NAV.MAIN}/TRANSACTIONS`,
-  LANDING: `LANDING`
+  LANDING: `LANDING`,
+  NOTIFICATIONS: `${NAV.MAIN}/NOTIFICATIONS`,
 };
 
 export default StackNavigator(
@@ -58,7 +60,8 @@ export default StackNavigator(
     [navTypes.SUB_MENU]: { screen: SubMenuScreen },
     [navTypes.KEY]: { screen: KeyScreen },
     [navTypes.LANDING]: { screen: LandingScreen },
-    [navTypes.TRANSACTIONS]: { screen: TransactionsScreen }
+    [navTypes.TRANSACTIONS]: { screen: TransactionsScreen },
+    [navTypes.NOTIFICATIONS]: { screen: NotificationsScreen },
   },
   {
     initialRouteName: navTypes.LANDING,
