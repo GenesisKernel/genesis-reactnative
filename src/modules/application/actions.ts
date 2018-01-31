@@ -52,3 +52,8 @@ export const setSocketConnectionStatus = actionCreator<{
   accountAddress: string;
   status: boolean;
 }>('SET_SOCKET_CONNECTION_STATUS');
+
+export const setChannelSubscribtionStatus = actionCreator<{
+  accountAddress: string;
+  status: boolean;
+}>('SET_CHANNEL_SUBSCRIPTION_STATUS');

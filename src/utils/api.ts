@@ -153,7 +153,6 @@ export default {
   transactionStatus: (hash: string) =>
     api.get<ITxStatusResponse>(`/txstatus/${hash}`),
 
-  updateNotifications: (ids: string) =>
-    api.post('/api/v2/updnotificator', { ids }),
-
+  updateNotifications: (payload: object) =>
+    api.post('/updnotificator', payload),
 };

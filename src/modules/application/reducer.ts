@@ -32,14 +32,18 @@ export interface IState {
   installId?: string;
   isVDEMode: boolean;
   socketConnectedAccounts: {
-    [addres: string]: boolean,
+    [addres: string]: boolean;
   };
+  channelSubscribedAccounts: {
+    [addres: string]: boolean;
+  }
 }
 
 export const initialState: IState = {
   isStarted: false,
   isVDEMode: false,
   socketConnectedAccounts: {},
+  channelSubscribedAccounts: {},
   title: DEFAULT_TITLE,
   history: [],
   network: {
@@ -107,4 +111,11 @@ export default reducerWithInitialState<IState>(initialState)
       ...state.socketConnectedAccounts,
       [payload.accountAddress]: payload.status,
     }
-  }));
+  }))
+  .case(actions.setChannelSubscribtionStatus, (state, payload) => ({
+    ...state,
+    channelSubscribedAccounts: {
+      ...state.channelSubscribedAccounts,
+      [payload.accountAddress]: payload.status,
+    }
+  }))

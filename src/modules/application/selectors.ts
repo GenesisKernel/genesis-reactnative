@@ -35,3 +35,8 @@ export const getSocketConnectedAccounts = createSelector(
   getApplication,
   application => application.socketConnectedAccounts,
 );
+
+export const getChannelSubscribedAccounts = createSelector(
+  getApplication,
+  application => application.channelSubscribedAccounts,
+);
