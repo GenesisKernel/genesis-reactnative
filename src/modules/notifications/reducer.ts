@@ -7,6 +7,8 @@ export interface INotification {
     ecosystem: number;
     count: number;
   },
+  channel: string;
+  uid: string;
   address: string;
 }
 

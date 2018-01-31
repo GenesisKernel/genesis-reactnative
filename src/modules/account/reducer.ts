@@ -1,9 +1,7 @@
 import * as actions from './actions';
-import { Action } from 'redux';
 import { mergeDeepWith, union, omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount } from './actions';
-import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccout {
   address: string;

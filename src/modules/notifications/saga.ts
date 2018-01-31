@@ -1,11 +1,11 @@
 import * as Centrifuge from 'centrifuge'
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
+import { SOCKET_URL } from '../../config';
 
 import * as applicationActions from '../application/actions';
 import * as notificationsActions from './actions';
 import * as authActions from '../auth/actions';
-import * as accountActions from '../account/actions';
 import * as accountSelectors from '../account/selectors';
 import * as authSelectors from '../auth/selectors';
 import * as applicationSelectors from '../application/selectors';
@@ -19,7 +19,7 @@ interface ISocketInit {
   address: string;
 }
 
-export function socketInit(payload:ISocketInit, centrifuge: any) {
+export function socketInit(payload: ISocketInit, centrifuge: any) {
   return eventChannel(emitter => {
     centrifuge.on('connect', () => {
       emitter(applicationActions.setSocketConnectionStatus({ accountAddress: payload.address, status: true }));
@@ -36,14 +36,14 @@ export function socketInit(payload:ISocketInit, centrifuge: any) {
     })
 
     centrifuge.subscribe(`client${payload.key_id}`,(message: INotification) => {
-      console.log('got message')
-      emitter(notificationsActions.receiveNotification({ ...message, address: payload.address }))
+      console.log(`got message in ${message.channel}`);
+      emitter(notificationsActions.receiveNotification({ ...message, address: payload.address }));
     });
 
     centrifuge.connect();
 
     return () => {
-      // do whatever to interrupt the socket communication here
+      centrifuge.disconnect();
     }
   });
 }
@@ -54,9 +54,8 @@ export function* socketWorker() {
   const socketConnectedAccounts = yield select(applicationSelectors.getSocketConnectedAccounts);
 
   if (lastLoggedAccount) {
-    const channels = [];
     const centrifuge = new Centrifuge({
-      url: 'ws://127.0.0.1:8888',
+      url: SOCKET_URL,
       user: lastLoggedAccount.key_id,
       timestamp: lastLoggedAccount.timestamp,
       token: lastLoggedAccount.notify_key,
