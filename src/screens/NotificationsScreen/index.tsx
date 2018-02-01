@@ -4,7 +4,8 @@ import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
-import NotificationsContainer from 'containers/NotificationsContainer';
+
+import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
 
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
@@ -16,7 +17,7 @@ export default class NotificationsScreen extends React.Component<IScreenProps, o
   public render() {
     return (
       <View style={styles.container}>
-        <NotificationsContainer />
+        <ProtypoContainer pageName="notifications"/>
       </View>
     );
   }
