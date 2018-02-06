@@ -5,7 +5,7 @@ import Drawer from 'react-native-drawer';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { addNavigationHelpers } from 'react-navigation';
-import { AppRegistry, View, Text } from 'react-native';
+import { AppRegistry, View, Text, StatusBar } from 'react-native';
 
 import * as Push from 'appcenter-push';
 
@@ -13,6 +13,8 @@ import store from 'modules/store';
 import NavigatorContainer from 'containers/NavigationContainer';
 import DrawerContentContainer from 'containers/DrawerContentContainer';
 import AlertContainer from 'containers/AlertContainer';
+import StatusBarContainer from 'containers/StatusBarContainer';
+
 import { URL_PREFIX } from './constants';
 
 export default class App extends React.Component<object, object> {
@@ -26,6 +28,7 @@ export default class App extends React.Component<object, object> {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
+          <StatusBarContainer />
           <AlertContainer />
           <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>
             <Drawer
