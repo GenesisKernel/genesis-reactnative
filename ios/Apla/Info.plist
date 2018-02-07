@@ -97,6 +97,7 @@
 		<string>Lato-Regular.ttf</string>
 		<string>Lato-Bold.ttf</string>
 		<string>Lato-Thin.ttf</string>
+		<string>Lato-Light.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

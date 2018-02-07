@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Fonts, Colors } from '../theme';
+import { Fonts, Colors, borderRadius } from '../theme';
 
 export default StyleSheet.create({
   containerView: {
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   button: {
     height: 50,
     backgroundColor: Colors.blue,
-    borderRadius: 12,
+    borderRadius: borderRadius,
   },
   text: {
     fontSize: 18,

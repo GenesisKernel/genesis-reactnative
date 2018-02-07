@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
+import { View as AnimatableView } from 'react-native-animatable';
+
 import Button from 'components/ui/Button';
 import Text from 'components/ui/Text';
 import Field from 'components/ui/Field';
@@ -23,28 +25,54 @@ export interface IRow {
 }
 
 class Row extends React.Component<IRow> {
+  state = {
+    showDecor: false,
+  }
+
   public render() {
     const { title, address } = this.props;
+    const { showDecor } = this.state;
+
     return (
-      <TouchableOpacity
+      <TouchableHighlight
         style={styles.touchableContainer}
+        onShowUnderlay={this.handlUnderlay}
+        onHideUnderlay={this.handlUnderlay}
         activeOpacity={0.8}
+        underlayColor={`rgba(62, 188, 154, .15)`} // green
         onPress={this.handleClick}
       >
-        <Field style={styles.rowContainer}>
-          <View style={styles.rowTextContainer}>
-            <Text numberOfLines={1} style={styles.title}>
-              {title}
-            </Text>
-            <Text numberOfLines={1} style={styles.subTitle}>
-              {address}
-            </Text>
-          </View>
-          <Icon {...avatarDefaultProps} />
-        </Field>
-      </TouchableOpacity>
+        <View>
+          <AnimatableView
+            animation={showDecor ? 'fadeIn' : 'fadeOut'}
+            easing="linear"
+            duration={100}
+            useNativeDriver
+            iterationCount={1}
+            style={styles.decorStick} />
+
+          <Field style={styles.rowContainer}>
+            <Icon {...avatarDefaultProps} />
+            <View style={styles.rowTextContainer}>
+              <Text numberOfLines={1} style={styles.title}>
+                {title}
+              </Text>
+              <Text numberOfLines={1} style={styles.subTitle}>
+                {address}
+              </Text>
+            </View>
+          </Field>
+        </View>
+      </TouchableHighlight>
     );
   }
+
+  private handlUnderlay = (): void => {
+    this.setState({
+      showDecor: !this.state.showDecor,
+    });
+  }
+
   private handleClick = (): void => {
     this.props.onPress(this.props.address, this.props.ecosystemId);
   }

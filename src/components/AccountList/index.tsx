@@ -40,7 +40,7 @@ class AccountList extends React.Component<IAccountListProps> {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.loginAs}>LOGIN AS</Text>
+        <Text style={styles.loginAs}>Login as</Text>
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}

@@ -1,25 +1,32 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'components/ui/theme';
+import { Colors, FontSizes, Fonts } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 30,
-    paddingTop: 15,
     paddingBottom: 30,
     backgroundColor: 'transparent'
   },
   buttonsContainer: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingHorizontal: 30,
   },
   createButton: {
     backgroundColor: Colors.green
   },
+  title: {
+    color: Colors.white,
+    fontSize: FontSizes.smallTitleSize,
+    fontFamily: Fonts.light,
+    textAlign: 'center',
+  },
   description: {
-    fontSize: 18,
-    lineHeight: 26,
-    marginBottom: 60,
+    fontSize: FontSizes.smallCommonSize,
+    marginTop: 15,
+    marginBottom: 40,
     paddingHorizontal: 10,
-    textAlign: 'left'
+    fontFamily: Fonts.bold,
+    textAlign: 'center',
+    color: Colors.white,
   }
 });

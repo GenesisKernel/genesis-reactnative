@@ -17,6 +17,7 @@
     "appcenter-push": "^1.0.1",
     "babel-polyfill": "^6.26.0",
     "crypto-js": "^3.1.9-1",
+    "hoist-non-react-statics": "^2.3.1",
     "int64-buffer": "^0.1.10",
     "intl": "^1.2.5",
     "jsrsasign": "^8.0.4",

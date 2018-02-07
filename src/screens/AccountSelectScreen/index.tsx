@@ -34,8 +34,13 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
     return (
       <View style={styles.container}>
         <Logo />
-        <Text style={styles.description}>
-          Welcome to Apla! Please authorise or sign up to start working.
+        <Text
+          style={styles.title}>
+          WELCOME TO GENESIS!
+        </Text>
+        <Text
+          style={styles.description}>
+          Please authorise or sign up to start working.
         </Text>
         <AccountListContainer/>
         <View style={styles.buttonsContainer}>
@@ -48,7 +53,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
             onPress={this.handleKnownAccountButtonPress}
             intl={addAccountButtonLabel}
           />
-          <TouchIdContainer />
+          {/* <TouchIdContainer /> */}
         </View>
       </View>
     );

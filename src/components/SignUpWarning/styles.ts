@@ -4,11 +4,12 @@ import { Fonts, Colors, FontSizes } from 'components/ui/theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    paddingVertical: 35,
-    paddingHorizontal: 40,
+    justifyContent: 'center',
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingHorizontal: 45,
     maxHeight: 520,
-    minHeight: 600,
+    // minHeight: 600,
   },
   content: {
     flex: 1,
@@ -20,9 +21,8 @@ export default StyleSheet.create({
   title: {
     color: Colors.white,
     fontSize: FontSizes.titleSize,
-    fontFamily: Fonts.regular,
+    fontFamily: Fonts.light,
     backgroundColor: 'transparent',
-    marginTop: 40,
     marginBottom: 25,
   },
   icon: {
@@ -33,8 +33,10 @@ export default StyleSheet.create({
   description: {
     color: Colors.white,
     lineHeight: 28,
+    paddingHorizontal: 20,
   },
   understandButton: {
+    marginTop: 30,
     backgroundColor: Colors.green,
   }
 })

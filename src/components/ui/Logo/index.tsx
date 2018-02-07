@@ -5,7 +5,9 @@ import styles from './styles';
 const Logo: React.SFC<{}> = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../../../../assets/images/logo/logo.png')} />
+      <Image
+        style={styles.logo}
+        source={require('../../../../assets/images/logo/Logo.png')} />
     </View>
   );
 };

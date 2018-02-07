@@ -6,6 +6,8 @@ import {
 } from 'react-navigation';
 
 import { Colors, Fonts, FontSizes } from 'components/ui/theme';
+import BackgroundImageHoc from 'components/utils/BackgroundImageHoc';
+
 import LandingScreen from 'screens/LandingScreen';
 import HomeScreen from 'screens/HomeScreen';
 import PageScreen from 'screens/PageScreen';
@@ -47,15 +49,15 @@ export const navTypes = {
 
 export default StackNavigator(
   {
-    [navTypes.AUTH]: { screen: AuthTypeScreen },
+    [navTypes.AUTH]: { screen: BackgroundImageHoc(AuthTypeScreen)  },
     [navTypes.AUTH_SUCCESSFUL]: { screen: AuthSuccessfulScreen },
     [navTypes.SCANNER]: { screen: ScannerScreen },
     [navTypes.SIGN_IN]: { screen: SignInScreen },
     [navTypes.IMPORT_ACCOUNT]: { screen: ImportAccountScreen },
     [navTypes.SIGN_UP]: { screen: SignUpScreen },
     [navTypes.SIGN_UP_CONFIRM]: { screen: SignUpConfirmScreen },
-    [navTypes.SIGN_UP_WARNING]: { screen: SignUpWarningScreen },
-    [navTypes.ACCOUNT_SELECT]: { screen: AccountSelectScreen },
+    [navTypes.SIGN_UP_WARNING]: { screen: BackgroundImageHoc(SignUpWarningScreen) },
+    [navTypes.ACCOUNT_SELECT]: { screen: BackgroundImageHoc(AccountSelectScreen) },
     [navTypes.HOME]: { screen: HomeScreen },
     [navTypes.PAGE]: { screen: PageScreen },
     [navTypes.SUB_MENU]: { screen: SubMenuScreen },
@@ -65,12 +67,16 @@ export default StackNavigator(
   },
   {
     initialRouteName: navTypes.LANDING,
-    cardStyle: { backgroundColor: 'transparent' },
+    cardStyle: {
+      backgroundColor: 'transparent',
+      shadowColor: 'transparent'
+    },
     transitionConfig: (): Object => ({
       containerStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
       },
     }),
+
     navigationOptions({ navigation }) {
       const isAuthRoute = navigation.state.routeName.indexOf(NAV.AUTH) !== -1;
 
@@ -82,9 +88,10 @@ export default StackNavigator(
       return {
         headerTintColor,
         headerStyle: {
-          backgroundColor,
+          backgroundColor: 'transparent',
           borderBottomWidth: 0,
-          elevation: undefined
+          elevation: undefined,
+          shadowOpacity: 0,
         },
         headerTitleStyle: {
           color: headerTitleColor,

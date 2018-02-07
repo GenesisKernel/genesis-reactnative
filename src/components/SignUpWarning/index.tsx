@@ -21,7 +21,7 @@ export default class SignUpWarning extends React.Component<ISignUpWarningProps> 
           <Icon iconStyle={styles.icon} type="materialicons" name="announcement" />
           <Text style={styles.description}>
             For secure reason of your personal data and funds SAVE following information ON PHYSICAL carrier (paper for example). You can’t restore your account without follow information
-            </Text>
+          </Text>
         </View>
         <Button
           title="I UNDERSTAND"

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../ui/theme';
+import { Colors, Fonts, FontSizes } from '../ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -10,9 +10,11 @@ export default StyleSheet.create({
   },
   scrollView: {},
   loginAs: {
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    textAlign: 'center',
+    color: '#fff',
     marginBottom: 10,
-    paddingLeft: 7,
+    // paddingLeft: 7,
   },
   buttonContainerStyle: {
     marginVertical: 5,
@@ -36,16 +38,25 @@ export default StyleSheet.create({
   rowContainer: {
     height: 70,
     flex: 1,
-    backgroundColor: Colors.blue,
-    borderRadius: 14,
-    paddingHorizontal: 15,
+    backgroundColor: 'transparent',
     paddingVertical: 10,
+    paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  decorStick: {
+    backgroundColor: Colors.green,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 5,
+    height: 70,
+    borderRadius: 3,
+  },
   rowTextContainer: {
     flex: 1,
-    paddingRight: 5,
+    paddingLeft: 10,
   },
   title: {
     fontSize: 18,
