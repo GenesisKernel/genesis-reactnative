@@ -5,7 +5,7 @@ import {
   NavigationStackScreenOptions
 } from 'react-navigation';
 
-import { Colors, Fonts } from 'components/ui/theme';
+import { Colors, Fonts, FontSizes } from 'components/ui/theme';
 import LandingScreen from 'screens/LandingScreen';
 import HomeScreen from 'screens/HomeScreen';
 import PageScreen from 'screens/PageScreen';
@@ -18,6 +18,7 @@ import ImportAccountScreen from 'screens/ImportAccountScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
+import SignUpWarningScreen from 'screens/SignUpWarningScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
 import TransactionsScreen from 'screens/TransactionsScreen';
 
@@ -32,6 +33,7 @@ export const navTypes = {
   SIGN_IN: `${NAV.AUTH}/SIGN_IN`,
   IMPORT_ACCOUNT: `${NAV.AUTH}/IMPORT_ACCOUNT`,
   SIGN_UP_CONFIRM: `${NAV.AUTH}/SIGN_UP_CONFIRM`,
+  SIGN_UP_WARNING: `${NAV.AUTH}/SIGN_UP_WARNING`,
   SIGN_UP: `${NAV.AUTH}/SIGN_UP`,
   AUTH_SUCCESSFUL: `${NAV.AUTH}/AUTH_SUCCESSFUL`,
   ACCOUNT_SELECT: `${NAV.AUTH}/ACCOUNT_SELECT`,
@@ -52,6 +54,7 @@ export default StackNavigator(
     [navTypes.IMPORT_ACCOUNT]: { screen: ImportAccountScreen },
     [navTypes.SIGN_UP]: { screen: SignUpScreen },
     [navTypes.SIGN_UP_CONFIRM]: { screen: SignUpConfirmScreen },
+    [navTypes.SIGN_UP_WARNING]: { screen: SignUpWarningScreen },
     [navTypes.ACCOUNT_SELECT]: { screen: AccountSelectScreen },
     [navTypes.HOME]: { screen: HomeScreen },
     [navTypes.PAGE]: { screen: PageScreen },
@@ -62,12 +65,19 @@ export default StackNavigator(
   },
   {
     initialRouteName: navTypes.LANDING,
+    cardStyle: { backgroundColor: 'transparent' },
+    transitionConfig: (): Object => ({
+      containerStyle: {
+        backgroundColor: 'transparent',
+      },
+    }),
     navigationOptions({ navigation }) {
       const isAuthRoute = navigation.state.routeName.indexOf(NAV.AUTH) !== -1;
 
-      const backgroundColor = isAuthRoute ? '#fff' : '#39393f';
-      const headerTintColor = isAuthRoute ? '#000' : '#fff';
-      const headerTitleColor = isAuthRoute ? '#000' : '#fff';
+      // const backgroundColor = isAuthRoute ? '#fff' : '#39393f';
+      const backgroundColor = 'transparent';
+      const headerTintColor = '#fff';
+      const headerTitleColor = '#fff';
 
       return {
         headerTintColor,
@@ -78,8 +88,8 @@ export default StackNavigator(
         },
         headerTitleStyle: {
           color: headerTitleColor,
-          fontFamily: Fonts.bold,
-          fontSize: 20
+          fontFamily: Fonts.regular,
+          fontSize: FontSizes.commonSize,
         },
         headerBackTitle: null
       };

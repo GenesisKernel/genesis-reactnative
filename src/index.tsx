@@ -5,7 +5,7 @@ import Drawer from 'react-native-drawer';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { addNavigationHelpers } from 'react-navigation';
-import { AppRegistry, View, Text, StatusBar } from 'react-native';
+import { AppRegistry, View, Text, StatusBar, ImageBackground } from 'react-native';
 
 import * as Push from 'appcenter-push';
 
@@ -27,7 +27,9 @@ export default class App extends React.Component<object, object> {
   public render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
+        <ImageBackground
+          source={require('../assets/images/bg.png')}
+          style={{ flex: 1 }}>
           <StatusBarContainer />
           <AlertContainer />
           <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>
@@ -45,7 +47,7 @@ export default class App extends React.Component<object, object> {
               <NavigatorContainer uriPrefix={URL_PREFIX} />
             </Drawer>
           </IntlProvider>
-        </View>
+        </ImageBackground>
       </Provider>
     );
   }

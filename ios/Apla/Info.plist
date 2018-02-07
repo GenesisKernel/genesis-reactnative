@@ -79,6 +79,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow access to your camera</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -92,6 +94,9 @@
 		<string>FontAwesome.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 		<string>Roboto-Bold.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-Thin.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -109,7 +114,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSFaceIDUsageDescription</key>
-	<string></string>
 </dict>
 </plist>

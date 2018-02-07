@@ -13,10 +13,10 @@ export default StyleSheet.create({
   button: {
     height: 50,
     backgroundColor: Colors.blue,
-    borderRadius: 26,
+    borderRadius: 12,
   },
   text: {
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: Fonts.regular,
     color: Colors.white,
   }

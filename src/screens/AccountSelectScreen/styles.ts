@@ -7,7 +7,7 @@ export default StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 15,
     paddingBottom: 30,
-    backgroundColor: Colors.white
+    backgroundColor: 'transparent'
   },
   buttonsContainer: {
     flexDirection: 'column'

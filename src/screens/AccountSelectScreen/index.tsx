@@ -55,7 +55,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
   }
 
   private handleCreateAccountButtonPress = () => {
-    this.props.navigation.navigate(navTypes.SIGN_UP);
+    this.props.navigation.navigate(navTypes.SIGN_UP_WARNING);
   }
 
   private handleKnownAccountButtonPress = () => {

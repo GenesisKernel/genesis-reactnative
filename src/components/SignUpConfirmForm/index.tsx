@@ -22,7 +22,6 @@ export interface ISignUpConfirmProps {
 
 export interface ISignUpConfirmState {
   seed?: string;
-  showPopup: boolean;
 }
 
 const cancelButtonProps = {
@@ -43,8 +42,7 @@ class SignUpConfirm extends React.Component<
     super(props);
 
     this.state = {
-      seed: props.seed || undefined,
-      showPopup: true,
+      seed: props.seed || undefined
     };
   }
 
@@ -58,8 +56,6 @@ class SignUpConfirm extends React.Component<
 
   public render() {
     return (
-      !this.state.showPopup
-        ?(
           <View style={styles.container}>
             <View style={{ flex: 1 }}>
               <View style={{ height: 180 }}>
@@ -98,40 +94,11 @@ class SignUpConfirm extends React.Component<
               </View>
             </View>
           </View>
-        )
-        :(
-          <Modal
-            transparent={true}
-            animationType={'fade'}
-            visible={this.state.showPopup}>
-            <View style={styles.popupContainer}>
-              <View style={styles.popup}>
-                <Text style={styles.popupTitle}>IMPORTANT!</Text>
-                <Icon iconStyle={styles.icon} type="font-awesome" name="exclamation-circle"/>
-                <Text style={styles.description}>For secure reason of your personal data and funds SAVE following information ON PHYSICAL carrier (paper for example). You can’t restore your account without follow information.</Text>
-                <Button
-                  title="I UNDERSTAND"
-                  buttonStyle={styles.popupButton}
-                  textStyle={styles.popupButtonText}
-                  onPress={this.hidePopup}/>
-              </View>
-            </View>
-          </Modal>
-        )
     );
-  }
-
-  // private showPopup = (): void => {
-  //   this.setState({ showPopup: true });
-  // }
-
-  private hidePopup = (): void => {
-    this.setState({ showPopup: false });
   }
 
   private submit = (): void => {
     if (this.state.seed) {
-      // this.setState({ showPopup: false })
       this.props.onSubmit({
         seed: this.state.seed
       });

@@ -6,5 +6,6 @@ export default StyleSheet.create({
     color: Colors.dark,
     fontSize: 18,
     fontFamily: Fonts.regular,
+    backgroundColor: 'transparent',
   }
 });

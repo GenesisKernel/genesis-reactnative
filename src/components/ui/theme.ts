@@ -1,11 +1,17 @@
 export const Fonts = {
-  regular: 'Roboto-Regular',
-  bold: 'Roboto-Bold',
+  regular: 'Lato-Regular',
+  bold: 'Lato-Bold',
+  thin: 'Lato-Thin',
+};
+
+export const FontSizes = {
+  commonSize: 18,
+  titleSize: 32,
 };
 
 export const Colors = {
   blue: '#6184de',
-  green: '#3bc18c',
+  green: '#3ebc9a',
   dark: '#39393f',
   white: '#fff',
   dangerRed: '#f03f61',
