@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'components/ui/theme';
+import { Colors, FontSizes } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -9,10 +9,23 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     padding: 30,
     paddingTop: 40,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
+  },
+  iconWrapper: {
+    backgroundColor: 'transparent',
+    marginTop: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  icon: {
+    color: '#fff',
+    marginBottom: 20,
   },
   descr: {
-    marginBottom: 55,
+    color: Colors.white,
+    fontSize: FontSizes.commonSize,
+    lineHeight: 30,
   },
   button: {
     width: '100%',

@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 import { navTypes } from '../../navigatorConfig';
 import { Colors, Fonts } from '../../components/ui/theme';
+import { Icon } from 'react-native-elements';
 
 import Button from 'components/ui/Button';
 import Field from 'components/ui/Field';
@@ -38,11 +39,19 @@ class AuthTypeScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.iconWrapper}>
+          <Icon
+            size={96}
+            iconStyle={styles.icon}
+            name="qrcode"
+            type="font-awesome"
+          />
           <Text style={styles.descr}>
             You can scan QR code for known account or enter your authorisation
             data manualy.
           </Text>
+        </View>
+        <View>
           <Button
             onPress={this.handleScanButtonPress}
             buttonStyle={styles.createButton}
@@ -54,14 +63,6 @@ class AuthTypeScreen extends React.Component<IScreenProps, object> {
             buttonStyle={styles.button}
             textStyle={styles.buttonText}
             intl={signUpTitle}
-          />
-        </View>
-        <View>
-          <Button
-            onPress={this.navigateBack}
-            buttonStyle={styles.cancelButton}
-            textStyle={styles.cancelButtonText}
-            intl={cancelTitle}
           />
         </View>
       </View>

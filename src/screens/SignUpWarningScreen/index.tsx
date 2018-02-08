@@ -8,7 +8,6 @@ import styles from './styles';
 export default class SignUpWarningScreen extends React.Component {
   public static navigationOptions = (): NavigationStackScreenOptions => ({
     headerTitle: '  ',
-    headerLeft: <View></View>,
   })
 
   public render() {
