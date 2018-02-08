@@ -26,6 +26,8 @@ interface IAuthPayload {
   ecosystem: string;
   notify_key: string;
   timestamp: string;
+  avatar?: string;
+  username?: string;
 }
 
 export function* auth(payload: IAuthPayload) {
@@ -105,7 +107,9 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
     const account = yield call(auth, {
       public: publicKey,
       private: privateKey,
-      ecosystem: ecosystemId
+      ecosystem: ecosystemId,
+      avatar: '',
+      username: '',
     });
 
     yield put(
@@ -205,6 +209,8 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
         params: action.payload,
         result: {
           ...account,
+          avatar: '',
+          username: '',
           encKey
         }
       })
@@ -278,27 +284,42 @@ export function* logoutWorker() {
   yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, address: string }, } ) {
-  const accountData = yield select(accountSelectors.getAccount(action.payload.address));
+export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, id: string }}) {
+  try {
+    const accountData = yield select(accountSelectors.getAccount(action.payload.id));
 
-  if (accountData.token && accountData.tokenExpiry > Date.now()) {
-    apiSetToken(accountData.token);
-    yield put(
-      authActions.attachSession({
-        currentAccountAddress: accountData.address,
-        currentEcosystemId: action.payload.ecosystemId,
-        token: accountData.token,
-        refresh: accountData.refresh,
-        publicKey: accountData.public,
-        privateKey: accountData.private,
-        key_id: accountData.key_id,
-      })
-    );
-    yield put(navigatorActions.navigate(navTypes.HOME));
-  } else {
-    yield put(
-      navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
-    );
+    if (accountData.token && accountData.tokenExpiry > Date.now()) {
+
+      apiSetToken(accountData.token);
+
+      const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
+
+      yield put(
+        authActions.attachSession({
+          currentAccountAddress: accountData.address,
+          currentEcosystemId: action.payload.ecosystemId,
+          token: accountData.token,
+          refresh: accountData.refresh,
+          publicKey: accountData.public,
+          privateKey: accountData.private,
+          key_id: accountData.key_id,
+        })
+      );
+
+      yield put(accountActions.setAccountUserdata({
+        address: accountData.address,
+        avatar: avatarAndUsername.data.value.avatar || '',
+        username: avatarAndUsername.data.value.username || '',
+      }));
+
+      yield put(navigatorActions.navigate(navTypes.HOME));
+    } else {
+      yield put(
+        navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
+      );
+    }
+  } catch (error) {
+    console.error('receiveSelectedAccountWorker ERROR => ', error);
   }
 }
 
