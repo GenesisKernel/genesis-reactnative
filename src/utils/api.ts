@@ -139,8 +139,10 @@ export default {
         ...response,
         data: {
           name,
-          tree: memoTree(response.data.tree),
-          menuTree: memoTree(response.data.menutree)
+          tree: response.data.tree,
+          menuTree: response.data.menutree,
+          // tree: memoTree(response.data.tree),
+          // menuTree: memoTree(response.data.menutree)
         }
       })),
 

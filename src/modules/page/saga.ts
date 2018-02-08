@@ -26,12 +26,12 @@ export function* pageWorker(action: Action<any>): SagaIterator {
       );
       yield put(application.actions.receiveCurrentPage(data.name));
     } catch (error) {
-      // yield put(
-      //   requestPage.failed({
-      //     params: action.payload,
-      //     error
-      //   })
-      // );
+      yield put(
+        requestPage.failed({
+          params: action.payload,
+          error
+        })
+      );
     }
   } else {
     yield put(
