@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 30,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
   },
   topActions: {
     flexDirection: 'row',

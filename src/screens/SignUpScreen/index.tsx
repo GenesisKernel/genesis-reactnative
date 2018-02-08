@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   NavigationStackScreenOptions,
@@ -20,14 +20,14 @@ class SignUpConfirmScreen extends React.Component<IScreenProps, object> {
 
   public render() {
     return (
-      <KeyboardAvoidingView
+      <KeyboardAwareScrollView
         style={styles.container}
-        behavior="height"
-        keyboardVerticalOffset={50}
+        enableOnAndroid
+        keyboardShouldPersistTaps="always"
       >
         <SingUpConfirmFormContainer goBack={this.props.navigation.goBack}
         />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }

@@ -1,16 +1,26 @@
-import { StyleSheet } from 'react-native';
-import { Fonts, Colors } from '../../components/ui/theme';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Fonts, Colors, cancelButton } from '../../components/ui/theme';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
+const { width, height } = Dimensions.get('window');
+const statusBarHeight = getStatusBarHeight();
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    marginBottom: 30,
+    height: height - statusBarHeight - 120, // container`s padding *2
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
   },
   firstContainer: {
-    marginBottom: 80,
+    // marginBottom: 80,
   },
   textInput: {
-    height: 200
+    height: 140
+  },
+  passwordInput: {
+    padding: 5,
+    paddingTop: 5,
+    paddingHorizontal: 15,
   },
   inputLabel: {
     fontFamily: Fonts.bold,
@@ -18,14 +28,9 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   cancelButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    width: '100%',
+    ...cancelButton,
   },
-  cancelButtonText: {
-    color: Colors.dark,
-    fontSize: 24,
-    width: '100%',
-    textAlign: 'center',
+  nextButton: {
+    backgroundColor: Colors.green,
   }
 });

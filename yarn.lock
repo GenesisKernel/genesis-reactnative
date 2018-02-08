@@ -4121,6 +4121,12 @@ react-native-root-siblings@^2.2.0:
   dependencies:
     static-container "^1.0.0"
 
+react-native-status-bar-height@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.0.0.tgz#9def59bdfa162da73134aff4f480ef2fc873ee0a"
+  dependencies:
+    react-native-iphone-x-helper "^1.0.1"
+
 react-native-stylable@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-native-stylable/-/react-native-stylable-0.2.2.tgz#558ef71eea19ac35475ffe1365efaa2569a0e447"

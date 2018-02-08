@@ -67,6 +67,7 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
           <Field>
             <Input
               secureTextEntry
+              style={styles.passwordInput}
               onChangeText={this.handlePasswordChange}
               intl={passwordInput}
             />
@@ -75,15 +76,15 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
         <View>
           <PendingButtonContainer
             onPress={this.submit}
+            buttonStyle={styles.nextButton}
             intl={{
               id: 'auth.sign-in.submit.title',
-              defaultMessage: 'Proceed',
+              defaultMessage: 'Next',
             }}
           />
           <Button
             onPress={this.handleNavigateBack}
             buttonStyle={styles.cancelButton}
-            textStyle={styles.cancelButtonText}
             intl={{
               id: 'auth.sign-in.submit.title',
               defaultMessage: 'Cancel',

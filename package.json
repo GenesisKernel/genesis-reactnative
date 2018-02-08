@@ -38,6 +38,7 @@
     "react-native-modal-dropdown": "^0.5.0",
     "react-native-popup-dialog": "^0.10.43",
     "react-native-root-siblings": "^2.2.0",
+    "react-native-status-bar-height": "^2.0.0",
     "react-native-stylable": "^0.2.2",
     "react-native-touch-id": "git+https://github.com/2vm/react-native-touch-id.git",
     "react-native-vector-icons": "^4.4.2",

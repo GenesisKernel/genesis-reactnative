@@ -21,3 +21,11 @@ export const Colors = {
   white: '#fff',
   dangerRed: '#f03f61',
 };
+
+export const cancelButton = {
+  backgroundColor: 'transparent',
+  borderColor: '#fff',
+  borderWidth: 1,
+  width: '100%',
+  marginTop: 10,
+}
