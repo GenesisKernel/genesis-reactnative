@@ -20,6 +20,7 @@ export interface IRow {
   address: string;
   title: string;
   ecosystemId: string;
+  notificationsCount?: number;
   onPress(address: string, ecosystemId: string): void;
   onRemove(address: string): void;
 }
@@ -30,8 +31,8 @@ class Row extends React.Component<IRow> {
   }
 
   public render() {
-    const { title, address } = this.props;
     const { showDecor } = this.state;
+    const { title, address, notificationsCount } = this.props;
 
     return (
       <TouchableHighlight

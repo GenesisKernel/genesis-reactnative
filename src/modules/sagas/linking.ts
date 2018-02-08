@@ -10,7 +10,7 @@ import { URL_PREFIX } from '../../constants';
 import { navTypes } from '../../navigatorConfig';
 
 const linkingChanel = eventChannel(emitter => {
-  const handle = (data: object) => emitter(data.url);
+  const handle = (data: { url: string }) => emitter(data.url);
 
   Linking.addEventListener('url', handle);
 

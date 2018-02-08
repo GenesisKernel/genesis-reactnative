@@ -1,5 +1,4 @@
 import { equals } from 'ramda';
-import { Action } from 'redux';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 import * as actions from './actions';
@@ -32,11 +31,19 @@ export interface IState {
   history: IHistory[];
   installId?: string;
   isVDEMode: boolean;
+  socketConnectedAccounts: {
+    [addres: string]: boolean;
+  };
+  channelSubscribedAccounts: {
+    [addres: string]: boolean;
+  }
 }
 
 export const initialState: IState = {
   isStarted: false,
   isVDEMode: false,
+  socketConnectedAccounts: {},
+  channelSubscribedAccounts: {},
   title: DEFAULT_TITLE,
   history: [],
   network: {
@@ -97,4 +104,18 @@ export default reducerWithInitialState<IState>(initialState)
   .case(actions.receiveVDEMode, (state, isVDEMode = false) => ({
     ...state,
     isVDEMode
-  }));
+  }))
+  .case(actions.setSocketConnectionStatus, (state, payload) => ({
+    ...state,
+    socketConnectedAccounts: {
+      ...state.socketConnectedAccounts,
+      [payload.accountAddress]: payload.status,
+    }
+  }))
+  .case(actions.setChannelSubscribtionStatus, (state, payload) => ({
+    ...state,
+    channelSubscribedAccounts: {
+      ...state.channelSubscribedAccounts,
+      [payload.accountAddress]: payload.status,
+    }
+  }))

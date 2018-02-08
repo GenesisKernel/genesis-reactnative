@@ -3,7 +3,6 @@ import { colors } from 'react-native-elements';
 
 export default StyleSheet.create({
   icon: {
-    paddingRight: 10,
-    paddingLeft: 22
+    marginRight: 10,
   }
 });

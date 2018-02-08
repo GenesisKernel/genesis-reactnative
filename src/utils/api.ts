@@ -139,8 +139,10 @@ export default {
         ...response,
         data: {
           name,
-          tree: memoTree(response.data.tree),
-          menuTree: memoTree(response.data.menutree)
+          tree: response.data.tree,
+          menuTree: response.data.menutree,
+          // tree: memoTree(response.data.tree),
+          // menuTree: memoTree(response.data.menutree)
         }
       })),
 
@@ -151,5 +153,9 @@ export default {
     api.post(`contract/${name}`, params),
 
   transactionStatus: (hash: string) =>
-    api.get<ITxStatusResponse>(`/txstatus/${hash}`)
+    api.get<ITxStatusResponse>(`/txstatus/${hash}`),
+
+  updateNotifications: (payload: object) =>
+    api.post('/updnotificator', payload),
+  getAvatarAndUsername: (session: string, id: string) => api.get(`row/member/${id}?columns='avatar,username'&vde=false`, session),
 };

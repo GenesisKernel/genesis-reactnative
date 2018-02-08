@@ -2,8 +2,13 @@ import { pick, pickBy, contains } from 'ramda';
 import { Action, AnyAction } from 'typescript-fsa';
 import { NavigationAction } from 'react-navigation';
 
-export function waitForRoute(route: string) {
-  return (action: NavigationAction) => {
+interface IWaitForRoute {
+  routeName: string;
+  actions: [{routeName: string}];
+};
+
+export function waitForRoute(route: string): any {
+  return (action: NavigationAction & IWaitForRoute) => {
     return (
       action.type.indexOf('Navigation') !== -1 &&
       ((action.routeName && action.routeName === route) ||

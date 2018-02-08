@@ -24,6 +24,10 @@ interface IAuthPayload {
   private: string;
   public: string;
   ecosystem: string;
+  notify_key: string;
+  timestamp: string;
+  avatar?: string;
+  username?: string;
 }
 
 export function* auth(payload: IAuthPayload) {
@@ -44,12 +48,13 @@ export function* auth(payload: IAuthPayload) {
 
   yield put(
     authActions.attachSession({
+      key_id: accountData.key_id,
       currentAccountAddress: accountData.address,
       currentEcosystemId: accountData.ecosystem_id,
       token: accountData.token,
       refresh: accountData.refresh,
       publicKey: payload.public,
-      privateKey: payload.private
+      privateKey: payload.private,
     })
   ); // Save token
 
@@ -62,9 +67,12 @@ export function* auth(payload: IAuthPayload) {
   }));
 
   return {
+    key_id: accountData.key_id,
     address: accountData.address,
     publicKey: payload.public,
-    ecosystems: [accountData.ecosystem_id]
+    ecosystems: [accountData.ecosystem_id],
+    notify_key: accountData.notify_key,
+    timestamp: accountData.timestamp,
   };
 }
 
@@ -99,7 +107,9 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
     const account = yield call(auth, {
       public: publicKey,
       private: privateKey,
-      ecosystem: ecosystemId
+      ecosystem: ecosystemId,
+      avatar: '',
+      username: '',
     });
 
     yield put(
@@ -120,6 +130,8 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
         }
       })
     );
+
+    yield put(authActions.saveLastLoggedAccount(account));
 
     yield put(
       navigateWithReset([
@@ -165,6 +177,8 @@ export function* loginWorker(action: Action<any>): SagaIterator {
       })
     );
 
+    yield put(authActions.saveLastLoggedAccount(account));
+
     yield put(navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
   } catch (error) {
     yield put(
@@ -195,6 +209,8 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
         params: action.payload,
         result: {
           ...account,
+          avatar: '',
+          username: '',
           encKey
         }
       })
@@ -202,6 +218,9 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
     yield put(
       applicationActions.removeSeed()
     );
+
+    yield put(authActions.saveLastLoggedAccount(account));
+
     yield put(
       navigateWithReset([
         {
@@ -265,27 +284,42 @@ export function* logoutWorker() {
   yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, address: string }, } ) {
-  const accountData = yield select(accountSelectors.getAccount(action.payload.address));
+export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, id: string }}) {
+  try {
+    const accountData = yield select(accountSelectors.getAccount(action.payload.id));
 
-  if (accountData.token && accountData.tokenExpiry > Date.now()) {
-    apiSetToken(accountData.token);
-    yield put(
-      authActions.attachSession({
-        currentAccountAddress: accountData.address,
-        currentEcosystemId: action.payload.ecosystemId,
-        token: accountData.token,
-        refresh: accountData.refresh,
-        publicKey: accountData.public,
-        privateKey: accountData.private
-      })
-    );
+    if (accountData.token && accountData.tokenExpiry > Date.now()) {
 
-    yield put(navigatorActions.navigate(navTypes.HOME));
-  } else {
-    yield put(
-      navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
-    );
+      apiSetToken(accountData.token);
+
+      const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
+
+      yield put(
+        authActions.attachSession({
+          currentAccountAddress: accountData.address,
+          currentEcosystemId: action.payload.ecosystemId,
+          token: accountData.token,
+          refresh: accountData.refresh,
+          publicKey: accountData.public,
+          privateKey: accountData.private,
+          key_id: accountData.key_id,
+        })
+      );
+
+      yield put(accountActions.setAccountUserdata({
+        address: accountData.address,
+        avatar: avatarAndUsername.data.value.avatar || '',
+        username: avatarAndUsername.data.value.username || '',
+      }));
+
+      yield put(navigatorActions.navigate(navTypes.HOME));
+    } else {
+      yield put(
+        navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
+      );
+    }
+  } catch (error) {
+    console.error('receiveSelectedAccountWorker ERROR => ', error);
   }
 }
 

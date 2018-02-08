@@ -40,6 +40,7 @@ export const attachSession = actionCreator<{
   privateKey: string;
   token: string;
   refresh: string;
+  key_id: string;
   tokenExpiry?: number;
 }>('ATTATCH_SESSION');
 
@@ -51,3 +52,4 @@ export const refreshSession = actionCreator<{
 }>('REFRESH_SESSION');
 
 export const logout = actionCreator('LOGOUT');
+export const saveLastLoggedAccount = actionCreator('SAVE_LAST_LOGGED_ACCOUNT');
