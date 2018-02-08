@@ -50,7 +50,7 @@ export const navTypes = {
 export default StackNavigator(
   {
     [navTypes.AUTH]: { screen: BackgroundImageHoc(AuthTypeScreen)  },
-    [navTypes.AUTH_SUCCESSFUL]: { screen: AuthSuccessfulScreen },
+    [navTypes.AUTH_SUCCESSFUL]: { screen: BackgroundImageHoc(AuthSuccessfulScreen) },
     [navTypes.SCANNER]: { screen: ScannerScreen },
     [navTypes.SIGN_IN]: { screen: SignInScreen },
     [navTypes.IMPORT_ACCOUNT]: { screen: ImportAccountScreen },
@@ -95,7 +95,8 @@ export default StackNavigator(
         },
         headerTitleStyle: {
           color: headerTitleColor,
-          fontFamily: Fonts.regular,
+          fontWeight: `${300}`,
+          fontFamily: Fonts.light,
           fontSize: FontSizes.commonSize,
         },
         headerBackTitle: null

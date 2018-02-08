@@ -60,6 +60,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
         <View>
           <Field>
             <Input
+              style={styles.input}
               secureTextEntry
               onChangeText={this.handlePasswordConfirmChange}
               intl={passwordInput}
@@ -67,6 +68,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
           </Field>
           <Field>
             <Input
+              style={styles.input}
               secureTextEntry
               onChangeText={this.handlePasswordChange}
               intl={passwordConfirmInput}

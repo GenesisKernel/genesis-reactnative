@@ -1,27 +1,36 @@
 import { StyleSheet } from 'react-native';
+import { Colors, FontSizes, Fonts } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 30,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between'
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
   },
   iconWrapper: {
-    backgroundColor: '#3bc18c',
+    backgroundColor: 'transparent',
     marginTop: 50,
-    width: 180,
-    height: 180,
-    borderRadius: 180,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
   },
   icon: {
-    color: '#fff'
+    color: '#fff',
+    marginBottom: 20,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: FontSizes.titleSize,
+    marginBottom: 10,
+    color: Colors.white,
   },
   text: {
+    textAlign: 'center',
+    color: Colors.white,
     fontSize: 20,
-    textAlign: 'center'
+  },
+  nextButton: {
+    backgroundColor: Colors.green,
   }
 });

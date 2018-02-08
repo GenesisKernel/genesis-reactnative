@@ -38,8 +38,8 @@ class AuthSuccessfulScreen extends React.Component<IScreenProps> {
 
   public render() {
     const text = isKnownAccount(this.props.navigation)
-      ? 'Congratulations! You logged under known account.'
-      : 'Congratulations! Your account was created in Apla Blockchain.';
+      ? 'You logged under known account.'
+      : 'Your account was created in Apla Blockchain.';
 
     return (
       <View style={styles.container}>
@@ -50,9 +50,13 @@ class AuthSuccessfulScreen extends React.Component<IScreenProps> {
             name="thumbs-o-up"
             type="font-awesome"
           />
+          <Text style={styles.title}>Congratulations!</Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.text}>{text}</Text>
-        <Button intl={nextButtonIntl} onPress={this.handleNextButtonPress} />
+        <Button
+          buttonStyle={styles.nextButton}
+          intl={nextButtonIntl}
+          onPress={this.handleNextButtonPress} />
       </View>
     );
   }

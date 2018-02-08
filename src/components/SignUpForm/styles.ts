@@ -10,6 +10,11 @@ export default StyleSheet.create({
   textInput: {
     height: 200
   },
+  input: {
+    padding: 5,
+    paddingTop: 5,
+    paddingHorizontal: 15,
+  },
   inputLabel: {
     fontFamily: Fonts.bold,
     paddingLeft: 10,
@@ -18,11 +23,11 @@ export default StyleSheet.create({
   cancelButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
+    borderColor: '#fff',
     width: '100%',
   },
   cancelButtonText: {
-    color: Colors.dark,
-    fontSize: 24,
+    color: Colors.white,
     width: '100%',
     textAlign: 'center',
   },
