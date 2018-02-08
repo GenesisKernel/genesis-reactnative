@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../ui/theme';
+import { Colors, Fonts, FontSizes } from '../ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -55,6 +55,7 @@ export default StyleSheet.create({
   qrText: {
     color: Colors.white,
     fontFamily: Fonts.bold,
+    fontSize: FontSizes.commonSize
   },
   cancelButton: {
     backgroundColor: '#FFF',
@@ -63,9 +64,6 @@ export default StyleSheet.create({
   },
   cancelButtonText: {
     color: Colors.dark,
-    fontSize: 24,
-    width: '100%',
-    textAlign: 'center',
   },
   qrContainer: {
     padding: 30,
