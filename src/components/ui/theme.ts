@@ -27,5 +27,5 @@ export const cancelButton = {
   borderColor: '#fff',
   borderWidth: 1,
   width: '100%',
-  marginTop: 10,
+  marginTop: 0,
 }

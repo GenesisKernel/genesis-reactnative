@@ -7,6 +7,7 @@ export default StyleSheet.create({
     borderColor: 'transparent',
     backgroundColor: 'rgba(255,255,255, .15)',
     fontSize: FontSizes.mediumCommonSize,
+    fontFamily: Fonts.regular,
     borderWidth: 0,
     borderRadius: borderRadius,
     padding: 15,

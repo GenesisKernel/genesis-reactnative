@@ -30,6 +30,7 @@ const Input: React.SFC<IInputProps> = props => {
               ]}
               underlineColorAndroid="transparent"
               autoCapitalize="none"
+              selectionColor="#fff"
             />
             {!!rightIcon && (
               <Icon iconStyle={styles.icon} type="font-awesome" name={rightIcon} />
