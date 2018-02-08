@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../theme';
+import { Colors, Fonts, FontSizes, borderRadius } from '../theme';
 
 export default StyleSheet.create({
   input: {
     height: 40,
-    borderColor: Colors.dark,
-    fontSize: 18,
-    borderWidth: 1,
-    borderRadius: 21,
-    padding: 10,
-    paddingLeft: 15,
+    borderColor: 'transparent',
+    backgroundColor: 'rgba(255,255,255, .15)',
+    fontSize: FontSizes.mediumCommonSize,
+    borderWidth: 0,
+    borderRadius: borderRadius,
+    padding: 15,
+    paddingTop: 15,
     marginVertical: 5,
     marginBottom: 20,
+    color: '#fff',
   },
   multiline: {
     textAlignVertical: 'top'
@@ -28,8 +30,11 @@ export default StyleSheet.create({
     top: -53,
   },
   inputLabel: {
-    fontFamily: Fonts.bold,
+    fontFamily: Fonts.light,
+    // fontSize: FontSizes.smallCommonSize,
     paddingLeft: 15,
-    fontSize: 14,
+    marginBottom: 5,
+    fontSize: FontSizes.mediumCommonSize,
+    color: Colors.white,
   },
 });

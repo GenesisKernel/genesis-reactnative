@@ -19,7 +19,7 @@ const Input: React.SFC<IInputProps> = props => {
       {(title: string) => {
         return (
           <View style={styles.container}>
-            <Text style={styles.inputLabel}>{title.toUpperCase()}</Text>
+            <Text style={styles.inputLabel}>{title}</Text>
             <TextInput
               {...inputProps}
               style={[

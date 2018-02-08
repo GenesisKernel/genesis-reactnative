@@ -4,19 +4,22 @@ import { Colors, Fonts } from '../ui/theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   bottomActions: {},
   cancelButton: {
     backgroundColor: 'transparent',
+    borderColor: '#fff',
     borderWidth: 1,
     width: '100%',
+    marginTop: 10,
   },
   cancelButtonText: {
-    color: Colors.dark,
-    fontSize: 24,
     width: '100%',
     textAlign: 'center',
+  },
+  nextButton: {
+    backgroundColor: Colors.green,
   },
   textInput: {
     height: 150

@@ -31,7 +31,7 @@ const cancelButtonProps = {
 
 const NextButtonProps = {
   id: 'auth.sign-in.submit.title',
-  defaultMessage: 'Next step'
+  defaultMessage: 'Next'
 };
 
 class SignUpConfirm extends React.Component<
@@ -56,44 +56,47 @@ class SignUpConfirm extends React.Component<
 
   public render() {
     return (
-          <View style={styles.container}>
-            <View style={{ flex: 1 }}>
-              <View style={{ height: 180 }}>
-                <Input
-                  style={styles.textInput}
-                  onChangeText={this.handleSeedChange}
-                  value={this.state.seed}
-                  autoCorrect={false}
-                  multiline
-                  intl={{
-                    id: 'auth.sign-up-confirm.seed.placeholder',
-                    defaultMessage: 'Account seed'
-                  }}
-                />
-              </View>
-              <Button
-                onPress={this.props.generateSeed}
-                buttonStyle={styles.cancelButton}
-                textStyle={styles.cancelButtonText}
-                intl={{
-                  id: 'auth.sign-up-confirm.button.generate-new',
-                  defaultMessage: 'Generate new'
-                }}
-              />
-            </View>
-
-            <View>
-              <View style={styles.bottomActions}>
-                <Button onPress={this.submit} intl={NextButtonProps} />
-                <Button
-                  onPress={this.handleNavigateBack}
-                  buttonStyle={styles.cancelButton}
-                  textStyle={styles.cancelButtonText}
-                  intl={cancelButtonProps}
-                />
-              </View>
-            </View>
+      <View style={styles.container}>
+        <View style={{ flex: 1 }}>
+          <View style={{ height: 180 }}>
+            <Input
+              style={styles.textInput}
+              onChangeText={this.handleSeedChange}
+              value={this.state.seed}
+              autoCorrect={false}
+              multiline
+              intl={{
+                id: 'auth.sign-up-confirm.seed.placeholder',
+                defaultMessage: 'Account seed'
+              }}
+            />
           </View>
+          <Button
+            onPress={this.props.generateSeed}
+            buttonStyle={styles.cancelButton}
+            textStyle={styles.cancelButtonText}
+            intl={{
+              id: 'auth.sign-up-confirm.button.generate-new',
+              defaultMessage: 'Generate new'
+            }}
+          />
+        </View>
+
+        <View>
+          <View style={styles.bottomActions}>
+            <Button
+              buttonStyle={styles.nextButton}
+              onPress={this.submit}
+              intl={NextButtonProps} />
+            <Button
+              onPress={this.handleNavigateBack}
+              buttonStyle={styles.cancelButton}
+              textStyle={styles.cancelButtonText}
+              intl={cancelButtonProps}
+            />
+          </View>
+        </View>
+      </View>
     );
   }
 

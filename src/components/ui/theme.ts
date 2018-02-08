@@ -8,6 +8,7 @@ export const borderRadius = 12;
 
 export const FontSizes = {
   smallCommonSize: 14,
+  mediumCommonSize: 16,
   commonSize: 18,
   titleSize: 32,
   smallTitleSize: 28,
