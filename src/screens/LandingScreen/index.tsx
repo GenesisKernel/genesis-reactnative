@@ -4,6 +4,7 @@ import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
+import styles from './styles';
 
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
@@ -17,19 +18,10 @@ class LandingScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
-        <Text>Loading</Text>
+        <Text style={styles.text}>Loading</Text>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
 
 export default LandingScreen;

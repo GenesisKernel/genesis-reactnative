@@ -15,6 +15,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.green
   },
   title: {
+    marginTop: -15,
     color: Colors.white,
     fontSize: FontSizes.smallTitleSize,
     fontFamily: Fonts.light,

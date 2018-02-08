@@ -36,7 +36,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
         <Logo />
         <Text
           style={styles.title}>
-          WELCOME TO GENESIS!
+          WELCOME TO APLA!
         </Text>
         <Text
           style={styles.description}>

@@ -7,7 +7,7 @@ const Logo: React.SFC<{}> = () => {
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require('../../../../assets/images/logo/Logo.png')} />
+        source={require('../../../../assets/images/logo/logo.png')} />
     </View>
   );
 };
