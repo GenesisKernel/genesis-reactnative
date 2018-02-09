@@ -11,8 +11,13 @@ export default StyleSheet.create({
   container: {
     padding: 20,
   },
+  singleContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
   item: {
     width: (width / 2) - 35,
+    maxWidth: 200,
     height: 150,
     backgroundColor: '#fefefe',
     borderRadius: borderRadius,
@@ -24,7 +29,21 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.15,
     elevation: 2,
-    // overflow: 'hidden',
+  },
+  singleItem: {
+    width: width - 40,
+    height: 270,
+    backgroundColor: '#fefefe',
+    borderRadius: borderRadius,
+    marginBottom: 20,
+    shadowColor: '#2f303a',
+    maxWidth: 240,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    elevation: 2,
   },
   oddItem: {
     marginRight: 20,
@@ -36,7 +55,7 @@ export default StyleSheet.create({
   iconWrapper: {
     backgroundColor: 'transparent',
     width: '100%',
-    height: 100,
+    height: '65%',
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomColor: '#f6f6f6',
@@ -45,6 +64,11 @@ export default StyleSheet.create({
   itemText: {
     color: Colors.dark,
     fontSize: FontSizes.mediumCommonSize,
+    paddingHorizontal: 10,
+  },
+  singleItemText: {
+    color: Colors.dark,
+    fontSize: FontSizes.commonSize,
     paddingHorizontal: 10,
   },
   textWrapper: {

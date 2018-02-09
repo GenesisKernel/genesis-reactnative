@@ -3,7 +3,7 @@ import { Image, View } from 'react-native';
 import styles from './styles';
 
 export interface ILogoProps {
-  type: string;
+  type?: string;
 }
 const Logo: React.SFC<ILogoProps> = (props) => {
   const imagePath = props.type === 'white'

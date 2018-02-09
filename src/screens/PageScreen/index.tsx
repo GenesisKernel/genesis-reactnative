@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
+import { Colors } from 'components/ui/theme';
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps
@@ -19,6 +20,7 @@ class PageScreen extends React.Component<IScreenProps, object> {
     headerTitle: (
       <PageTitleContainer style={navigationOptions.headerTitleStyle} />
     ),
+    headerTintColor: Colors.dark,
     headerRight: <StatusIconContainer />,
     headerBackTitle: null
   });

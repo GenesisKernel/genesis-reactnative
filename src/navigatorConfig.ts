@@ -61,12 +61,12 @@ export default StackNavigator(
     [navTypes.SIGN_UP_WARNING]: { screen: BackgroundImageHoc(SignUpWarningScreen) },
     [navTypes.ACCOUNT_SELECT]: { screen: BackgroundImageHoc(AccountSelectScreen) },
     [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreen, 'green') },
-    [navTypes.PAGE]: { screen: PageScreen },
-    [navTypes.SUB_MENU]: { screen: SubMenuScreen },
+    [navTypes.PAGE]: { screen: BackgroundImageHoc(PageScreen, 'green') },
+    [navTypes.SUB_MENU]: { screen: BackgroundImageHoc(SubMenuScreen, 'green') },
     [navTypes.KEY]: { screen: KeyScreen },
     [navTypes.LANDING]: { screen: LandingScreen },
-    [navTypes.TRANSACTIONS]: { screen: TransactionsScreen },
-    [navTypes.NOTIFICATIONS]: { screen: NotificationsScreen },
+    [navTypes.TRANSACTIONS]: { screen: BackgroundImageHoc(TransactionsScreen, 'green') },
+    [navTypes.NOTIFICATIONS]: { screen: BackgroundImageHoc(NotificationsScreen, 'green') },
   },
   {
     initialRouteName: navTypes.LANDING,
@@ -83,9 +83,8 @@ export default StackNavigator(
     navigationOptions({ navigation }) {
       const isAuthRoute = navigation.state.routeName.indexOf(NAV.AUTH) !== -1;
 
-      // const backgroundColor = isAuthRoute ? '#fff' : '#39393f';
       const backgroundColor = 'transparent';
-      const headerTintColor = '#fff';
+      const headerTintColor = isAuthRoute ? '#fff' : Colors.dark;
       const headerTitleColor = isAuthRoute ? '#fff' : Colors.dark;
 
       return {

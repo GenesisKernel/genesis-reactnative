@@ -13,6 +13,7 @@ export interface IItemProps {
   index: number;
   title: string;
   icon?: string;
+  columnsCount: number;
 
   onPress(params: any): void;
 }
@@ -26,13 +27,14 @@ class Item extends React.Component<IItemProps> {
   };
 
   public render() {
-    const { title, icon } = this.props;
+    const { title, icon, columnsCount } = this.props;
     const { animationType } = this.state;
     const iconProps = {
       ...extractIconParams(icon),
       color: animationType === 'fadeOut' ? '#000' : '#3ebc9a',
-      size: 28
+      size: columnsCount === 2 ? 28 : 44
     };
+    const wrapperStyle = this.setItemWrapperStyle();
 
     return (
       <TouchableHighlight
@@ -41,7 +43,7 @@ class Item extends React.Component<IItemProps> {
         underlayColor={`#f8fffd`}
         onShowUnderlay={() => this.handlUnderlay('fadeIn')}
         onHideUnderlay={() => this.handlUnderlay('fadeOut')}
-        style={[styles.item, this.props.index % 2 === 0 ? styles.oddItem : {}]}
+        style={wrapperStyle}
       >
         <View style={styles.itemContent}>
           <View style={styles.iconWrapper}>
@@ -49,7 +51,8 @@ class Item extends React.Component<IItemProps> {
           </View>
           <View style={styles.textWrapper}>
             <Text
-              style={styles.itemText} numberOfLines={1}>
+              style={columnsCount === 2 ? styles.itemText : styles.singleItemText}
+              numberOfLines={1}>
               {title}
             </Text>
             <AnimatableView
@@ -63,6 +66,15 @@ class Item extends React.Component<IItemProps> {
         </View>
       </TouchableHighlight>
     );
+  }
+
+  private setItemWrapperStyle = (): object[] => {
+    const { columnsCount } = this.props;
+    if (columnsCount === 1) {
+      return [styles.singleItem];
+    } else {
+      return [styles.item, this.props.index % 2 === 0 ? styles.oddItem : {}];
+    }
   }
 
   private handlUnderlay = (type: string): void => {

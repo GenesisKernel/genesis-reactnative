@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Colors } from 'components/ui/theme';
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps
@@ -20,6 +21,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => ({
     headerTitle: <PageTitleContainer style={navigationOptions.headerTitleStyle} />,
     headerBackTitle: null,
+    headerTintColor: Colors.dark,
     // gesturesEnabled: false,
     // headerLeft: <DrawerButtonContainer />,
     headerRight: <StatusIconContainer />
@@ -28,7 +30,9 @@ class HomeScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
-        <MenuGridContainer menu={this.props.navigation.state.params.menu}  />
+        <MenuGridContainer
+          columnsCount={1}
+          menu={this.props.navigation.state.params.menu}  />
       </View>
     );
   }

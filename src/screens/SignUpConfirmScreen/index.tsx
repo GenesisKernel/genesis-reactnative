@@ -22,13 +22,13 @@ class SignUpScreen extends React.Component<IScreenProps, object> {
 
   public render() {
     return (
-      <KeyboardAvoidingView
+      <KeyboardAwareScrollView
         style={styles.container}
-        behavior="height"
-        keyboardVerticalOffset={50}
+        enableOnAndroid
+        keyboardShouldPersistTaps="always"
       >
         <SingUpFormContainer goBack={this.props.navigation.goBack}/>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }

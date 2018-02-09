@@ -6,11 +6,12 @@ import * as page from 'modules/page';
 import * as navigator from 'modules/navigator';
 import { navTypes } from '../navigatorConfig';
 
-const mapStateToProps = (state: any, ownProps) => {
+const mapStateToProps = (state: any, ownProps: any) => {
   const currentPage = page.selectors.getPage(ownProps.pageName)(state);
 
   return {
-    menu: ownProps.menu || (currentPage && currentPage.menuTree) || []
+    menu: ownProps.menu || (currentPage && currentPage.menuTree) || [],
+    columnsCount: ownProps.columnsCount,
   };
 };
 
