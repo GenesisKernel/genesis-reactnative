@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { StyleSheet} from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Colors } from 'components/ui/theme';
 
 const styles = StyleSheet.create({
   icon: {
@@ -19,7 +20,7 @@ class DrawerButton extends React.Component<object, object> {
       <Icon
         name="menu"
         size={22}
-        color="#fff"
+        color={Colors.dark}
         containerStyle={styles.icon}
         underlayColor="transparent"
         type="simple-line-icon"

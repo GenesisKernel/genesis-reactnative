@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableHighlight } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { View as AnimatableView } from 'react-native-animatable';
 
 import Text from 'components/ui/Text';
 import { extractIconParams } from '../utils/icon';
@@ -16,34 +17,56 @@ export interface IItemProps {
   onPress(params: any): void;
 }
 
-class Item extends React.PureComponent<IItemProps> {
+class Item extends React.Component<IItemProps> {
+  state = {
+    animationType: 'fadeOut',
+  }
   public static defaultProps = {
     isGroup: false
   };
 
   public render() {
     const { title, icon } = this.props;
-
+    const { animationType } = this.state;
     const iconProps = {
       ...extractIconParams(icon),
-      color: '#fff',
-      size: 24
+      color: animationType === 'fadeOut' ? '#000' : '#3ebc9a',
+      size: 28
     };
 
     return (
-      <TouchableOpacity
+      <TouchableHighlight
         onPress={this.handlePress}
         activeOpacity={0.8}
-        style={styles.item}
+        underlayColor={`#f8fffd`}
+        onShowUnderlay={() => this.handlUnderlay('fadeIn')}
+        onHideUnderlay={() => this.handlUnderlay('fadeOut')}
+        style={[styles.item, this.props.index % 2 === 0 ? styles.oddItem : {}]}
       >
-        <View style={styles.iconWrapper}>
-          <Icon {...iconProps} />
+        <View style={styles.itemContent}>
+          <View style={styles.iconWrapper}>
+            <Icon {...iconProps} />
+          </View>
+          <View style={styles.textWrapper}>
+            <Text
+              style={styles.itemText} numberOfLines={1}>
+              {title}
+            </Text>
+            <AnimatableView
+              animation={animationType}
+              easing="ease"
+              duration={100}
+              useNativeDriver
+              iterationCount={1}
+              style={styles.itemDecorLine} />
+          </View>
         </View>
-        <Text style={styles.icon} numberOfLines={1}>
-          {title}
-        </Text>
-      </TouchableOpacity>
+      </TouchableHighlight>
     );
+  }
+
+  private handlUnderlay = (type: string): void => {
+    this.setState({ animationType: type });
   }
 
   private handlePress = (): void => {

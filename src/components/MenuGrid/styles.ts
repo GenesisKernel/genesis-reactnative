@@ -1,34 +1,69 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-import { Colors } from 'components/ui/theme';
+import { Colors, borderRadius, FontSizes } from 'components/ui/theme';
 
 const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  container: {
+  flatList: {
     flex: 1,
-    flexDirection: 'row'
+  },
+  container: {
+    padding: 20,
   },
   item: {
-    width: width / 3,
-    padding: 10,
-    paddingTop: 15,
-    alignItems: 'center'
+    width: (width / 2) - 35,
+    height: 150,
+    backgroundColor: '#fefefe',
+    borderRadius: borderRadius,
+    marginBottom: 20,
+    shadowColor: '#2f303a',
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    elevation: 2,
+    // overflow: 'hidden',
+  },
+  oddItem: {
+    marginRight: 20,
+  },
+  itemContent: {
+    flex: 1,
+    backgroundColor: 'transparent',
   },
   iconWrapper: {
-    backgroundColor: Colors.blue,
-    width: 60,
-    height: 60,
-    borderRadius: 10,
+    backgroundColor: 'transparent',
+    width: '100%',
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10
+    borderBottomColor: '#f6f6f6',
+    borderBottomWidth: 1,
   },
-  icon: {
-    color: '#3f3f4a',
-    fontSize: 16
+  itemText: {
+    color: Colors.dark,
+    fontSize: FontSizes.mediumCommonSize,
+    paddingHorizontal: 10,
   },
-  listItemText: {
-    color: '#6c6c6c'
+  textWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    overflow: 'hidden',
+    borderBottomLeftRadius: borderRadius,
+    borderBottomRightRadius: borderRadius,
+    borderColor: 'transparent',
+    borderBottomWidth: 0
+  },
+  itemDecorLine: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 5,
+    width: '100%',
+    backgroundColor: Colors.green,
   }
 });

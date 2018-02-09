@@ -4,10 +4,9 @@ export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    // marginBottom: 20,
   },
   logo: {
     resizeMode: 'contain',
-    width: '50%',
+    width: '40%',
   }
 });

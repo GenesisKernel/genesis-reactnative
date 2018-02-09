@@ -29,8 +29,9 @@ class MenuGrid extends React.Component<IMenuProps> {
   public render() {
     return (
       <FlatList
-        style={styles.container}
-        numColumns={3}
+        style={styles.flatList}
+        contentContainerStyle={styles.container}
+        numColumns={2}
         data={this.props.menu}
         renderItem={this.renderRow}
         keyExtractor={this.key}
@@ -38,8 +39,9 @@ class MenuGrid extends React.Component<IMenuProps> {
     );
   }
 
-  private key = (item, index) =>
-    `${index}_${item.attr.title}_${item.attr.page}`
+  private key = (item, index) => {
+    return `${index}_${item.attr.title}_${item.attr.page}`
+  }
 
   private renderRow = ({
     item,

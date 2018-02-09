@@ -5,6 +5,7 @@ import {
   NavigationScreenProps
 } from 'react-navigation';
 
+import Logo from 'components/ui/Logo';
 import PageContainer from 'containers/PageContainer';
 import MenuGridContainer from 'containers/MenuGridContainer';
 import PageTitleContainer from 'containers/PageTitleContainer';
@@ -29,6 +30,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
+        <Logo type="black"/>
         <MenuGridContainer pageName={DEFAULT_PAGE} />
       </View>
     );

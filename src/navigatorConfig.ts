@@ -60,7 +60,7 @@ export default StackNavigator(
     [navTypes.SIGN_UP_CONFIRM]: { screen: BackgroundImageHoc(SignUpConfirmScreen) },
     [navTypes.SIGN_UP_WARNING]: { screen: BackgroundImageHoc(SignUpWarningScreen) },
     [navTypes.ACCOUNT_SELECT]: { screen: BackgroundImageHoc(AccountSelectScreen) },
-    [navTypes.HOME]: { screen: HomeScreen },
+    [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreen, 'green') },
     [navTypes.PAGE]: { screen: PageScreen },
     [navTypes.SUB_MENU]: { screen: SubMenuScreen },
     [navTypes.KEY]: { screen: KeyScreen },
@@ -86,7 +86,7 @@ export default StackNavigator(
       // const backgroundColor = isAuthRoute ? '#fff' : '#39393f';
       const backgroundColor = 'transparent';
       const headerTintColor = '#fff';
-      const headerTitleColor = '#fff';
+      const headerTitleColor = isAuthRoute ? '#fff' : Colors.dark;
 
       return {
         headerTintColor,

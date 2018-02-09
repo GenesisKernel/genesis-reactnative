@@ -14,6 +14,7 @@ import NavigatorContainer from 'containers/NavigationContainer';
 import DrawerContentContainer from 'containers/DrawerContentContainer';
 import AlertContainer from 'containers/AlertContainer';
 import StatusBarContainer from 'containers/StatusBarContainer';
+import MainBackgroundImageContainer from 'containers/MainBackgroundImageContainer';
 
 import { URL_PREFIX } from './constants';
 
@@ -27,9 +28,7 @@ export default class App extends React.Component<object, object> {
   public render() {
     return (
       <Provider store={store}>
-        <ImageBackground
-          source={require('../assets/images/bg.png')}
-          style={{ flex: 1 }}>
+        <MainBackgroundImageContainer>
           <StatusBarContainer />
           <AlertContainer />
           <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>
@@ -47,7 +46,7 @@ export default class App extends React.Component<object, object> {
               <NavigatorContainer uriPrefix={URL_PREFIX} />
             </Drawer>
           </IntlProvider>
-        </ImageBackground>
+        </MainBackgroundImageContainer>
       </Provider>
     );
   }

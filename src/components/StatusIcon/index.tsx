@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
+import { Colors } from 'components/ui/theme';
 
 import styles from './styles';
 
@@ -23,7 +24,7 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
         <Icon
           name="hourglass"
           size={22}
-          color="#fff"
+          color={Colors.dark}
           type="simple-line-icon"
           underlayColor="transparent"
           containerStyle={styles.icon}
@@ -44,7 +45,7 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
           <Icon
             name="refresh"
             size={22}
-            color="#fff"
+            color={Colors.dark}
             type="simple-line-icon"
             underlayColor="transparent"
           />

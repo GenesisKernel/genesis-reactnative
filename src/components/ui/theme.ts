@@ -17,7 +17,7 @@ export const FontSizes = {
 export const Colors = {
   blue: '#4d3ebc',
   green: '#3ebc9a',
-  dark: '#39393f',
+  dark: '#231f20',
   white: '#fff',
   dangerRed: '#f03f61',
 };
