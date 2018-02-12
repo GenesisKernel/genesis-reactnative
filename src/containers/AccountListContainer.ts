@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
   notifications: notifications.selectors.getNotifications(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boolean }) => ({
+  noTitle: ownProps.noTitle,
   onSelect: (address: string, ecosystemId: string) =>
     dispatch(receiveSelectedAccount({ address, ecosystemId })),
   onRemove: (accountAddress: string) =>

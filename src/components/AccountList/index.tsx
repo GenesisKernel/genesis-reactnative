@@ -13,6 +13,7 @@ import styles from './styles';
 export interface IAccountListProps {
   accounts: { [id: string]: object };
   ecosystems: { [id: string]: object };
+  noTitle?: boolean | undefined,
   notifications: {
     groupedByEcosystemId: {
       [id: string]: {
@@ -51,7 +52,9 @@ class AccountList extends React.Component<IAccountListProps> {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.loginAs}>Login as</Text>
+        {!this.props.noTitle && (
+          <Text style={styles.loginAs}>Login as</Text>
+        )}
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}

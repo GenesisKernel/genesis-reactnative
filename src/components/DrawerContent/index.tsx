@@ -1,15 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { View, TouchableOpacity, DeviceInfo } from 'react-native';
+import { View, TouchableOpacity, DeviceInfo, TouchableWithoutFeedback } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
+import { View as AnimatableView } from 'react-native-animatable';
 
 import MenuContainer from 'containers/MenuContainer';
 import AccountListContainer from 'containers/AccountListContainer';
 import Button from 'components/ui/Button';
 import Text from 'components/ui/Text';
 import AppVersion from 'components/AppVersion';
+import Logo from 'components/ui/Logo';
+
 import styles from './styles';
+import TransactionsContainer from 'containers/TransactionsContainer';
 
 interface IDrawerContentProps {
   currentAccountAddress: string;
@@ -20,6 +24,7 @@ interface IDrawerContentProps {
 interface IDrawerContentState {
   showAccountList: boolean;
   isIphoneX: boolean;
+  activeTab: string;
 }
 
 const logoutButtonProps = {
@@ -38,6 +43,17 @@ const avatarDefaultProps = {
   size: 32
 };
 
+const tabButtons = [
+  {
+    title: 'Accounts',
+    payload: 'accounts',
+  },
+  {
+    title: 'Transactions',
+    payload: 'transactions',
+  },
+];
+
 class DrawerContent extends React.Component<
   IDrawerContentProps,
   IDrawerContentState
@@ -52,62 +68,76 @@ class DrawerContent extends React.Component<
     this.state = {
       showAccountList: false,
       isIphoneX: DeviceInfo.isIPhoneX_deprecated,
+      activeTab: 'accounts',
     };
   }
 
   public render() {
-    const { isIphoneX } = this.state;
+    const { isIphoneX, activeTab } = this.state;
 
     return (
       <SafeAreaView
         style={styles.container}
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
-          <View style={styles.profile}>
-            <View>
-              <Icon {...avatarDefaultProps} />
-            </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={this.handleTogglePress}
-            >
-              <View style={styles.accountAdress}>
-                <Text style={styles.accountAdressText} numberOfLines={1} ellipsizeMode="middle">
-                  {this.props.currentAccountAddress}
-                </Text>
-                <Icon
-                  name={
-                    this.state.showAccountList
-                      ? 'arrow-drop-up'
-                      : 'arrow-drop-down'
-                  }
-                  size={32}
-                  color="#fff"
-                />
-              </View>
-            </TouchableOpacity>
+          <Logo />
+          <View style={styles.switcher}>
+            {tabButtons.map((item, i) => {
+              return (
+                <TouchableWithoutFeedback
+                  onPress={() => this.handlePressTab(item.payload)}
+                  key={i}>
+                  <View style={styles.switcherButtonWrapper}>
+                    <Text style={styles.switcherButtonTitle}>{item.title}</Text>
+                    <AnimatableView
+                      animation={item.payload === activeTab ? 'fadeIn' : 'fadeOut'}
+                      easing="linear"
+                      duration={150}
+                      useNativeDriver
+                      iterationCount={1}
+                      style={styles.decorLine}/>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            })}
           </View>
-          {!this.state.showAccountList && (
-            <View style={styles.menu}>
-              {/* <MenuContainer /> */}
-            </View>
-          )}
-          {this.state.showAccountList && (
-            <View style={styles.accountList}>
-              <AccountListContainer onSelect={this.handleAccountSelect} />
-            </View>
-          )}
-          <View style={styles.bottomActions}>
-            <AppVersion />
-            <Button
-              containerViewStyle={styles.logoutButton}
-              onPress={this.handleLogoutButtonPress}
-              {...logoutButtonProps}
-            />
-          </View>
+          {activeTab === 'accounts'
+            ? (
+              <AnimatableView
+                easing="linear"
+                duration={250}
+                iterationCount={1}
+                useNativeDriver
+                style={{ flex: 1 }}
+                animation={'fadeIn'}>
+                <AccountListContainer noTitle />
+              </AnimatableView>
+            )
+            : (
+              <AnimatableView
+                easing="linear"
+                duration={250}
+                iterationCount={1}
+                useNativeDriver
+                style={{ flex: 1 }}
+                animation={'fadeOut'}>
+                <TransactionsContainer />
+              </AnimatableView>
+            )
+          }
         </View>
       </SafeAreaView>
     );
+  }
+
+  private handlePressTab = (value: string) => {
+    const { activeTab } = this.state;
+
+    if (value !== activeTab) {
+      this.setState({
+        activeTab: value,
+      });
+    }
   }
 
   private handleTogglePress = () => {

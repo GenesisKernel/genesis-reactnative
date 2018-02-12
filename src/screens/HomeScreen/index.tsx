@@ -24,7 +24,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     headerBackTitle: null,
     gesturesEnabled: false,
     headerLeft: <DrawerButtonContainer />,
-    headerRight: <View style={styles.iconsContainer}><StatusIconContainer /><NotificationsIconContainer /></View>
+    headerRight: <View style={styles.iconsContainer}><NotificationsIconContainer /></View>
   })
 
   public render() {

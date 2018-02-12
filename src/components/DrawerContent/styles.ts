@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from 'components/ui/theme';
+import { Colors, FontSizes } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -9,12 +9,12 @@ export default StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
     justifyContent: 'space-between',
-    backgroundColor: Colors.blue,
+    backgroundColor: 'transparent',
     paddingTop: 20
   },
   insetContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
   },
   profile: {
     padding: 10,
@@ -54,5 +54,30 @@ export default StyleSheet.create({
     margin: 0,
     minWidth: 100,
     marginVertical: 0
+  },
+  switcher: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  switcherButtonWrapper: {
+    paddingHorizontal: 20,
+    marginHorizontal: 7.5,
+  },
+  switcherButtonTitle: {
+    fontSize: FontSizes.smallCommonSize,
+    color: Colors.white,
+    marginBottom: 5,
+  },
+  decorLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: Colors.green,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   }
 });
