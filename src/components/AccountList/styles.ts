@@ -67,4 +67,37 @@ export default StyleSheet.create({
     fontSize: 14,
     color: Colors.white,
   },
+  avatar: {
+    width: 60,
+    height: 60,
+  },
+  avatarImageWrapper: {
+    width: 40,
+    height: 40,
+    borderRadius: 180,
+    position: 'relative',
+    top: 10,
+    left: 10,
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    flex: 1,
+  },
+  notificationCircle: {
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    backgroundColor: Colors.green,
+    borderRadius: 180,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 123,
+    top: 5,
+    right: 5,
+  },
+  notificationText: {
+    color: Colors.white,
+    fontSize: FontSizes.smallCommonSize,
+  }
 });

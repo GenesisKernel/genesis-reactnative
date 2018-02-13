@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, ScrollView, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 
@@ -53,7 +53,20 @@ class Row extends React.Component<IRow> {
             style={styles.decorStick} />
 
           <Field style={styles.rowContainer}>
-            <Icon {...avatarDefaultProps} />
+            {/* <Icon {...avatarDefaultProps} /> */}
+            <View style={styles.avatar}>
+              {/* {notificationsCount && ( */}
+                <View style={styles.notificationCircle}>
+                  <Text style={styles.notificationText}>{/*notificationsCount.toString() ||*/ '5'}</Text>
+                </View>
+              {/* )} */}
+              <View style={styles.avatarImageWrapper}>
+                <Image
+                  resizeMode="cover"
+                  style={styles.avatarImage}
+                  source={{ uri: `https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png` }}/>
+              </View>
+            </View>
             <View style={styles.rowTextContainer}>
               <Text numberOfLines={1} style={styles.title}>
                 {title}
