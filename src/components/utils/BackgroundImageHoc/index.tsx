@@ -10,8 +10,9 @@ export default (Component: any, type = 'violet') => {
     : require('../../../../assets/images/BgGreen.png');
 
   const WrappedComponent = (props: any) => {
+
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, overflow: 'hidden' }}>
         <Image
           resizeMode="cover"
           style={styles.bgImage}

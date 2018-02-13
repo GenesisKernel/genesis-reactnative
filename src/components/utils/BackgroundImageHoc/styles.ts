@@ -8,7 +8,8 @@ export default StyleSheet.create({
     position: 'absolute',
     top: -headerHeight,
     left: 0,
-    width: '100%',
-    height: height + headerHeight,
+    right: 0,
+    bottom: 0,
+    height: height + headerHeight
   }
 });
