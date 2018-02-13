@@ -10,6 +10,7 @@ import styles from './styles';
 export interface IAnimatedDrawerProps {
   children: any,
   isAuthRoute: boolean;
+  isAuthenticated: boolean;
 }
 
 export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerProps, {animationToggler: number}> {
@@ -32,7 +33,7 @@ export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerP
       }),
     } : {};
 
-    const { isAuthRoute } = this.props;
+    const { isAuthRoute, isAuthenticated } = this.props;
 
     return (
       <Drawer
@@ -48,6 +49,7 @@ export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerP
         captureGestures
         useInteractionManager
         tweenHandler={this.gestureCapturer}
+        disabled={!isAuthenticated}
       >
         {!isAuthRoute
           ? (

@@ -20,3 +20,5 @@ export const getCurrentAccountAddress = state => state.auth.currentAccountAddres
 export const getCurrentEcosystemId = state => state.auth.currentEcosystemId;
 
 export const getLastLoggedAccount = state => state.auth.lastLoggedAccount || null;
+
+export const getAuthStatus = state => state.auth.isAuthenticated;

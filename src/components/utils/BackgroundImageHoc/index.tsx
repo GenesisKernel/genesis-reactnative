@@ -12,7 +12,7 @@ export default (Component: any, type = 'violet') => {
   const WrappedComponent = (props: any) => {
 
     return (
-      <View style={{ flex: 1, overflow: 'hidden' }}>
+      <View style={{ flex: 1 }}>
         <Image
           resizeMode="cover"
           style={styles.bgImage}
