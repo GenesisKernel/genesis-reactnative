@@ -13,6 +13,7 @@ import AlertContainer from 'containers/AlertContainer';
 import StatusBarContainer from 'containers/StatusBarContainer';
 import MainBackgroundImageContainer from 'containers/MainBackgroundImageContainer';
 import AnimatedDrawerContainer from 'containers/AnimatedDrawerContainer';
+import NestedContractSigningModal from 'containers/NestedContractSigningModal';
 import Text from 'components/ui/Text';
 
 import { URL_PREFIX } from './constants';
@@ -26,6 +27,7 @@ export default class App extends React.Component<{},{}> {
         <MainBackgroundImageContainer backgroundImage="violet">
           <StatusBarContainer />
           <AlertContainer />
+          <NestedContractSigningModal />
           <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>
             <AnimatedDrawerContainer>
               <NavigatorContainer

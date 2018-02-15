@@ -36,7 +36,8 @@ export interface IState {
   };
   channelSubscribedAccounts: {
     [addres: string]: boolean;
-  }
+  };
+  nestedContractModalData: object | null;
 }
 
 export const initialState: IState = {
@@ -48,7 +49,8 @@ export const initialState: IState = {
   history: [],
   network: {
     pending: false
-  }
+  },
+  nestedContractModalData: null,
 };
 
 export default reducerWithInitialState<IState>(initialState)
@@ -118,4 +120,12 @@ export default reducerWithInitialState<IState>(initialState)
       ...state.channelSubscribedAccounts,
       [payload.accountAddress]: payload.status,
     }
+  }))
+  .case(actions.showNestedContractSigningModal, (state, payload) => ({
+    ...state,
+    nestedContractModalData: payload,
+  }))
+  .case(actions.cancelNestedContractSignin, (state) => ({
+    ...state,
+    nestedContractModalData: null,
   }))

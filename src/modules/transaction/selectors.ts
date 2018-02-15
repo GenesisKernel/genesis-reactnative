@@ -38,3 +38,6 @@ export const hasPendingTransactionByInitiator = (initiator: string) =>
     state => state.transactions,
     items => !isEmpty(filter(isPendingTransactionByInitiator(initiator), items))
   );
+
+
+export const getFullForsign = (state) => state.transactions.fullForsign;

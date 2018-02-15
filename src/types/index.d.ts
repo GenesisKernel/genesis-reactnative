@@ -8,6 +8,7 @@ declare module 'react-native-datepicker';
 declare module 'react-native-popup-dialog';
 declare module 'react-native-root-siblings';
 declare module 'react-native-modal-dropdown';
+declare module 'react-native-modal';
 declare module 'react-native-touch-id';
 declare module 'appcenter';
 declare module 'appcenter-push';

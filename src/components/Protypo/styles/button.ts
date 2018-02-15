@@ -12,7 +12,8 @@ export default (styles: Stylesheet) => {
         padding: 5,
         marginHorizontal: 5,
         paddingVertical: 10,
-        backgroundColor: COLORS.WHITE,
+        // backgroundColor: COLORS.WHITE,
+        backgroundColor: COLORS.BLACK,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'

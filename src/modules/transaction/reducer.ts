@@ -13,6 +13,7 @@ export interface ITransaction {
   meta?: {
     initiator?: string;
   } | null;
+  fullForsign: string;
 }
 
 export interface IState {
@@ -22,6 +23,10 @@ export interface IState {
 const initialState: IState = {};
 
 export default reducerWithInitialState(initialState)
+  .case(actions.confirmNestedContracts, (state, payload) => ({
+    ...state,
+    fullForsign: payload,
+  }))
   .caseWithAction(
     actions.runTransaction.started,
     (state, { payload, meta }) => ({

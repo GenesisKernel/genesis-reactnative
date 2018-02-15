@@ -57,3 +57,7 @@ export const setChannelSubscribtionStatus = actionCreator<{
   accountAddress: string;
   status: boolean;
 }>('SET_CHANNEL_SUBSCRIPTION_STATUS');
+
+export const showNestedContractSigningModal = actionCreator<{}>('SHOW_CONTRACT_SIGNING_MODAL');
+export const confirmNestedContractSignin = actionCreator('CONFIRM_NESTED_CONTRACT_SIGNIN');
+export const cancelNestedContractSignin = actionCreator('CANCEL_NESTED_CONTRACT_SIGNIN');

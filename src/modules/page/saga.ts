@@ -14,10 +14,10 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     try {
       const { data } = yield call(
         api.getContentOfPage,
-        action.payload.name,
+        // action.payload.name,
+        'nested_test',
         action.payload.params
       );
-
       yield put(
         requestPage.done({
           params: action.payload,
