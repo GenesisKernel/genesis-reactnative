@@ -13,7 +13,10 @@ import { getFullForsign } from './selectors';
 class StatusError extends Error {}
 export interface IPrepareData {
   forsign: string;
-  signs?: object[];
+  signs?: {
+    forsign: string;
+    field: string;
+  }[];
 }
 
 function* getTransactionStatus(hash: string) {
@@ -34,33 +37,36 @@ function* getTransactionStatus(hash: string) {
   }
 }
 
-export function* signsWorker(prepareData: IPrepareData): SagaIterator {
+export function* signsWorker(prepareData: IPrepareData, params: any): SagaIterator {
   let fullForsign = prepareData.forsign;
-
+  const signParams: any = {};
   if (prepareData.signs) {
     for (const el of prepareData.signs) {
-      yield put(applicationActions.showNestedContractSigningModal(el));
+      yield put(applicationActions.showNestedContractSigningModal({ ...el, ...params })); // modal, where user can confirm or cancel signing of nested contracts
 
       const result = yield race({
         confirm: take(applicationActions.confirmNestedContractSignin),
-        cancel: take(applicationActions.cancelNestedContractSignin)
-      })
-
-      console.log(result)
+      });
 
       if(result.confirm) {
-        fullForsign += `,${el.forsign}`;
-        yield put(applicationActions.cancelNestedContractSignin()); // just to close the modal
-      }
-
-      if(result.cancel) {
-        yield put(rejectNestedContract())
-        return;
+        signParams[el.field] = yield call(signNestedContractsWorker, el);
+        fullForsign += `,${signParams[el.field]}`;
+        yield put(applicationActions.hideNestedContractSigningModal());
       }
     }
   }
-  console.log(fullForsign, 'FUUUUL');
-  yield put(confirmNestedContracts(fullForsign));
+  yield put(confirmNestedContracts({ fullForsign, signParams }));
+}
+
+export function* signNestedContractsWorker(sign: { forsign: string } ): SagaIterator {
+  try { // signing nested contract
+    const privateKey = yield select(auth.selectors.getPrivateKey);
+    const signature = yield call(Keyring.sign, sign.forsign, privateKey);
+
+    return signature;
+  } catch(err) {
+    console.error(err, 'ERROR AT => getSignParamsWorker');
+  }
 }
 
 export function* contractWorker(action: Action<any>): SagaIterator {
@@ -71,14 +77,15 @@ export function* contractWorker(action: Action<any>): SagaIterator {
       action.payload.params
     ); // Prepate contract
 
-    yield fork(signsWorker, prepareData);
+    yield fork(signsWorker, prepareData, action.payload.params); // checking if there is nested contracts
+
     const signingResult = yield race({
       valid: take(confirmNestedContracts),
       invalid: take(rejectNestedContract)
     });
 
     if (signingResult.valid) {
-      const fullForsign = yield select(getFullForsign);
+      const { fullForsign, signParams } = yield select(getFullForsign);
       const publicKey = yield select(auth.selectors.getPublicKey);
       const privateKey = yield select(auth.selectors.getPrivateKey);
 
@@ -91,7 +98,8 @@ export function* contractWorker(action: Action<any>): SagaIterator {
           ...action.payload.params,
           signature,
           time: prepareData.time,
-          public: publicKey
+          ...signParams,
+          pubkey: publicKey
         }
       ); // run contract
 
@@ -111,6 +119,7 @@ export function* contractWorker(action: Action<any>): SagaIterator {
       );
     } else {
       console.log('SIGNING CANCELED')
+      yield put(applicationActions.hideNestedContractSigningModal());
     }
   } catch (error) {
     yield put(

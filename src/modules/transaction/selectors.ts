@@ -40,4 +40,9 @@ export const hasPendingTransactionByInitiator = (initiator: string) =>
   );
 
 
-export const getFullForsign = (state) => state.transactions.fullForsign;
+export const getFullForsign = (state) => {
+  return {
+    fullForsign: state.transactions.fullForsign,
+    signParams: state.transactions.signParams
+  }
+};

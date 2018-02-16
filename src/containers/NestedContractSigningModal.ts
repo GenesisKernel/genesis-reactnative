@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import * as applicationActions from 'modules/application/actions';
+import * as transactionActions from 'modules/transaction/actions';
 import NestedContractSigningModal from 'components/NestedContractSigningModal';
 
 const mapStateToProps = (state: { application: { nestedContractModalData: null | {} } }) => {
@@ -11,7 +12,7 @@ const mapStateToProps = (state: { application: { nestedContractModalData: null |
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onConfirm: () => dispatch(applicationActions.confirmNestedContractSignin()),
-    onCancel: () => dispatch(applicationActions.cancelNestedContractSignin())
+    onCancel: () => dispatch(transactionActions.rejectNestedContract())
   }
 }
 

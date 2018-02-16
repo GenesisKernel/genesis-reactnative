@@ -15,7 +15,6 @@ export interface INestedContractSigningModalProps {
 export default class NestedContractSigningModal extends React.Component<INestedContractSigningModalProps, {}> {
   public render() {
     const { nestedContractModalData } = this.props;
-    console.log(nestedContractModalData, '-DATA-');
     return (
       <Modal isVisible={!!nestedContractModalData}>
         <View style={{ flex: 1 }}>

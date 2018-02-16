@@ -25,7 +25,8 @@ const initialState: IState = {};
 export default reducerWithInitialState(initialState)
   .case(actions.confirmNestedContracts, (state, payload) => ({
     ...state,
-    fullForsign: payload,
+    fullForsign: payload.fullForsign,
+    signParams: payload.signParams,
   }))
   .caseWithAction(
     actions.runTransaction.started,

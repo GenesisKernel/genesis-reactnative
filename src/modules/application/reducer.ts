@@ -125,7 +125,7 @@ export default reducerWithInitialState<IState>(initialState)
     ...state,
     nestedContractModalData: payload,
   }))
-  .case(actions.cancelNestedContractSignin, (state) => ({
+  .case(actions.hideNestedContractSigningModal, (state) => ({
     ...state,
     nestedContractModalData: null,
   }))
