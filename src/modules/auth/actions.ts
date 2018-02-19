@@ -37,7 +37,7 @@ export const attachSession = actionCreator<{
   currentAccountAddress: string;
   currentEcosystemId: string;
   publicKey: string;
-  privateKey: string;
+  privateKey?: string;
   token: string;
   refresh: string;
   key_id: string;
@@ -52,4 +52,8 @@ export const refreshSession = actionCreator<{
 }>('REFRESH_SESSION');
 
 export const logout = actionCreator('LOGOUT');
+
 export const saveLastLoggedAccount = actionCreator('SAVE_LAST_LOGGED_ACCOUNT');
+
+export const validatePrivateKey = actionCreator<string>('PRIVATE_KEY_VALID');
+export const setPrivateKeyValidity = actionCreator<boolean>('SET_PRIVATE_KEY_VALIDITY');

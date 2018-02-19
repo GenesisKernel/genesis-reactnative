@@ -11,6 +11,7 @@ export interface IState {
   currentEcosystemId?: string;
   isAuthenticated?: boolean;
   lastLoggedAccount?: object;
+  peivateKeyValid?: boolean;
 }
 
 const initialState: IState = {
@@ -43,4 +44,8 @@ export default reducerWithInitialState(initialState)
     token: paylod.token,
     refresh: paylod.refresh,
     tokenExpiry: generateTime()
+  }))
+  .case(actions.setPrivateKeyValidity, (state, payload) => ({
+    ...state,
+    peivateKeyValid: payload,
   }));

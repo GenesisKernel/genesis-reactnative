@@ -3,9 +3,19 @@ import * as applicationActions from 'modules/application/actions';
 import * as transactionActions from 'modules/transaction/actions';
 import NestedContractSigningModal from 'components/NestedContractSigningModal';
 
-const mapStateToProps = (state: { application: { nestedContractModalData: null | {} } }) => {
+export interface IState {
+  application: {
+    nestedContractModalData: null | {}
+  };
+  auth: {
+    privateKey: string;
+    privateKeyValid: boolean;
+  };
+}
+
+const mapStateToProps = (state: IState) => {
   return {
-    nestedContractModalData: state.application.nestedContractModalData
+    nestedContractModalData: state.application.nestedContractModalData,
   };
 }
 

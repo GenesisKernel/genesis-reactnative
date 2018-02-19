@@ -71,13 +71,16 @@ export function* signNestedContractsWorker(sign: { forsign: string } ): SagaIter
 
 export function* contractWorker(action: Action<any>): SagaIterator {
   try {
+    const privateKeyValid = yield select((state: any) => state.auth.privateKeyValid);
+    if (!privateKeyValid) return;
+
     const { data: prepareData } = yield call(
       api.prepareContract,
       action.payload.contract,
       action.payload.params
     ); // Prepate contract
 
-    yield fork(signsWorker, prepareData, action.payload.params); // checking if there is nested contracts
+    yield fork(signsWorker, prepareData, { ...action.payload.params, ...action.payload.contract }); // checking if there is nested contracts
 
     const signingResult = yield race({
       valid: take(confirmNestedContracts),
