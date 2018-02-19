@@ -40,3 +40,8 @@ export const getChannelSubscribedAccounts = createSelector(
   getApplication,
   application => application.channelSubscribedAccounts,
 );
+
+export const getPrivateKey = createSelector(
+  getApplication,
+  application => application.privateKey,
+);

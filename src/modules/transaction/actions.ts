@@ -20,6 +20,5 @@ export const runTransaction = actionCreator.async<
   },
   string
 >('RUN');
-
+export const setTransactions = actionCreator<{}>('FILTER');
 export const confirmNestedContracts = actionCreator<{ fullForsign: string; signParams: object }>('CONFIRM_NESTED_CONTRACTS');
-export const rejectNestedContract = actionCreator('REJECT_NESTED_CONTRACT');

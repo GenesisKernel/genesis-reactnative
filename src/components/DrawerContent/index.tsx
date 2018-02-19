@@ -79,6 +79,7 @@ class DrawerContent extends React.Component<
       <SafeAreaView
         style={styles.container}
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
+        <Button title="logout" onPress={this.handleLogoutButtonPress}/>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
           <View style={styles.switcher}>

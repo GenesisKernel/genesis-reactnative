@@ -58,7 +58,10 @@ export const setChannelSubscribtionStatus = actionCreator<{
   status: boolean;
 }>('SET_CHANNEL_SUBSCRIPTION_STATUS');
 
-export const showNestedContractSigningModal = actionCreator<{}>('SHOW_CONTRACT_SIGNING_MODAL');
-export const hideNestedContractSigningModal = actionCreator('HIDE_CONTRACT_SIGNING_MODAL');
+export const closeModal = actionCreator('CLOSE_MODAL');
 
-export const confirmNestedContractSignin = actionCreator('CONFIRM_NESTED_CONTRACT_SIGNIN');
+export const confirmModal = actionCreator<{}>('CONFIRM_MODAL');
+
+export const setPrivateKey = actionCreator<{ privateKey: string; expireTime: number; } | null>('SET_PRIVATE_KEY');
+
+export const showModal = actionCreator<{type: string, params?: any}>('SHOW_MODAL');

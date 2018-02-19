@@ -55,7 +55,6 @@ export function* auth(payload: IAuthPayload) {
       token: accountData.token,
       refresh: accountData.refresh,
       publicKey: payload.public,
-      // privateKey: payload.private,
     })
   ); // Save token
 
@@ -246,7 +245,6 @@ export function* switchAccountWorker(action: Action<any>): SagaIterator {
   try {
     const keys = yield all({
       public: select(authSelectors.getPublicKey),
-      // private: select(authSelectors.getPrivateKey)
     });
 
     const account = yield call(auth, {
@@ -302,7 +300,7 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
           token: accountData.token,
           refresh: accountData.refresh,
           publicKey: accountData.public,
-          // privateKey: accountData.private,
+
           key_id: accountData.key_id,
         })
       );
@@ -338,24 +336,6 @@ export function* tokenWorker() {
   }
 }
 
-export function* validatePrivateKeyWorker(action: Action<any>) {
-  const currentAccountAddress = yield select(authSelectors.getCurrentAccountAddress)
-  const currentAccount = yield select(accountSelectors.getAccount(currentAccountAddress));
-
-  const privateKey = yield call(
-    Keyring.decryptAES,
-    currentAccount.encKey,
-    action.payload
-  );
-
-  if (!privateKey || Keyring.KEY_LENGTH !== privateKey.length) {
-    yield put(authActions.setPrivateKeyValidity(false));
-  }
-  else {
-    yield put(authActions.setPrivateKeyValidity(/[a-f0-9]/i.test(privateKey)));
-  }
-}
-
 export function* authSaga(): SagaIterator {
   yield takeEvery(accountActions.createAccount.started, createAccountWorker);
   yield takeEvery(
@@ -378,7 +358,6 @@ export function* authSaga(): SagaIterator {
   );
 
   yield takeEvery(authActions.receiveSelectedAccount, receiveSelectedAccountWorker);
-  yield takeEvery(authActions.validatePrivateKey, validatePrivateKeyWorker);
 }
 
 export default authSaga;

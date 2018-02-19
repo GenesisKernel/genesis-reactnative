@@ -23,11 +23,6 @@ export interface IState {
 const initialState: IState = {};
 
 export default reducerWithInitialState(initialState)
-  .case(actions.confirmNestedContracts, (state, payload) => ({
-    ...state,
-    fullForsign: payload.fullForsign,
-    signParams: payload.signParams,
-  }))
   .caseWithAction(
     actions.runTransaction.started,
     (state, { payload, meta }) => ({
@@ -51,4 +46,8 @@ export default reducerWithInitialState(initialState)
       ...state[payload.params.uuid],
       error: payload.error
     }
+  }))
+  .case(actions.setTransactions, (state, payload) => ({
+    ...state,
+    ...payload,
   }));

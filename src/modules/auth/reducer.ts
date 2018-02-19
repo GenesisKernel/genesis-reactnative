@@ -6,7 +6,6 @@ export interface IState {
   refresh?: string;
   tokenExpiry?: number;
   publicKey?: string;
-  privateKey?: string;
   currentAccountAddress?: string;
   currentEcosystemId?: string;
   isAuthenticated?: boolean;
@@ -45,7 +44,3 @@ export default reducerWithInitialState(initialState)
     refresh: paylod.refresh,
     tokenExpiry: generateTime()
   }))
-  .case(actions.setPrivateKeyValidity, (state, payload) => ({
-    ...state,
-    peivateKeyValid: payload,
-  }));

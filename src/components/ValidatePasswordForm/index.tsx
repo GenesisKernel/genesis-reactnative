@@ -7,9 +7,9 @@ import Button from 'components/ui/Button';
 
 import styles from './styles';
 export interface IValidateFormProps {
-  onCheckPassword: (password: string) => void;
+  onConfirm: (password: string) => void;
+  onClose: () => void;
   title?: string;
-  isVisible: boolean;
 }
 
 export interface IValidateFormState {
@@ -22,35 +22,38 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
   }
 
   public render() {
-    const { title, isVisible } = this.props;
+    const { title } = this.props;
     return (
-      isVisible
-        ?(
-          <View style={styles.container}>
-            <View style={styles.formContainer}>
-              <Text>{title || 'Please confirm your password'}</Text>
-              <Input
-                style={styles.input}
-                onChangeText={this.handlePasswordChange}
-                intl={{
-                  id: 'auth.sign-in.password.placeholder',
-                  defaultMessage: 'Password'
-                }} />
-              <Button
-                onPress={this.handleConfirm}
-                title="Confirm" />
-              <Button title="Cancel" />
-            </View>
-          </View>
-        ) :(null)
+      <View style={styles.container}>
+        <View style={styles.formContainer}>
+          <Text>{title || 'Please confirm your password'}</Text>
+          <Input
+            style={styles.input}
+            onChangeText={this.handlePasswordChange}
+            intl={{
+              id: 'auth.sign-in.password.placeholder',
+              defaultMessage: 'Password'
+            }} />
+          <Button
+            onPress={this.handleConfirm}
+            title="Confirm" />
+          <Button
+            onPress={this.handleClose}
+            title="Cancel" />
+        </View>
+      </View>
     );
   }
 
   private handleConfirm = () => {
     const { password } = this.state;
     if (password) {
-      this.props.onCheckPassword(password);
+      this.props.onConfirm(password);
     }
+  }
+
+  private handleClose = () => {
+    this.props.onClose();
   }
 
   private handlePasswordChange = (value: string) => {

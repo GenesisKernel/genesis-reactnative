@@ -8,8 +8,6 @@ export const getRefreshToken = state => state.auth.refresh;
 
 export const getPublicKey = state => state.auth.publicKey;
 
-export const getPrivateKey = state => state.auth.privateKey;
-
 export const hasValidToken = state =>
   !!getToken(state) && Date.now() < state.auth.tokenExpiry;
 
