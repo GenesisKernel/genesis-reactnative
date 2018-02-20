@@ -39,7 +39,7 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
     if (modal && modal.type) {
       switch(modal.type) {
         case ModalTypes.CONTRACT:
-          return <NestedContractSigningForm {...modal.params} onConfirm={onConfirm} onClose={onClose} />;
+          return <NestedContractSigningForm params={...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         case ModalTypes.PASSWORD:
           return <ValidatePasswordForm  {...modal.params} onConfirm={onConfirm} onClose={onClose}/>
         default:

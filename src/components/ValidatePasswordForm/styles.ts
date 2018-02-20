@@ -13,39 +13,32 @@ export default StyleSheet.create({
   container: {
     height: 400,
   },
-  titlesBlock: {
-    paddingBottom: 20,
-    borderBottomColor: '#DFDFDF',
-    borderBottomWidth: 1,
-  },
+  titlesBlock: {},
   title: {
+    fontSize: FontSizes.titleSize,
+    fontFamily: Fonts.light,
     textAlign: 'center',
-    fontSize: FontSizes.modalTitleSize,
-    fontFamily: Fonts.regular,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   secondaryTitle: {
     fontSize: FontSizes.mediumCommonSize,
     textAlign: 'center',
+    lineHeight: 22
   },
   formContainer: {
-    // flex: 1,
     backgroundColor: Colors.white,
     width: 320,
-    height: 350,
-    // height: height - statusBarHeight - 120,
+    height: 300,
     padding: 15,
     borderRadius: borderRadius,
     position: 'relative',
-    top: ((height - statusBarHeight - 120) / 2) - (350 / 2)
+    top: ((height - statusBarHeight - 120) / 2) - (300 / 2)
   },
   buttonsContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#DFDFDF',
   },
   button: {
     width: (320 - 30 - 15) /2,

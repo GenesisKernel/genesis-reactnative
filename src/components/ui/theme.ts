@@ -5,6 +5,7 @@ export const Fonts = {
   light: 'Lato-Light',
 };
 export const borderRadius = 12;
+export const buttonsBorderRadius = 8;
 
 export const FontSizes = {
   smallCommonSize: 14,
@@ -22,6 +23,7 @@ export const Colors = {
   white: '#fff',
   violet: '#532B83',
   dangerRed: '#f03f61',
+  lightGrey: '#DFDFDF',
 };
 
 export const cancelButton = {

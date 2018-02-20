@@ -53,7 +53,7 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
               style={styles.input}
               onChangeText={this.handlePasswordChange}
               selectionColor="#231f20"
-              placeholderTextColor="#DFDFDF"
+              placeholderTextColor="#ccc"
               placeholder={'Password'}
               secureTextEntry
               intl={{
