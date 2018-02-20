@@ -9,17 +9,22 @@ import styles from './styles';
 interface IInputProps extends TextInputProperties {
   intl: FormattedMessage.MessageDescriptor;
   rightIcon?: string;
+  selectionColor?: string;
+  labelStyle?: object;
 }
 
 const Input: React.SFC<IInputProps> = props => {
-  const { intl, rightIcon, ...inputProps } = props;
+  const { intl, selectionColor, labelStyle, rightIcon, ...inputProps } = props;
 
   return (
     <FormattedMessage {...intl}>
       {(title: string) => {
         return (
           <View style={styles.container}>
-            <Text style={styles.inputLabel}>{title}</Text>
+            <Text
+              style={[styles.inputLabel, labelStyle || {}]}>
+              {title}
+            </Text>
             <TextInput
               {...inputProps}
               style={[
@@ -30,7 +35,7 @@ const Input: React.SFC<IInputProps> = props => {
               ]}
               underlineColorAndroid="transparent"
               autoCapitalize="none"
-              selectionColor="#fff"
+              selectionColor={selectionColor || "#fff"}
             />
             {!!rightIcon && (
               <Icon iconStyle={styles.icon} type="font-awesome" name={rightIcon} />

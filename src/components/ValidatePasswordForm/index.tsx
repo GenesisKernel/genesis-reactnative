@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Text from 'components/ui/Text';
 import Input from 'components/ui/Input';
@@ -14,35 +15,74 @@ export interface IValidateFormProps {
 
 export interface IValidateFormState {
   password?: string | null;
+  scrollEnabled: boolean;
 }
 
 export default class ValidatePasswordForm extends React.Component<IValidateFormProps, IValidateFormState> {
   state = {
     password: null,
+    scrollEnabled: false,
   }
 
   public render() {
     const { title } = this.props;
+    const { scrollEnabled } = this.state;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.formContainer}>
-          <Text>{title || 'Please confirm your password'}</Text>
-          <Input
-            style={styles.input}
-            onChangeText={this.handlePasswordChange}
-            intl={{
-              id: 'auth.sign-in.password.placeholder',
-              defaultMessage: 'Password'
-            }} />
-          <Button
-            onPress={this.handleConfirm}
-            title="Confirm" />
-          <Button
-            onPress={this.handleClose}
-            title="Cancel" />
+      <KeyboardAwareScrollView
+        scrollEnabled={scrollEnabled}
+        onKeyboardWillShow={this.handleKeyboardShow}
+        onKeyboardWillHide={this.handleKeyboardHide}
+        style={styles.scrollContainer}
+        enableOnAndroid
+        keyboardShouldPersistTaps="always"
+      >
+        <View style={styles.container}>
+          <View style={styles.formContainer}>
+            <View style={styles.titlesBlock}>
+              <Text
+                style={styles.title}
+                numberOfLines={1}>
+                {title || 'Password required'}
+              </Text>
+              <Text style={styles.secondaryTitle}>
+                To continue please enter your password.
+            </Text>
+            </View>
+            <Input
+              style={styles.input}
+              onChangeText={this.handlePasswordChange}
+              selectionColor="#231f20"
+              placeholderTextColor="#DFDFDF"
+              placeholder={'Password'}
+              secureTextEntry
+              intl={{
+                id: 'auth.sign-in.password.placeholder',
+                defaultMessage: 'Password'
+              }} />
+
+            <View style={styles.buttonsContainer}>
+              <Button
+                buttonStyle={[styles.button, styles.leftButton]}
+                onPress={this.handleConfirm}
+                title="CONFIRM" />
+              <Button
+                buttonStyle={styles.button}
+                onPress={this.handleClose}
+                title="CANCEL" />
+            </View>
+          </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
+  }
+
+  private handleKeyboardShow = () => {
+    this.setState({ scrollEnabled: true });
+  }
+
+  private handleKeyboardHide = () => {
+    this.setState({ scrollEnabled: false });
   }
 
   private handleConfirm = () => {

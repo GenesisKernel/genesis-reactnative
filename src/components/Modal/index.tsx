@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import NestedContractSigningForm from 'components/NestedContractSigningModal';
 import ValidatePasswordForm from 'components/ValidatePasswordForm';
 import Modal from "react-native-modal";
+import styles from './styles';
 
 export interface IModalProps {
   modal: {
@@ -25,7 +26,9 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
   public render() {
     const { modal } = this.props;
     return (
-      <Modal isVisible={!!modal}>
+      <Modal
+        style={styles.container}
+        isVisible={!!modal}>
         {this.selectModalToRender() || <View></View>}
       </Modal>
     );

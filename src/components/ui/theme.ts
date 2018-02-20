@@ -12,6 +12,7 @@ export const FontSizes = {
   commonSize: 18,
   titleSize: 32,
   smallTitleSize: 28,
+  modalTitleSize: 26,
 };
 
 export const Colors = {
@@ -19,6 +20,7 @@ export const Colors = {
   green: '#3ebc9a',
   dark: '#231f20',
   white: '#fff',
+  violet: '#532B83',
   dangerRed: '#f03f61',
 };
 
