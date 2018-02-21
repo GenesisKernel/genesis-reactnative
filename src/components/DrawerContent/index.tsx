@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { View, TouchableOpacity, DeviceInfo, TouchableWithoutFeedback } from 'react-native';
+import { View, DeviceInfo, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { View as AnimatableView } from 'react-native-animatable';
@@ -25,6 +25,7 @@ interface IDrawerContentState {
   showAccountList: boolean;
   isIphoneX: boolean;
   activeTab: string;
+  showDecor: string;
 }
 
 const logoutButtonProps = {
@@ -69,17 +70,17 @@ class DrawerContent extends React.Component<
       showAccountList: false,
       isIphoneX: DeviceInfo.isIPhoneX_deprecated,
       activeTab: 'accounts',
+      showDecor: 'fadeOut',
     };
   }
 
   public render() {
-    const { isIphoneX, activeTab } = this.state;
+    const { isIphoneX, activeTab, showDecor } = this.state;
 
     return (
       <SafeAreaView
         style={styles.container}
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
-        <Button title="logout" onPress={this.handleLogoutButtonPress}/>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
           <View style={styles.switcher}>
@@ -109,7 +110,7 @@ class DrawerContent extends React.Component<
                 duration={250}
                 iterationCount={1}
                 useNativeDriver
-                style={{ flex: 1 }}
+                style={styles.listContainer}
                 animation={'fadeIn'}>
                 <AccountListContainer noTitle />
               </AnimatableView>
@@ -120,15 +121,40 @@ class DrawerContent extends React.Component<
                 duration={250}
                 iterationCount={1}
                 useNativeDriver
-                style={{ flex: 1 }}
+                style={styles.listContainer}
                 animation={'fadeOut'}>
                 <TransactionsContainer />
               </AnimatableView>
             )
           }
+          <TouchableHighlight
+            style={styles.logoutButton}
+            onShowUnderlay={() => this.handleUnderlay('fadeIn')}
+            onHideUnderlay={() => this.handleUnderlay('fadeOut')}
+            activeOpacity={0.8}
+            underlayColor={`transparent`}
+            onPress={this.handleLogoutButtonPress}
+          >
+            <View style={styles.logoutTextContainer}>
+              <Text style={styles.logoutText}>Logout</Text>
+              <AnimatableView
+                animation={showDecor}
+                easing="linear"
+                duration={100}
+                useNativeDriver
+                iterationCount={1}
+                style={styles.decorStick} />
+            </View>
+          </TouchableHighlight>
         </View>
       </SafeAreaView>
     );
+  }
+
+  private handleUnderlay = (value: string) => {
+    if (this.state.showDecor !== value) {
+      this.setState({ showDecor: value });
+    }
   }
 
   private handlePressTab = (value: string) => {
