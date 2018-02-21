@@ -14,6 +14,7 @@ export interface IAccountListProps {
   accounts: { [id: string]: object };
   ecosystems: { [id: string]: object };
   noTitle?: boolean | undefined,
+  currentAccountAddress: string;
   notifications: {
     groupedByEcosystemId: {
       [id: string]: {
@@ -87,6 +88,7 @@ class AccountList extends React.Component<IAccountListProps> {
           title={getTitle(account, ecosystem)}
           onPress={this.props.onSelect}
           onRemove={this.props.onRemove}
+          currentAccountAddress={this.props.currentAccountAddress}
         />
       </View>
     );

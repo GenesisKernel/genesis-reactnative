@@ -21,13 +21,14 @@ export interface IRow {
   title: string;
   ecosystemId: string;
   notificationsCount?: number;
+  currentAccountAddress: string,
   onPress(address: string, ecosystemId: string): void;
   onRemove(address: string): void;
 }
 
 class Row extends React.Component<IRow> {
   state = {
-    showDecor: false,
+    showDecor: 'fadeOut',
   }
 
   public render() {
@@ -37,15 +38,15 @@ class Row extends React.Component<IRow> {
     return (
       <TouchableHighlight
         style={styles.touchableContainer}
-        onShowUnderlay={this.handlUnderlay}
-        onHideUnderlay={this.handlUnderlay}
+        onShowUnderlay={() => this.handlUnderlay('fadeIn')}
+        onHideUnderlay={() => this.handlUnderlay('fadeOut')}
         activeOpacity={0.8}
         underlayColor={`rgba(62, 188, 154, .15)`} // green
         onPress={this.handleClick}
       >
         <View>
           <AnimatableView
-            animation={showDecor ? 'fadeIn' : 'fadeOut'}
+            animation={showDecor}
             easing="linear"
             duration={100}
             useNativeDriver
@@ -55,11 +56,11 @@ class Row extends React.Component<IRow> {
           <Field style={styles.rowContainer}>
             {/* <Icon {...avatarDefaultProps} /> */}
             <View style={styles.avatar}>
-              {/* {notificationsCount && ( */}
+              {notificationsCount && (
                 <View style={styles.notificationCircle}>
-                  <Text style={styles.notificationText}>{/*notificationsCount.toString() ||*/ '5'}</Text>
+                  <Text style={styles.notificationText}>{'5'}</Text>
                 </View>
-              {/* )} */}
+              )}
               <View style={styles.avatarImageWrapper}>
                 <Image
                   resizeMode="cover"
@@ -81,14 +82,18 @@ class Row extends React.Component<IRow> {
     );
   }
 
-  private handlUnderlay = (): void => {
-    this.setState({
-      showDecor: !this.state.showDecor,
-    });
+  private handlUnderlay = (value: string): void => {
+    if (value !== this.state.showDecor) {
+      this.setState({ showDecor: value });
+    }
   }
 
   private handleClick = (): void => {
-    this.props.onPress(this.props.address, this.props.ecosystemId);
+    const { currentAccountAddress } = this.props;
+
+    if (currentAccountAddress !== this.props.address) {
+      this.props.onPress(this.props.address, this.props.ecosystemId);
+    }
   }
 
   private handleRemove = (): void => {

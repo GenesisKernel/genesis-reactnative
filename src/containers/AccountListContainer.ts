@@ -2,6 +2,8 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { receiveSelectedAccount } from 'modules/auth/actions';
 import AccountList from 'components/AccountList';
+
+import * as auth from 'modules/auth';
 import * as account from 'modules/account';
 import * as ecosystem from 'modules/ecosystem';
 import * as navigator from 'modules/navigator';
@@ -12,6 +14,7 @@ const mapStateToProps = state => ({
   accounts: account.selectors.getAccounts(state),
   ecosystems: ecosystem.selectors.getEcosystems(state),
   notifications: notifications.selectors.getNotifications(state),
+  currentAccountAddress: auth.selectors.getCurrentAccountAddress(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boolean }) => ({
