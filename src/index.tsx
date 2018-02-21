@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import * as CodePush from 'react-native-code-push';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, AppState } from 'react-native';
 
 import * as Push from 'appcenter-push';
 
@@ -18,8 +18,11 @@ import Text from 'components/ui/Text';
 
 import { URL_PREFIX } from './constants';
 
-
 export default class App extends React.Component<{},{}> {
+
+  public componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
 
   public render() {
     return (
@@ -38,12 +41,18 @@ export default class App extends React.Component<{},{}> {
       </Provider>
     );
   }
+
+  private handleAppStateChange = (nextState: string) => {
+    if (nextState === 'active') {
+      CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE });
+    }
+  }
+
 }
 
 AppRegistry.registerComponent('Apla', () =>
   CodePush({
     updateDialog: true,
-    checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
     installMode: CodePush.InstallMode.IMMEDIATE
   })(App)
 );
