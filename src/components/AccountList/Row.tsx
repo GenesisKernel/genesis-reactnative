@@ -53,7 +53,7 @@ class Row extends React.Component<IRow> {
             iterationCount={1}
             style={styles.decorStick} />
 
-          <Field style={styles.rowContainer}>
+          <View style={styles.rowContainer}>
             {/* <Icon {...avatarDefaultProps} /> */}
             <View style={styles.avatar}>
               {notificationsCount && (
@@ -65,7 +65,7 @@ class Row extends React.Component<IRow> {
                 <Image
                   resizeMode="cover"
                   style={styles.avatarImage}
-                  source={{ uri: `https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png` }}/>
+                  source={{ uri: `https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png` }}/>
               </View>
             </View>
             <View style={styles.rowTextContainer}>
@@ -76,7 +76,7 @@ class Row extends React.Component<IRow> {
                 {address}
               </Text>
             </View>
-          </Field>
+          </View>
         </View>
       </TouchableHighlight>
     );

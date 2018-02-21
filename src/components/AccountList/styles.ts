@@ -43,6 +43,7 @@ export default StyleSheet.create({
     paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   decorStick: {
     backgroundColor: Colors.green,
@@ -81,7 +82,8 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   avatarImage: {
-    flex: 1,
+    width: 40,
+    height: 40,
   },
   notificationCircle: {
     position: 'absolute',
