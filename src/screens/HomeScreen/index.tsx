@@ -31,7 +31,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     return (
       <View style={styles.container}>
         <Logo type="black"/>
-        <MenuGridContainer /*pageName={DEFAULT_PAGE}*/ pageName={'nested_test'} />
+        <MenuGridContainer pageName={DEFAULT_PAGE} />
       </View>
     );
   }

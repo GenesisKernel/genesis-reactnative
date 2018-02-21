@@ -14,8 +14,7 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     try {
       const { data } = yield call(
         api.getContentOfPage,
-        // action.payload.name,
-        'nested_test',
+        action.payload.name,
         action.payload.params
       );
       yield put(
