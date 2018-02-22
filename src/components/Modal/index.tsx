@@ -11,6 +11,7 @@ export interface IModalProps {
     type: string;
     params?: any;
   } | null;
+  touchIdSupport: boolean;
   onConfirm: () => void;
   onClose: () => void;
 }
@@ -35,11 +36,11 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
   }
 
   private selectModalToRender = (): any => {
-    const { modal, onConfirm, onClose } = this.props;
+    const { modal, onConfirm, onClose, touchIdSupport } = this.props;
     if (modal && modal.type) {
       switch(modal.type) {
         case ModalTypes.CONTRACT:
-          return <NestedContractSigningForm params={...modal.params} onConfirm={onConfirm} onClose={onClose} />;
+          return <NestedContractSigningForm touchIdSupport={touchIdSupport} params={...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         case ModalTypes.PASSWORD:
           return <ValidatePasswordForm  {...modal.params} onConfirm={onConfirm} onClose={onClose}/>
         default:

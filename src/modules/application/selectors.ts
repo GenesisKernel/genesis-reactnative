@@ -6,6 +6,8 @@ export const getApplication = state => state.application;
 
 export const isVDEMode = state => state.application.isVDEMode;
 
+export const getTouchIdStatus = state => state.application.touchIdSupport;
+
 export const getCurrentPageId = createSelector(
   getApplication,
   application => application.currentPageId
