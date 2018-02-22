@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, TouchableHighlight, Image } from 'r
 import { Icon, Avatar } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 
+import { Colors } from 'components/ui/theme';
 import Button from 'components/ui/Button';
 import Text from 'components/ui/Text';
 import Field from 'components/ui/Field';
@@ -21,7 +22,7 @@ export interface IRow {
   title: string;
   ecosystemId: string;
   notificationsCount?: number;
-  currentAccountAddress: string,
+  isLoggedAccount: boolean,
   onPress(address: string, ecosystemId: string): void;
   onRemove(address: string): void;
 }
@@ -33,20 +34,21 @@ class Row extends React.Component<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { title, address, notificationsCount } = this.props;
+    const { title, address, notificationsCount, isLoggedAccount } = this.props;
 
     return (
       <TouchableHighlight
-        style={styles.touchableContainer}
+        disabled={isLoggedAccount}
+        style={[styles.touchableContainer, isLoggedAccount ? { backgroundColor: Colors.underlayGreen } : {}]}
         onShowUnderlay={() => this.handlUnderlay('fadeIn')}
         onHideUnderlay={() => this.handlUnderlay('fadeOut')}
         activeOpacity={0.8}
-        underlayColor={`rgba(62, 188, 154, .15)`} // green
+        underlayColor={Colors.underlayGreen} // green
         onPress={this.handleClick}
       >
         <View>
           <AnimatableView
-            animation={showDecor}
+            animation={!isLoggedAccount ? showDecor : 'fadeIn'}
             easing="linear"
             duration={100}
             useNativeDriver
@@ -89,11 +91,7 @@ class Row extends React.Component<IRow> {
   }
 
   private handleClick = (): void => {
-    const { currentAccountAddress } = this.props;
-
-    if (currentAccountAddress !== this.props.address) {
-      this.props.onPress(this.props.address, this.props.ecosystemId);
-    }
+    this.props.onPress(this.props.address, this.props.ecosystemId);
   }
 
   private handleRemove = (): void => {

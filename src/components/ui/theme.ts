@@ -24,6 +24,7 @@ export const Colors = {
   violet: '#532B83',
   dangerRed: '#f03f61',
   lightGrey: '#DFDFDF',
+  underlayGreen: 'rgba(62, 188, 154, .15)',
 };
 
 export const cancelButton = {

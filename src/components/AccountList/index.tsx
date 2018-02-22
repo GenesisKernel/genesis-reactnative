@@ -88,7 +88,7 @@ class AccountList extends React.Component<IAccountListProps> {
           title={getTitle(account, ecosystem)}
           onPress={this.props.onSelect}
           onRemove={this.props.onRemove}
-          currentAccountAddress={this.props.currentAccountAddress}
+          isLoggedAccount={this.props.currentAccountAddress === account.address}
         />
       </View>
     );
