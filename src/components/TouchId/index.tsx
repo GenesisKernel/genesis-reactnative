@@ -7,33 +7,41 @@ import TouchID from 'react-native-touch-id';
 import styles from './styles';
 
 interface ITouchIdProps {
-  touchIdSupport?: Boolean,
-  iconStyle?: Object,
+  touchIdSupport?: Boolean;
+  iconStyle?: Object;
+  onSuccess?: () => void;
+  onFail?: () => void;
+  reason?: string;
+  CustomButton?: any;
 }
 
 class TouchId extends React.Component<ITouchIdProps> {
 
   render() {
+    const { CustomButton } = this.props;
+
     return (
-      <Icon
-        type="material-icons"
-        name="fingerprint"
-        size={66}
-        {...this.props.iconStyle}
-        onPress={this.handlePrint}
-      />
+      CustomButton
+        ?(
+          CustomButton(this.handlePrint)
+        ) :(
+          <Icon
+            type="material-icons"
+            name="fingerprint"
+            size={66}
+            {...this.props.iconStyle}
+            onPress={this.handlePrint}
+          />
+        )
     );
   }
 
   private handlePrint = (): void => {
-    console.log('there will be saga... probably');
-    TouchID.authenticate().then((r: Object) => {
-      // console.log(r, 'success');
-      Alert.alert(
-        `Button added just for make testing of Face / Touch ID available. Will be removed later.`
-      );
+    const { onSuccess, onFail, reason } = this.props;
+    TouchID.authenticate(reason).then((r: Object) => {
+      onSuccess && onSuccess();
     }).catch((err: Object) => {
-      console.log('error');
+      onFail && onFail();
     })
   }
 }
