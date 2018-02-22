@@ -113,6 +113,26 @@ class DrawerContent extends React.Component<
                 style={styles.listContainer}
                 animation={'fadeIn'}>
                 <AccountListContainer noTitle />
+
+                <TouchableHighlight
+                  style={styles.logoutButton}
+                  onShowUnderlay={() => this.handleUnderlay('fadeIn')}
+                  onHideUnderlay={() => this.handleUnderlay('fadeOut')}
+                  activeOpacity={0.8}
+                  underlayColor={`transparent`}
+                  onPress={this.handleLogoutButtonPress}
+                >
+                  <View style={styles.logoutTextContainer}>
+                    <Text style={styles.logoutText}>Logout</Text>
+                    <AnimatableView
+                      animation={showDecor}
+                      easing="linear"
+                      duration={100}
+                      useNativeDriver
+                      iterationCount={1}
+                      style={styles.decorStick} />
+                  </View>
+                </TouchableHighlight>
               </AnimatableView>
             )
             : (
@@ -127,25 +147,7 @@ class DrawerContent extends React.Component<
               </AnimatableView>
             )
           }
-          <TouchableHighlight
-            style={styles.logoutButton}
-            onShowUnderlay={() => this.handleUnderlay('fadeIn')}
-            onHideUnderlay={() => this.handleUnderlay('fadeOut')}
-            activeOpacity={0.8}
-            underlayColor={`transparent`}
-            onPress={this.handleLogoutButtonPress}
-          >
-            <View style={styles.logoutTextContainer}>
-              <Text style={styles.logoutText}>Logout</Text>
-              <AnimatableView
-                animation={showDecor}
-                easing="linear"
-                duration={100}
-                useNativeDriver
-                iterationCount={1}
-                style={styles.decorStick} />
-            </View>
-          </TouchableHighlight>
+
         </View>
       </SafeAreaView>
     );
