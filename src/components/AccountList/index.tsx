@@ -45,7 +45,11 @@ const getTitle = (account: any, ecosystem: any) => {
   );
 };
 
-class AccountList extends React.Component<IAccountListProps> {
+class AccountList extends React.Component<IAccountListProps, {isScrollAvailable: boolean}> {
+  state = {
+    isScrollAvailable: true,
+  }
+
   public render() {
     if (isEmpty(this.props.accounts)) {
       return <View style={styles.container} />;
@@ -57,6 +61,7 @@ class AccountList extends React.Component<IAccountListProps> {
           <Text style={styles.loginAs}>Login as</Text>
         )}
         <ScrollView
+          scrollEnabled={this.state.isScrollAvailable}
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
@@ -89,9 +94,13 @@ class AccountList extends React.Component<IAccountListProps> {
           onPress={this.props.onSelect}
           onRemove={this.props.onRemove}
           isLoggedAccount={this.props.currentAccountAddress === account.address}
+          onDisableScroll={this.handlePreventScroll}
         />
       </View>
     );
+  }
+  private handlePreventScroll = (value: boolean) => {
+    this.state.isScrollAvailable !== value && this.setState({ isScrollAvailable: value });
   }
 }
 

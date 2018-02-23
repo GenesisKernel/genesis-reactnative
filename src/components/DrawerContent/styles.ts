@@ -16,32 +16,6 @@ export default StyleSheet.create({
     flex: 1,
     paddingBottom: 70,
   },
-  logoutButton: {
-    position: 'absolute',
-    bottom: 30,
-    alignItems: 'center',
-    width: '100%',
-    height: 25,
-  },
-  logoutTextContainer: {
-    width: 70,
-    height: 25,
-  },
-  decorStick: {
-    backgroundColor: Colors.green,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: 70,
-    height: 2,
-    borderRadius: 3,
-  },
-  logoutText: {
-    color: Colors.white,
-    fontSize: FontSizes.commonSize,
-    textAlign: 'center'
-  },
   insetContainer: {
     flex: 1,
     backgroundColor: 'transparent',

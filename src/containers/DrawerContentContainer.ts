@@ -7,7 +7,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  logout: () => dispatch(auth.actions.logout()),
   switchAccount: (accountAdress: string, ecosystemId: string) =>
     dispatch(auth.actions.switchAccount.started({ accountAdress, ecosystemId }))
 });

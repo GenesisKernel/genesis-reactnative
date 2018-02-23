@@ -17,7 +17,6 @@ import TransactionsContainer from 'containers/TransactionsContainer';
 
 interface IDrawerContentProps {
   currentAccountAddress: string;
-  logout: () => void;
   switchAccount: (accountAdress: string, ecosystemId: string) => void;
 }
 
@@ -27,13 +26,6 @@ interface IDrawerContentState {
   activeTab: string;
   showDecor: string;
 }
-
-const logoutButtonProps = {
-  intl: {
-    id: 'logout',
-    defaultMessage: 'Logout'
-  }
-};
 
 const avatarDefaultProps = {
   iconStyle: {
@@ -113,26 +105,6 @@ class DrawerContent extends React.Component<
                 style={styles.listContainer}
                 animation={'fadeIn'}>
                 <AccountListContainer noTitle />
-
-                <TouchableHighlight
-                  style={styles.logoutButton}
-                  onShowUnderlay={() => this.handleUnderlay('fadeIn')}
-                  onHideUnderlay={() => this.handleUnderlay('fadeOut')}
-                  activeOpacity={0.8}
-                  underlayColor={`transparent`}
-                  onPress={this.handleLogoutButtonPress}
-                >
-                  <View style={styles.logoutTextContainer}>
-                    <Text style={styles.logoutText}>Logout</Text>
-                    <AnimatableView
-                      animation={showDecor}
-                      easing="linear"
-                      duration={100}
-                      useNativeDriver
-                      iterationCount={1}
-                      style={styles.decorStick} />
-                  </View>
-                </TouchableHighlight>
               </AnimatableView>
             )
             : (
@@ -178,12 +150,6 @@ class DrawerContent extends React.Component<
   private handleAccountSelect = (accountAdress: string, ecosystemId: string) => {
     this.context.drawer.close(() => {
       this.props.switchAccount(accountAdress, ecosystemId);
-    });
-  }
-
-  private handleLogoutButtonPress = () => {
-    this.context.drawer.close(() => {
-      this.props.logout();
     });
   }
 }

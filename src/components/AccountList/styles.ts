@@ -6,7 +6,10 @@ export default StyleSheet.create({
     flex: 1,
   },
   touchableContainer: {
-    marginBottom: 10,
+    shadowColor: 'transparent',
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0
   },
   scrollView: {},
   loginAs: {
@@ -53,7 +56,8 @@ export default StyleSheet.create({
     bottom: 0,
     width: 5,
     height: 70,
-    borderRadius: 3,
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
   },
   rowTextContainer: {
     flex: 1,
