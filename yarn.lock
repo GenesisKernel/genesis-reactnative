@@ -4119,9 +4119,9 @@ react-native-modal-dropdown@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-0.5.0.tgz#f6c4cd4d077792e56902b43b14d83959f5f40f46"
 
-react-native-modal@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-5.0.0.tgz#d9a056e68a985678d9545fce38dcc1ac3299ba31"
+react-native-modal@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-5.0.1.tgz#469f83048de76121e043820af864cb4a6330661f"
   dependencies:
     prop-types "15.6.0"
     react-native-animatable "^1.2.4"
