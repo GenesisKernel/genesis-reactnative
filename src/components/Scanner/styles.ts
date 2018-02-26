@@ -5,6 +5,11 @@ export default StyleSheet.create({
   container: {
     flex: 1
   },
+  buttonsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 30,
+  },
   cameraContainer: {
     flex: 1,
     flexDirection: 'row'
@@ -58,12 +63,24 @@ export default StyleSheet.create({
     fontSize: FontSizes.commonSize
   },
   cancelButton: {
-    backgroundColor: '#FFF',
+    backgroundColor: Colors.white,
     borderWidth: 1,
     width: '100%',
   },
   cancelButtonText: {
     color: Colors.dark,
+  },
+  scanAgainButton: {
+    backgroundColor: Colors.blue,
+  },
+  scanAgainButtonText: {
+    color: Colors.white,
+  },
+  existedCodeButton: {
+    backgroundColor: Colors.green,
+  },
+  existedCodeButtonText: {
+    color: Colors.white,
   },
   qrContainer: {
     padding: 30,

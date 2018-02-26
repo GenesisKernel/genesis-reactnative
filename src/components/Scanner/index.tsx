@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { FormattedMessage } from 'react-intl';
 import Camera from 'react-native-camera';
@@ -19,35 +19,92 @@ const cancelTitle = {
   defaultMessage: "CANCEL",
 };
 
-class Scanner extends React.Component<ISignUpProps, object> {
+const useExistedCodeTitle = {
+  id: 'auth.type.useExistedCode',
+  defaultMessage: "USE EXISTED CODE",
+};
+
+const scanAgainTitle = {
+  id: 'auth.type.scanAgain',
+  defaultMessage: "SCAN AGAIN",
+};
+
+class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
+
+  state = {
+    qrCode: null,
+  }
+
   public render() {
+    const { qrCode } = this.state;
+
     return (
       <View style={styles.container}>
-        <View style={styles.cameraContainer}>
-          <Camera
-            style={styles.camera}
-            aspect={Camera.constants.Aspect.fill}
-            onBarCodeRead={this.handleBarCodeRead}
-            barCodeTypes={[Camera.constants.BarCodeType.qr]}>
-            <View style={styles.qrContainer}>
-              <View style={styles.qrFrameWrapper}>
-                <ScannerFrame />
-              </View>
-              <Button
-                onPress={this.handleCancelButton}
-                buttonStyle={styles.cancelButton}
-                textStyle={styles.cancelButtonText}
-                intl={cancelTitle}
-              />
+        {
+          qrCode === null ? (
+            <View style={styles.cameraContainer}>
+              <Camera
+                style={styles.camera}
+                aspect={Camera.constants.Aspect.fill}
+                onBarCodeRead={this.handleBarCodeRead}
+                barCodeTypes={[Camera.constants.BarCodeType.qr]}>
+                <View style={styles.qrContainer}>
+                  <View style={styles.qrFrameWrapper}>
+                    <ScannerFrame />
+                  </View>
+                  <Button
+                    onPress={this.handleCancelButton}
+                    buttonStyle={styles.cancelButton}
+                    textStyle={styles.cancelButtonText}
+                    intl={cancelTitle}
+                  />
+                </View>
+              </Camera>
             </View>
-          </Camera>
-        </View>
+          )
+            : (
+              <ImageBackground
+                source={require('../../../assets/images/bg.png')}
+                style={styles.buttonsContainer}>
+                <Button
+                  onPress={this.enableScanner}
+                  buttonStyle={styles.scanAgainButton}
+                  textStyle={styles.scanAgainButtonText}
+                  intl={scanAgainTitle}
+                />
+                <Button
+                  onPress={this.goToSignInScreen}
+                  buttonStyle={styles.existedCodeButton}
+                  textStyle={styles.existedCodeButtonText}
+                  intl={useExistedCodeTitle}
+                />
+                <Button
+                  onPress={this.handleCancelButton}
+                  buttonStyle={styles.cancelButton}
+                  textStyle={styles.cancelButtonText}
+                  intl={cancelTitle}
+                />
+              </ImageBackground>
+            )
+        }
       </View>
     );
   }
 
-  private handleBarCodeRead = (payload: object) => {
-    this.props.onScan(payload.data);
+  private handleBarCodeRead = (payload: object): void => {
+    if (payload.data !== this.state.qrCode) {
+      this.setState({ qrCode: payload.data }, () => {
+        this.props.onScan(payload.data);
+      });
+    }
+  }
+
+  private goToSignInScreen = (): void => {
+    this.props.onScan(this.state.qrCode);
+  }
+
+  private enableScanner = (): void => {
+    this.setState({ qrCode: null });
   }
 
   private handleCancelButton = () => {

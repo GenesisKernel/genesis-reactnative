@@ -7,7 +7,7 @@ const statusBarHeight = getStatusBarHeight();
 
 export default StyleSheet.create({
   container: {
-    height: height - statusBarHeight - 120, // container`s padding *2
+    height: height - statusBarHeight - 100, // container`s padding *2
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },

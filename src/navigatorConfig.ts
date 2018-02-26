@@ -54,7 +54,7 @@ export default StackNavigator(
     [navTypes.AUTH]: { screen: BackgroundImageHoc(AuthTypeScreen)  },
     [navTypes.AUTH_SUCCESSFUL]: { screen: BackgroundImageHoc(AuthSuccessfulScreen) },
     [navTypes.SCANNER]: { screen: ScannerScreen },
-    [navTypes.SIGN_IN]: { screen: SignInScreen },
+    [navTypes.SIGN_IN]: { screen: BackgroundImageHoc(SignInScreen) },
     [navTypes.IMPORT_ACCOUNT]: { screen: BackgroundImageHoc(ImportAccountScreen) },
     [navTypes.SIGN_UP]: { screen: BackgroundImageHoc(SignUpScreen) },
     [navTypes.SIGN_UP_CONFIRM]: { screen: BackgroundImageHoc(SignUpConfirmScreen) },

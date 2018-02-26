@@ -41,8 +41,16 @@ class SignInScreen extends React.Component<IScreenProps, object> {
       >
         {!!privateKey && (
           <View style={styles.notification}>
-            <Row>Private key: {privateKey}</Row>
-            {ecosystemId && privateKey && <Row>Ecosystem: {ecosystemId}</Row>}
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>Private key: </Text>
+              <Text style={styles.text}>{privateKey}</Text>
+            </View>
+            {ecosystemId && privateKey && (
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>Ecosystem: </Text>
+                <Text style={styles.text}>{ecosystemId}</Text>
+              </View>
+            )}
           </View>
         )}
 

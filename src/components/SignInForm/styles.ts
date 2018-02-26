@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { scrollableContainerHeight } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
-
-    // backgroundColor: 'red',
     flex: 1,
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    height: scrollableContainerHeight,
   }
 });

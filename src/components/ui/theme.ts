@@ -1,3 +1,8 @@
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Dimensions } from 'react-native'
+const { width, height } = Dimensions.get('window');
+const statusBarHeight = getStatusBarHeight();
+
 export const Fonts = {
   regular: 'Lato-Regular',
   bold: 'Lato-Bold',
@@ -6,6 +11,7 @@ export const Fonts = {
 };
 export const borderRadius = 12;
 export const buttonsBorderRadius = 8;
+export const scrollableContainerHeight = height - statusBarHeight - 120; // container`s padding *2
 
 export const FontSizes = {
   smallCommonSize: 14,
