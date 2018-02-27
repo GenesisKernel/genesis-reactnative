@@ -74,7 +74,7 @@ class Row extends React.PureComponent<IRow> {
               <View style={styles.avatar}>
                 {notificationsCount && (
                   <View style={styles.notificationCircle}>
-                    <Text style={styles.notificationText}>{'5'}</Text>
+                    <Text style={styles.notificationText}>{notificationsCount.toString()}</Text>
                   </View>
                 )}
                 <View style={styles.avatarImageWrapper}>

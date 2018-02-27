@@ -20,7 +20,7 @@ interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class HomeScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => ({
-    headerTitle: <PageTitleContainer style={navigationOptions.headerTitleStyle} />,
+    headerTitle: /*<PageTitleContainer style={navigationOptions.headerTitleStyle} />*/ ' ',
     headerBackTitle: null,
     gesturesEnabled: false,
     headerLeft: <DrawerButtonContainer />,
