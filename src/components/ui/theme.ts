@@ -11,7 +11,7 @@ export const Fonts = {
 };
 export const borderRadius = 12;
 export const buttonsBorderRadius = 8;
-export const scrollableContainerHeight = height - statusBarHeight - 120; // container`s padding *2
+export const scrollableContainerHeight = height - statusBarHeight - 100;
 
 export const FontSizes = {
   smallCommonSize: 14,

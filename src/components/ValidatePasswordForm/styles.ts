@@ -1,9 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, borderRadius, FontSizes, Fonts } from 'components/ui/theme';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-
-const { width, height } = Dimensions.get('window');
-const statusBarHeight = getStatusBarHeight();
+import { Colors, borderRadius, FontSizes, Fonts, scrollableContainerHeight } from 'components/ui/theme';
 
 export default StyleSheet.create({
   scrollContainer: {
@@ -32,7 +28,7 @@ export default StyleSheet.create({
     padding: 15,
     borderRadius: borderRadius,
     position: 'relative',
-    top: ((height - statusBarHeight - 120) / 2) - (300 / 2)
+    top: (scrollableContainerHeight / 2) - (300 / 2)
   },
   buttonsContainer: {
     width: '100%',

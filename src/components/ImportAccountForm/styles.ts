@@ -1,13 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Fonts, Colors, cancelButton } from '../../components/ui/theme';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-
-const { width, height } = Dimensions.get('window');
-const statusBarHeight = getStatusBarHeight();
+import { Fonts, Colors, cancelButton, scrollableContainerHeight } from '../../components/ui/theme';
 
 export default StyleSheet.create({
   container: {
-    height: height - statusBarHeight - 120, // container`s padding *2
+    height: scrollableContainerHeight,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },

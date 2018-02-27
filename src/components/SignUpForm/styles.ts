@@ -3,7 +3,7 @@ import { Fonts, Colors, scrollableContainerHeight } from '../../components/ui/th
 
 export default StyleSheet.create({
   container: {
-    height:scrollableContainerHeight, // container`s padding *2
+    height: scrollableContainerHeight,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },

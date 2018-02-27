@@ -1,9 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, borderRadius, FontSizes, Fonts } from 'components/ui/theme';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-
-const { width, height } = Dimensions.get('window');
-const statusBarHeight = getStatusBarHeight();
+import { Colors, borderRadius, FontSizes, Fonts, scrollableContainerHeight } from 'components/ui/theme';
 
 
 export default StyleSheet.create({
@@ -16,7 +12,7 @@ export default StyleSheet.create({
   formContainer: {
     backgroundColor: Colors.white,
     width: 320,
-    maxHeight: height - statusBarHeight - 120,
+    maxHeight: scrollableContainerHeight,
     padding: 15,
     borderRadius: borderRadius,
   },

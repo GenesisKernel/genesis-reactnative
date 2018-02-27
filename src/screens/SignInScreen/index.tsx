@@ -5,7 +5,7 @@ import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import KeyboardAwareScrollView from 'components/utils/KeyboardAwareScrollView';
 
 import Text from 'components/ui/Text';
 import SingInFormContainer from 'containers/SingInFormContainer';
@@ -34,11 +34,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
     const { id, ecosystemId, privateKey } = this.props.navigation.state.params;
 
     return (
-      <KeyboardAwareScrollView
-        style={styles.container}
-        enableOnAndroid
-        keyboardShouldPersistTaps="always"
-      >
+      <KeyboardAwareScrollView>
         {!!privateKey && (
           <View style={styles.notification}>
             <View style={styles.textContainer}>

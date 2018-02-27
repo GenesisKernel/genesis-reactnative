@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { View, TextInput } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import KeyboardAwareScrollView from 'components/utils/KeyboardAwareScrollView';
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
-import { Button, Icon } from 'react-native-elements';
-import { FormattedMessage } from 'react-intl';
 
 import ImportAccountFormContainer from 'containers/ImportAccountFormContainer';
-import styles from './styles';
 
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
@@ -20,11 +17,7 @@ class SignUpScreen extends React.Component<IScreenProps, object> {
 
   public render() {
     return (
-      <KeyboardAwareScrollView
-        style={styles.container}
-        enableOnAndroid
-        keyboardShouldPersistTaps="always"
-      >
+      <KeyboardAwareScrollView>
         <ImportAccountFormContainer goBack={this.props.navigation.goBack} />
       </KeyboardAwareScrollView>
     );
