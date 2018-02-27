@@ -1637,8 +1637,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.apla;
 				PRODUCT_NAME = Apla;
-				PROVISIONING_PROFILE = "b4451b1b-0185-4548-92ee-cb7d882f117f";
-				PROVISIONING_PROFILE_SPECIFIER = "Apla Ad Hoc";
+				PROVISIONING_PROFILE = "d6c8f9c2-4f11-4ea5-95d2-feadca14be61";
+				PROVISIONING_PROFILE_SPECIFIER = "Apla App Store";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
