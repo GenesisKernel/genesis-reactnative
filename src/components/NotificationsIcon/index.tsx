@@ -35,7 +35,7 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
           )}
         </AnimatableView>
         <Icon
-          name="bubble"
+          name="flag"
           size={22}
           color={Colors.dark}
           type="simple-line-icon"
