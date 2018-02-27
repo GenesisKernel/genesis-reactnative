@@ -30,7 +30,7 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     const formSubmitResult = yield race({
       success: take(formActionTypes.SET_SUBMIT_SUCCEEDED),
       failure: take(formActionTypes.SET_SUBMIT_FAILED),
-      timeout: call(delay, 3000)
+      timeout: call(delay, 30000)
     });
 
     if (formSubmitResult.failure || formSubmitResult.timeout) {
@@ -63,7 +63,7 @@ export function* pageWorker(action: Action<any>): SagaIterator {
       (yield race({
         success: take(transaction.actions.runTransaction.done),
         failure: take(transaction.actions.runTransaction.failed),
-        timeout: call(delay, 3000)
+        timeout: call(delay, 30000)
       }));
 
     // Stop page loading if transaction was failed

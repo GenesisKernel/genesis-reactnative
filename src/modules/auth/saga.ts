@@ -299,7 +299,7 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
           currentEcosystemId: action.payload.ecosystemId,
           token: accountData.token,
           refresh: accountData.refresh,
-          publicKey: accountData.public,
+          publicKey: accountData.publicKey,
 
           key_id: accountData.key_id,
         })

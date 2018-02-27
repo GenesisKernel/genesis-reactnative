@@ -15,7 +15,10 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onClose: () => dispatch(applicationActions.closeModal()),
-    onConfirm: (payload: any) => dispatch(applicationActions.confirmModal(payload)),
+    onConfirm: (payload: any) => {
+      dispatch(applicationActions.confirmModal(payload))
+      dispatch(applicationActions.closeModal())
+    },
   }
 }
 

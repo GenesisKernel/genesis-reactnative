@@ -114,7 +114,7 @@ class DrawerContent extends React.Component<
                 iterationCount={1}
                 useNativeDriver
                 style={styles.listContainer}
-                animation={'fadeOut'}>
+                animation={'fadeIn'}>
                 <TransactionsContainer />
               </AnimatableView>
             )
