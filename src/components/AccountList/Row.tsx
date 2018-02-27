@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { View, TouchableHighlight, Image } from 'react-native';
-import { Icon, Avatar } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
+import { IAccout } from 'modules/account/reducer';
+
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors } from 'components/ui/theme';
 
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
-import Button from 'components/ui/Button';
 import Text from 'components/ui/Text';
-import Field from 'components/ui/Field';
 import styles from './styles';
 
 
@@ -22,6 +22,7 @@ const avatarDefaultProps = {
 };
 
 export interface IRow {
+  account: IAccout;
   address: string;
   title: string;
   ecosystemId: string;
@@ -42,7 +43,7 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { title, address, notificationsCount, isLoggedAccount } = this.props;
+    const { title, address, notificationsCount, isLoggedAccount, account: { avatar } } = this.props;
 
     return (
       <Swipeable
@@ -53,12 +54,11 @@ class Row extends React.PureComponent<IRow> {
         rightButtons={[<LogoutButtonContainer recenter={this.handleRecenter} />]}
         rightButtonWidth={200}>
         <TouchableHighlight
-          // disabled={isLoggedAccount}
           style={[styles.touchableContainer, isLoggedAccount ? { backgroundColor: Colors.underlayGreen } : {}]}
           onShowUnderlay={() => this.handlUnderlay('fadeIn')}
           onHideUnderlay={() => this.handlUnderlay('fadeOut')}
           activeOpacity={0.8}
-          underlayColor={Colors.underlayGreen} // green
+          underlayColor={Colors.underlayGreen}
           onPress={this.handlePress}
         >
           <View>
@@ -71,7 +71,6 @@ class Row extends React.PureComponent<IRow> {
               style={styles.decorStick} />
 
             <View style={styles.rowContainer}>
-              {/* <Icon {...avatarDefaultProps} /> */}
               <View style={styles.avatar}>
                 {notificationsCount && (
                   <View style={styles.notificationCircle}>
@@ -79,10 +78,16 @@ class Row extends React.PureComponent<IRow> {
                   </View>
                 )}
                 <View style={styles.avatarImageWrapper}>
-                  <Image
-                    resizeMode="cover"
-                    style={styles.avatarImage}
-                    source={{ uri: `https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png` }} />
+                {!!avatar
+                  ? (
+                      <Image
+                        resizeMode="cover"
+                        style={styles.avatarImage}
+                        source={{ uri: avatar }}
+                      />
+                    )
+                  : ( <Icon size={40} {...avatarDefaultProps} /> )
+                }
                 </View>
               </View>
               <View style={styles.rowTextContainer}>

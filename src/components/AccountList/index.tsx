@@ -87,6 +87,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
     return (
       <View key={`${account.address}_${ecosystem.id}`}>
         <Row
+          account={account}
           address={account.address}
           ecosystemId={ecosystem.id}
           notificationsCount={notificationsCount}
