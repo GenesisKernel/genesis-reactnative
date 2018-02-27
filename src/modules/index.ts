@@ -26,7 +26,7 @@ export function* rootSaga() {
   yield all([
     application.saga(),
     auth.saga(),
-    // notifications.saga(),
+    notifications.saga(),
     page.saga(),
     transaction.saga(),
     ecosystem.saga(),
@@ -43,5 +43,5 @@ export default {
   navigation: navigator.reducer,
   transactions: transaction.reducer,
   form: formReducer,
-  // notifications: notifications.reducer,
+  notifications: notifications.reducer,
 };

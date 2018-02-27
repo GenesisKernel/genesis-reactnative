@@ -157,5 +157,5 @@ export default {
 
   updateNotifications: (payload: object) =>
     api.post('/updnotificator', payload),
-  getAvatarAndUsername: (session: string, id: string) => api.get(`row/member/${id}?columns='avatar,username'&vde=false`, session),
+  getAvatarAndUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='avatar,member_name'`, session),
 };

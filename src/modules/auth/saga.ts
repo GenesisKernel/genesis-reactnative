@@ -25,8 +25,8 @@ interface IAuthPayload {
   private: string;
   public: string;
   ecosystem: string;
-  // notify_key: string;
-  // timestamp: string;
+  notify_key: string;
+  timestamp: string;
   avatar?: string;
   username?: string;
 }
@@ -71,8 +71,8 @@ export function* auth(payload: IAuthPayload) {
     address: accountData.address,
     publicKey: payload.public,
     ecosystems: [accountData.ecosystem_id],
-    // notify_key: accountData.notify_key,
-    // timestamp: accountData.timestamp,
+    notify_key: accountData.notify_key,
+    timestamp: accountData.timestamp,
   };
 }
 
@@ -291,7 +291,7 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
 
       apiSetToken(accountData.token);
 
-      // const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
+      const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
 
       yield put(
         authActions.attachSession({
@@ -305,16 +305,16 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
         })
       );
 
-      // yield put(accountActions.setAccountUserdata({
-      //   address: accountData.address,
-      //   avatar: avatarAndUsername.data.value.avatar || '',
-      //   username: avatarAndUsername.data.value.username || '',
-      // }));
+      yield put(accountActions.setAccountUserdata({
+        address: accountData.address,
+        avatar: avatarAndUsername.data.value.avatar || '',
+        username: avatarAndUsername.data.value.username || '',
+      }));
 
       yield put(navigatorActions.navigate(navTypes.HOME));
     } else {
       yield put(
-        navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.id, ecosystemId: action.payload.ecosystemId })
+        navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.address, ecosystemId: action.payload.ecosystemId })
       );
     }
   } catch (error) {
