@@ -27,10 +27,12 @@ export default class LogoutButton extends React.Component<ILogoutButtonProps, {}
 
   public render() {
     return (
-      <Button
-        onPress={this.handleLogoutButtonPress}
-        buttonStyle={styles.logoutButton}
-        {...logoutButtonProps} />
+      <View style={styles.container}>
+        <Button
+          onPress={this.handleLogoutButtonPress}
+          buttonStyle={styles.logoutButton}
+          {...logoutButtonProps} />
+      </View>
     )
   }
 
