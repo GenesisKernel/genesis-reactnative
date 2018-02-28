@@ -62,11 +62,13 @@ export default StyleSheet.create({
   switcherButtonWrapper: {
     paddingHorizontal: 20,
     marginHorizontal: 7.5,
+    width: 130,
   },
   switcherButtonTitle: {
-    fontSize: FontSizes.smallCommonSize,
+    fontSize: FontSizes.mediumCommonSize,
     color: Colors.white,
     marginBottom: 5,
+    textAlign: 'center',
   },
   decorLine: {
     flex: 1,
