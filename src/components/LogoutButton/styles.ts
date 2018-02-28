@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     height: 70,
     alignItems: 'flex-start',
-    backgroundColor: 'rgba(62, 188, 154, .45)',
+    backgroundColor: Colors.underlayGreenLessOpacity,
   },
   logoutButton: {
     borderRadius: 0,

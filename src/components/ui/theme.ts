@@ -24,13 +24,15 @@ export const FontSizes = {
 
 export const Colors = {
   blue: '#4d3ebc',
-  green: '#3ebc9a',
-  dark: '#231f20',
+  green: '#3AC28B',
+  dark: '#1C1A1A',
   white: '#fff',
   violet: '#532B83',
-  dangerRed: '#f03f61',
+  dangerRed: '#FA3356',
   lightGrey: '#DFDFDF',
-  underlayGreen: 'rgba(62, 188, 154, .15)',
+  grey: '#717171',
+  underlayGreen: 'rgba(58, 194, 139, .15)',
+  underlayGreenLessOpacity: 'rgba(58, 194, 139, .45)'
 };
 
 export const cancelButton = {
