@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ListItem } from 'react-native-elements';
-import { View, FlatList } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { View, Text, FlatList } from 'react-native';
+import { Colors } from 'components/ui/theme';
 import { pathOr } from 'ramda';
 
-import Protypo from 'components/Protypo';
 import styles from './styles';
 
 const extractError = pathOr('Error executing transaction')([
@@ -28,27 +28,30 @@ const extractStatus = item => {
   if (isFailure(item)) {
     return {
       subtitle: extractError(item),
+      background: Colors.underlayRed,
       icon: {
         name: 'exclamation-circle',
-        color: '#f05050'
+        color: Colors.dangerRed,
       }
     };
   }
   if (isSuccess(item)) {
     return {
       subtitle: 'Imprinted in the blockchain',
+      background: Colors.underlayGreen,
       icon: {
         name: 'check-circle',
-        color: '#27c24c'
+        color: Colors.green,
       }
     };
   }
 
   return {
     subtitle: 'Error',
+    background: Colors.underlayRed,
     icon: {
       name: 'exclamation-circle',
-      color: '#f05050'
+      color: Colors.dangerRed,
     }
   };
 };
@@ -76,15 +79,26 @@ class Transactions extends React.Component<ITransactionsProps> {
     const status = extractStatus(item);
 
     return (
-      <ListItem
-        title={item.contract}
-        hideChevron
-        leftIcon={{
-          ...status.icon,
-          type: 'font-awesome'
-        }}
-        subtitle={status.subtitle}
-      />
+      <View
+        style={[styles.row, { backgroundColor: status.background || 'transparent' }]}>
+        <Icon
+          {...status.icon}
+          size={40}
+          iconStyle={styles.icon}
+          type="font-awesome" />
+        <View style={styles.rowText}>
+          <Text
+            numberOfLines={1}
+            style={styles.title}>
+            {item.contract}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={styles.subtitle}>
+            {status.subtitle}
+          </Text>
+        </View>
+      </View>
     );
   }
 }

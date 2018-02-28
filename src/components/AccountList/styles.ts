@@ -64,12 +64,12 @@ export default StyleSheet.create({
     paddingLeft: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: FontSizes.commonSize,
     color: Colors.white,
     marginBottom: 5,
   },
   subTitle: {
-    fontSize: 14,
+    fontSize: FontSizes.smallCommonSize,
     color: Colors.white,
   },
   avatar: {
