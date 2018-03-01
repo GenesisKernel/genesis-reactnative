@@ -52,7 +52,6 @@ export default class App extends React.Component<{},{}> {
 
 AppRegistry.registerComponent('Apla', () =>
   CodePush({
-    updateDialog: true,
-    installMode: CodePush.InstallMode.IMMEDIATE
+    checkFrequency: CodePush.CheckFrequency.MANUAL
   })(App)
 );
