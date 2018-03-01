@@ -10,8 +10,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   const currentPage = page.selectors.getPage(ownProps.pageName)(state);
 
   return {
-    menu: ownProps.menu || (currentPage && currentPage.menuTree) || [],
-    columnsCount: ownProps.columnsCount,
+    menu: ownProps.menu || (currentPage && currentPage.menuTree) || []
   };
 };
 

@@ -10,34 +10,20 @@ export default StyleSheet.create({
   },
   container: {
     padding: 20,
-  },
-  singleContainer: {
-    padding: 20,
     alignItems: 'center',
   },
+  rowContainer: {
+    maxWidth: 420,
+    height: 150,
+    marginBottom: 20,
+  },
   item: {
-    width: (width / 2) - 35,
+    width: (width / 2) - 30,
     maxWidth: 200,
     height: 150,
     backgroundColor: '#fefefe',
     borderRadius: borderRadius,
-    marginBottom: 20,
     shadowColor: '#2f303a',
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.15,
-    elevation: 2,
-  },
-  singleItem: {
-    width: width - 40,
-    height: 270,
-    backgroundColor: '#fefefe',
-    borderRadius: borderRadius,
-    marginBottom: 20,
-    shadowColor: '#2f303a',
-    maxWidth: 240,
     shadowOffset: {
       width: 1,
       height: 1,
@@ -64,11 +50,6 @@ export default StyleSheet.create({
   itemText: {
     color: Colors.dark,
     fontSize: FontSizes.mediumCommonSize,
-    paddingHorizontal: 10,
-  },
-  singleItemText: {
-    color: Colors.dark,
-    fontSize: FontSizes.commonSize,
     paddingHorizontal: 10,
   },
   textWrapper: {

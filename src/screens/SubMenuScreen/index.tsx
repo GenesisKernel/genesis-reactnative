@@ -31,8 +31,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     return (
       <View style={styles.container}>
         <MenuGridContainer
-          columnsCount={1}
-          menu={this.props.navigation.state.params.menu}  />
+          menu={this.props.navigation.state.params.menu} />
       </View>
     );
   }

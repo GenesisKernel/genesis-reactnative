@@ -20,25 +20,21 @@ const normalizeBoolean = (value: string) => {
 export interface IMenuProps {
   pageName: string;
   menu: object[];
-  columnsCount: number;
 
   receivePageParams(params: any): void;
   navigateToSubMenu(subMenu: any): void;
 }
 
 class MenuGrid extends React.Component<IMenuProps> {
-  static defaultProps = {
-    columnsCount: 2,
-  }
 
   public render() {
-    const { columnsCount } = this.props;
 
     return (
       <FlatList
         style={styles.flatList}
-        contentContainerStyle={columnsCount === 2 ? styles.container : styles.singleContainer}
-        numColumns={this.props.columnsCount}
+        contentContainerStyle={styles.container}
+        numColumns={2}
+        columnWrapperStyle={styles.rowContainer}
         data={this.props.menu}
         renderItem={this.renderRow}
         keyExtractor={this.key}
@@ -63,7 +59,6 @@ class MenuGrid extends React.Component<IMenuProps> {
         title={item.attr.title}
         icon={item.attr.icon}
         index={index}
-        columnsCount={this.props.columnsCount}
       />
     );
   }

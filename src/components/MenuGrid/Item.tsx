@@ -13,7 +13,6 @@ export interface IItemProps {
   index: number;
   title: string;
   icon?: string;
-  columnsCount: number;
 
   onPress(params: any): void;
 }
@@ -27,12 +26,12 @@ class Item extends React.Component<IItemProps> {
   };
 
   public render() {
-    const { title, icon, columnsCount } = this.props;
+    const { title, icon } = this.props;
     const { animationType } = this.state;
     const iconProps = {
       ...extractIconParams(icon),
       color: animationType === 'fadeOut' ? '#000' : '#3ebc9a',
-      size: columnsCount === 2 ? 28 : 44
+      size: 28,
     };
     const wrapperStyle = this.setItemWrapperStyle();
 
@@ -51,7 +50,7 @@ class Item extends React.Component<IItemProps> {
           </View>
           <View style={styles.textWrapper}>
             <Text
-              style={columnsCount === 2 ? styles.itemText : styles.singleItemText}
+              style={styles.itemText}
               numberOfLines={1}>
               {title}
             </Text>
@@ -69,12 +68,7 @@ class Item extends React.Component<IItemProps> {
   }
 
   private setItemWrapperStyle = (): object[] => {
-    const { columnsCount } = this.props;
-    if (columnsCount === 1) {
-      return [styles.singleItem];
-    } else {
-      return [styles.item, this.props.index % 2 === 0 ? styles.oddItem : {}];
-    }
+    return [styles.item, this.props.index % 2 === 0 ? styles.oddItem : {}];
   }
 
   private handlUnderlay = (type: string): void => {
