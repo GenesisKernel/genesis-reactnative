@@ -7,16 +7,21 @@ import styles from './styles';
 export default (Component: any, type = 'violet') => {
   const imagePath = type === 'violet'
     ? require('../../../../assets/images/bg.png')
-    : require('../../../../assets/images/BgGreen.png');
+    // : require('../../../../assets/images/BgGreen.png');
+    : require('../../../../assets/images/newBg.png');
 
   const WrappedComponent = (props: any) => {
 
     return (
       <View style={{ flex: 1 }}>
-        <Image
+        <ImageBackground
           resizeMode="cover"
           style={styles.bgImage}
-          source={imagePath}/>
+          source={imagePath}
+        >
+        <View style={styles.overlay}>
+        </View>
+        </ImageBackground>
           <Component {...props}/>
       </View>
     )

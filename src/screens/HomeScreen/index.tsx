@@ -30,7 +30,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
-        <Logo type="black"/>
+        <Logo type="white"/>
         <MenuGridContainer pageName={DEFAULT_PAGE} />
       </View>
     );

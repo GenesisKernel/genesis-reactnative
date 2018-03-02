@@ -20,7 +20,8 @@ class DrawerButton extends React.Component<object, object> {
       <Icon
         name="menu"
         size={22}
-        color={Colors.dark}
+        // color={Colors.dark}
+        color={Colors.white}
         containerStyle={styles.icon}
         underlayColor="transparent"
         type="simple-line-icon"
