@@ -41,7 +41,8 @@ export interface IState {
     privateKey: string;
     expireTime: number;
   };
-  modalType: null | string,
+  modalType: null | string;
+  drawerOpen: boolean;
 }
 
 export const initialState: IState = {
@@ -56,6 +57,7 @@ export const initialState: IState = {
   },
   privateKey: null,
   modalType: null,
+  drawerOpen: false,
 };
 
 export default reducerWithInitialState<IState>(initialState)
@@ -137,4 +139,8 @@ export default reducerWithInitialState<IState>(initialState)
   .case(actions.setPrivateKey, (state, payload) => ({
     ...state,
     privateKey: payload,
+  }))
+  .case(actions.toggleDrawer, (state,payload: any) => ({
+    ...state,
+    drawerOpen: payload,
   }))

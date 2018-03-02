@@ -9,6 +9,8 @@ import ecosystem from './ecosystem';
 import network from './network';
 import account from './account';
 import navigation from './navigation';
+import appState from './appState';
+import backButton from './hardwareBackButton';
 
 export default function commonSaga() {
   return [
@@ -22,5 +24,7 @@ export default function commonSaga() {
     network(),
     account(),
     navigation(),
+    appState(),
+    backButton(),
   ];
 }

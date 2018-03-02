@@ -11,15 +11,20 @@ export interface IAnimatedDrawerProps {
   children: any,
   isAuthRoute: boolean;
   isAuthenticated: boolean;
+  drawerOpen: boolean;
+  onToggleDrawer: (value: boolean) => void;
 }
 
 export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerProps, {}> {
 
   public render() {
-    const { isAuthRoute, isAuthenticated } = this.props;
+    const { isAuthRoute, isAuthenticated, onToggleDrawer, drawerOpen } = this.props;
 
     return (
       <Drawer
+        onClose={() => onToggleDrawer(false)}
+        onOpen={() => onToggleDrawer(true)}
+        open={drawerOpen}
         type="displace"
         tapToClose
         content={<DrawerContentContainer />}

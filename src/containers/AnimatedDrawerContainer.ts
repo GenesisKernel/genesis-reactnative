@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import { getAuthStatus } from 'modules/auth/selectors';
+import * as applicationActions from 'modules/application/actions';
+
 import AnimatedDrawer from 'components/AnimatedDrawer';
 
 const mapStateToProps = (state: any, ownProps: { children: {} }) => {
@@ -10,8 +12,15 @@ const mapStateToProps = (state: any, ownProps: { children: {} }) => {
     ...ownProps.children,
     isAuthRoute,
     isAuthenticated,
+    drawerOpen: state.application.drawerOpen,
   }
 }
 
-export default connect(mapStateToProps)(AnimatedDrawer);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onToggleDrawer: (value: boolean) => dispatch(applicationActions.toggleDrawer(value)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedDrawer);
 

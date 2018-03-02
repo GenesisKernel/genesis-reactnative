@@ -58,10 +58,12 @@ export const setChannelSubscribtionStatus = actionCreator<{
   status: boolean;
 }>('SET_CHANNEL_SUBSCRIPTION_STATUS');
 
+export const setPrivateKey = actionCreator<{ privateKey: string; expireTime: number; } | null>('SET_PRIVATE_KEY');
+
 export const closeModal = actionCreator('CLOSE_MODAL');
 
 export const confirmModal = actionCreator<{}>('CONFIRM_MODAL');
 
-export const setPrivateKey = actionCreator<{ privateKey: string; expireTime: number; } | null>('SET_PRIVATE_KEY');
-
 export const showModal = actionCreator<{type: string, params?: any}>('SHOW_MODAL');
+
+export const toggleDrawer = actionCreator<boolean>('TOGGLE_DRAWER');

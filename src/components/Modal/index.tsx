@@ -29,6 +29,7 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
     return (
       <Modal
         style={styles.container}
+        onBackButtonPress={this.props.onClose}
         isVisible={!!modal}>
         {this.selectModalToRender() || <View></View>}
       </Modal>

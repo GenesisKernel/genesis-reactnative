@@ -1,4 +1,5 @@
 import TouchID from 'react-native-touch-id';
+import { navTypes } from '../navigatorConfig';
 import { Platform } from 'react-native';
 
 export async function checkTouchIDAvailiability(): Promise<{}> {
@@ -14,4 +15,13 @@ export async function checkTouchIDAvailiability(): Promise<{}> {
     }
   }
   return isSupported;
+}
+
+export const isRouteToCollapseApp = (currentRoute: string): boolean => {
+  const forbiddenRoutes = [navTypes.HOME, navTypes.ACCOUNT_SELECT];
+  if (forbiddenRoutes.indexOf(currentRoute) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
 }

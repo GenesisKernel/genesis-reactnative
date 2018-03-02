@@ -20,10 +20,6 @@ import { URL_PREFIX } from './constants';
 
 export default class App extends React.Component<{},{}> {
 
-  public componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange);
-  }
-
   public render() {
     return (
       <Provider store={store}>
@@ -41,13 +37,6 @@ export default class App extends React.Component<{},{}> {
       </Provider>
     );
   }
-
-  private handleAppStateChange = (nextState: string) => {
-    if (nextState === 'active') {
-      CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE });
-    }
-  }
-
 }
 
 AppRegistry.registerComponent('Apla', () =>

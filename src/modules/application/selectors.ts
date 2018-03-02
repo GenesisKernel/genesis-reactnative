@@ -47,3 +47,8 @@ export const getPrivateKey = createSelector(
   getApplication,
   application => application.privateKey,
 );
+
+export const getDrawerState = createSelector(
+  getApplication,
+  application => application.drawerOpen,
+);
