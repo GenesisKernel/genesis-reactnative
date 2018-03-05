@@ -14,7 +14,6 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     height: height + top,
-    // width: '100%'
     backgroundColor: 'rgba(0,0,0, .47)',
     zIndex: 20,
   },
@@ -24,6 +23,7 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: height + top,
+    height: height,
+    width: '100%',
   }
 });

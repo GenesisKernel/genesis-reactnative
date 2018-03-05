@@ -12,14 +12,10 @@ const generateId = state =>
     application.selectors.getCurrentPageId(state)
   ].join('_');
 
-const mapStateToProps = (state: any, ownProps: any) => {
+const mapStateToProps = (state: any) => {
   let currentPage;
 
-  if (!ownProps.pageName) {
-    currentPage = page.selectors.getCurrentPage(state);
-  } else {
-    currentPage = page.selectors.getPages(state)[ownProps.pageName];
-  }
+  currentPage = page.selectors.getCurrentPage(state);
 
   return {
     id: generateId(state),

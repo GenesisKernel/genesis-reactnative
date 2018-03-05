@@ -4,9 +4,17 @@ import bg from './bg';
 import grid from './grid';
 import panel from './panel';
 import button from './button';
+import alert from './alert';
+
 import { COLORS } from './theme';
 
 const styles = new Stylesheet();
+
+bg(styles);
+grid(styles);
+panel(styles);
+button(styles);
+alert(styles);
 
 styles.addRules({
   ['Span Text']: {
@@ -157,10 +165,5 @@ styles.addRules({
     }
   }
 });
-
-bg(styles);
-grid(styles);
-panel(styles);
-button(styles);
 
 export default styles;

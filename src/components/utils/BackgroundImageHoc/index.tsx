@@ -15,7 +15,7 @@ export default (Component: any, type = 'violet') => {
     return (
       <View style={{ flex: 1 }}>
         <Image
-          resizeMode="cover"
+          resizeMode="contain"
           style={styles.bgImage}
           source={imagePath}
         />

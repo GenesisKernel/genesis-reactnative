@@ -17,7 +17,7 @@ export default class NotificationsScreen extends React.Component<IScreenProps, o
   public render() {
     return (
       <View style={styles.container}>
-        <ProtypoContainer pageName="notifications"/>
+        <ProtypoContainer />
       </View>
     );
   }
@@ -25,6 +25,7 @@ export default class NotificationsScreen extends React.Component<IScreenProps, o
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    padding: 20,
   }
 });
