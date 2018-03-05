@@ -16,6 +16,7 @@ export default StyleSheet.create({
     maxWidth: 420,
     height: 150,
     marginBottom: 20,
+    width: width - 40,
   },
   item: {
     width: (width / 2) - 30,
