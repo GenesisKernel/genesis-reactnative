@@ -2,7 +2,13 @@
 
 ## Setup
 
-`yarn install`
+- IOS:
+  `cd/genesis-reactnative`, `yarn install`. Install Ruby gem following this instructions - `https://rubygems.org/pages/download#formats`. Install Cocoapods using gem `sudo gem install cocoapods`. Run `pod install` in `genesis-reactnative/ios`. Then copy the `AppCenter-Config.plist` file from our private repo `apla-reactnative-private/ios/AppCenter-Config.plist` to `genesis-reactnative/ios/Apla`.
+  Now you are able to run `yarn start -> yarn watch -> react-native run-ios`.
+
+- Android:
+  `cd/genesis-reactnative`, `yarn install`. Create a `variables.gradle` in `/android` folder and copy values from our private repo `/apla-reactnative-private/android/variables.gradle`. Also copy `release.keystore` and `google-services.json` from private repo `apla-reactnative-private/android` to `/android/app` folder.
+  Now you are able to run `yarn start -> yarn watch -> react-native run-android`.
 
 ## Run & Build
 
