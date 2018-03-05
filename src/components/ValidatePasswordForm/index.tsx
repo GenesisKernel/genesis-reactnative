@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, ScrollView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import KeyboardAwareScrollView from 'components/utils/KeyboardAwareScrollView';
 
 import Text from 'components/ui/Text';
 import Input from 'components/ui/Input';
@@ -15,27 +15,19 @@ export interface IValidateFormProps {
 
 export interface IValidateFormState {
   password?: string | null;
-  scrollEnabled: boolean;
 }
 
 export default class ValidatePasswordForm extends React.Component<IValidateFormProps, IValidateFormState> {
   state = {
     password: null,
-    scrollEnabled: false,
   }
 
   public render() {
     const { title } = this.props;
-    const { scrollEnabled } = this.state;
 
     return (
       <KeyboardAwareScrollView
-        scrollEnabled={scrollEnabled}
-        onKeyboardWillShow={this.handleKeyboardShow}
-        onKeyboardWillHide={this.handleKeyboardHide}
         style={styles.scrollContainer}
-        enableOnAndroid
-        keyboardShouldPersistTaps="always"
       >
         <View style={styles.container}>
           <View style={styles.formContainer}>
@@ -75,14 +67,6 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
         </View>
       </KeyboardAwareScrollView>
     );
-  }
-
-  private handleKeyboardShow = () => {
-    this.setState({ scrollEnabled: true });
-  }
-
-  private handleKeyboardHide = () => {
-    this.setState({ scrollEnabled: false });
   }
 
   private handleConfirm = () => {

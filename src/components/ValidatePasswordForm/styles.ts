@@ -1,13 +1,17 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, borderRadius, FontSizes, Fonts, scrollableContainerHeight } from 'components/ui/theme';
 
+const { width } = Dimensions.get('window');
+
 export default StyleSheet.create({
   scrollContainer: {
-    flex: 1,
-    width: 320,
+    padding: 0,
   },
   container: {
-    height: 400,
+    height: scrollableContainerHeight,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   titlesBlock: {},
   title: {
@@ -27,8 +31,6 @@ export default StyleSheet.create({
     height: 300,
     padding: 15,
     borderRadius: borderRadius,
-    position: 'relative',
-    top: (scrollableContainerHeight / 2) - (300 / 2)
   },
   buttonsContainer: {
     width: '100%',

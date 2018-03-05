@@ -11,7 +11,9 @@ export interface IKeyboardAwareViewState {
 export interface IKeyboardAwareViewProps {
   children: any;
   style?: {};
-  scrollViewProps?: KeyboardAwareScrollView;
+  scrollViewProps?: {
+    contentContainerStyle: object;
+  };
 }
 
 
