@@ -36,7 +36,7 @@ export default StyleSheet.create({
   },
   itemContent: {
     flex: 1,
-    backgroundColor: 'transparent',
+    // backgroundColor: 'transparent',
   },
   iconWrapper: {
     backgroundColor: 'transparent',

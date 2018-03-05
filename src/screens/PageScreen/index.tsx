@@ -20,7 +20,8 @@ class PageScreen extends React.Component<IScreenProps, object> {
     headerTitle: (
       <PageTitleContainer style={navigationOptions.headerTitleStyle} />
     ),
-    headerTintColor: Colors.dark,
+    // headerTintColor: Colors.dark,
+    headerTintColor: Colors.white,
     headerRight: <StatusIconContainer />,
     headerBackTitle: null
   });

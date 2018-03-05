@@ -14,14 +14,11 @@ export default (Component: any, type = 'violet') => {
 
     return (
       <View style={{ flex: 1 }}>
-        <ImageBackground
+        <Image
           resizeMode="cover"
           style={styles.bgImage}
           source={imagePath}
-        >
-        <View style={styles.overlay}>
-        </View>
-        </ImageBackground>
+        />
           <Component {...props}/>
       </View>
     )

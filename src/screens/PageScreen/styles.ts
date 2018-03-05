@@ -4,6 +4,6 @@ import { Colors } from 'components/ui/theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: '#fff'
   }
 });

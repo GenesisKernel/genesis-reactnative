@@ -21,7 +21,8 @@ class HomeScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => ({
     headerTitle: <PageTitleContainer style={navigationOptions.headerTitleStyle} />,
     headerBackTitle: null,
-    headerTintColor: Colors.dark,
+    // headerTintColor: Colors.dark,
+    headerTintColor: Colors.white,
     // gesturesEnabled: false,
     // headerLeft: <DrawerButtonContainer />,
     headerRight: <StatusIconContainer />

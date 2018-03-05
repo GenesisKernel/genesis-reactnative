@@ -24,7 +24,8 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
         <Icon
           name="hourglass"
           size={22}
-          color={Colors.dark}
+          // color={Colors.dark}
+          color={Colors.white}
           type="simple-line-icon"
           underlayColor="transparent"
           containerStyle={styles.icon}
