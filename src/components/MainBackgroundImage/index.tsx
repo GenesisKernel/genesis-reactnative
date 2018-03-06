@@ -11,7 +11,7 @@ export default class MainBackgroundImage extends React.PureComponent<IMainBackgr
 
     const imagePath = backgroundImage === 'violet'
       ? require('../../../assets/images/bg.png')
-      : require('../../../assets/images/BgGreen.png');
+      : require('../../../assets/images/newBg.png');
 
     return (
       <ImageBackground
