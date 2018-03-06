@@ -14,7 +14,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   navigateToNotifications: () => {
-    dispatch(page.actions.requestPage.started({ name: 'notifications_testpage' /*notifications*/ }));
+    dispatch(page.actions.requestPage.started({ name: 'notifications' }));
     dispatch(navigator.actions.navigate(navTypes.NOTIFICATIONS));
   }
 });
