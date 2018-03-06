@@ -37,11 +37,9 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
         <Icon
           name="flag"
           size={22}
-          // color={Colors.dark}
           color={Colors.white}
           type="simple-line-icon"
           underlayColor="transparent"
-          containerStyle={styles.icon}
           onPress={navigateToNotifications}
         />
       </View>

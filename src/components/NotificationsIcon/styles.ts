@@ -2,9 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   icon: {
+    padding: 10,
     width: 40,
-    // paddingRight: 10,
-    // paddingLeft: 22
   },
   counter: {
     width: 25,

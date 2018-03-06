@@ -6,7 +6,7 @@ import { Colors } from 'components/ui/theme';
 
 const styles = StyleSheet.create({
   icon: {
-    paddingLeft: 10
+    padding: 10
   }
 });
 
@@ -20,7 +20,6 @@ class DrawerButton extends React.Component<object, object> {
       <Icon
         name="menu"
         size={22}
-        // color={Colors.dark}
         color={Colors.white}
         containerStyle={styles.icon}
         underlayColor="transparent"
