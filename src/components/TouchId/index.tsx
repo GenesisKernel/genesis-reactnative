@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Icon } from 'react-native-elements';
-import { Alert } from 'react-native';
+import { Alert, Platform, Vibration } from 'react-native';
 
+import ReactNativeHaptic from 'react-native-haptic';
 import TouchID from 'react-native-touch-id';
 
 import styles from './styles';
@@ -38,11 +39,22 @@ class TouchId extends React.Component<ITouchIdProps> {
 
   private handlePrint = (): void => {
     const { onSuccess, onFail, reason } = this.props;
+
     TouchID.authenticate(reason).then((r: Object) => {
+      if (Platform.OS === 'android') {
+        Vibration.vibrate([0, 200, 20, 500], false);
+      } else {
+        ReactNativeHaptic.generate('impact');
+      }
       onSuccess && onSuccess();
     }).catch((err: Object) => {
+      if (Platform.OS === 'android') {
+        Vibration.vibrate(200, false);
+      } else {
+        ReactNativeHaptic.generate('notification');
+      }
       onFail && onFail();
-    })
+    });
   }
 }
 

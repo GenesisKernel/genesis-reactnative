@@ -18,7 +18,7 @@ export interface INestedContractSigningModalProps {
 export interface IParams {
   title: string;
   field: string;
-  params: INestedParams[];
+  params?: INestedParams[];
   Amount: string;
   Recipient: string;
 }
@@ -38,11 +38,11 @@ export default class NestedContractSigningForm extends React.Component<INestedCo
             <Text style={styles.secondaryTitle}>{title}</Text>
           </View>
           <ScrollView style={styles.scrollView}>
-            {params.map((item: INestedParams, i: number) => {
+            {/* {params.map((item: INestedParams, i: number) => {
               return (
                 <Row Amount={Amount} Recipient={Recipient} {...item} key={i} index={i}/>
               );
-            })}
+            })} */}
           </ScrollView>
           <View style={styles.buttonsContainer}>
             {!touchIdSupport

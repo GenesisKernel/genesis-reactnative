@@ -18,6 +18,7 @@ import TransactionsContainer from 'containers/TransactionsContainer';
 interface IDrawerContentProps {
   currentAccountAddress: string;
   switchAccount: (accountAdress: string, ecosystemId: string) => void;
+  openModal: () => void;
 }
 
 interface IDrawerContentState {
@@ -75,6 +76,7 @@ class DrawerContent extends React.Component<
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
+          <Button title="test" onPress={this.kek}/>
           <View style={styles.switcher}>
             {tabButtons.map((item, i) => {
               return (
@@ -123,6 +125,10 @@ class DrawerContent extends React.Component<
         </View>
       </SafeAreaView>
     );
+  }
+
+  private kek = () => {
+    this.props.openModal();
   }
 
   private handleUnderlay = (value: string) => {

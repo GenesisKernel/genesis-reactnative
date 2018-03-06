@@ -4100,6 +4100,10 @@ react-native-elements@^0.18.5:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-haptic@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-haptic/-/react-native-haptic-1.0.5.tgz#91fff9233a0eb0a4e420a00c2bf5cf29610946ed"
+
 react-native-image-crop-picker@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.19.0.tgz#ff7d6aaccc3f5e3ed3ad97736be67729727c7024"
