@@ -6,11 +6,8 @@ import {
 } from 'react-navigation';
 
 import Logo from 'components/ui/Logo';
-import PageContainer from 'containers/PageContainer';
 import MenuGridContainer from 'containers/MenuGridContainer';
-import PageTitleContainer from 'containers/PageTitleContainer';
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
-import StatusIconContainer from 'containers/StatusIconContainer';
 import NotificationsIconContainer from 'containers/NotificationsIconContainer';
 import styles from './styles';
 
@@ -20,11 +17,11 @@ interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class HomeScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => ({
-    headerTitle: /*<PageTitleContainer style={navigationOptions.headerTitleStyle} />*/ ' ',
+    headerTitle: ' ',
     headerBackTitle: null,
     gesturesEnabled: false,
     headerLeft: <DrawerButtonContainer />,
-    headerRight: <View style={styles.iconsContainer}><NotificationsIconContainer /></View>
+    headerRight: <NotificationsIconContainer />
   })
 
   public render() {

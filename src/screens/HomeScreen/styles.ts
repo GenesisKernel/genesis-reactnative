@@ -5,8 +5,4 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent'
   },
-  iconsContainer: {
-    flexDirection: 'row',
-    paddingRight: 15,
-  }
 });
