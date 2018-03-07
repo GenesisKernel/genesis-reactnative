@@ -4,7 +4,7 @@ import { takeEvery, put, call, select, take } from 'redux-saga/effects';
 import { receiveQRCode } from 'modules/application/actions';
 import { navigate } from 'modules/navigator/actions';
 import { extractParamsFromLink } from 'utils/link';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 
 export function* qrCodeWorker(action: Action<string>): SagaIterator {
   const { key, ecosystem } = extractParamsFromLink(action.payload);

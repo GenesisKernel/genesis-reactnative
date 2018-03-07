@@ -18,7 +18,7 @@ import * as navigatorActions from 'modules/navigator/actions';
 import { getAccount } from 'modules/account/selectors';
 import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navigateWithReset } from 'modules/navigator/actions';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 
 interface IAuthPayload {

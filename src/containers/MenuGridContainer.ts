@@ -4,7 +4,7 @@ import MenuGrid from 'components/MenuGrid';
 import * as application from 'modules/application';
 import * as page from 'modules/page';
 import * as navigator from 'modules/navigator';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any, ownProps: any) => {
   const currentPage = page.selectors.getPage(ownProps.pageName)(state);

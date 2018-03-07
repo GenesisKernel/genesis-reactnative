@@ -7,7 +7,7 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 import { apiSetToken } from 'utils/api';
 import { checkTouchIDAvailiability } from 'utils/common';
 import { waitForError } from '../sagas/utils';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 import { initStart, initFinish, receiveAlert, checkForTouchID } from './actions';
 
 import * as auth from 'modules/auth';

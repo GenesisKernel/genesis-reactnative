@@ -1,5 +1,5 @@
 import TouchID from 'react-native-touch-id';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 import { Platform } from 'react-native';
 
 export async function checkTouchIDAvailiability(): Promise<{}> {

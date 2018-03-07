@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { navigate } from 'modules/navigator/actions';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 import SignUpWarning from 'components/SignUpWarning';
 

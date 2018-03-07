@@ -7,7 +7,7 @@ import {
 import { Icon } from 'react-native-elements';
 import { pathOr } from 'ramda';
 
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 import Text from 'components/ui/Text';
 import Button from 'components/ui/Button';
 import styles from './styles';

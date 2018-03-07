@@ -4,7 +4,7 @@ import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 import { Colors, Fonts } from '../../components/ui/theme';
 import { Icon } from 'react-native-elements';
 

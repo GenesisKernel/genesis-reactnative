@@ -8,7 +8,7 @@ import * as account from 'modules/account';
 import * as ecosystem from 'modules/ecosystem';
 import * as navigator from 'modules/navigator';
 import * as notifications from 'modules/notifications';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = state => ({
   accounts: account.selectors.getAccounts(state),

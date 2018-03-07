@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 
 import StatusBar from 'components/StatusBar';
 
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any) => {
   const isDrawerOpened = state.application.drawerOpen;

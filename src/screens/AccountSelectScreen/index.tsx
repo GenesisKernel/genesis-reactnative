@@ -10,7 +10,7 @@ import AccountListContainer from 'containers/AccountListContainer';
 import Logo from 'components/ui/Logo';
 import Text from 'components/ui/Text';
 import TouchIdContainer from 'containers/TouchIdContainer';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 import styles from './styles';
 
 const addAccountButtonLabel = {

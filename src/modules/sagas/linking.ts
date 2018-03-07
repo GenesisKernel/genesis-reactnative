@@ -7,7 +7,7 @@ import { extractParamsFromLink } from 'utils/link';
 import { initFinish } from 'modules/application/actions';
 import { navigate } from 'modules/navigator/actions';
 import { URL_PREFIX } from '../../constants';
-import { navTypes } from '../../navigatorConfig';
+import { navTypes } from '../../constants';
 
 const linkingChanel = eventChannel(emitter => {
   const handle = (data: { url: string }) => emitter(data.url);

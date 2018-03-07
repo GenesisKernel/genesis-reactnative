@@ -5,7 +5,7 @@ import { IRootState } from 'modules';
 import { generateSeed } from '../modules/application/actions';
 import { navigate } from 'modules/navigator/actions';
 
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = (state: IRootState) => {
   return {

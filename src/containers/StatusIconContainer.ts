@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import StatusIcon from 'components/StatusIcon';
 import * as page from 'modules/page';
 import * as navigator from 'modules/navigator';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any) => {
   return {

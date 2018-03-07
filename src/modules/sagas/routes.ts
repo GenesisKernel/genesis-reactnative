@@ -4,8 +4,7 @@ import { NavigationStackAction } from 'react-navigation';
 
 import * as page from 'modules/page';
 import { waitForRoute } from './utils';
-import { navTypes } from '../../navigatorConfig';
-import { DEFAULT_PAGE } from '../../constants';
+import { DEFAULT_PAGE, navTypes } from '../../constants';
 
 export function* homeRouteWorker(): SagaIterator {
   yield put(page.actions.requestPage.started({ name: DEFAULT_PAGE }));

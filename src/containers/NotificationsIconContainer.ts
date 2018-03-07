@@ -4,7 +4,7 @@ import { getNotificationsCount } from 'modules/notifications/selectors';
 import NotificationsIcon from 'components/NotificationsIcon';
 import * as navigator from 'modules/navigator';
 import * as page from 'modules/page';
-import { navTypes } from '../navigatorConfig';
+import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any) => {
   return {
