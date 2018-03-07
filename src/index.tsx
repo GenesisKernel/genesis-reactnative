@@ -23,7 +23,7 @@ export default class App extends React.Component<{},{}> {
   public render() {
     return (
       <Provider store={store}>
-        <MainBackgroundImageContainer backgroundImage="violet">
+        <MainBackgroundImageContainer>
           <StatusBarContainer />
           <AlertContainer />
           <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>

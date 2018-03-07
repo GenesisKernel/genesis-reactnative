@@ -76,7 +76,7 @@ class DrawerContent extends React.Component<
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
-          <Button title="test" onPress={this.kek}/>
+          <Button title="test vibration" onPress={this.kek}/>
           <View style={styles.switcher}>
             {tabButtons.map((item, i) => {
               return (

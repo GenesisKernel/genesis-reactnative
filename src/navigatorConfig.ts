@@ -84,11 +84,8 @@ export default StackNavigator(
       const isAuthRoute = navigation.state.routeName.indexOf(NAV.AUTH) !== -1;
 
       const backgroundColor = 'transparent';
-      // const headerTintColor = isAuthRoute ? '#fff' : Colors.dark;
-      // const headerTitleColor = isAuthRoute ? '#fff' : Colors.dark;
-      const headerTintColor = '#fff';
-      const headerTitleColor = '#fff';
-
+      const headerTintColor = isAuthRoute ? '#fff' : Colors.dark;
+      const headerTitleColor = isAuthRoute ? '#fff' : Colors.dark;
 
       return {
         headerTintColor,

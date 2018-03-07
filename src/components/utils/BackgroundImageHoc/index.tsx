@@ -7,8 +7,8 @@ import styles from './styles';
 export default (Component: any, type = 'violet') => {
   const imagePath = type === 'violet'
     ? require('../../../../assets/images/bg.png')
-    // : require('../../../../assets/images/BgGreen.png');
-    : require('../../../../assets/images/newBg.png');
+    : require('../../../../assets/images/BgGreen.png');
+    // : require('../../../../assets/images/newBg.png');
 
   const WrappedComponent = (props: any) => {
 
