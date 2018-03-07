@@ -4,7 +4,7 @@ import {
   StackNavigatorConfig,
   NavigationStackScreenOptions
 } from 'react-navigation';
-import { navTypes } from './constants';
+import { navTypes, NAV } from './constants';
 
 import { Colors, Fonts, FontSizes } from 'components/ui/theme';
 import BackgroundImageHoc from 'components/utils/BackgroundImageHoc';

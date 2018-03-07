@@ -85,27 +85,32 @@
     "ts-jest": "^22.4.1",
     "tslint": "^5.8.0",
     "tslint-react": "^3.2.0",
-    "typescript": "^2.6.1"
+    "typescript": "^2.7.2"
   },
   "jest": {
     "preset": "react-native",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js"
+      "js",
+      "jsx",
+      "json",
+      "node"
     ],
-    "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/",
-      "<rootDir>/lib/"
+      "/node_modules/",
+      "/lib/"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|react-clone-referenced-element)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|static-container|react-native-stylable|react-clone-referenced-element)"
+    ],
+    "roots": [
+      "node_modules",
+      "src"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -116,6 +121,9 @@
         "tsConfigFile": "tsconfig.json"
       }
     },
-    "cacheDirectory": ".jest/cache"
+    "cacheDirectory": ".jest/cache",
+    "setupFiles": [
+      "./test-setup.js"
+    ]
   }
 }
