@@ -1,15 +1,10 @@
-// import { applicationWatcher } from '../saga';
+import { applicationWatcher, persistWorker } from '../saga';
+import { takeEvery, put, call, select, all } from 'redux-saga/effects';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
-
-// jest.mock('../../navigator/reducer');
-
-import {some} from '../files';
 describe('applicationWatcher', () => {
   it('qwe', () => {
-    const iterator = some(12);
-
-    // const iterator = applicationWatcher();
-
-    // expect(iterator.next().value).toEqual({});
-  })
-})
+    const iterator = applicationWatcher();
+    expect(iterator.next().value).toEqual(takeEvery(REHYDRATE, persistWorker));
+  });
+});
