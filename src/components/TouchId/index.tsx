@@ -39,19 +39,19 @@ class TouchId extends React.Component<ITouchIdProps> {
 
   private handlePrint = (): void => {
     const { onSuccess, onFail, reason } = this.props;
-
+    console.log(ReactNativeHaptic, 'ReactNativeHaptic')
     TouchID.authenticate(reason).then((r: Object) => {
       if (Platform.OS === 'android') {
         Vibration.vibrate([0, 200, 20, 500], false);
       } else {
-        ReactNativeHaptic.generate('impact');
+        // ReactNativeHaptic.generate('impact');
       }
       onSuccess && onSuccess();
     }).catch((err: Object) => {
       if (Platform.OS === 'android') {
         Vibration.vibrate(200, false);
       } else {
-        ReactNativeHaptic.generate('notification');
+        // ReactNativeHaptic.generate('notification');
       }
       onFail && onFail();
     });
