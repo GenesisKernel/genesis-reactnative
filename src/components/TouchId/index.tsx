@@ -1,59 +1,140 @@
 import * as React from 'react';
 import { Icon } from 'react-native-elements';
-import { Alert, Platform, Vibration } from 'react-native';
+import { Platform, Vibration, View, TouchableOpacity } from 'react-native';
 
 import ReactNativeHaptic from 'react-native-haptic';
-import TouchID from 'react-native-touch-id';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import Modal from 'react-native-modal';
+import * as Animatable from 'react-native-animatable';
 
+import Text from 'components/ui/Text';
 import styles from './styles';
 
 interface ITouchIdProps {
   touchIdSupport?: Boolean;
   iconStyle?: Object;
   onSuccess?: () => void;
-  onFail?: () => void;
+  onFail?: (payload?: 'withError' | undefined) => void;
   reason?: string;
   CustomButton?: any;
 }
 
-class TouchId extends React.Component<ITouchIdProps> {
+interface ITouchState {
+  dialogActivated: boolean;
+  androidAlertFingerprintDescr: {
+    message: string;
+    key: number;
+  };
+}
+
+class TouchId extends React.Component<ITouchIdProps, ITouchState> {
+  state = {
+    dialogActivated: false,
+    androidAlertFingerprintDescr: {
+      message: 'Scan your fingerprint on the device scanner to continue',
+      key: 112,
+    },
+  }
+
+  public componentWillUnmount() {
+    FingerprintScanner.release();
+  }
 
   render() {
     const { CustomButton } = this.props;
+    const { dialogActivated, androidAlertFingerprintDescr } = this.state;
+    const fingerprintRequestType = Platform.OS === 'android' ? this.androidFingerprintRequest : this.iosFingerprintRequest;
 
     return (
-      CustomButton
-        ?(
-          CustomButton(this.handlePrint)
-        ) :(
-          <Icon
-            type="material-icons"
-            name="fingerprint"
-            size={66}
-            {...this.props.iconStyle}
-            onPress={this.handlePrint}
-          />
-        )
+      <View>
+        <Modal
+          isVisible={dialogActivated}>
+          <View style={styles.modalContainer}>
+            <View style={styles.alertForm}>
+              <Text
+                style={styles.title}>Fingerprint Authentication</Text>
+              <View style={styles.iconDescrContainer}>
+                <Icon
+                  type="material-icons"
+                  name="fingerprint"
+                  size={52}
+                  iconStyle={styles.androidAlertFingerprintIcon}
+                />
+                <Animatable.View
+                  animation="shake"
+                  duration={400}
+                  easing="ease-in-out"
+                  direction="alternate"
+                  iterationCount={1}
+                  key={androidAlertFingerprintDescr.key}
+                  style={styles.descrContainer}>
+                  <Text style={styles.descr}>
+                    {androidAlertFingerprintDescr.message}
+                  </Text>
+                </Animatable.View>
+              </View>
+              <TouchableOpacity
+                onPress={this.cancelFingerprintRequest}
+                style={styles.cancelAuthContainer}>
+                <Text style={styles.cancelAuthText}>CANCEL</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        {
+          CustomButton
+            ? (
+              CustomButton(fingerprintRequestType)
+            ) : (
+              <Icon
+                type="material-icons"
+                name="fingerprint"
+                size={66}
+                {...this.props.iconStyle}
+                onPress={fingerprintRequestType}
+              />
+            )
+        }
+      </View>
     );
   }
 
-  private handlePrint = (): void => {
+  private cancelFingerprintRequest = (): void => {
+    this.setState({ dialogActivated: false }, () => {
+      FingerprintScanner.release();
+    });
+  }
+
+  private iosFingerprintRequest = (): void => {
     const { onSuccess, onFail, reason } = this.props;
-    console.log(ReactNativeHaptic, 'ReactNativeHaptic')
-    TouchID.authenticate(reason).then((r: Object) => {
-      if (Platform.OS === 'android') {
-        Vibration.vibrate([0, 200, 20, 500], false);
-      } else {
-        // ReactNativeHaptic.generate('impact');
-      }
+    FingerprintScanner.authenticate({ description: reason, fallbackEnabled: false })
+    .then((r: any) => {
+      ReactNativeHaptic.generate('impact');
       onSuccess && onSuccess();
-    }).catch((err: Object) => {
-      if (Platform.OS === 'android') {
-        Vibration.vibrate(200, false);
-      } else {
-        // ReactNativeHaptic.generate('notification');
-      }
+    }).catch((err: any) => {
+      ReactNativeHaptic.generate('notification');
       onFail && onFail();
+    });
+  }
+
+  private androidFingerprintRequest = (): void => {
+    const { onSuccess, onFail, reason } = this.props;
+    const request = FingerprintScanner.authenticate({ onAttempt: this.androidFingerprintOnAttempt });
+    this.setState({ dialogActivated: true });
+
+    request.then((r: any) => {
+      Vibration.vibrate([0, 200, 20, 500], false);
+      onSuccess && onSuccess();
+    }).catch((err: any) => {
+      Vibration.vibrate(200, false);
+      onFail && onFail('withError');
+    });
+  }
+
+  private androidFingerprintOnAttempt = (err: { message: string }): void => {
+    this.setState({ androidAlertFingerprintDescr: {
+        message: err.message, key: this.state.androidAlertFingerprintDescr.key + 1
+      }
     });
   }
 }

@@ -1,4 +1,4 @@
-import TouchID from 'react-native-touch-id';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 import { navTypes } from '../constants';
 import { Platform } from 'react-native';
 
@@ -8,7 +8,7 @@ export async function checkTouchIDAvailiability(): Promise<{}> {
     isSupported = false;
   } else {
     try {
-      const check = await TouchID.isSupported();
+      const check = await FingerprintScanner.isSensorAvailable();
       isSupported = true;
     } catch (err) {
       isSupported = false

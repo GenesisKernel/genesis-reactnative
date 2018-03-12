@@ -13,7 +13,7 @@ export interface IModalProps {
   } | null;
   touchIdSupport: boolean;
   onConfirm: () => void;
-  onClose: () => void;
+  onClose: (payload?: 'withError' | undefined) => void;
 }
 
 export const ModalTypes = {

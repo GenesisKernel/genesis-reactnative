@@ -14,10 +14,15 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onClose: () => dispatch(applicationActions.closeModal()),
+    onClose: (payload: 'withError' | undefined) => {
+      if (payload === 'withError') {
+        dispatch(applicationActions.receiveAlert({ title: 'Touch ID error', type: 'error', message: 'Athentication failed, try again after few minutes.' }));
+      };
+      dispatch(applicationActions.closeModal());
+    },
     onConfirm: (payload: any) => {
-      dispatch(applicationActions.confirmModal(payload))
-      dispatch(applicationActions.closeModal())
+      dispatch(applicationActions.confirmModal(payload));
+      dispatch(applicationActions.closeModal());
     },
   }
 }

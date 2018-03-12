@@ -68,3 +68,14 @@
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
+
+# Samsung Fingerprint
+-dontwarn com.samsung.**
+-keep class com.samsung.android.sdk.** { *; }
+-ignorewarnings
+
+# MeiZu Fingerprint
+
+-keep class com.fingerprints.service.** { *; }
+-dontwarn com.fingerprints.service.**
+-ignorewarnings

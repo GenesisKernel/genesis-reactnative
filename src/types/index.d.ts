@@ -9,16 +9,16 @@ declare module 'react-native-popup-dialog';
 declare module 'react-native-root-siblings';
 declare module 'react-native-modal-dropdown';
 declare module 'react-native-modal';
-declare module 'react-native-touch-id';
+declare module 'react-native-status-bar-height';
+declare module 'react-native-swipeable-row';
+declare module 'react-native-haptic';
+declare module 'react-native-fingerprint-scanner';
 declare module 'appcenter';
 declare module 'appcenter-push';
 
 declare module 'redux-persist';
 declare module 'redux-persist/es/storage';
 declare module 'redux-persist/lib/constants';
-declare module 'react-native-status-bar-height';
-declare module 'react-native-swipeable-row';
-declare module 'react-native-haptic';
 
 declare module 'react-native-stylable' {
   export type Rule = {

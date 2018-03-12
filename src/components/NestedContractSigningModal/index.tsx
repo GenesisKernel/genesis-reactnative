@@ -11,7 +11,7 @@ import styles from './styles';
 
 export interface INestedContractSigningModalProps {
   onConfirm: () => void;
-  onClose: () => void;
+  onClose: (payload?: 'withError' | undefined) => void;
   params: IParams;
   touchIdSupport: boolean;
 }
