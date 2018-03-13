@@ -8,20 +8,43 @@ import NotificationsPage from 'components/NotificationsPage';
 import Modal from "react-native-modal";
 import styles from './styles';
 
-export interface IModalProps {
+interface IModal {
   modal: {
     type: string;
     params?: any;
   } | null;
+}
+
+export interface IModalProps extends IModal {
   touchIdSupport: boolean;
   onConfirm: () => void;
   onClose: (payload?: 'withError' | undefined) => void;
 }
 
-export default class CommonModal extends React.Component<IModalProps, {}> {
+const modalAnimationTime = 300;
+
+export default class CommonModal extends React.PureComponent<IModalProps, IModal> {
+  constructor(props: IModalProps) {
+    super(props);
+    this.state = {
+      modal: props.modal,
+    }
+  }
+
+  componentWillReceiveProps(nextProps: IModalProps) {
+    if (this.state.modal !== nextProps.modal) {
+      if (nextProps.modal === null) {
+        setTimeout(() => {
+          this.setState({ modal: nextProps.modal });
+        }, modalAnimationTime);
+      } else {
+        this.setState({ modal: nextProps.modal });
+      }
+    }
+  }
 
   public render() {
-    const { modal, onClose } = this.props;
+    const { onClose, modal } = this.props;
     const isNotificationModal = modal && modal.type && modal.type === ModalTypes.NOTIFICATIONS_PAGE;
 
     return (
@@ -32,14 +55,18 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
         onBackButtonPress={onClose}
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
+        animationInTiming={modalAnimationTime}
+        animationOutTiming={modalAnimationTime}
         isVisible={!!modal}>
-        {this.selectModalToRender() || <View></View>}
+        {this.selectModalToRender()}
       </Modal>
     );
   }
 
   private selectModalToRender = (): any => {
-    const { modal, onConfirm, onClose, touchIdSupport } = this.props;
+    const { onConfirm, onClose, touchIdSupport } = this.props;
+    const { modal } = this.state;
+
     if (modal && modal.type) {
       switch(modal.type) {
         case ModalTypes.CONTRACT:
@@ -49,10 +76,10 @@ export default class CommonModal extends React.Component<IModalProps, {}> {
         case ModalTypes.NOTIFICATIONS_PAGE:
           return <NotificationsPage {...modal.params} onConfirm={onConfirm} onClose={onClose}/>
         default:
-          return null;
+          return <View />;
       }
     } else {
-      return null;
+      return <View />;
     }
   }
 }
