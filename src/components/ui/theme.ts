@@ -36,8 +36,9 @@ export const Colors = {
   grey: '#717171',
 
   underlayGreen: 'rgba(58, 194, 139, .15)',
-  underlayGreenLessOpacity: 'rgba(58, 194, 139, .45)',
   underlayRed: 'rgba(250, 51, 86, .15)',
+  underlayRedLessOpacity: 'rgba(250, 51, 86, .45)',
+  underlayGreenLessOpacity: 'rgba(58, 194, 139, .45)',
 };
 
 export const cancelButton = {

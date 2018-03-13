@@ -1,5 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, Fonts, FontSizes } from '../ui/theme';
+
+const { width } = Dimensions.get('window');
+export const rightButtonsContainerWidth = width - 37.5; // 37.5 - width of drawer content, which is visible when drawer is opened (where is toggleDrawerButton);
+export const rightButtonWidth = rightButtonsContainerWidth / 2; // buttons count;
 
 export default StyleSheet.create({
   container: {
@@ -17,7 +21,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     marginBottom: 10,
-    // paddingLeft: 7,
   },
   buttonContainerStyle: {
     marginVertical: 5,
@@ -29,6 +32,12 @@ export default StyleSheet.create({
     flex: 1,
     paddingLeft: 5,
     textAlign: 'right'
+  },
+  rightButtonsContainer: {
+    height: 70,
+    alignItems: 'flex-start',
+    backgroundColor: 'rgba(0,0,0, .1)',
+    flexWrap: 'wrap',
   },
   removeButton: {
     backgroundColor: '#f05050',

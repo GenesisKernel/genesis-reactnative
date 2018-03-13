@@ -7,11 +7,12 @@ import { IAccout } from 'modules/account/reducer';
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors } from 'components/ui/theme';
+import { rightButtonsContainerWidth } from './styles';
 
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
+import RemoveAccountButtonContainer from 'containers/RemoveAccountButtonContainer';
 import Text from 'components/ui/Text';
 import styles from './styles';
-
 
 const avatarDefaultProps = {
   iconStyle: {
@@ -44,15 +45,20 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { title, address, notificationsCount, isLoggedAccount, account: { avatar } } = this.props;
+    const rightButtons = [
+      <View style={styles.rightButtonsContainer}>
+        {isLoggedAccount && <LogoutButtonContainer recenter={this.handleRecenter} />}
+        <RemoveAccountButtonContainer accountAddress={address} />
+      </View>
+    ];
 
     return (
       <Swipeable
-        disable={!isLoggedAccount}
         onRef={(ref: any) => this.swipeable = ref}
         onSwipeStart={() => this.handleSwipe(false)}
         onSwipeRelease={() => this.handleSwipe(true)}
-        rightButtons={[<LogoutButtonContainer recenter={this.handleRecenter} />]}
-        rightButtonWidth={200}>
+        rightButtons={rightButtons}
+        rightButtonWidth={rightButtonsContainerWidth}>
         <TouchableHighlight
           style={[styles.touchableContainer, isLoggedAccount ? { backgroundColor: Colors.underlayGreen } : {}]}
           onShowUnderlay={() => this.handlUnderlay('fadeIn')}

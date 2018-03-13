@@ -1,9 +1,10 @@
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { takeEvery, put, take, race } from 'redux-saga/effects';
+import { takeEvery, put, take, race, select } from 'redux-saga/effects';
 
 import * as account from 'modules/account';
 import * as application from 'modules/application';
+import * as auth from 'modules/auth';
 
 export function* removeAccountWorker(action: Action<any>): SagaIterator {
   yield put(
@@ -20,6 +21,11 @@ export function* removeAccountWorker(action: Action<any>): SagaIterator {
   });
 
   if (result.confirm) {
+    const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress);
+    if (action.payload.accountAddress === currentAccountAddress) {
+      yield put(auth.actions.logout());
+      yield put(application.actions.toggleDrawer(false));
+    }
     yield put(
       account.actions.removeAccount.done({
         params: action.payload,
