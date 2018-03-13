@@ -17,3 +17,5 @@ export const requestPage = actionCreator.async<IPagePayload, IPage>('REQUEST');
 export const requestPreviusPage = actionCreator<IPagePayload>(
   'REQUEST_PREVIUS_PAGE'
 );
+
+export const requestPageWithoutRendering = actionCreator<any>('REQUEST_PAGE_WITHOUT_RENDERING')

@@ -15,7 +15,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   showNotificationsPage: () => {
-    dispatch(page.actions.requestPage.started({ name: 'notifications_testpage' }));
+    dispatch(page.actions.requestPageWithoutRendering({ name: 'notifications_testpage', dontRender: true }));
     dispatch(application.actions.showModal({ type: ModalTypes.NOTIFICATIONS_PAGE }));
   },
 });

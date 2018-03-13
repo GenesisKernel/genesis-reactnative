@@ -3,11 +3,14 @@ import * as PropTypes from 'prop-types';
 
 export interface ITitleProps extends IElementProps {
   receiveTitle: (title?: string) => void;
+  isModalActive: boolean;
 }
 
 class Title extends React.Component<ITitleProps> {
   public componentDidMount() {
-    this.props.receiveTitle(this.props.attr.title);
+    if (!this.props.isModalActive) {
+      this.props.receiveTitle(this.props.attr.title);
+    }
   }
 
   public render() {
