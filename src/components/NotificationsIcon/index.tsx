@@ -8,14 +8,13 @@ import styles from './styles';
 
 interface IStatusIconProps {
   count?: number | null;
-  navigateToNotifications?: () => void;
+  showNotificationsPage: () => void;
 }
 
 class StatusIcon extends React.Component<IStatusIconProps, object> {
 
   public render() {
-    const { count, navigateToNotifications } = this.props;
-
+    const { count, showNotificationsPage } = this.props;
     return (
       <View style={styles.icon}>
         <AnimatableView
@@ -40,7 +39,7 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
           color={Colors.dark}
           type="simple-line-icon"
           underlayColor="transparent"
-          onPress={navigateToNotifications}
+          onPress={showNotificationsPage}
         />
       </View>
     );

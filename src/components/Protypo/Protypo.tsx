@@ -4,9 +4,11 @@ import { View, Text, WebView } from 'react-native';
 import { omit } from 'ramda';
 import { StyleProvider } from 'react-native-stylable';
 import { resolveHandler } from 'components/Protypo';
+import Mask from 'components/Mask';
 import DataSource from './utils/DataSource';
 
 import styles from './styles';
+import containerStyles from './protypoContainerStyles';
 
 let INNER_ELEMENT_KEY = '';
 let counter = 0;
@@ -46,6 +48,7 @@ export function renderElement(
 interface IProtypoProps {
   id: string;
   payload: IElement[];
+  pending: boolean;
 }
 
 export default class Protypo extends React.PureComponent<IProtypoProps> {
@@ -75,9 +78,16 @@ export default class Protypo extends React.PureComponent<IProtypoProps> {
 
   public render() {
     INNER_ELEMENT_KEY = this.props.id;
-
+    if (this.props.pending)
+      return (
+        <View style={containerStyles.container}>
+          <Mask />
+        </View>
+      );
     return (
-      <StyleProvider styleSheet={styles}>
+      <StyleProvider
+        style={containerStyles.container}
+        styleSheet={styles}>
         <View>{this.props.payload.map(this.renderElement)}</View>
       </StyleProvider>
     );

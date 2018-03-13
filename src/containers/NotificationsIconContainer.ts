@@ -4,7 +4,8 @@ import { getNotificationsCount } from 'modules/notifications/selectors';
 import NotificationsIcon from 'components/NotificationsIcon';
 import * as navigator from 'modules/navigator';
 import * as page from 'modules/page';
-import { navTypes } from '../constants';
+import * as application from 'modules/application';
+import { navTypes, ModalTypes } from '../constants';
 
 const mapStateToProps = (state: any) => {
   return {
@@ -13,10 +14,10 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  navigateToNotifications: () => {
-    dispatch(page.actions.requestPage.started({ name: 'notifications' }));
-    dispatch(navigator.actions.navigate(navTypes.NOTIFICATIONS));
-  }
+  showNotificationsPage: () => {
+    dispatch(page.actions.requestPage.started({ name: 'notifications_testpage' }));
+    dispatch(application.actions.showModal({ type: ModalTypes.NOTIFICATIONS_PAGE }));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsIcon);

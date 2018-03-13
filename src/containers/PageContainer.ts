@@ -9,4 +9,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps)(Page);
+export default connect()(Page);

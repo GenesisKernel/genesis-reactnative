@@ -3,7 +3,7 @@ import { SagaIterator, delay } from 'redux-saga';
 import { takeEvery, put, call, select, fork, take, race, cancel } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 import { requestPrivateKeyWorker, refreshPrivateKeyExpireTime } from '../sagas/privateKey';
-import { ModalTypes } from 'components/Modal';
+import { ModalTypes } from '../../constants';
 
 import * as auth from 'modules/auth';
 import * as applicationActions from 'modules/application/actions';

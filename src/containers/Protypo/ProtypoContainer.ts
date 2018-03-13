@@ -12,14 +12,15 @@ const generateId = state =>
     application.selectors.getCurrentPageId(state)
   ].join('_');
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: any, ownProps: { pageId?: string }) => {
   let currentPage;
 
-  currentPage = page.selectors.getCurrentPage(state);
+  currentPage = ownProps.pageId ? state.pages.items[ownProps.pageId] : page.selectors.getCurrentPage(state);
 
   return {
     id: generateId(state),
-    payload: currentPage.tree || []
+    payload: currentPage && currentPage.tree || [],
+    pending: page.selectors.isFetching(state),
   };
 };
 

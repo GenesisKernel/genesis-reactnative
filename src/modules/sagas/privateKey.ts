@@ -2,7 +2,7 @@ import { SagaIterator, delay } from 'redux-saga';
 import { path } from 'ramda';
 import { select, call, put, race, take, spawn } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { ModalTypes } from 'components/Modal';
+import { ModalTypes } from '../../constants';
 
 import Keyring from 'utils/keyring';
 import * as application from 'modules/application';
