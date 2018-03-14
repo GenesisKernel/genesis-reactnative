@@ -12,5 +12,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     position: 'relative',
     top: top,
+    paddingHorizontal: 5,
   },
 });

@@ -7,7 +7,13 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
-  bottomActions: {},
+  accountSeedContainer: {
+    height: 185,
+    marginTop: 15,
+  },
+  bottomActions: {
+    height: 130,
+  },
   cancelButton: {
     ...cancelButton,
   },

@@ -8,7 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   firstContainer: {
-    // marginBottom: 80,
+    marginTop: 15,
   },
   textInput: {
     height: 140
@@ -22,6 +22,9 @@ export default StyleSheet.create({
     fontFamily: Fonts.bold,
     paddingLeft: 10,
     fontSize: 14,
+  },
+  bottomButtonsContainer: {
+    height: 130,
   },
   cancelButton: {
     ...cancelButton,

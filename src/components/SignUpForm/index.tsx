@@ -57,7 +57,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   public render() {
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.firstContainer}>
           <Field>
             <Input
               style={styles.input}
@@ -75,7 +75,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             />
           </Field>
         </View>
-        <View>
+        <View style={styles.bottomButtonsContainer}>
           <PendingButtonContainer
             onPress={this.submit}
             intl={{

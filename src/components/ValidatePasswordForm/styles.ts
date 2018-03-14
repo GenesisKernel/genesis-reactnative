@@ -1,17 +1,21 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, borderRadius, FontSizes, Fonts, scrollableContainerHeight } from 'components/ui/theme';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
+const statusBarHeight = getStatusBarHeight();
 
 export default StyleSheet.create({
   scrollContainer: {
     padding: 0,
+    overflow: 'hidden'
   },
   container: {
-    height: scrollableContainerHeight,
+    height: height - statusBarHeight,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 10,
   },
   titlesBlock: {},
   title: {

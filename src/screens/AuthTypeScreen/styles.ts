@@ -39,6 +39,9 @@ export default StyleSheet.create({
     width: '100%',
     textAlign: 'center',
   },
+  bottomButtonsContainer: {
+    height: 130,
+  },
   cancelButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,

@@ -51,7 +51,7 @@ class AuthTypeScreen extends React.Component<IScreenProps, object> {
             data manualy.
           </Text>
         </View>
-        <View>
+        <View style={styles.bottomButtonsContainer}>
           <Button
             onPress={this.handleScanButtonPress}
             buttonStyle={styles.createButton}

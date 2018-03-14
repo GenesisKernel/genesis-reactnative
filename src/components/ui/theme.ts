@@ -1,6 +1,6 @@
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Header } from 'react-navigation';
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 const { width, height } = Dimensions.get('window');
 
 const statusBarHeight = getStatusBarHeight();
@@ -12,9 +12,10 @@ export const Fonts = {
   thin: 'Lato-Thin',
   light: 'Lato-Light',
 };
+
 export const borderRadius = 12;
 export const buttonsBorderRadius = 8;
-export const scrollableContainerHeight = height - headerHeight - statusBarHeight - 30; // using on auth screens (SignIn, SignUp etc.), -30 beacuse padding top of each Auth scren = 30
+export const scrollableContainerHeight = Platform.OS === 'android' ? height - headerHeight - statusBarHeight - 30 : height - headerHeight - 30; // using on auth screens (SignIn, SignUp etc.), -30 beacuse padding top of each Auth scren = 30
 
 export const FontSizes = {
   smallCommonSize: 14,

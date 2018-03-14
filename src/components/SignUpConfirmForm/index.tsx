@@ -58,7 +58,7 @@ class SignUpConfirm extends React.Component<
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
-          <View style={{ height: 180 }}>
+          <View style={styles.accountSeedContainer}>
             <Input
               style={styles.textInput}
               onChangeText={this.handleSeedChange}
@@ -82,19 +82,17 @@ class SignUpConfirm extends React.Component<
           />
         </View>
 
-        <View>
-          <View style={styles.bottomActions}>
-            <Button
-              buttonStyle={styles.nextButton}
-              onPress={this.submit}
-              intl={NextButtonProps} />
-            <Button
-              onPress={this.handleNavigateBack}
-              buttonStyle={styles.cancelButton}
-              textStyle={styles.cancelButtonText}
-              intl={cancelButtonProps}
-            />
-          </View>
+        <View style={styles.bottomActions}>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={this.submit}
+            intl={NextButtonProps} />
+          <Button
+            onPress={this.handleNavigateBack}
+            buttonStyle={styles.cancelButton}
+            textStyle={styles.cancelButtonText}
+            intl={cancelButtonProps}
+          />
         </View>
       </View>
     );

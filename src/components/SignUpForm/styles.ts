@@ -7,6 +7,9 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
+  firstContainer: {
+    marginTop: 15,
+  },
   textInput: {
     height: 200
   },
@@ -19,6 +22,9 @@ export default StyleSheet.create({
     fontFamily: Fonts.bold,
     paddingLeft: 10,
     fontSize: 14,
+  },
+  bottomButtonsContainer: {
+    height: 130,
   },
   cancelButton: {
     backgroundColor: 'transparent',

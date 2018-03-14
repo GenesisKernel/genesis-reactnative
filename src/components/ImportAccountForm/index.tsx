@@ -73,7 +73,7 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
             />
           </Field>
         </View>
-        <View>
+        <View style={styles.bottomButtonsContainer}>
           <PendingButtonContainer
             onPress={this.submit}
             buttonStyle={styles.nextButton}

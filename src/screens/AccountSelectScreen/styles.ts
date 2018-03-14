@@ -10,6 +10,7 @@ export default StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'column',
     paddingHorizontal: 30,
+    height: 130,
   },
   createButton: {
     backgroundColor: Colors.green
