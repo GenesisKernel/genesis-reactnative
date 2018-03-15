@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styles from './styles';
 import Button from 'components/ui/Button';
+import styles from './styles';
 
 const removeButtonProps = {
   intl: {
@@ -11,6 +11,7 @@ const removeButtonProps = {
 
 interface IRemoveAccountButton {
   onRemove: () => void;
+  buttonWidth: number;
 }
 
 export default class RemoveAccountButton extends React.Component<IRemoveAccountButton> {
@@ -19,7 +20,7 @@ export default class RemoveAccountButton extends React.Component<IRemoveAccountB
     return (
       <Button
         onPress={this.onRemove}
-        buttonStyle={styles.button}
+        buttonStyle={[styles.button, { width: this.props.buttonWidth }]}
         textStyle={styles.buttonText}
         {...removeButtonProps}/>
     );

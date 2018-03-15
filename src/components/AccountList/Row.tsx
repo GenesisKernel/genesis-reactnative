@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TouchableHighlight, Image } from 'react-native';
+import { View, TouchableHighlight, Image, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 import { IAccout } from 'modules/account/reducer';
@@ -7,12 +7,15 @@ import { IAccout } from 'modules/account/reducer';
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors } from 'components/ui/theme';
-import { rightButtonsContainerWidth } from './styles';
 
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
 import RemoveAccountButtonContainer from 'containers/RemoveAccountButtonContainer';
+import ChangePasswordButtonContainer from 'containers/ChangePasswordButtonContainer';
+
 import Text from 'components/ui/Text';
 import styles from './styles';
+
+const { width } = Dimensions.get('window');
 
 const avatarDefaultProps = {
   iconStyle: {
@@ -28,7 +31,8 @@ export interface IRow {
   title: string;
   ecosystemId: string;
   notificationsCount?: number;
-  isLoggedAccount: boolean,
+  isLoggedAccount: boolean;
+  isDrawerOpened: boolean;
   onPress(address: string, ecosystemId: string): void;
   onRemove(address: string): void;
   onDisableScroll(value: boolean): void;
@@ -44,20 +48,15 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { title, address, notificationsCount, isLoggedAccount, account: { avatar } } = this.props;
-    const rightButtons = [
-      <View style={styles.rightButtonsContainer}>
-        {isLoggedAccount && <LogoutButtonContainer recenter={this.handleRecenter} />}
-        <RemoveAccountButtonContainer accountAddress={address} />
-      </View>
-    ];
+    const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened, account: { avatar } } = this.props;
+    const rightButtonsContainerWidth = isDrawerOpened ? width - 37.5 : width;
 
     return (
       <Swipeable
         onRef={(ref: any) => this.swipeable = ref}
         onSwipeStart={() => this.handleSwipe(false)}
         onSwipeRelease={() => this.handleSwipe(true)}
-        rightButtons={rightButtons}
+        rightButtons={this.getRightButtons()}
         rightButtonWidth={rightButtonsContainerWidth}>
         <TouchableHighlight
           style={[styles.touchableContainer, isLoggedAccount ? { backgroundColor: Colors.underlayGreen } : {}]}
@@ -109,6 +108,24 @@ class Row extends React.PureComponent<IRow> {
         </TouchableHighlight>
       </Swipeable>
     );
+  }
+
+  private getRightButtons = (): JSX.Element[] => {
+    const { isLoggedAccount, isDrawerOpened, address } = this.props;
+    const buttonsCount = isLoggedAccount ? 3 : 2;
+    const rightButtonsContainerWidth = isDrawerOpened ? width - 37.5 : width;
+    const buttonWidth = rightButtonsContainerWidth / buttonsCount;
+
+    const rightButtons = [
+      <View style={styles.rightButtonsContainer}>
+        {isLoggedAccount
+          ? <LogoutButtonContainer recenter={this.handleRecenter} buttonWidth={buttonWidth} />
+          : <ChangePasswordButtonContainer buttonWidth={buttonWidth} />}
+        <RemoveAccountButtonContainer accountAddress={address} buttonWidth={buttonWidth} />
+        {isLoggedAccount && <ChangePasswordButtonContainer buttonWidth={buttonWidth} />}
+      </View>
+    ];
+    return rightButtons;
   }
 
   private handleRecenter = () => {

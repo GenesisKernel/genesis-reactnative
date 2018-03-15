@@ -1,15 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { TouchableHighlight, View } from 'react-native';
-import { View as AnimatableView } from 'react-native-animatable';
 
 import Button from 'components/ui/Button';
-
 import styles from './styles';
 
 export interface ILogoutButtonProps {
   logout: () => void;
   recenter: () => void;
+  buttonWidth: number;
 }
 
 const logoutButtonProps = {
@@ -28,7 +26,7 @@ export default class LogoutButton extends React.Component<ILogoutButtonProps, {}
     return (
       <Button
         onPress={this.handleLogoutButtonPress}
-        buttonStyle={styles.logoutButton}
+        buttonStyle={[styles.logoutButton, { width: this.props.buttonWidth }]}
         textStyle={styles.buttonText}
         {...logoutButtonProps} />
     )

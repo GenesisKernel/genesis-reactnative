@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { FontSizes, Colors } from 'components/ui/theme';
-import { rightButtonWidth } from 'components/AccountList/styles';
+import { mainRightButton, mainRightButtonText } from 'components/AccountList/styles';
 
 export default StyleSheet.create({
   container: {
@@ -9,15 +9,11 @@ export default StyleSheet.create({
     backgroundColor: Colors.underlayGreenLessOpacity,
   },
   logoutButton: {
-    borderRadius: 0,
-    width: rightButtonWidth,
-    height: 70,
-    // backgroundColor: 'transparent',
-    borderLeftWidth: 4,
+    ...mainRightButton,
     borderLeftColor: Colors.green,
     backgroundColor: Colors.underlayGreenLessOpacity,
   },
   buttonText: {
-    fontSize: FontSizes.mediumCommonSize,
+    ...mainRightButtonText,
   },
 });

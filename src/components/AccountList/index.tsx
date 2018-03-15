@@ -15,6 +15,7 @@ export interface IAccountListProps {
   ecosystems: { [id: string]: object };
   noTitle?: boolean | undefined,
   currentAccountAddress: string;
+  isDrawerOpened: boolean;
   notifications: {
     groupedByEcosystemId: {
       [id: string]: {
@@ -96,6 +97,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
           onRemove={this.props.onRemove}
           isLoggedAccount={this.props.currentAccountAddress === account.address}
           onDisableScroll={this.handlePreventScroll}
+          isDrawerOpened={this.props.isDrawerOpened}
         />
       </View>
     );

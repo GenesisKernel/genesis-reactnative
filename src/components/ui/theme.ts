@@ -40,6 +40,7 @@ export const Colors = {
   underlayRed: 'rgba(250, 51, 86, .15)',
   underlayRedLessOpacity: 'rgba(250, 51, 86, .45)',
   underlayGreenLessOpacity: 'rgba(58, 194, 139, .45)',
+  underlayVioletLessOpacity: 'rgba(83, 43, 131, .45)'
 };
 
 export const cancelButton = {

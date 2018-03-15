@@ -5,6 +5,7 @@ import * as auth from 'modules/auth';
 
 const mapStateToProps = (state: any, ownProps: any) => ({
   recenter: ownProps.recenter,
+  buttonWidth: ownProps.buttonWidth,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
