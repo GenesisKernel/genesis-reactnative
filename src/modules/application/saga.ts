@@ -79,8 +79,11 @@ export function* alertWorker(action: Action<any>): SagaIterator {
 
   if (message && !(action.meta && action.meta.ignore)) {
     yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
-    if (action.payload.error.data.error === ERRORS.TOKEN_EXPIRED) {
-      yield call(expiredTokenWorker, action.payload.params);
+
+    if (path(['error', 'data', 'error'], action.payload)) {
+      if (action.payload.error.data.error === ERRORS.TOKEN_EXPIRED) {
+        yield call(expiredTokenWorker, action.payload.params);
+      }
     }
   }
 }
