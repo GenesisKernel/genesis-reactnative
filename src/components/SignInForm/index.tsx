@@ -20,7 +20,13 @@ export interface ISignInProps {
   ecosystemId: string;
   privateKey: string;
   onSubmit(params: InputParams): void;
+  onCancel: () => void;
 }
+
+const cancelTitle = {
+  id: 'auth.type.anotherAccount',
+  defaultMessage: "Another Account",
+};
 
 export interface ISignInState {
   password?: string;
@@ -55,6 +61,10 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             defaultMessage: 'Sign in'
           }}
         />
+        <Button
+          onPress={this.props.onCancel}
+          intl={cancelTitle}
+          buttonStyle={styles.cancelButton} />
       </View>
     );
   }

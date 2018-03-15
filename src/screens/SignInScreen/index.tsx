@@ -27,7 +27,8 @@ const Row = ({ children }) => (
 class SignInScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = (): NavigationStackScreenOptions => ({
     headerTitle: 'Login',
-    headerBackTitle: null
+    headerBackTitle: null,
+    headerLeft: <View/>
   })
 
   public render() {

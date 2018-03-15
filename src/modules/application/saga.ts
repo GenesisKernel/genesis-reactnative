@@ -1,14 +1,15 @@
 import { path } from 'ramda';
 import { Action } from 'typescript-fsa';
 import { delay, SagaIterator } from 'redux-saga';
-import { takeEvery, put, call, select, all } from 'redux-saga/effects';
+import { takeEvery, put, call, select, all, take } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 import { apiSetToken } from 'utils/api';
 import { checkTouchIDAvailiability } from 'utils/common';
 import { waitForError } from '../sagas/utils';
-import { navTypes } from '../../constants';
-import { initStart, initFinish, receiveAlert, checkForTouchID } from './actions';
+import { navTypes, ERRORS } from '../../constants';
+import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer } from './actions';
+import { getDrawerState } from './selectors';
 
 import * as auth from 'modules/auth';
 import * as page from 'modules/page';
@@ -52,6 +53,24 @@ export function* persistWorker() {
   yield put(initStart());
 }
 
+export function* expiredTokenWorker(params: { address: string; ecosystemId: string }) {
+  yield take(cancelAlert);
+  const { drawerOpen, address, ecosystemId } = yield all({
+    drawerOpen: yield select(getDrawerState),
+    address: params.address || (yield select(auth.selectors.getCurrentAccountAddress)),
+    ecosystemId: params.ecosystemId || (yield select(auth.selectors.getCurrentEcosystemId)),
+  });
+
+  if (drawerOpen) {
+    yield put(toggleDrawer(false));
+  }
+
+  yield all([
+    yield put(auth.actions.detachSession()),
+    yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { id: address, ecosystemId}  }])),
+  ]);
+}
+
 export function* alertWorker(action: Action<any>): SagaIterator {
   const message =
     path<string>(['error', 'message'])(action.payload) ||
@@ -60,6 +79,9 @@ export function* alertWorker(action: Action<any>): SagaIterator {
 
   if (message && !(action.meta && action.meta.ignore)) {
     yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
+    if (action.payload.error.data.error === ERRORS.TOKEN_EXPIRED) {
+      yield call(expiredTokenWorker, action.payload.params);
+    }
   }
 }
 

@@ -18,7 +18,7 @@ import * as navigatorActions from 'modules/navigator/actions';
 import { getAccount } from 'modules/account/selectors';
 import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navigateWithReset } from 'modules/navigator/actions';
-import { navTypes } from '../../constants';
+import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 
 interface IAuthPayload {
@@ -318,7 +318,10 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
       );
     }
   } catch (error) {
-    console.error('receiveSelectedAccountWorker ERROR => ', error);
+    yield put(authActions.receiveSelectedAccount.failed({
+      params: action.payload,
+      error,
+    }));
   }
 }
 
@@ -357,7 +360,7 @@ export function* authSaga(): SagaIterator {
     tokenWorker
   );
 
-  yield takeEvery(authActions.receiveSelectedAccount, receiveSelectedAccountWorker);
+  yield takeEvery(authActions.receiveSelectedAccount.started, receiveSelectedAccountWorker);
 }
 
 export default authSaga;

@@ -6,7 +6,6 @@ import AccountList from 'components/AccountList';
 import * as auth from 'modules/auth';
 import * as account from 'modules/account';
 import * as ecosystem from 'modules/ecosystem';
-import * as navigator from 'modules/navigator';
 import * as notifications from 'modules/notifications';
 import { navTypes } from '../constants';
 
@@ -20,7 +19,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boolean }) => ({
   noTitle: ownProps.noTitle,
   onSelect: (address: string, ecosystemId: string) =>
-    dispatch(receiveSelectedAccount({ address, ecosystemId })),
+    dispatch(receiveSelectedAccount.started({ address, ecosystemId })),
   onRemove: (accountAddress: string) =>
     dispatch(account.actions.removeAccount.started({ accountAddress }))
 });

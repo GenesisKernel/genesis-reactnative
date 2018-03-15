@@ -13,7 +13,13 @@ export const loginRequest = actionCreator<{ seed: string; password: string }>(
   'LOGIN_REQUEST'
 );
 
-export const receiveSelectedAccount = actionCreator<{ address: string, ecosystemId: string }>('RECEIVE_SELECTED_ACCOUNT');
+export const receiveSelectedAccount = actionCreator.async<
+  {
+    address: string;
+    ecosystemId: string;
+  },
+  null
+>('RECEIVE_SELECTED_ACCOUNT');
 
 export const login = actionCreator.async<
   {

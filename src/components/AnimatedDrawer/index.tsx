@@ -35,7 +35,7 @@ export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerP
         captureGestures
         useInteractionManager
         tweenHandler={this.gestureCapturer}
-        disabled={!isAuthenticated}
+        disabled={!isAuthenticated || isAuthRoute}
       >
         {!isAuthRoute
           ? (
