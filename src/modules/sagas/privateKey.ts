@@ -9,7 +9,7 @@ import * as application from 'modules/application';
 import * as account from 'modules/account';
 import * as auth from 'modules/auth';
 
-const TOKEN_LIVE_TIME = 3600000; // 1 hour
+const PRIVATE_KEY_LIVE_TIME = 3600000; // 1 hour
 export function* privateKeyExpireWorker(): SagaIterator {
   while (true) {
     const privateKey = yield select(application.selectors.getPrivateKey);
@@ -24,7 +24,7 @@ export function* privateKeyExpireWorker(): SagaIterator {
 
 export function* refreshPrivateKeyExpireTime(): SagaIterator {
   const privateKey = yield select(application.selectors.getPrivateKey);
-  privateKey.expireTime = Date.now() + TOKEN_LIVE_TIME;
+  privateKey.expireTime = Date.now() + PRIVATE_KEY_LIVE_TIME;
   yield put(application.actions.setPrivateKey({
     ...privateKey,
   }))
@@ -42,7 +42,7 @@ export function* validatePrivateKeyWorker(action: { payload: string }) {
 
   if (privateKey && Keyring.KEY_LENGTH === privateKey.length && /[a-f0-9]/i.test(privateKey)) {
     const privateKeyData = {
-      expireTime: Date.now() + TOKEN_LIVE_TIME,
+      expireTime: Date.now() + PRIVATE_KEY_LIVE_TIME,
       privateKey
     }
 
