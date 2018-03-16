@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { path } from 'ramda';
 import KeyboardAwareScrollView from 'components/utils/KeyboardAwareScrollView';
 import {
   NavigationStackScreenOptions,
@@ -9,14 +10,19 @@ import SingUpFormContainer from 'containers/SingUpFormContainer';
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class SignUpScreen extends React.Component<IScreenProps, object> {
-  public static navigationOptions = (): NavigationStackScreenOptions => ({
-    headerTitle: 'Create account'
-  })
+  public static navigationOptions = ({ navigation }): NavigationStackScreenOptions => {
+    const title = path(['state', 'params', 'changePassword'], navigation) ? 'Change password' : 'Create account';
+    return {
+      headerTitle: title,
+    }
+  }
 
   public render() {
     return (
       <KeyboardAwareScrollView>
-        <SingUpFormContainer goBack={this.props.navigation.goBack}/>
+        <SingUpFormContainer
+          params={this.props.navigation.state.params}
+          goBack={this.props.navigation.goBack}/>
       </KeyboardAwareScrollView>
     );
   }

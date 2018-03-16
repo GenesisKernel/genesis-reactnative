@@ -53,7 +53,7 @@ export function* persistWorker() {
   yield put(initStart());
 }
 
-export function* expiredTokenWorker(params: { address: string; ecosystemId: string }) {
+export function* expiredTokenWorker(params: { address?: string; ecosystemId?: string }) {
   yield take(cancelAlert);
   const { drawerOpen, address, ecosystemId } = yield all({
     drawerOpen: yield select(getDrawerState),

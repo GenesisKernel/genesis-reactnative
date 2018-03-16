@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { ModalTypes } from '../../constants';
+import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
 
 import NestedContractSigningForm from 'components/NestedContractSigningModal';
 import ValidatePasswordForm from 'components/ValidatePasswordForm';
@@ -21,8 +21,6 @@ export interface IModalProps extends IModal {
   onClose: (payload?: 'withError' | undefined) => void;
 }
 
-const modalAnimationTime = 300;
-
 export default class CommonModal extends React.PureComponent<IModalProps, IModal> {
   constructor(props: IModalProps) {
     super(props);
@@ -36,7 +34,7 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
       if (nextProps.modal === null) {
         setTimeout(() => {
           this.setState({ modal: nextProps.modal });
-        }, modalAnimationTime);
+        }, MODAL_ANIMATION_TIME);
       } else {
         this.setState({ modal: nextProps.modal });
       }
@@ -55,8 +53,8 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
         onBackButtonPress={onClose}
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
-        animationInTiming={modalAnimationTime}
-        animationOutTiming={modalAnimationTime}
+        animationInTiming={MODAL_ANIMATION_TIME}
+        animationOutTiming={MODAL_ANIMATION_TIME}
         isVisible={!!modal}>
         {this.selectModalToRender()}
       </Modal>

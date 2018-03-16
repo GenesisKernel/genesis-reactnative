@@ -30,17 +30,28 @@ export function* refreshPrivateKeyExpireTime(): SagaIterator {
   }))
 }
 
+export function* validatePassword(data: { encKey: string, password: string }): SagaIterator {
+  const { encKey, password } = data;
+  const privateKey = yield call(
+    Keyring.decryptAES,
+    encKey,
+    password
+  );
+
+  if (!!privateKey && Keyring.KEY_LENGTH === privateKey.length && /[a-f0-9]/i.test(privateKey)) {
+    return privateKey;
+  } else {
+    return null;
+  }
+}
+
 export function* validatePrivateKeyWorker(action: { payload: string }) {
   const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress)
   const currentAccount = yield select(account.selectors.getAccount(currentAccountAddress));
 
-  const privateKey = yield call(
-    Keyring.decryptAES,
-    currentAccount.encKey,
-    action.payload
-  );
+  const privateKey = yield call(validatePassword, { encKey: currentAccount.encKey, password: action.payload });
 
-  if (privateKey && Keyring.KEY_LENGTH === privateKey.length && /[a-f0-9]/i.test(privateKey)) {
+  if (privateKey) {
     const privateKeyData = {
       expireTime: Date.now() + PRIVATE_KEY_LIVE_TIME,
       privateKey

@@ -6,6 +6,7 @@ import { removeAccount } from 'modules/account/actions';
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     buttonWidth: ownProps.buttonWidth,
+    recenter: ownProps.recenter,
   }
 }
 

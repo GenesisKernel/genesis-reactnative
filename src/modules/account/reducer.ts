@@ -1,7 +1,7 @@
 import * as actions from './actions';
 import { mergeDeepWith, union, omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setAccountUserdata } from './actions';
+import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setAccountUserdata, changePassword } from './actions';
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccout {
@@ -34,6 +34,12 @@ export default reducerWithInitialState(initialState)
     }
   }))
   .case(removeAccount.done, (state, payload) => omit([payload.params.accountAddress])(state))
+  .case(changePassword.done, (state, payload) =>({
+    ...state,
+    [payload.result.address]: {
+      ...payload.result
+    }
+  }))
   .case(saveTokenToAccount, (state, payload: any) => ({
     ...state,
     [payload.currentAccountAddress]: {

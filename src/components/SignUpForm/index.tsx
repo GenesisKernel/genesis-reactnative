@@ -16,7 +16,12 @@ export interface InputParams {
 export interface ISignUpProps {
   onSubmit(params: InputParams): void;
   goBack(): void;
+  onChangePassword: (password: string) => void;
+  onCancelChangingPassword: () => void;
   seed: string;
+  params: {
+    changePassword: boolean;
+  }
 }
 
 export interface ISignUpState {
@@ -55,6 +60,8 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   }
 
   public render() {
+    const { changePassword } = this.props.params;
+
     return (
       <View style={styles.container}>
         <View style={styles.firstContainer}>
@@ -77,14 +84,14 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
         </View>
         <View style={styles.bottomButtonsContainer}>
           <PendingButtonContainer
-            onPress={this.submit}
+            onPress={changePassword ? this.handleChangePassword : this.submit}
             intl={{
               id: 'auth.sign-in-confirm.finish.title',
               defaultMessage: 'Finish'
             }}
           />
           <Button
-            onPress={this.handleNavigateBack}
+            onPress={!changePassword ? this.handleNavigateBack : this.props.onCancelChangingPassword}
             buttonStyle={styles.cancelButton}
             textStyle={styles.cancelButtonText}
             intl={cancelButtonProps}
@@ -92,6 +99,12 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
         </View>
       </View>
     );
+  }
+
+  private handleChangePassword = () => {
+    if (this.state.password && this.state.password === this.state.passwordConfirm) {
+      this.props.onChangePassword(this.state.password)
+    }
   }
 
   private submit = (): void => {

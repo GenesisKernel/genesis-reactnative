@@ -111,7 +111,7 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private getRightButtons = (): JSX.Element[] => {
-    const { isLoggedAccount, isDrawerOpened, address } = this.props;
+    const { isLoggedAccount, isDrawerOpened, address, account, ecosystemId } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
     const rightButtonsContainerWidth = isDrawerOpened ? width - 37.5 : width;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
@@ -119,10 +119,24 @@ class Row extends React.PureComponent<IRow> {
     const rightButtons = [
       <View style={styles.rightButtonsContainer}>
         {isLoggedAccount
-          ? <LogoutButtonContainer recenter={this.handleRecenter} buttonWidth={buttonWidth} />
-          : <ChangePasswordButtonContainer buttonWidth={buttonWidth} />}
-        <RemoveAccountButtonContainer accountAddress={address} buttonWidth={buttonWidth} />
-        {isLoggedAccount && <ChangePasswordButtonContainer buttonWidth={buttonWidth} />}
+          ? <LogoutButtonContainer
+            recenter={this.handleRecenter}
+            buttonWidth={buttonWidth} />
+          : <ChangePasswordButtonContainer
+            recenter={this.handleRecenter}
+            buttonWidth={buttonWidth}
+            account={{ ...account, ecosystemId }} />
+        }
+        <RemoveAccountButtonContainer
+          recenter={this.handleRecenter}
+          accountAddress={address}
+          buttonWidth={buttonWidth} />
+        {isLoggedAccount
+          && <ChangePasswordButtonContainer
+            recenter={this.handleRecenter}
+            buttonWidth={buttonWidth}
+            account={{ ...account, ecosystemId }} />
+        }
       </View>
     ];
     return rightButtons;

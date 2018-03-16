@@ -11,6 +11,7 @@ const removeButtonProps = {
 
 interface IRemoveAccountButton {
   onRemove: () => void;
+  recenter: () => void;
   buttonWidth: number;
 }
 
@@ -27,7 +28,8 @@ export default class RemoveAccountButton extends React.Component<IRemoveAccountB
   }
 
   private onRemove = () => {
-    const { onRemove } = this.props;
+    const { onRemove, recenter } = this.props;
+    recenter();
     onRemove();
   }
 }
