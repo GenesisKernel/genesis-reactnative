@@ -39,14 +39,13 @@ export function* initWorker(): SagaIterator {
     return;
   } else {
     yield put(auth.actions.detachSession());
+    yield put(initFinish());
+    yield put(
+      navigator.actions.navigateWithReset([
+        { routeName: navTypes.ACCOUNT_SELECT }
+      ])
+    );
   }
-
-  yield put(initFinish());
-  yield put(
-    navigator.actions.navigateWithReset([
-      { routeName: navTypes.ACCOUNT_SELECT }
-    ])
-  );
 }
 
 export function* persistWorker() {
