@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors, FontSizes } from 'components/ui/theme';
-import { mainRightButton, mainRightButtonContainer } from 'components/AccountList/styles';
+import { mainRightButton, mainRightButtonContainer, mainRightButtonText } from 'components/AccountList/styles';
 
 export default StyleSheet.create({
   button: {
@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.underlayRedLessOpacity,
   },
   buttonText: {
-    fontSize: FontSizes.mediumCommonSize,
+    ...mainRightButtonText,
   },
   buttonContainer: {
     ...mainRightButtonContainer

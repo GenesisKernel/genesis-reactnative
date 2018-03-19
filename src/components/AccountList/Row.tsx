@@ -49,14 +49,14 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened, account: { avatar } } = this.props;
-    const rightButtonsContainerWidth = isDrawerOpened ? width / openDrawerOffset : width;
+    const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
 
     return (
       <Swipeable
         onRef={(ref: any) => this.swipeable = ref}
         onSwipeStart={() => this.handleSwipe(false)}
         onSwipeRelease={() => this.handleSwipe(true)}
-        rightButtons={this.getRightButtons()}
+        rightButtons={this.getRightButtons(rightButtonsContainerWidth)}
         rightButtonWidth={rightButtonsContainerWidth}>
         <TouchableHighlight
           style={[styles.touchableContainer, isLoggedAccount ? { backgroundColor: Colors.underlayGreen } : {}]}
@@ -110,10 +110,9 @@ class Row extends React.PureComponent<IRow> {
     );
   }
 
-  private getRightButtons = (): JSX.Element[] => {
+  private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
     const { isLoggedAccount, isDrawerOpened, address, account, ecosystemId } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
-    const rightButtonsContainerWidth = isDrawerOpened ? width - 37.5 : width;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
 
     const rightButtons = [
