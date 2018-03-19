@@ -15,15 +15,15 @@ export interface IAnimatedDrawerProps {
   onToggleDrawer: (value: boolean) => void;
 }
 
-export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerProps, {}> {
+export default class AnimatedDrawer extends React.Component<IAnimatedDrawerProps, {}> {
 
   public render() {
     const { isAuthRoute, isAuthenticated, onToggleDrawer, drawerOpen } = this.props;
 
     return (
       <Drawer
-        onClose={() => onToggleDrawer(false)}
-        onOpen={() => onToggleDrawer(true)}
+        onClose={() => this.toggleDrawerHandler(false)}
+        onOpen={() => this.toggleDrawerHandler(true)}
         open={drawerOpen}
         type="displace"
         tapToClose
@@ -63,5 +63,9 @@ export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerP
         ...radius,
       }
     }
+  }
+
+  private toggleDrawerHandler = (value: boolean) => {
+    setTimeout(() => { this.props.onToggleDrawer(value) }, 50);
   }
 }
