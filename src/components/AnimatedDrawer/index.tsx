@@ -4,7 +4,7 @@ import Drawer from 'react-native-drawer';
 import DrawerContentContainer from 'containers/DrawerContentContainer';
 import NavigatorContainer from 'containers/NavigationContainer';
 import { URL_PREFIX } from '../../constants';
-
+import { openDrawerOffset } from 'components/ui/theme';
 import styles from './styles';
 
 export interface IAnimatedDrawerProps {
@@ -28,7 +28,7 @@ export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerP
         type="displace"
         tapToClose
         content={<DrawerContentContainer />}
-        openDrawerOffset={0.1}
+        openDrawerOffset={openDrawerOffset}
         elevation={1}
         styles={{ drawer: { shadowColor: 'transparent', shadowOpacity: 0, shadowRadius: 0, elevation: 0 }, main: { overflow: 'hidden' }}}
         panOpenMask={3}

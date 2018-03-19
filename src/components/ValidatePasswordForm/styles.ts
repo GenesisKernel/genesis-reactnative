@@ -8,14 +8,16 @@ const statusBarHeight = getStatusBarHeight();
 export default StyleSheet.create({
   scrollContainer: {
     padding: 0,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    paddingHorizontal: 0,
   },
   container: {
-    height: height - statusBarHeight,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flex: 1,
+    width: 320,
+    padding: 10,
     alignItems: 'center',
-    paddingHorizontal: 10,
+    justifyContent: 'center',
+    height: height - statusBarHeight,
   },
   titlesBlock: {},
   title: {
@@ -31,8 +33,7 @@ export default StyleSheet.create({
   },
   formContainer: {
     backgroundColor: Colors.white,
-    width: 320,
-    height: 300,
+    width: 300,
     padding: 15,
     borderRadius: borderRadius,
   },
@@ -43,7 +44,7 @@ export default StyleSheet.create({
     paddingTop: 10,
   },
   button: {
-    width: (320 - 30 - 15) /2,
+    width: (300 - 30 - 15) / 2,
     backgroundColor: Colors.violet,
   },
   leftButton: {
@@ -54,6 +55,6 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.dark,
     color: Colors.dark,
-    height: 50,
+    height: 30,
   }
 });

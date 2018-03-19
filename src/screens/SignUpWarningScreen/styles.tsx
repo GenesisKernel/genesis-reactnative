@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts, FontSizes } from 'components/ui/theme';
+import { Colors, Fonts, FontSizes, authScreenPadding } from 'components/ui/theme';
 
 export default StyleSheet.create({
-  background: {
+  container: {
     flex: 1,
+    padding: authScreenPadding,
   },
 });

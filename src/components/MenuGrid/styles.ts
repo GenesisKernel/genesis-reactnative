@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-import { Colors, borderRadius, FontSizes } from 'components/ui/theme';
+import { Colors, borderRadius, FontSizes, biggerThenIphone6Width } from 'components/ui/theme';
 
 const { width } = Dimensions.get('window');
 
@@ -14,14 +14,14 @@ export default StyleSheet.create({
   },
   rowContainer: {
     maxWidth: 420,
-    height: 150,
+    height: biggerThenIphone6Width ? 150 : 120,
     marginBottom: 20,
     width: width - 40,
   },
   item: {
     width: (width / 2) - 30,
     maxWidth: 200,
-    height: 150,
+    height: biggerThenIphone6Width ? 150 : 120,
     backgroundColor: '#fefefe',
     borderRadius: borderRadius,
     shadowColor: '#2f303a',

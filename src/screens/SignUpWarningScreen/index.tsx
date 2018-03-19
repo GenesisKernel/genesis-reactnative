@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageBackground, View } from 'react-native';
+import { View } from 'react-native';
 import { NavigationStackScreenOptions, NavigationScreenProps } from 'react-navigation';
 import SignUpWarningContainer from 'containers/SignUpWarningContainer';
 
@@ -12,7 +12,9 @@ export default class SignUpWarningScreen extends React.Component {
 
   public render() {
     return (
-      <SignUpWarningContainer />
+      <View style={styles.container}>
+        <SignUpWarningContainer />
+      </View>
     );
   }
 }

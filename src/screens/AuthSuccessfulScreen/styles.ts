@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Colors, FontSizes, Fonts } from 'components/ui/theme';
+import { Colors, FontSizes, Fonts, authScreenPadding } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    padding: authScreenPadding,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },

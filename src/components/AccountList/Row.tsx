@@ -6,7 +6,7 @@ import { IAccout } from 'modules/account/reducer';
 
 import Swipeable from 'react-native-swipeable-row';
 
-import { Colors } from 'components/ui/theme';
+import { Colors, openDrawerOffset } from 'components/ui/theme';
 
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
 import RemoveAccountButtonContainer from 'containers/RemoveAccountButtonContainer';
@@ -49,7 +49,7 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened, account: { avatar } } = this.props;
-    const rightButtonsContainerWidth = isDrawerOpened ? width - 37.5 : width;
+    const rightButtonsContainerWidth = isDrawerOpened ? width / openDrawerOffset : width;
 
     return (
       <Swipeable

@@ -5,7 +5,13 @@ export const mainRightButton = {
   borderRadius: 0,
   height: 70,
   borderLeftWidth: 4,
+  padding: 10,
 };
+
+export const mainRightButtonContainer = {
+  height: 50,
+  marginVertical: 10
+}
 
 export const mainRightButtonText = {
   fontSize: FontSizes.smallCommonSize,

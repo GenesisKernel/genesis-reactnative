@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { FontSizes, Colors } from 'components/ui/theme';
-import { mainRightButton, mainRightButtonText } from 'components/AccountList/styles';
+import { mainRightButton, mainRightButtonText, mainRightButtonContainer } from 'components/AccountList/styles';
 
 export default StyleSheet.create({
   container: {
@@ -16,4 +16,7 @@ export default StyleSheet.create({
   buttonText: {
     ...mainRightButtonText,
   },
+  buttonContainer: {
+    ...mainRightButtonContainer
+  }
 });

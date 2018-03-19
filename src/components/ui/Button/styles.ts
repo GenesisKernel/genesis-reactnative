@@ -1,22 +1,23 @@
 import { StyleSheet } from 'react-native';
-import { Fonts, Colors, borderRadius, buttonsBorderRadius } from '../theme';
+import { Fonts, Colors, borderRadius, buttonsBorderRadius, FontSizes, biggerThenIphone6Width } from '../theme';
 
+const buttonHeight = biggerThenIphone6Width ? 50 : 45;
 export default StyleSheet.create({
   containerView: {
-    height: 50,
+    height: buttonHeight,
     marginLeft: 0,
     marginRight: 0,
     padding: 0,
-    marginVertical: 10,
+    marginVertical: biggerThenIphone6Width ? 10 : 5,
     justifyContent: 'center'
   },
   button: {
-    height: 50,
+    height: buttonHeight,
     backgroundColor: Colors.blue,
     borderRadius: buttonsBorderRadius,
   },
   text: {
-    fontSize: 18,
+    fontSize: FontSizes.commonSize,
     fontFamily: Fonts.regular,
     color: Colors.white,
   }

@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, Fonts, cancelButton, scrollableContainerHeight } from '../ui/theme';
+import { Colors, Fonts, cancelButton, scrollableContainerHeight, biggerThenIphone6Width } from '../ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     marginTop: 15,
   },
   bottomActions: {
-    height: 130,
+    height: biggerThenIphone6Width ? 130 : 105,
   },
   cancelButton: {
     ...cancelButton,

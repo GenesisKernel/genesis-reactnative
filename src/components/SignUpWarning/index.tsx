@@ -23,10 +23,12 @@ export default class SignUpWarning extends React.Component<ISignUpWarningProps> 
             For secure reason of your personal data and funds SAVE following information ON PHYSICAL carrier (paper for example). You can’t restore your account without follow information
           </Text>
         </View>
-        <Button
-          title="I UNDERSTAND"
-          buttonStyle={styles.understandButton}
-          onPress={this.props.onSubmit} />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="I UNDERSTAND"
+            buttonStyle={styles.understandButton}
+            onPress={this.props.onSubmit} />
+        </View>
       </View>
     );
   }

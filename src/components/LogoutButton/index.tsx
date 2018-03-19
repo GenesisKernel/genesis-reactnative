@@ -25,6 +25,7 @@ export default class LogoutButton extends React.Component<ILogoutButtonProps, {}
   public render() {
     return (
       <Button
+        containerViewStyle={styles.buttonContainer}
         onPress={this.handleLogoutButtonPress}
         buttonStyle={[styles.logoutButton, { width: this.props.buttonWidth }]}
         textStyle={styles.buttonText}

@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Fonts, Colors, cancelButton, scrollableContainerHeight } from '../../components/ui/theme';
+import { Fonts, Colors, cancelButton, scrollableContainerHeight, biggerThenIphone6Width } from '../../components/ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     marginTop: 15,
   },
   textInput: {
-    height: 140
+    height: biggerThenIphone6Width ? 140 : 100,
   },
   passwordInput: {
     padding: 5,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   bottomButtonsContainer: {
-    height: 130,
+    height: biggerThenIphone6Width ? 130 : 105,
   },
   cancelButton: {
     ...cancelButton,

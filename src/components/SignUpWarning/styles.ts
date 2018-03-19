@@ -1,15 +1,10 @@
-import { StyleSheet } from 'react-native';
-import { Fonts, Colors, FontSizes } from 'components/ui/theme';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Fonts, Colors, FontSizes, biggerThenIphone6Width } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 30,
-    paddingBottom: 30,
-    paddingHorizontal: 45,
-    maxHeight: 520,
-    // minHeight: 600,
   },
   content: {
     flex: 1,
@@ -23,20 +18,23 @@ export default StyleSheet.create({
     fontSize: FontSizes.titleSize,
     fontFamily: Fonts.light,
     backgroundColor: 'transparent',
-    marginBottom: 25,
+    marginBottom: biggerThenIphone6Width ? 25 : 15,
   },
   icon: {
     color: Colors.white,
-    fontSize: 100,
-    marginBottom: 25,
+    fontSize: biggerThenIphone6Width ? 100 : 80,
+    marginBottom: biggerThenIphone6Width ? 25 : 15,
   },
   description: {
     color: Colors.white,
-    lineHeight: 28,
+    lineHeight: biggerThenIphone6Width ? 28 : 24,
     paddingHorizontal: 20,
   },
+  buttonContainer: {
+    height: biggerThenIphone6Width ? 130 : 105,
+    justifyContent: 'flex-end',
+  },
   understandButton: {
-    marginTop: 30,
     backgroundColor: Colors.green,
   }
 })

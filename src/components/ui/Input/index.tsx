@@ -11,16 +11,17 @@ interface IInputProps extends TextInputProperties {
   rightIcon?: string;
   selectionColor?: string;
   labelStyle?: object;
+  containerStyle?: object;
 }
 
 const Input: React.SFC<IInputProps> = props => {
-  const { intl, selectionColor, labelStyle, rightIcon, ...inputProps } = props;
+  const { intl, selectionColor, labelStyle, rightIcon, containerStyle, ...inputProps } = props;
 
   return (
     <FormattedMessage {...intl}>
       {(title: string) => {
         return (
-          <View style={styles.container}>
+          <View style={[styles.container, containerStyle]}>
             <Text
               style={[styles.inputLabel, labelStyle || {}]}>
               {title}

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from 'components/ui/theme';
-import { mainRightButton, mainRightButtonText } from 'components/AccountList/styles';
+import { mainRightButton, mainRightButtonText, mainRightButtonContainer } from 'components/AccountList/styles';
 
 export default StyleSheet.create({
   button: {
@@ -11,5 +11,8 @@ export default StyleSheet.create({
   buttonText: {
     ...mainRightButtonText,
     textAlign: 'center',
+  },
+  buttonContainer: {
+    ...mainRightButtonContainer
   }
 });

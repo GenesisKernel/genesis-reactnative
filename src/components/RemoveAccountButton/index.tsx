@@ -21,6 +21,7 @@ export default class RemoveAccountButton extends React.Component<IRemoveAccountB
     return (
       <Button
         onPress={this.onRemove}
+        containerViewStyle={styles.buttonContainer}
         buttonStyle={[styles.button, { width: this.props.buttonWidth }]}
         textStyle={styles.buttonText}
         {...removeButtonProps}/>

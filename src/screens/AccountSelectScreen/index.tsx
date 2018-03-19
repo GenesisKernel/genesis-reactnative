@@ -27,7 +27,7 @@ interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class AccountSelectScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = (): NavigationStackScreenOptions => ({
-    headerTitle: ' ', // Do not remove this line
+    headerTitle: ' ', // Do not remove this line... please
   })
 
   public render() {
@@ -53,7 +53,6 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
             onPress={this.handleKnownAccountButtonPress}
             intl={addAccountButtonLabel}
           />
-          {/* <TouchIdContainer /> */}
         </View>
       </View>
     );

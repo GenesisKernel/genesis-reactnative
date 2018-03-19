@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, FontSizes } from 'components/ui/theme';
+import { Colors, FontSizes, biggerThenIphone6Width, authScreenPadding } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -7,13 +7,13 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 30,
+    padding: authScreenPadding,
     paddingTop: 40,
     backgroundColor: 'transparent',
   },
   iconWrapper: {
     backgroundColor: 'transparent',
-    marginTop: 50,
+    marginTop: biggerThenIphone6Width ? 50 : 30,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   bottomButtonsContainer: {
-    height: 130,
+    height: biggerThenIphone6Width ? 130 : 105,
   },
   cancelButton: {
     backgroundColor: 'transparent',

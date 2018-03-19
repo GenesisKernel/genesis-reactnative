@@ -22,6 +22,7 @@ export default class ChangePasswordButton extends React.Component<IChangePasswor
     return (
       <Button
         onPress={this.handlePress}
+        containerViewStyle={styles.buttonContainer}
         buttonStyle={[styles.button, { width: this.props.buttonWidth }]}
         textStyle={styles.buttonText}
         {...changePasswordButton}

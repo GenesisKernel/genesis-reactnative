@@ -1,10 +1,11 @@
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Header } from 'react-navigation';
+import { Header, DeviceInfo } from 'react-navigation';
 import { Dimensions, Platform } from 'react-native'
 const { width, height } = Dimensions.get('window');
 
 const statusBarHeight = getStatusBarHeight();
 const headerHeight = Header.HEIGHT;
+const isIphoneX = height === 812; // find better solution
 
 export const Fonts = {
   regular: 'Lato-Regular',
@@ -13,17 +14,23 @@ export const Fonts = {
   light: 'Lato-Light',
 };
 
+export const biggerThenIphone6Width = width >= 326;
 export const borderRadius = 12;
 export const buttonsBorderRadius = 8;
-export const scrollableContainerHeight = Platform.OS === 'android' ? height - headerHeight - statusBarHeight - 30 : height - headerHeight - 30; // using on auth screens (SignIn, SignUp etc.), -30 beacuse padding top of each Auth scren = 30
+export const authScreenPadding = biggerThenIphone6Width ? 30 : 20;
+// export const homeScreenPadding = biggerThenIphone6Width ? 20 : 10;
+export const openDrawerOffset = 0.12;
+
+
+export const scrollableContainerHeight = Platform.OS === 'android' ? height - headerHeight - statusBarHeight - authScreenPadding : (height - headerHeight - authScreenPadding) - (isIphoneX ? 34 : 0); // using on auth screens (SignIn, SignUp etc.);
 
 export const FontSizes = {
-  smallCommonSize: 14,
-  mediumCommonSize: 16,
-  commonSize: 18,
-  titleSize: 32,
-  smallTitleSize: 28,
-  modalTitleSize: 26,
+  smallCommonSize: biggerThenIphone6Width ? 14 : 12,
+  mediumCommonSize: biggerThenIphone6Width ? 16 : 14,
+  commonSize: biggerThenIphone6Width ? 18 : 16,
+  titleSize: biggerThenIphone6Width ? 32 : 26,
+  smallTitleSize: biggerThenIphone6Width ? 28 : 24,
+  modalTitleSize: biggerThenIphone6Width ? 26 : 22,
 };
 
 export const Colors = {

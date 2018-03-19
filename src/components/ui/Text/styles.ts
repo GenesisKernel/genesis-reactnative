@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Fonts, Colors } from '../theme';
+import { Fonts, Colors, FontSizes } from '../theme';
 
 export default StyleSheet.create({
   text: {
     color: Colors.dark,
-    fontSize: 18,
+    fontSize: FontSizes.commonSize,
     fontFamily: Fonts.regular,
     backgroundColor: 'transparent',
   }
