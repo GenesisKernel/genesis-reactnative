@@ -34,9 +34,7 @@ export default class LogoutButton extends React.Component<ILogoutButtonProps, {}
   }
 
   private handleLogoutButtonPress = () => {
-    this.context.drawer.close(() => {
-      this.props.recenter();
-      this.props.logout();
-    });
+    this.props.recenter();
+    this.props.logout();
   }
 }
