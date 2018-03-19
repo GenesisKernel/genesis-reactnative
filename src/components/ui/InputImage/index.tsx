@@ -86,7 +86,7 @@ class InputImage extends React.PureComponent<IInputImageProps> {
           dialogStyle={styles.dialogStyle}
           onDismissed={this.closeDialog}
           width="80%"
-          height={120}
+          height={150}
         >
           <View style={styles.dialogContentStyle}>
             <Button
