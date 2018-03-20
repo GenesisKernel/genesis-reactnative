@@ -6,7 +6,7 @@ import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccout {
   address: string;
-  state: string;
+  // state: string;
   ecosystems: string[];
   encKey: string;
   publicKey: string;

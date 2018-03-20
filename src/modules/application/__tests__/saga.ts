@@ -28,7 +28,7 @@ describe('applicationWatcher', () => {
     const iterator = initWorker();
     iterator.next();
     const { token, hasValidToken, isTouchIDAvailable } = {
-      token: '123',
+      token: 'valid_token',
       hasValidToken: true,
       isTouchIDAvailable: false
     };
@@ -47,7 +47,7 @@ describe('applicationWatcher', () => {
     const iterator = initWorker();
     iterator.next();
     const { token, hasValidToken, isTouchIDAvailable } = {
-      token: '123',
+      token: 'invalid_token',
       hasValidToken: false,
       isTouchIDAvailable: false
     };

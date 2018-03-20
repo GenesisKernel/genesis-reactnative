@@ -17,11 +17,10 @@ import * as accountSelectors from 'modules/account/selectors';
 import * as navigatorActions from 'modules/navigator/actions';
 import { getAccount } from 'modules/account/selectors';
 import { receiveEcosystem } from 'modules/ecosystem/actions';
-import { navigateWithReset } from 'modules/navigator/actions';
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 
-interface IAuthPayload {
+export interface IAuthPayload {
   private: string;
   public: string;
   ecosystem: string;
@@ -30,8 +29,13 @@ interface IAuthPayload {
   avatar?: string;
   username?: string;
 }
+export interface IKeyPairs {
+  private: string;
+  public: string;
+  ecosystem?: string;
+}
 
-export function* auth(payload: IAuthPayload) {
+export function* auth(payload: IAuthPayload | IKeyPairs) {
   apiDeleteToken(); // Remove previous token
 
   const { data: uidParams } = yield call(api.getUid);
@@ -41,7 +45,7 @@ export function* auth(payload: IAuthPayload) {
 
   const { data: accountData } = yield call(api.login, {
     signature,
-    ecosystem: payload.ecosystem,
+    ecosystem: payload.ecosystem || '1',
     publicKey: payload.public
   });
 
@@ -73,6 +77,8 @@ export function* auth(payload: IAuthPayload) {
     ecosystems: [accountData.ecosystem_id],
     notify_key: accountData.notify_key,
     timestamp: accountData.timestamp,
+    avatar: '',
+    username: '',
   };
 }
 
@@ -134,7 +140,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
     yield put(authActions.saveLastLoggedAccount(account));
 
     yield put(
-      navigateWithReset([
+      navigatorActions.navigateWithReset([
         {
           routeName: navTypes.AUTH_SUCCESSFUL,
           params: {
@@ -179,7 +185,7 @@ export function* loginWorker(action: Action<any>): SagaIterator {
 
     yield put(authActions.saveLastLoggedAccount(account));
 
-    yield put(navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
+    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
   } catch (error) {
     yield put(
       authActions.login.failed({
@@ -192,29 +198,29 @@ export function* loginWorker(action: Action<any>): SagaIterator {
 
 export function* createAccountWorker(action: Action<any>): SagaIterator {
   try {
-    const authPayload: IAuthPayload = yield call(
+    const authPayload: IKeyPairs = yield call(
       Keyring.generateKeyPair,
       action.payload.seed
     ); // Generate paif of keys
+
     const encKey = yield call(
       Keyring.encryptAES,
       authPayload.private,
       action.payload.password
     ); // Encrypt private key
 
-    const account = yield call(auth, authPayload);
+    let account = yield call(auth, authPayload);
+    account = { ...account, encKey };
 
     yield put(
       accountActions.createAccount.done({
         params: action.payload,
         result: {
           ...account,
-          avatar: '',
-          username: '',
-          encKey
         }
       })
     );
+
     yield put(
       applicationActions.removeSeed()
     );
@@ -222,7 +228,7 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
     yield put(authActions.saveLastLoggedAccount(account));
 
     yield put(
-      navigateWithReset([
+      navigatorActions.navigateWithReset([
         {
           routeName: navTypes.AUTH_SUCCESSFUL,
           params: {
@@ -267,7 +273,7 @@ export function* switchAccountWorker(action: Action<any>): SagaIterator {
       })
     );
 
-    yield put(navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
+    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
   } catch (error) {
     yield put(
       authActions.switchAccount.failed({
@@ -280,7 +286,7 @@ export function* switchAccountWorker(action: Action<any>): SagaIterator {
 
 export function* logoutWorker() {
   yield put(authActions.detachSession());
-  yield put(navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
+  yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
 export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, address: string }}) {
@@ -335,7 +341,7 @@ export function* tokenWorker() {
       return;
     }
 
-    yield delay(5000);
+    yield call(delay, 5000);
   }
 }
 
