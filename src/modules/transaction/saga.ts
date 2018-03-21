@@ -22,7 +22,7 @@ export interface IPrepareData {
   }[];
 }
 
-function* getTransactionStatus(hash: string) {
+export function* getTransactionStatus(hash: string) {
   while (true) {
     const response = yield call(api.transactionStatus, hash);
 
@@ -59,7 +59,6 @@ export function* signsWorker(prepareData: IPrepareData, params: any, privateKey:
       if (result.confirm) {
         signParams[el.field] = yield call(signNestedContractsWorker, el, privateKey);
         fullForsign += `,${signParams[el.field]}`;
-        yield put(applicationActions.closeModal());
       }
 
       if (result.cancel) {
