@@ -1,4 +1,5 @@
-import * as Centrifuge from 'centrifuge'
+// import * as Centrifuge from 'centrifuge'
+const Centrifuge = require('centrifuge');
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, select, getContext, setContext } from 'redux-saga/effects';
 import { SOCKET_URL } from '../../config';
@@ -84,18 +85,17 @@ export function* updateNotificationsWorker() {
         });
       });
     }
-    api.updateNotifications({ ids: JSON.stringify(accounts) });
+    yield call(api.updateNotifications, { ids: JSON.stringify(accounts) });
   }
 }
 
 export function* socketWorker() {
-  const accounts = yield select(accountSelectors.getAccounts);
   const lastLoggedAccount = yield select(authSelectors.getLastLoggedAccount);
-  const socketConnectedAccounts = yield select(applicationSelectors.getSocketConnectedAccounts);
-
-  let centrifuge = yield getContext(centrifuge_instance);
 
   if (lastLoggedAccount) {
+    let centrifuge = yield getContext(centrifuge_instance);
+    const accounts = yield select(accountSelectors.getAccounts);
+    const socketConnectedAccounts = yield select(applicationSelectors.getSocketConnectedAccounts);
 
     if (!centrifuge) {
       centrifuge = new Centrifuge({
@@ -106,7 +106,7 @@ export function* socketWorker() {
       });
 
       yield setContext({
-        centrifuge_instance: centrifuge
+        [centrifuge_instance]: centrifuge
       });
     }
 
