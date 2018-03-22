@@ -9,10 +9,11 @@ import { addHistoryMarker } from '../sagas/utils';
 
 export function* pageWorker(action: Action<any>): SagaIterator {
   try {
+    const locale = yield select(application.selectors.getCurrentLocale);
     const { data } = yield call(
       api.getContentOfPage,
       action.payload.name,
-      action.payload.params
+      { ...action.payload.params, lang: locale }
     );
     yield put(
       requestPage.done({

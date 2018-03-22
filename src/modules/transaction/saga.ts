@@ -9,6 +9,7 @@ import * as auth from 'modules/auth';
 import * as applicationActions from 'modules/application/actions';
 import api from 'utils/api';
 import Keyring from 'utils/keyring';
+import { getCurrentLocale } from 'utils/common';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
 import { getPrivateKey } from 'modules/application/selectors';
@@ -92,6 +93,8 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
 export function* contractWorker(action: Action<any>): SagaIterator {
   try {
     const getKey = yield call(requestPrivateKeyWorker);
+    const locale = getCurrentLocale();
+
     if (!getKey) {
       yield call(filterTransactions, action.payload.uuid);
       return; // if no no key we need to clear transactions
@@ -101,7 +104,7 @@ export function* contractWorker(action: Action<any>): SagaIterator {
     const { data: prepareData } = yield call(
       api.prepareContract,
       action.payload.contract,
-      action.payload.params
+      { ...action.payload.params, Lang: locale },
     ); // Prepate contract
 
     yield fork(signsWorker, prepareData, { ...action.payload.params, ...action.payload.contract }, privateKey, action.payload.uuid); // checking if there is nested contracts
@@ -125,7 +128,8 @@ export function* contractWorker(action: Action<any>): SagaIterator {
           signature,
           time: prepareData.time,
           ...signParams,
-          pubkey: publicKey
+          pubkey: publicKey,
+          Lang: locale,
         }
       ); // run contract
 
