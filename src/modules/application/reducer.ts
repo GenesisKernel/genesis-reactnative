@@ -21,6 +21,7 @@ export interface IHistory {
 }
 
 export interface IState {
+  currentLocale: string;
   seed?: string;
   isStarted?: boolean;
   currentPageId?: string;
@@ -46,6 +47,7 @@ export interface IState {
 }
 
 export const initialState: IState = {
+  currentLocale: 'en-US',
   isStarted: false,
   isVDEMode: false,
   socketConnectedAccounts: {},
@@ -143,4 +145,8 @@ export default reducerWithInitialState<IState>(initialState)
   .case(actions.toggleDrawer, (state,payload: any) => ({
     ...state,
     drawerOpen: payload,
+  }))
+  .case(actions.setCurrentLocale, (state, payload: string) => ({
+    ...state,
+    currentLocale: payload,
   }))

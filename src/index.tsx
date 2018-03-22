@@ -14,6 +14,8 @@ import StatusBarContainer from 'containers/StatusBarContainer';
 import MainBackgroundImageContainer from 'containers/MainBackgroundImageContainer';
 import AnimatedDrawerContainer from 'containers/AnimatedDrawerContainer';
 import ModalsContainer from 'containers/ModalsContainer';
+import IntlProviderContainer from 'containers/IntlProviderContainer';
+
 import Text from 'components/ui/Text';
 
 import { URL_PREFIX } from './constants';
@@ -26,13 +28,12 @@ export default class App extends React.Component<{},{}> {
         <MainBackgroundImageContainer>
           <StatusBarContainer />
           <AlertContainer />
-          <IntlProvider locale="en" defaultLocale="en" textComponent={Text}>
+          <IntlProviderContainer>
             <AnimatedDrawerContainer>
               <ModalsContainer />
-              <NavigatorContainer
-                uriPrefix={URL_PREFIX}/>
+              <NavigatorContainer uriPrefix={URL_PREFIX} />
             </AnimatedDrawerContainer>
-          </IntlProvider>
+          </IntlProviderContainer>
         </MainBackgroundImageContainer>
       </Provider>
     );

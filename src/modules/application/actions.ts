@@ -67,3 +67,5 @@ export const confirmModal = actionCreator<{}>('CONFIRM_MODAL');
 export const showModal = actionCreator<{type: string, params?: any}>('SHOW_MODAL');
 
 export const toggleDrawer = actionCreator<boolean>('TOGGLE_DRAWER');
+
+export const setCurrentLocale = actionCreator<string>('SET_CURRENT_LOCALE');

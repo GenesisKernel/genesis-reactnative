@@ -52,3 +52,8 @@ export const getDrawerState = createSelector(
   getApplication,
   application => application.drawerOpen,
 );
+
+export const getCurrentLocale = createSelector(
+  getApplication,
+  application => application.currentLocale
+)

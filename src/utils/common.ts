@@ -1,6 +1,6 @@
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import { navTypes } from '../constants';
-import { Platform } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 
 export async function checkTouchIDAvailiability(): Promise<{}> {
   let isSupported: Boolean = false;
@@ -24,4 +24,15 @@ export const isRouteToCollapseApp = (currentRoute: string): boolean => {
   } else {
     return false;
   }
+}
+
+export const getCurrentLocale = () => {
+  let systemLanguage;
+  if (Platform.OS === 'android') {
+    systemLanguage = NativeModules.I18nManager.localeIdentifier.replace('_', '-');
+  } else {
+    systemLanguage = NativeModules.SettingsManager.settings.AppleLocale.replace('_', '-');
+  }
+
+  return systemLanguage;
 }

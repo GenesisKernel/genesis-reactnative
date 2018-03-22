@@ -5,10 +5,10 @@ import { takeEvery, put, call, select, all, take } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 import { apiSetToken } from 'utils/api';
-import { checkTouchIDAvailiability } from 'utils/common';
+import { checkTouchIDAvailiability, getCurrentLocale } from 'utils/common';
 import { waitForError } from '../sagas/utils';
 import { navTypes, ERRORS } from '../../constants';
-import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer } from './actions';
+import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale } from './actions';
 import { getDrawerState } from './selectors';
 
 import * as auth from 'modules/auth';
@@ -33,7 +33,9 @@ export function* initWorker(): SagaIterator {
     isTouchIDAvailable: call(checkTouchIDAvailiability),
   });
 
+  yield put(setCurrentLocale(getCurrentLocale()));
   yield put(checkForTouchID(isTouchIDAvailable));
+
   const { accounts } = yield select((state) => state);
 
   yield call(delay, 300); // Just for visual effect
