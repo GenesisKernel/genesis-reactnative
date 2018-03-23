@@ -40,10 +40,9 @@ const avatarDefaultProps = {
 const tabButtons = [
   {
     intl: {
-      id: 'account.list.accounts',
+      id: "account.list.accounts",
       defaultMessage: 'Accounts',
     },
-    title: 'Accounts',
     payload: 'accounts',
   },
   {
@@ -51,7 +50,6 @@ const tabButtons = [
       id: 'transactions.list.transactions',
       defaultMessage: 'Transactions'
     },
-    title: 'Transactions',
     payload: 'transactions',
   },
 ];

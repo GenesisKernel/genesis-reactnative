@@ -33,6 +33,5 @@ export const getCurrentLocale = () => {
   } else {
     systemLanguage = NativeModules.SettingsManager.settings.AppleLocale.replace('_', '-');
   }
-
   return systemLanguage;
 }

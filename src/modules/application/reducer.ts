@@ -21,7 +21,7 @@ export interface IHistory {
 }
 
 export interface IState {
-  currentLocale: string;
+  currentLocale: string | null;
   seed?: string;
   isStarted?: boolean;
   currentPageId?: string;
@@ -47,7 +47,7 @@ export interface IState {
 }
 
 export const initialState: IState = {
-  currentLocale: 'en-US',
+  currentLocale: null,
   isStarted: false,
   isVDEMode: false,
   socketConnectedAccounts: {},
