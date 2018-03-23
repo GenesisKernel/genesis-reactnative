@@ -1,5 +1,6 @@
 export default {
   "account.create": "Create account",
+  "account.create.uppercase": 'CREATE ACCOUNT',
   "account.known": "Known account",
   "account.list.login.as": "Login as",
   "account.list.accounts": "Accounts",

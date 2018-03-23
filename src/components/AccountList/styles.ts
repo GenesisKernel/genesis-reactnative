@@ -126,5 +126,18 @@ export default StyleSheet.create({
   notificationText: {
     color: Colors.white,
     fontSize: FontSizes.smallCommonSize,
-  }
+  },
+  createButtonTouchable: {
+    position: 'relative',
+    top: 70
+  },
+  createButtonContainer: {
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.underlayBlueLessOpacity,
+  },
+  createButtonText: {
+    color: Colors.white,
+  },
 });

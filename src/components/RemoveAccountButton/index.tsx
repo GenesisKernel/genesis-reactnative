@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from 'components/ui/Button';
+import { MODAL_ANIMATION_TIME } from '../../constants';
 import styles from './styles';
 
 const removeButtonProps = {
@@ -31,6 +32,8 @@ export default class RemoveAccountButton extends React.Component<IRemoveAccountB
   private onRemove = () => {
     const { onRemove, recenter } = this.props;
     recenter();
-    onRemove();
+    setTimeout(() => {
+      onRemove();
+    }, MODAL_ANIMATION_TIME);
   }
 }

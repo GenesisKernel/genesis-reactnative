@@ -1,7 +1,8 @@
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { takeEvery, put, take, race, select } from 'redux-saga/effects';
-
+import { takeEvery, put, take, race, select, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { MODAL_ANIMATION_TIME } from '../../constants';
 import * as account from 'modules/account';
 import * as application from 'modules/application';
 import * as auth from 'modules/auth';
@@ -23,8 +24,9 @@ export function* removeAccountWorker(action: Action<any>): SagaIterator {
   if (result.confirm) {
     const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress);
     if (action.payload.accountAddress === currentAccountAddress) {
-      yield put(auth.actions.logout());
       yield put(application.actions.toggleDrawer(false));
+      yield call(delay, MODAL_ANIMATION_TIME);
+      yield put(auth.actions.logout());
     }
     yield put(
       account.actions.removeAccount.done({

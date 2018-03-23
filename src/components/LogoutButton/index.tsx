@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { MODAL_ANIMATION_TIME } from '../../constants';
 
 import Button from 'components/ui/Button';
 import styles from './styles';
@@ -35,6 +36,6 @@ export default class LogoutButton extends React.Component<ILogoutButtonProps, {}
 
   private handleLogoutButtonPress = () => {
     this.props.recenter();
-    this.props.logout();
+    setTimeout(() => {this.props.logout()} ,MODAL_ANIMATION_TIME);
   }
 }

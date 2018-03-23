@@ -3,9 +3,11 @@ import { isEmpty, path } from 'ramda';
 import { View, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+import Row from './Row';
+import CreateAccountButton from './CreateAccountButton';
+
 import Button from 'components/ui/Button';
 import Field from 'components/ui/Field';
-import Row from './Row';
 import Text from 'components/ui/Text';
 
 import styles from './styles';
@@ -16,6 +18,7 @@ export interface IAccountListProps {
   noTitle?: boolean | undefined,
   currentAccountAddress: string;
   isDrawerOpened: boolean;
+  isAccountSelectScreen: boolean;
   notifications: {
     groupedByEcosystemId: {
       [id: string]: {
@@ -29,6 +32,7 @@ export interface IAccountListProps {
   };
   onSelect(address: string, ecosystemId: string): void;
   onRemove(): void;
+  onCreateAccount: () => void;
 }
 
 const findEcosystemName = (parameter: any) =>
@@ -55,7 +59,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
     if (isEmpty(this.props.accounts)) {
       return <View style={styles.container} />;
     }
-
+    const { isAccountSelectScreen } = this.props;
     return (
       <View style={styles.container}>
         {!this.props.noTitle && (
@@ -67,6 +71,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
           showsVerticalScrollIndicator={false}
         >
           {Object.values(this.props.accounts).map(this.iterateEcosystems)}
+          {!isAccountSelectScreen && (<CreateAccountButton onPress={this.props.onCreateAccount} />)}
         </ScrollView>
       </View>
     );
@@ -74,7 +79,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
 
   private iterateEcosystems = (account: any) => {
     if (account.ecosystems) {
-      return account.ecosystems.map((ecosystem: any) => {
+      return account.ecosystems.map((ecosystem: string) => {
         return this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem], path(['groupedByEcosystemId', `${ecosystem}`, `${account.address}`, 'count'],this.props.notifications));
       });
     }
