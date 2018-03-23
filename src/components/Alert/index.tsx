@@ -1,16 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
+import { getTranslations } from 'utils/translations';
 
+import Text from 'components/ui/Text';
 import Button from 'components/ui/Button';
 import styles from './styles';
 
 interface IAlertProps {
   type?: string;
   title?: string;
-  message?: string;
+  message: string;
+  currentLocale: string;
 
   confirm(): void;
   cancel(): void;
@@ -52,10 +55,13 @@ class Alert extends React.PureComponent<IAlertProps> {
   }
 
   private showWindow = (props: IAlertProps) => {
+    const locale = this.props.currentLocale.substr(0, 2) || 'en';
+    const translations = getTranslations(this.props.currentLocale);
+
     const actions = [
       <Button
         key="cancel"
-        title="Cancel"
+        title={translations["singup.button.cancel"]}
         containerViewStyle={styles.dialogButtonStyle}
         buttonStyle={styles.dialogCancelButtonStyle}
         onPress={this.handleCancelButton}
@@ -66,7 +72,7 @@ class Alert extends React.PureComponent<IAlertProps> {
       actions.push(
         <Button
           key="confirm"
-          title="Confirm"
+          title={translations["modal.window.confirm"]}
           containerViewStyle={styles.dialogButtonStyle}
           buttonStyle={styles.dialogConfirmButtonStyle}
           onPress={this.handleConfirmButton}
@@ -75,7 +81,9 @@ class Alert extends React.PureComponent<IAlertProps> {
     }
 
     const title = (
-      <DialogTitle title={props.title} titleTextStyle={styles.dialogTitle} />
+      <DialogTitle
+        title={props.title && translations[props.title] ? translations[props.title] : props.title}
+        titleTextStyle={styles.dialogTitle} />
     );
 
     this.alert = new RootSiblings(
@@ -89,8 +97,7 @@ class Alert extends React.PureComponent<IAlertProps> {
           height={0.4}
         >
           <View style={styles.dialogContent}>
-            <Text>{props.message}</Text>
-
+            <Text>{translations[props.message] || props.message}</Text>
             <View style={styles.dialogActions}>{actions}</View>
           </View>
         </PopupDialog>

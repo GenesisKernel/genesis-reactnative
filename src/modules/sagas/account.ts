@@ -9,9 +9,9 @@ import * as auth from 'modules/auth';
 export function* removeAccountWorker(action: Action<any>): SagaIterator {
   yield put(
     application.actions.receiveAlert({
-      title: 'Warning!',
-      message: 'Do you want to remove this account?',
-      type: 'warning'
+      title: "alert.title.warning",
+      type: 'warning',
+      message: "account.want.to.remove",
     })
   );
 

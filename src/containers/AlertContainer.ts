@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
+import { getCurrentLocale } from 'modules/application/selectors';
 import Alert from 'components/Alert';
 
 import * as application from 'modules/application';
 
 const mapStateToProps = (state: any) => {
   return {
-    ...application.selectors.getAlert(state)
+    ...application.selectors.getAlert(state),
+    currentLocale: getCurrentLocale(state),
   };
 };
 
