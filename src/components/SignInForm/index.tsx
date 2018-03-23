@@ -24,7 +24,7 @@ export interface ISignInProps {
 }
 
 const cancelTitle = {
-  id: 'auth.type.anotherAccount',
+  id: 'signin.screen.another.account',
   defaultMessage: "Another Account",
 };
 
@@ -49,7 +49,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             secureTextEntry
             onChangeText={this.handlePasswordChange}
             intl={{
-              id: 'auth.sign-in.password.placeholder',
+              id: "auth.sign-up.password.placeholder",
               defaultMessage: 'Password'
             }}
           />
@@ -57,7 +57,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
         <PendingButtonContainer
           onPress={this.submit}
           intl={{
-            id: 'auth.sign-in.submit.title',
+            id: 'auth.sign-in.submit.sign.in',
             defaultMessage: 'Sign in'
           }}
         />

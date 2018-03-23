@@ -25,11 +25,13 @@ const Row = ({ children }) => (
 );
 
 class SignInScreen extends React.Component<IScreenProps, object> {
-  public static navigationOptions = (): NavigationStackScreenOptions => ({
-    headerTitle: 'Login',
-    headerBackTitle: null,
-    headerLeft: <View/>
-  })
+  public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => {
+    return {
+      headerTitle: <Text style={navigationOptions.headerTitleStyle} intl={{ id: "signin.screen.login", defaultMessage: "Login" }} />,
+      headerBackTitle: null,
+      headerLeft: <View/>
+    }
+  }
 
   public render() {
     const { id, ecosystemId, privateKey } = this.props.navigation.state.params;
@@ -39,12 +41,16 @@ class SignInScreen extends React.Component<IScreenProps, object> {
         {!!privateKey && (
           <View style={styles.notification}>
             <View style={styles.textContainer}>
-              <Text style={styles.title}>Private key: </Text>
+              <Text
+                intl={{ id: "signin.screen.private.key", defaultMessage: "Private key:" }}
+                style={styles.title}/>
               <Text style={styles.text}>{privateKey}</Text>
             </View>
             {ecosystemId && privateKey && (
               <View style={styles.textContainer}>
-                <Text style={styles.title}>Ecosystem: </Text>
+                <Text
+                  style={styles.title}
+                  intl={{ id: "signin.screen.ecosystem", defaultMessage: "Ecosystem:" }} />
                 <Text style={styles.text}>{ecosystemId}</Text>
               </View>
             )}

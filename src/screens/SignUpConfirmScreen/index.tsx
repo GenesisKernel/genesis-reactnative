@@ -6,14 +6,14 @@ import {
   NavigationScreenProps
 } from 'react-navigation';
 import SingUpFormContainer from 'containers/SingUpFormContainer';
-
+import Text from 'components/ui/Text';
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class SignUpScreen extends React.Component<IScreenProps, object> {
-  public static navigationOptions = ({ navigation }): NavigationStackScreenOptions => {
-    const title = path(['state', 'params', 'changePassword'], navigation) ? 'Change password' : 'Create account';
+  public static navigationOptions = ({ navigation, navigationOptions }): NavigationStackScreenOptions => {
+    const title = path(['state', 'params', 'changePassword'], navigation) ? 'signup.confirm.change.password' : 'account.create';
     return {
-      headerTitle: title,
+      headerTitle: <Text intl={{ id: title, defaultMessage: title }} style={navigationOptions.headerTitleStyle}/>,
     }
   }
 

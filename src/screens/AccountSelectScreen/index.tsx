@@ -14,12 +14,12 @@ import { navTypes } from '../../constants';
 import styles from './styles';
 
 const addAccountButtonLabel = {
-  id: 'auth.select-account.another',
+  id: 'account.known',
   defaultMessage: 'KNOWN ACCOUNT'
 };
 
 const createAccountButtonLabel = {
-  id: 'auth.create-account.another',
+  id: "account.create",
   defaultMessage: 'CREATE ACCOUNT'
 };
 
@@ -35,13 +35,14 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
       <View style={styles.container}>
         <Logo />
         <Text
-          style={styles.title}>
-          WELCOME TO APLA!
-        </Text>
+          intl={{ id: 'auth.welcome.to', defaultMessage: 'WELLCOME TO APLA' }}
+          style={styles.title}/>
         <Text
-          style={styles.description}>
-          Please authorise or sign up to start working.
-        </Text>
+          intl={{
+            id: 'auth.authorise.please',
+            defaultMessage: 'Please authorise or sign up to start working.'
+          }}
+          style={styles.description}/>
         <AccountListContainer/>
         <View style={styles.buttonsContainer}>
           <Button

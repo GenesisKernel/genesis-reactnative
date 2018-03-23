@@ -5,7 +5,7 @@ import { IAccout } from 'modules/account/reducer';
 
 const changePasswordButton = {
   intl: {
-    id: 'changePassword',
+    id: 'account.button.change.password',
     defaultMessage: 'Change Password'
   },
 };

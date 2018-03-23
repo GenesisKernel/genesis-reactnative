@@ -14,7 +14,6 @@ import HomeScreen from 'screens/HomeScreen';
 import PageScreen from 'screens/PageScreen';
 import SubMenuScreen from 'screens/SubMenuScreen';
 import ScannerScreen from 'screens/ScannerScreen';
-import KeyScreen from 'screens/KeyScreen';
 import AuthTypeScreen from 'screens/AuthTypeScreen';
 import AuthSuccessfulScreen from 'screens/AuthSuccessfulScreen';
 import ImportAccountScreen from 'screens/ImportAccountScreen';
@@ -23,8 +22,6 @@ import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
 import SignUpWarningScreen from 'screens/SignUpWarningScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
-import TransactionsScreen from 'screens/TransactionsScreen';
-import NotificationsScreen from 'screens/NotificationsScreen';
 
 export default StackNavigator(
   {
@@ -40,10 +37,7 @@ export default StackNavigator(
     [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreen, 'green') },
     [navTypes.PAGE]: { screen: BackgroundImageHoc(PageScreen, 'green') },
     [navTypes.SUB_MENU]: { screen: BackgroundImageHoc(SubMenuScreen, 'green') },
-    [navTypes.KEY]: { screen: KeyScreen },
     [navTypes.LANDING]: { screen: LandingScreen },
-    [navTypes.TRANSACTIONS]: { screen: BackgroundImageHoc(TransactionsScreen, 'green') },
-    [navTypes.NOTIFICATIONS]: { screen: BackgroundImageHoc(NotificationsScreen, 'green') },
   },
   {
     initialRouteName: navTypes.LANDING,

@@ -50,25 +50,25 @@ export default class NestedContractSigningForm extends React.Component<INestedCo
                 <Button
                   onPress={this.props.onConfirm}
                   buttonStyle={[styles.button, styles.leftButton]}
-                  title="OK" />
+                  intl={{ id: "modal.window.confirm", defaultMessage: "confirm" }} />
               )
               : (
                 <TouchId
                   onSuccess={this.props.onConfirm}
                   onFail={this.props.onClose}
-                  reason="Sign contract ?"
+                  reason="Sign contract?"
                   CustomButton={(onPress: any) => (
                     <Button
                       onPress={onPress}
                       buttonStyle={[styles.button, styles.leftButton]}
-                      title="OK" />
+                      intl={{ id: "modal.window.confirm", defaultMessage: "confirm" }} />
                   )} />
               )
             }
             <Button
               onPress={this.props.onClose}
               buttonStyle={styles.button}
-              title="CANCEL" />
+              intl={{ id: "singup.button.cancel", defaultMessage: "CANCEL" }}/>
           </View>
         </View>
       </View>

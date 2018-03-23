@@ -15,17 +15,17 @@ export interface ISignUpProps {
 }
 
 const cancelTitle = {
-  id: 'auth.type.cancel',
+  id: "singup.button.cancel",
   defaultMessage: "CANCEL",
 };
 
 const useExistedCodeTitle = {
-  id: 'auth.type.useExistedCode',
+  id: "auth.scanner.existed.code",
   defaultMessage: "USE EXISTED CODE",
 };
 
 const scanAgainTitle = {
-  id: 'auth.type.scanAgain',
+  id: "auth.scanner.scan.again",
   defaultMessage: "SCAN AGAIN",
 };
 

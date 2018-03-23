@@ -7,12 +7,12 @@ import {
 } from 'react-navigation';
 
 import ImportAccountFormContainer from 'containers/ImportAccountFormContainer';
-
+import Text from 'components/ui/Text';
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class SignUpScreen extends React.Component<IScreenProps, object> {
-  public static navigationOptions = (): NavigationStackScreenOptions => ({
-    headerTitle: 'Known account'
+  public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => ({
+    headerTitle: <Text style={navigationOptions.headerTitleStyle} intl={{ id: "account.known", defaultMessage: 'Known account' }} />
   })
 
   public render() {

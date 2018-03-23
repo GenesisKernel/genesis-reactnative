@@ -14,7 +14,7 @@ import styles from './styles';
 
 const isKnownAccount = pathOr(false)(['state', 'params', 'isKnownAccount']);
 const nextButtonIntl = {
-  id: 'auth.successful.button.next',
+  id: "signup.button.next",
   defaultMessage: 'Next'
 };
 
@@ -25,22 +25,33 @@ interface IScreenProps
 
 class AuthSuccessfulScreen extends React.Component<IScreenProps> {
   public static navigationOptions = ({
-    navigation
+    navigation, navigationOptions
   }): NavigationStackScreenOptions => {
+    const titleIntl = isKnownAccount(navigation) ? {
+      id: "auth.success.account.connected",
+      defaultMessage: "'Account connected",
+    } : {
+      id: "auth.success.account.created",
+      defaultMessage: "Account created",
+    }
+
     return {
       headerLeft: <View />,
       gesturesEnabled: false,
-      headerTitle: isKnownAccount(navigation)
-        ? 'Account connected'
-        : 'Account created'
+      headerTitle: <Text
+        style={navigationOptions.headerTitleStyle}
+        intl={titleIntl}/>
     };
   }
 
   public render() {
-    const text = isKnownAccount(this.props.navigation)
-      ? 'You logged under known account.'
-      : 'Your account was created in Apla Blockchain.';
-
+    const textIntl = isKnownAccount(this.props.navigation) ? {
+      defaultMessage: 'You logged under known account.',
+      id: 'auth.success.known.account.logged',
+    } : {
+      defaultMessage: 'Your account was created in Apla Blockchain.',
+      id: 'auth.success.account.created.blockchain'
+    }
     return (
       <View style={styles.container}>
         <View style={styles.iconWrapper}>
@@ -50,8 +61,11 @@ class AuthSuccessfulScreen extends React.Component<IScreenProps> {
             name="thumbs-o-up"
             type="font-awesome"
           />
-          <Text style={styles.title}>Congratulations!</Text>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={styles.title} intl={{
+            id: "auth.success.congratulations",
+            defaultMessage: "Congratulations!",
+          }}/>
+          <Text style={styles.text} intl={textIntl}/>
         </View>
         <Button
           buttonStyle={styles.nextButton}

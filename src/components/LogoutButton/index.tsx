@@ -12,7 +12,7 @@ export interface ILogoutButtonProps {
 
 const logoutButtonProps = {
   intl: {
-    id: 'logout',
+    id: 'account.button.logout',
     defaultMessage: 'Logout'
   }
 };

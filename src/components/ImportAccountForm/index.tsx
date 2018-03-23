@@ -27,12 +27,12 @@ export interface ISignUpState {
 }
 
 const accountSeedInput = {
-  id: 'auth.sign-up.seed.placeholder',
+  id: "signup.account.seed",
   defaultMessage: 'Account seed',
 };
 
 const passwordInput = {
-  id: 'auth.sign-up.password.placeholder',
+  id: "auth.sign-up.password.placeholder",
   defaultMessage: 'Password',
 };
 
@@ -86,7 +86,7 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
             onPress={this.handleNavigateBack}
             buttonStyle={styles.cancelButton}
             intl={{
-              id: 'auth.sign-in.submit.title',
+              id: "singup.button.cancel",
               defaultMessage: 'Cancel',
             }}
           />

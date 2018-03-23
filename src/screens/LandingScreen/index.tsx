@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps
 } from 'react-navigation';
 import styles from './styles';
-
+import Text from 'components/ui/Text';
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class LandingScreen extends React.Component<IScreenProps, object> {
@@ -18,7 +18,9 @@ class LandingScreen extends React.Component<IScreenProps, object> {
   public render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Loading</Text>
+        <Text
+          style={styles.text}
+          intl={{ id: "landing.screen.loading", defaultMessage: 'Loading' }} />
       </View>
     );
   }

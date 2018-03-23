@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { FormattedMessage } from 'react-intl';
+import { View } from 'react-native';
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps

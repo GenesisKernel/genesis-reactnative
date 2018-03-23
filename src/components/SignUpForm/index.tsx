@@ -45,7 +45,7 @@ const NextButtonProps = {
 };
 
 const cancelButtonProps = {
-  id: 'auth.sign-in.submit.title',
+  id: "singup.button.cancel",
   defaultMessage: 'Cancel'
 };
 
@@ -86,7 +86,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
           <PendingButtonContainer
             onPress={changePassword ? this.handleChangePassword : this.submit}
             intl={{
-              id: 'auth.sign-in-confirm.finish.title',
+              id: "auth.sign-in-confirm.finish.title",
               defaultMessage: 'Finish'
             }}
           />

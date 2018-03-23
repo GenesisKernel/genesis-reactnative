@@ -34,12 +34,11 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
             <View style={styles.titlesBlock}>
               <Text
                 style={styles.title}
-                numberOfLines={1}>
-                {title || 'Password required'}
-              </Text>
-              <Text style={styles.secondaryTitle}>
-                To continue please enter your password.
-            </Text>
+                numberOfLines={1}
+                intl={{ id: "modal.password.required", defaultMessage: "Password required" }}/>
+              <Text
+                style={styles.secondaryTitle}
+                intl={{ id: "modal.password.to.continue", defaultMessage: 'To continue please enter your password.' }}/>
             </View>
             <Input
               style={styles.input}
@@ -50,7 +49,7 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
               placeholder={'Password'}
               secureTextEntry
               intl={{
-                id: 'auth.sign-in.password.placeholder',
+                id: "auth.sign-up.password.placeholder",
                 defaultMessage: 'Password'
               }} />
 
@@ -58,11 +57,11 @@ export default class ValidatePasswordForm extends React.Component<IValidateFormP
               <Button
                 buttonStyle={[styles.button, styles.leftButton]}
                 onPress={this.handleConfirm}
-                title="CONFIRM" />
+                intl={{ id: "modal.window.confirm", defaultMessage: "CONFIRM" }} />
               <Button
                 buttonStyle={styles.button}
                 onPress={this.handleClose}
-                title="CANCEL" />
+                intl={{ id: "singup.button.cancel", defaultMessage: 'CANCEL' }}/>
             </View>
           </View>
         </View>

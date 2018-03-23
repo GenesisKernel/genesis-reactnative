@@ -39,10 +39,18 @@ const avatarDefaultProps = {
 
 const tabButtons = [
   {
+    intl: {
+      id: 'account.list.accounts',
+      defaultMessage: 'Accounts',
+    },
     title: 'Accounts',
     payload: 'accounts',
   },
   {
+    intl: {
+      id: 'transactions.list.transactions',
+      defaultMessage: 'Transactions'
+    },
     title: 'Transactions',
     payload: 'transactions',
   },
@@ -84,7 +92,7 @@ class DrawerContent extends React.Component<
                   onPress={() => this.handlePressTab(item.payload)}
                   key={i}>
                   <View style={styles.switcherButtonWrapper}>
-                    <Text style={styles.switcherButtonTitle}>{item.title}</Text>
+                    <Text style={styles.switcherButtonTitle} intl={item.intl}/>
                     <AnimatableView
                       animation={item.payload === activeTab ? 'fadeIn' : 'fadeOut'}
                       easing="linear"

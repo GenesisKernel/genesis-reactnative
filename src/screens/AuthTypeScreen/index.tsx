@@ -25,16 +25,21 @@ const signUpTitle = {
 };
 
 const cancelTitle = {
-  id: 'auth.type.cancel',
+  id: "singup.button.cancel",
   defaultMessage: 'CANCEL'
 };
 
 interface IScreenProps extends NavigationScreenProps<{}> {}
 
 class AuthTypeScreen extends React.Component<IScreenProps, object> {
-  public static navigationOptions = (): NavigationStackScreenOptions => ({
-    headerTitle: 'Known account'
-  })
+  public static navigationOptions = (opts: any): NavigationStackScreenOptions => {
+    return {
+      headerTitle: (
+        <Text
+          style={opts.navigationOptions.headerTitleStyle}
+          intl={{ id: "account.known", defaultMessage: 'Known account' }} />)
+    }
+  }
 
   public render() {
     return (
@@ -46,10 +51,11 @@ class AuthTypeScreen extends React.Component<IScreenProps, object> {
             name="qrcode"
             type="font-awesome"
           />
-          <Text style={styles.descr}>
-            You can scan QR code for known account or enter your authorisation
-            data manualy.
-          </Text>
+          <Text
+            intl={{
+              id: "auth.type.description",
+              defaultMessage: " You can scan QR code for known account or enter your authorisation data manualy." }}
+            style={styles.descr} />
         </View>
         <View style={styles.bottomButtonsContainer}>
           <Button

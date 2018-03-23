@@ -25,12 +25,12 @@ export interface ISignUpConfirmState {
 }
 
 const cancelButtonProps = {
-  id: 'auth.sign-in.submit.title',
+  id: 'singup.button.cancel',
   defaultMessage: 'Cancel'
 };
 
-const NextButtonProps = {
-  id: 'auth.sign-in.submit.title',
+const nextButtonProps = {
+  id: 'signup.button.next',
   defaultMessage: 'Next'
 };
 
@@ -66,7 +66,7 @@ class SignUpConfirm extends React.Component<
               autoCorrect={false}
               multiline
               intl={{
-                id: 'auth.sign-up-confirm.seed.placeholder',
+                id: 'signup.account.seed',
                 defaultMessage: 'Account seed'
               }}
             />
@@ -76,7 +76,7 @@ class SignUpConfirm extends React.Component<
             buttonStyle={styles.cancelButton}
             textStyle={styles.cancelButtonText}
             intl={{
-              id: 'auth.sign-up-confirm.button.generate-new',
+              id: 'signup.generate.new',
               defaultMessage: 'Generate new'
             }}
           />
@@ -86,7 +86,7 @@ class SignUpConfirm extends React.Component<
           <Button
             buttonStyle={styles.nextButton}
             onPress={this.submit}
-            intl={NextButtonProps} />
+            intl={nextButtonProps} />
           <Button
             onPress={this.handleNavigateBack}
             buttonStyle={styles.cancelButton}

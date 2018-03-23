@@ -31,7 +31,10 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
   state = {
     dialogActivated: false,
     androidAlertFingerprintDescr: {
-      message: 'Scan your fingerprint on the device scanner to continue',
+      intl: {
+        id: "fingerprint.scan.to.continue",
+        defaultMessage: 'Scan your fingerprint on the device scanner to continue',
+      },
       key: 112,
     },
   }
@@ -52,7 +55,8 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
           <View style={styles.modalContainer}>
             <View style={styles.alertForm}>
               <Text
-                style={styles.title}>Fingerprint Authentication</Text>
+                style={styles.title}
+                intl={{ id: "fingerprint.authentication", defaultMessage: 'Fingerprint Authentication' }}/>
               <View style={styles.iconDescrContainer}>
                 <Icon
                   type="material-icons"
@@ -68,15 +72,15 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
                   iterationCount={1}
                   key={androidAlertFingerprintDescr.key}
                   style={styles.descrContainer}>
-                  <Text style={styles.descr}>
-                    {androidAlertFingerprintDescr.message}
-                  </Text>
+                  <Text style={styles.descr} intl={androidAlertFingerprintDescr.intl}/>
                 </Animatable.View>
               </View>
               <TouchableOpacity
                 onPress={this.cancelFingerprintRequest}
                 style={styles.cancelAuthContainer}>
-                <Text style={styles.cancelAuthText}>CANCEL</Text>
+                <Text
+                  style={styles.cancelAuthText}
+                  intl={{ id: "fingerprint.android.cancel", defaultMessage: 'CANCEL' }} />
               </TouchableOpacity>
             </View>
           </View>

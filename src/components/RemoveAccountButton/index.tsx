@@ -4,7 +4,7 @@ import styles from './styles';
 
 const removeButtonProps = {
   intl: {
-    id: 'remove',
+    id: 'account.button.remove',
     defaultMessage: 'Remove'
   }
 };
