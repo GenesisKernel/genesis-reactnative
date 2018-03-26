@@ -7,7 +7,7 @@ import * as en from 'react-intl/locale-data/en';
 
 interface IIntlProviderComponentProps {
   children?: any[];
-  currentLocale: string
+  currentLocale?: string
 };
 
 export default class IntlProviderComponent extends React.Component<IIntlProviderComponentProps> {
