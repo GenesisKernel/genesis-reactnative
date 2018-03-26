@@ -1,6 +1,6 @@
 import { applicationWatcher, persistWorker, initWorker, alertWorker, expiredTokenWorker } from '../saga';
 import { Action, AnyAction } from 'typescript-fsa';
-import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer } from '../actions';
+import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale } from '../actions';
 import { waitForError } from '../../sagas/utils';
 import { checkTouchIDAvailiability } from 'utils/common';
 import { takeEvery, put, call, select, all, take } from 'redux-saga/effects';
@@ -27,14 +27,16 @@ describe('applicationWatcher', () => {
   it('initWorker with VALID token', () => {
     const iterator = initWorker();
     iterator.next();
-    const { token, hasValidToken, isTouchIDAvailable } = {
+    const { token, hasValidToken, isTouchIDAvailable, currentLocale } = {
       token: 'valid_token',
       hasValidToken: true,
-      isTouchIDAvailable: false
+      isTouchIDAvailable: false,
+      currentLocale: 'en-US',
     };
 
-    iterator.next({ token, hasValidToken, isTouchIDAvailable });
-    iterator.next(checkForTouchID(isTouchIDAvailable)); // put checkForTouchID
+    iterator.next({ token, hasValidToken, isTouchIDAvailable, currentLocale });
+    iterator.next();
+    iterator.next(); // put checkForTouchID
     iterator.next({ accounts: {} }); // set accounts
 
     expect(iterator.next().value).toEqual(put(initFinish()));
@@ -46,14 +48,16 @@ describe('applicationWatcher', () => {
   it('initWorker with INVALID token', () => {
     const iterator = initWorker();
     iterator.next();
-    const { token, hasValidToken, isTouchIDAvailable } = {
+    const { token, hasValidToken, isTouchIDAvailable, currentLocale } = {
       token: 'invalid_token',
       hasValidToken: false,
-      isTouchIDAvailable: false
+      isTouchIDAvailable: false,
+      currentLocale: 'en-US',
     };
 
-    iterator.next({ token, hasValidToken, isTouchIDAvailable });
-    iterator.next(checkForTouchID(isTouchIDAvailable)); // put checkForTouchID
+    iterator.next({ token, hasValidToken, isTouchIDAvailable, currentLocale });
+    iterator.next();
+    iterator.next(); // put checkForTouchID
     iterator.next({ accounts: {} }); // set accounts
 
     expect(iterator.next().value).toEqual(put(auth.actions.detachSession()));

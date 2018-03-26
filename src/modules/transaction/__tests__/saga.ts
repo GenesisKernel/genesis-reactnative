@@ -28,17 +28,19 @@ describe('contractWorker', () => {
     const iterator = contractWorker(action);
     iterator.next();
     iterator.next(getKey); // call getKey
+    iterator.next();
     iterator.next(prepareData); // call prepareContract
     iterator.next(); // fork signsWorker
     iterator.next(signingResult); // valid won the race
     iterator.next(signingResult.valid.payload);
     iterator.next();
+    // console.log(iterator.next(prepareData).value);
     iterator.next(statusData);
     iterator.next(statusData);
     expect(iterator.next().value).toEqual(call(refreshPrivateKeyExpireTime));
   });
 
-  it ('contractWorker with getKey, all nested contacts confirmed', () => {
+  it ('contractWorker with getKey, invalid race won', () => {
     const iterator = contractWorker(action);
     const signingResult = {
       invalid: {
@@ -47,6 +49,7 @@ describe('contractWorker', () => {
     };
     iterator.next();
     iterator.next(getKey); // call getKey
+    iterator.next();
     iterator.next(prepareData); // call prepareContract
     iterator.next(); // fork signsWorker
     expect(iterator.next(signingResult).value).toEqual(put(applicationActions.closeModal()))

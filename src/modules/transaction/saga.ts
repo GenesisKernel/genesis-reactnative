@@ -93,7 +93,7 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
 export function* contractWorker(action: Action<any>): SagaIterator {
   try {
     const getKey = yield call(requestPrivateKeyWorker);
-    const locale = getCurrentLocale();
+    const locale = yield call(getCurrentLocale);
 
     if (!getKey) {
       yield call(filterTransactions, action.payload.uuid);

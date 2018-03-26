@@ -3,7 +3,7 @@ import { delay } from 'redux-saga';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { navTypes, ERRORS } from '../../../constants';
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
-// import api from 'utils/__mocks__/api';
+
 import Keyring from 'utils/keyring';
 import * as accountActions from 'modules/account/actions';
 import * as applicationActions from 'modules/application/actions';

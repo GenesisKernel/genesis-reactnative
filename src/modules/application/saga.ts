@@ -27,13 +27,14 @@ interface IErrorAlert {
 }
 
 export function* initWorker(): SagaIterator {
-  const { hasValidToken, token, isTouchIDAvailable } = yield all({
+  const { hasValidToken, token, isTouchIDAvailable, currentLocale } = yield all({
     token: select(auth.selectors.getToken),
     hasValidToken: select(auth.selectors.hasValidToken),
     isTouchIDAvailable: call(checkTouchIDAvailiability),
+    currentLocale: call(getCurrentLocale),
   });
 
-  yield put(setCurrentLocale(getCurrentLocale()));
+  yield put(setCurrentLocale(currentLocale));
   yield put(checkForTouchID(isTouchIDAvailable));
 
   const { accounts } = yield select((state) => state);
