@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Icon } from 'react-native-elements';
 import { Platform, Vibration, View, TouchableOpacity } from 'react-native';
 
-import ReactNativeHaptic from 'react-native-haptic';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import Modal from 'react-native-modal';
 import * as Animatable from 'react-native-animatable';
@@ -22,7 +22,10 @@ interface ITouchIdProps {
 interface ITouchState {
   dialogActivated: boolean;
   androidAlertFingerprintDescr: {
-    message: string;
+    intl: {
+      id: string;
+      defaultMessage: string;
+    },
     key: number;
   };
 }
@@ -33,7 +36,7 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     androidAlertFingerprintDescr: {
       intl: {
         id: "fingerprint.scan.to.continue",
-        defaultMessage: 'Scan your fingerprint on the device scanner to continue',
+        defaultMessage: 'Use your touch or face id scanner.',
       },
       key: 112,
     },
@@ -56,7 +59,7 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
             <View style={styles.alertForm}>
               <Text
                 style={styles.title}
-                intl={{ id: "fingerprint.authentication", defaultMessage: 'Fingerprint Authentication' }}/>
+                intl={{ id: "fingerprint.authentication", defaultMessage: 'Biometric authentication' }}/>
               <View style={styles.iconDescrContainer}>
                 <Icon
                   type="material-icons"
@@ -113,10 +116,10 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     const { onSuccess, onFail, reason } = this.props;
     FingerprintScanner.authenticate({ description: reason, fallbackEnabled: false })
     .then((r: any) => {
-      ReactNativeHaptic.generate('impact');
+      ReactNativeHapticFeedback.trigger('notificationSuccess');
       onSuccess && onSuccess();
     }).catch((err: any) => {
-      ReactNativeHaptic.generate('notification');
+      ReactNativeHapticFeedback.trigger('notificationError');
       onFail && onFail();
     });
   }
@@ -127,17 +130,24 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     this.setState({ dialogActivated: true });
 
     request.then((r: any) => {
-      Vibration.vibrate([0, 200, 20, 500], false);
+      // Vibration.vibrate([0, 200, 20, 500], false);
+      ReactNativeHapticFeedback.trigger('notificationSuccess');
       onSuccess && onSuccess();
     }).catch((err: any) => {
-      Vibration.vibrate(200, false);
+      // Vibration.vibrate(200, false);
+      ReactNativeHapticFeedback.trigger('notificationError');
       onFail && onFail('withError');
     });
   }
 
   private androidFingerprintOnAttempt = (err: { message: string }): void => {
     this.setState({ androidAlertFingerprintDescr: {
-        message: err.message, key: this.state.androidAlertFingerprintDescr.key + 1
+        ...this.state.androidAlertFingerprintDescr,
+        intl: {
+          id: 'fingerprint.no.match',
+          defaultMessage: 'No match.'
+        },
+        key: this.state.androidAlertFingerprintDescr.key + 1
       }
     });
   }

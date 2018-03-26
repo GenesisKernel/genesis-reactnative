@@ -13,6 +13,8 @@ target 'Apla' do
   pod 'RSKImageCropper'
   pod 'QBImagePickerController'
 
+  pod 'RNReactNativeHapticFeedback', :path => '../node_modules/react-native-haptic-feedback'
+
   target 'AplaTests' do
     inherit! :search_paths
     # Pods for testing

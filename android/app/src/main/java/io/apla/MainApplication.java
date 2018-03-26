@@ -3,6 +3,7 @@ package io.apla;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNReactNativeHapticFeedbackPackage;
 import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNReactNativeHapticFeedbackPackage(),
             new ReactNativeFingerprintScannerPackage(),
           new PickerPackage(),
           new AppCenterReactNativePushPackage(MainApplication.this),

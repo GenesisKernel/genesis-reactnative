@@ -1,5 +1,7 @@
 import enUS from './en-US';
 import ru from './ru-RU';
+
+export const SUPPORTED_LOCALES = ['ru', 'en'];
 const locales = {
   enUS,
   ru
