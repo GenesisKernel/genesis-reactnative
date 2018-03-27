@@ -35,6 +35,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8DEE9EA6441B4B3A916B7353 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F10DDEF3CDB1417EBD5C86BE /* libCodePush.a */; };
 		980A6F31DB21422C8F7796F5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E9D2E8D344DE58F8BA1FE /* libRNVectorIcons.a */; };
+		A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */; };
 		A343F21E20515929001BC59C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A343F21D20515929001BC59C /* Images.xcassets */; };
 		A34D201B202B540D00A42BB5 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */; };
 		A38D0F41202B192600B67045 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A38D0F13202B192600B67045 /* Lato-Thin.ttf */; };
@@ -348,6 +349,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		A321B459206A289D0023CA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNReactNativeHapticFeedback;
+		};
 		A34258A1202B72B500B2A15E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AED909F2CC0A4A8FBEDDC7C7 /* imageCropPicker.xcodeproj */;
@@ -431,6 +439,7 @@
 		8EF7D3F4BB72A09753B5D9A9 /* libPods-Apla-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		968824C5BCED31E1DF5D25BD /* libPods-Apla-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CEEB7C7E0FA477684FB214C /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
+		A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNReactNativeHapticFeedback.xcodeproj; path = "../node_modules/react-native-haptic-feedback/ios/RNReactNativeHapticFeedback.xcodeproj"; sourceTree = "<group>"; };
 		A343F21D20515929001BC59C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Apla/Images.xcassets; sourceTree = "<group>"; };
 		A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
 		A38D0F13202B192600B67045 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
@@ -468,6 +477,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -708,6 +718,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -765,6 +776,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Apla.app */,
 				00E356EE1AD99517003FC87E /* AplaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A321B428206A289C0023CA3A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1002,6 +1021,10 @@
 				{
 					ProductGroup = A3B5C0E52068E4D9005655E7 /* Products */;
 					ProjectRef = BA0252904A9F4BEC8DAFA895 /* ReactNativeFingerprintScanner.xcodeproj */;
+				},
+				{
+					ProductGroup = A321B428206A289C0023CA3A /* Products */;
+					ProjectRef = A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */;
 				},
 				{
 					ProductGroup = 07F912C11FA07DC9003A46E0 /* Products */;
@@ -1309,6 +1332,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNReactNativeHapticFeedback.a;
+			remoteRef = A321B459206A289D0023CA3A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A34258A2202B72B500B2A15E /* libimageCropPicker.a */ = {

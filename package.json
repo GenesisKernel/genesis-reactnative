@@ -35,6 +35,7 @@
     "react-native-drawer": "^2.5.0",
     "react-native-elements": "^0.19.0",
     "react-native-fingerprint-scanner": "^2.3.2",
+    "react-native-haptic-feedback": "^1.1.0",
     "react-native-image-crop-picker": "0.19.0",
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-modal": "^5.3.0",

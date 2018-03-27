@@ -5,6 +5,7 @@ import { Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { View as AnimatableView } from 'react-native-animatable';
 
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import MenuContainer from 'containers/MenuContainer';
 import AccountListContainer from 'containers/AccountListContainer';
 import Button from 'components/ui/Button';
@@ -83,6 +84,7 @@ class DrawerContent extends React.Component<
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
           <Button title="test vibration" onPress={this.kek}/>
+          <Button title="test vibration1" onPress={this.kek1}/>
           <View style={styles.switcher}>
             {tabButtons.map((item, i) => {
               return (
@@ -134,7 +136,13 @@ class DrawerContent extends React.Component<
   }
 
   private kek = () => {
-    this.props.openModal();
+    ReactNativeHapticFeedback.trigger('notificationWarning');
+    // this.props.openModal();
+  }
+
+  private kek1 = () => {
+    ReactNativeHapticFeedback.trigger('impactHeavy');
+    // this.props.openModal();
   }
 
   private handleUnderlay = (value: string) => {
