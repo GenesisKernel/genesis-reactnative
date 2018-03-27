@@ -163,7 +163,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-haptic-feedback')
     compile project(':react-native-fingerprint-scanner')
     compile project(':react-native-image-crop-picker')
     compile project(":appcenter-push")

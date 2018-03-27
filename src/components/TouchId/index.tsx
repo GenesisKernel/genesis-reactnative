@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Icon } from 'react-native-elements';
 import { Platform, Vibration, View, TouchableOpacity } from 'react-native';
 
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import Modal from 'react-native-modal';
 import * as Animatable from 'react-native-animatable';
@@ -116,10 +115,9 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     const { onSuccess, onFail, reason } = this.props;
     FingerprintScanner.authenticate({ description: reason, fallbackEnabled: false })
     .then((r: any) => {
-      ReactNativeHapticFeedback.trigger('notificationSuccess');
+      Vibration.vibrate(3, false);
       onSuccess && onSuccess();
     }).catch((err: any) => {
-      ReactNativeHapticFeedback.trigger('notificationError');
       onFail && onFail();
     });
   }
@@ -130,12 +128,10 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     this.setState({ dialogActivated: true });
 
     request.then((r: any) => {
-      // Vibration.vibrate([0, 200, 20, 500], false);
-      ReactNativeHapticFeedback.trigger('notificationSuccess');
+      Vibration.vibrate(3, false)
       onSuccess && onSuccess();
     }).catch((err: any) => {
-      // Vibration.vibrate(200, false);
-      ReactNativeHapticFeedback.trigger('notificationError');
+      Vibration.vibrate([0, 3, 0, 3, 0, 3], false);
       onFail && onFail('withError');
     });
   }
