@@ -1,7 +1,7 @@
 import { last } from 'ramda';
 import { SagaIterator, delay } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { takeEvery, put, call, select, take, race } from 'redux-saga/effects';
+import { takeEvery, put, call, select, take, race, all } from 'redux-saga/effects';
 import {
   actionTypes as formActionTypes,
   submit as submitForm,
@@ -15,14 +15,18 @@ import * as transaction from 'modules/transaction';
 import { resolveParams, hasHistoryMarker } from './utils';
 
 export function* pageWorker(action: Action<any>): SagaIterator {
-  const nameOfCurrentPage = yield select(page.selectors.getNameOfCurrentPage);
-  const isVDEMode = yield select(application.selectors.isVDEMode);
+  const { nameOfCurrentPage, isVDEMode, hasForm } = yield all({
+    nameOfCurrentPage: select(page.selectors.getNameOfCurrentPage),
+    isVDEMode: select(application.selectors.isVDEMode),
+    hasForm: select(page.selectors.hasForm),
+  });
+
   const vde = action.payload.vde !== undefined ? action.payload.vde : isVDEMode;
   let formOfCurrentPage;
 
   yield put(application.actions.receiveVDEMode(vde));
 
-  if (yield select(page.selectors.hasForm)) {
+  if (hasForm) {
     formOfCurrentPage = yield select(getFormValues(nameOfCurrentPage));
 
     yield put(submitForm(nameOfCurrentPage));

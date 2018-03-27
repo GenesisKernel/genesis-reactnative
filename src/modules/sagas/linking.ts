@@ -6,8 +6,7 @@ import { takeEvery, put, call, select, take } from 'redux-saga/effects';
 import { extractParamsFromLink } from 'utils/link';
 import { initFinish } from 'modules/application/actions';
 import { navigate } from 'modules/navigator/actions';
-import { URL_PREFIX } from '../../constants';
-import { navTypes } from '../../constants';
+import { URL_PREFIX, navTypes } from '../../constants';
 
 const linkingChanel = eventChannel(emitter => {
   const handle = (data: { url: string }) => emitter(data.url);

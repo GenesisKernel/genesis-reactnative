@@ -11,10 +11,12 @@ const appStateChanel = eventChannel(emitter => {
   }
 });
 
+export const stateChangingManager = (nextState: any) => {
+  if (nextState === 'active') {
+    CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE });
+  }
+}
+
 export default function* appStateWorker() {
-  yield takeEvery(appStateChanel, (nextState: any) => {
-    if (nextState === 'active') {
-      CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE });
-    }
-  })
+  yield takeEvery(appStateChanel, stateChangingManager);
 }
