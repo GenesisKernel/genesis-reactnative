@@ -14,8 +14,6 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* AplaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AplaTests.m */; };
 		037A7339BB2D42C5B3ECDEB5 /* libReactNativeFingerprintScanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 420F0B26B3F946E38AD23D1F /* libReactNativeFingerprintScanner.a */; };
-		0776FD402007388600D94337 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0776FD122007388600D94337 /* Roboto-Regular.ttf */; };
-		0776FD412007388600D94337 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0776FD3F2007388600D94337 /* Roboto-Bold.ttf */; };
 		0776FD45200741EE00D94337 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0776FD42200741EE00D94337 /* MaterialIcons.ttf */; };
 		0776FD46200741EE00D94337 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0776FD43200741EE00D94337 /* SimpleLineIcons.ttf */; };
 		0776FD47200741EE00D94337 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0776FD44200741EE00D94337 /* FontAwesome.ttf */; };
@@ -1370,8 +1368,6 @@
 				0776FD45200741EE00D94337 /* MaterialIcons.ttf in Resources */,
 				0776FD46200741EE00D94337 /* SimpleLineIcons.ttf in Resources */,
 				0776FD47200741EE00D94337 /* FontAwesome.ttf in Resources */,
-				0776FD402007388600D94337 /* Roboto-Regular.ttf in Resources */,
-				0776FD412007388600D94337 /* Roboto-Bold.ttf in Resources */,
 				1E6E07F3DCE242C68AF5D0B7 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
