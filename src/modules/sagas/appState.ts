@@ -1,7 +1,8 @@
 import { AppState } from 'react-native';
 import * as CodePush from 'react-native-code-push';
 
-import { eventChannel, takeEvery } from 'redux-saga';
+import { eventChannel } from 'redux-saga';
+import { takeEvery } from 'redux-saga/effects';
 
 const appStateChanel = eventChannel(emitter => {
   AppState.addEventListener('change', emitter);

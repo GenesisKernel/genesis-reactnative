@@ -1,7 +1,6 @@
-import { SagaIterator } from 'redux-saga';
+import { SagaIterator, delay } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { Alert } from 'react-native';
-import { delay } from 'redux-saga';
 import { takeEvery, put, call, select, all } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 

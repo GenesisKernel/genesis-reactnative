@@ -1,5 +1,5 @@
-import { takeEvery, eventChannel } from 'redux-saga';
-import { put, call, select } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
+import { put, call, select, takeEvery } from 'redux-saga/effects';
 import { BackHandler, Platform } from 'react-native';
 
 import * as application from 'modules/application';

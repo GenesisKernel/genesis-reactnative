@@ -1,4 +1,5 @@
-import { takeEvery, delay } from 'redux-saga';
+import { delay } from 'redux-saga';
+import { takeEvery } from 'redux-saga/effects';
 import { IAccout } from 'modules/account/reducer';
 
 import { put, race, cancel, take, call, select } from 'redux-saga/effects';
