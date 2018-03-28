@@ -5,9 +5,6 @@ import { Colors, FontSizes } from 'components/ui/theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
     justifyContent: 'space-between',
     backgroundColor: 'transparent',
     paddingTop: 20

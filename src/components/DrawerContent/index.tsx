@@ -135,7 +135,6 @@ class DrawerContent extends React.Component<
               </AnimatableView>
             )
           }
-
         </View>
       </SafeAreaView>
     );
