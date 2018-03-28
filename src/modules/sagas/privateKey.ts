@@ -10,6 +10,7 @@ import * as account from 'modules/account';
 import * as auth from 'modules/auth';
 
 const PRIVATE_KEY_LIVE_TIME = 3600000; // 1 hour
+
 export function* privateKeyExpireWorker(): SagaIterator {
   while (true) {
     const privateKey = yield select(application.selectors.getPrivateKey);
@@ -27,7 +28,7 @@ export function* refreshPrivateKeyExpireTime(): SagaIterator {
   privateKey.expireTime = Date.now() + PRIVATE_KEY_LIVE_TIME;
   yield put(application.actions.setPrivateKey({
     ...privateKey,
-  }))
+  }));
 }
 
 export function* validatePassword(data: { encKey: string, password: string }): SagaIterator {
@@ -70,21 +71,21 @@ export function* requestPrivateKeyWorker(): SagaIterator {
   if (!privateKey || Keyring.KEY_LENGTH !== privateKey.length) {
     yield put(application.actions.showModal({ type: ModalTypes.PASSWORD }));
 
-    const pwd = yield race({
+    const modalResponse = yield race({
       success: take(application.actions.confirmModal),
       cancel: take(application.actions.closeModal),
     });
 
-    if (pwd.cancel) {
+    if (modalResponse.cancel) {
       return;
     }
 
-    if (pwd.success) {
-      const getKey = yield call(validatePrivateKeyWorker, pwd.success);
-      if (!getKey) {
+    if (modalResponse.success) {
+      const newKey = yield call(validatePrivateKeyWorker, modalResponse.success);
+      if (!newKey) {
         return yield call(requestPrivateKeyWorker);
       } else {
-        return getKey;
+        return newKey;
       }
     }
   }
