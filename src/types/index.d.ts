@@ -12,6 +12,7 @@ declare module 'react-native-modal';
 declare module 'react-native-status-bar-height';
 declare module 'react-native-swipeable-row';
 declare module 'react-native-fingerprint-scanner';
+declare module 'react-native-haptic';
 declare module 'appcenter';
 declare module 'appcenter-push';
 

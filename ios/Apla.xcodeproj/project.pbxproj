@@ -41,6 +41,7 @@
 		A38D0F41202B192600B67045 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A38D0F13202B192600B67045 /* Lato-Thin.ttf */; };
 		A3924BFB202AF97E0060E452 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3924BCC202AF97E0060E452 /* Lato-Bold.ttf */; };
 		A3924BFC202AF97F0060E452 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3924BFA202AF97E0060E452 /* Lato-Regular.ttf */; };
+		A3AF8BA8206BACF20019D618 /* libReactNativeHaptic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AF8BA5206BACBE0019D618 /* libReactNativeHaptic.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B212A7C68A254B15B588D804 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FF8A3F5A92454AB66A5DC7 /* libz.tbd */; };
 		CFC83BACA3FDD8BCA104A7EA /* libPods-Apla.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67521803218BC61F74CCD029 /* libPods-Apla.a */; };
@@ -363,6 +364,13 @@
 			remoteGlobalIDString = 3400A8081CEB54A6008A0BC7;
 			remoteInfo = imageCropPicker;
 		};
+		A3AF8BA4206BACBE0019D618 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = ReactNativeHaptic;
+		};
 		A3B5C0E02068E4D8005655E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -445,6 +453,7 @@
 		A38D0F13202B192600B67045 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		A3924BCC202AF97E0060E452 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		A3924BFA202AF97E0060E452 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeHaptic.xcodeproj; path = "../node_modules/react-native-haptic/ios/ReactNativeHaptic.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AED909F2CC0A4A8FBEDDC7C7 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		B0FF8A3F5A92454AB66A5DC7 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -477,6 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3AF8BA8206BACF20019D618 /* libReactNativeHaptic.a in Frameworks */,
 				A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -718,6 +728,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */,
 				A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -792,6 +803,14 @@
 			isa = PBXGroup;
 			children = (
 				A34258A2202B72B500B2A15E /* libimageCropPicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A3AF8B73206BACBE0019D618 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3AF8BA5206BACBE0019D618 /* libReactNativeHaptic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1021,6 +1040,10 @@
 				{
 					ProductGroup = A3B5C0E52068E4D9005655E7 /* Products */;
 					ProjectRef = BA0252904A9F4BEC8DAFA895 /* ReactNativeFingerprintScanner.xcodeproj */;
+				},
+				{
+					ProductGroup = A3AF8B73206BACBE0019D618 /* Products */;
+					ProjectRef = A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */;
 				},
 				{
 					ProductGroup = A321B428206A289C0023CA3A /* Products */;
@@ -1346,6 +1369,13 @@
 			fileType = archive.ar;
 			path = libimageCropPicker.a;
 			remoteRef = A34258A1202B72B500B2A15E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A3AF8BA5206BACBE0019D618 /* libReactNativeHaptic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeHaptic.a;
+			remoteRef = A3AF8BA4206BACBE0019D618 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A3B5C0E12068E4D8005655E7 /* libjsinspector.a */ = {

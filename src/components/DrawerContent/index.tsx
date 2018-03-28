@@ -6,6 +6,8 @@ import { SafeAreaView } from 'react-navigation';
 import { View as AnimatableView } from 'react-native-animatable';
 
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import ReactNativeHaptic from 'react-native-haptic';
+
 import MenuContainer from 'containers/MenuContainer';
 import AccountListContainer from 'containers/AccountListContainer';
 import Button from 'components/ui/Button';
@@ -74,6 +76,10 @@ class DrawerContent extends React.Component<
     };
   }
 
+  static prepare() {
+    ReactNativeHaptic.prepare();
+  }
+
   public render() {
     const { isIphoneX, activeTab, showDecor } = this.state;
 
@@ -136,12 +142,14 @@ class DrawerContent extends React.Component<
   }
 
   private kek = () => {
-    ReactNativeHapticFeedback.trigger('notificationWarning');
+    ReactNativeHaptic.generate('notification');
+    // ReactNativeHapticFeedback.trigger('notificationWarning');
     // this.props.openModal();
   }
 
   private kek1 = () => {
-    ReactNativeHapticFeedback.trigger('impactHeavy');
+    ReactNativeHaptic.generate('impact');
+    // ReactNativeHapticFeedback.trigger('impactHeavy');
     // this.props.openModal();
   }
 

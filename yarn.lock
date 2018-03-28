@@ -4622,6 +4622,10 @@ react-native-haptic-feedback@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-haptic-feedback/-/react-native-haptic-feedback-1.1.0.tgz#e75fd660516c31390e15e5bbf09ff3d71c9eef0d"
 
+react-native-haptic@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-haptic/-/react-native-haptic-1.0.5.tgz#91fff9233a0eb0a4e420a00c2bf5cf29610946ed"
+
 react-native-image-crop-picker@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.19.0.tgz#ff7d6aaccc3f5e3ed3ad97736be67729727c7024"
