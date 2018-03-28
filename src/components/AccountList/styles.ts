@@ -129,15 +129,18 @@ export default StyleSheet.create({
   },
   createButtonTouchable: {
     position: 'relative',
-    top: 70
   },
   createButtonContainer: {
     height: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.underlayBlueLessOpacity,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
   },
   createButtonText: {
     color: Colors.white,
+    marginRight: 15,
   },
+  createIconStyle: {
+  }
 });

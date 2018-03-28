@@ -71,8 +71,8 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
           showsVerticalScrollIndicator={false}
         >
           {Object.values(this.props.accounts).map(this.iterateEcosystems)}
-          {!isAccountSelectScreen && (<CreateAccountButton onPress={this.props.onCreateAccount} />)}
         </ScrollView>
+        {!isAccountSelectScreen && (<CreateAccountButton onPress={this.props.onCreateAccount} />)}
       </View>
     );
   }

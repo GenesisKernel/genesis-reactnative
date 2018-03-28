@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
-import { Colors, FontSizes } from 'components/ui/theme';
+import { Colors, FontSizes, isIphoneX } from 'components/ui/theme';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    paddingBottom: 70,
+    paddingBottom: Platform.OS === 'ios' && isIphoneX ? 15 : Platform.OS === 'ios' && !isIphoneX ? 40 : 30,
   },
   insetContainer: {
     flex: 1,

@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get('window');
 
 const statusBarHeight = getStatusBarHeight();
 const headerHeight = Header.HEIGHT;
-const isIphoneX = height === 812; // find better solution
+export const isIphoneX = height === 812; // find better solution
 
 export const Fonts = {
   regular: 'Lato-Regular',
