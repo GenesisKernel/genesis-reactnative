@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, TouchableHighlight, Image, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
-import { IAccout } from 'modules/account/reducer';
+import { IAccount } from 'modules/account/reducer';
 
 import Swipeable from 'react-native-swipeable-row';
 
@@ -26,7 +26,7 @@ const avatarDefaultProps = {
 };
 
 export interface IRow {
-  account: IAccout;
+  account: IAccount;
   address: string;
   title: string;
   ecosystemId: string;
@@ -126,15 +126,19 @@ class Row extends React.PureComponent<IRow> {
             buttonWidth={buttonWidth}
             account={{ ...account, ecosystemId }} />
         }
+
         <RemoveAccountButtonContainer
           recenter={this.handleRecenter}
           accountAddress={address}
           buttonWidth={buttonWidth} />
+
         {isLoggedAccount
-          && <ChangePasswordButtonContainer
-            recenter={this.handleRecenter}
-            buttonWidth={buttonWidth}
-            account={{ ...account, ecosystemId }} />
+          && (
+            <ChangePasswordButtonContainer
+              recenter={this.handleRecenter}
+              buttonWidth={buttonWidth}
+              account={{ ...account, ecosystemId }} />
+          )
         }
       </View>
     ];

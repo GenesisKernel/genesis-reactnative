@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { IAccout } from 'modules/account/reducer';
+import { IAccount } from 'modules/account/reducer';
 import { changePassword } from 'modules/account/actions';
 import ChangePasswordButton from 'components/ChangePasswordButton';
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    onPress: (account: IAccout) => dispatch(changePassword.started(account)),
+    onPress: (account: IAccount) => dispatch(changePassword.started(account)),
   }
 }
 

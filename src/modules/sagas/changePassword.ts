@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { takeEvery } from 'redux-saga/effects';
-import { IAccout } from 'modules/account/reducer';
+import { IAccount } from 'modules/account/reducer';
 
 import { put, race, cancel, take, call, select } from 'redux-saga/effects';
 import { ModalTypes, navTypes, MODAL_ANIMATION_TIME } from '../../constants';
@@ -13,7 +13,7 @@ import { validatePassword } from './privateKey';
 import { changePassword, cancelChangingPassword, confirmChangingPassword } from 'modules/account/actions';
 import * as auth from 'modules/auth';
 
-interface IExtendedAccount extends IAccout {
+interface IExtendedAccount extends IAccount {
   ecosystemId: string;
 }
 

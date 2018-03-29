@@ -63,7 +63,9 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
     return (
       <View style={styles.container}>
         {!this.props.noTitle && (
-          <Text style={styles.loginAs} intl={{ id: "account.list.login.as", defaultMessage: "Login as" }}/>
+          <Text
+            style={styles.loginAs}
+            intl={{ id: "account.list.login.as", defaultMessage: "Login as" }}/>
         )}
         <ScrollView
           scrollEnabled={this.state.isScrollAvailable}
@@ -107,6 +109,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
       </View>
     );
   }
+
   private handlePreventScroll = (value: boolean) => {
     this.state.isScrollAvailable !== value && this.setState({ isScrollAvailable: value });
   }

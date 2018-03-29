@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Button from 'components/ui/Button';
 import styles from './styles';
-import { IAccout } from 'modules/account/reducer';
+import { IAccount } from 'modules/account/reducer';
 
 const changePasswordButton = {
   intl: {
@@ -12,8 +12,8 @@ const changePasswordButton = {
 
 interface IChangePasswordButton {
   buttonWidth: number;
-  account: IAccout;
-  onPress: (account: IAccout) => void;
+  account: IAccount;
+  onPress: (account: IAccount) => void;
   recenter: () => void;
 }
 

@@ -1,11 +1,11 @@
 import actionCreatorFactory from 'typescript-fsa';
 
-import { IAccout } from './reducer';
+import { IAccount } from './reducer';
 const actionCreator = actionCreatorFactory('ACCOUNT');
 
 export const createAccount = actionCreator.async<
   { seed: string; password: string },
-  IAccout
+  IAccount
 >('CREATE');
 
 export const removeAccount = actionCreator.async<{ accountAddress: string }, any>(
@@ -30,7 +30,7 @@ export const setAccountUserdata = actionCreator<{
   avatar: string;
 }>('SET_ACCOUNT_USERDATA');
 
-export const changePassword = actionCreator.async<IAccout | string, any>('CHANGE_PASSWORD');
+export const changePassword = actionCreator.async<IAccount | string, any>('CHANGE_PASSWORD');
 
 export const cancelChangingPassword = actionCreator('CANCEL_CHANGING_PASSWORD');
 export const confirmChangingPassword = actionCreator<string>('CONFIRM_CHANGING_PASSWORD');

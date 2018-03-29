@@ -4,7 +4,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setAccountUserdata, changePassword } from './actions';
 import { getTokenExpiry } from 'modules/auth/selectors';
 
-export interface IAccout {
+export interface IAccount {
   address: string;
   // state: string;
   ecosystems: string[];
@@ -18,12 +18,12 @@ export interface IAccout {
 }
 
 export interface IState {
-  [id: string]: IAccout;
+  [id: string]: IAccount;
 }
 
 const initialState: IState = {};
 
-const mergeAccount = mergeDeepWith<IAccout, Partial<IAccout>>(union);
+const mergeAccount = mergeDeepWith<IAccount, Partial<IAccount>>(union);
 
 export default reducerWithInitialState(initialState)
   .case(createAccount.done, (state, payload) => ({
