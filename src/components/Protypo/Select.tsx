@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { FieldType } from 'redux-form';
-import ModalDropdown from 'react-native-modal-dropdown';
+import * as ModalDropdown from 'react-native-modal-dropdown';
 import { stylable } from 'react-native-stylable';
 import { Field, WrappedFieldProps, BaseFieldProps } from 'redux-form';
 
@@ -89,7 +89,7 @@ class Select extends React.PureComponent<ISelectProps & BaseFieldProps> {
     const { _reduxForm } = this.context;
     const { name, value } = this.props.attr;
 
-    //  Set default value if preset
+    //  Set default value if present
     if (value) {
       _reduxForm.dispatch(_reduxForm.change(name, value));
     }
