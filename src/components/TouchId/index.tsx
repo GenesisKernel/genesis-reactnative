@@ -48,7 +48,6 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
   render() {
     const { CustomButton } = this.props;
     const { dialogActivated, androidAlertFingerprintDescr } = this.state;
-    const fingerprintRequestType = Platform.OS === 'android' ? this.androidFingerprintRequest : this.iosFingerprintRequest;
 
     return (
       <View>
@@ -90,14 +89,14 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
         {
           CustomButton
             ? (
-              CustomButton(fingerprintRequestType)
+              CustomButton(this.fingerprintRequest)
             ) : (
               <Icon
                 type="material-icons"
                 name="fingerprint"
                 size={66}
                 {...this.props.iconStyle}
-                onPress={fingerprintRequestType}
+                onPress={this.fingerprintRequest}
               />
             )
         }
@@ -111,11 +110,16 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     });
   }
 
+  private fingerprintRequest = (): void => {
+    Vibration.vibrate(3, false);
+    // here will be the haptic engine
+    Platform.OS === 'android' ? this.androidFingerprintRequest() : this.iosFingerprintRequest()
+  }
+
   private iosFingerprintRequest = (): void => {
     const { onSuccess, onFail, reason } = this.props;
     FingerprintScanner.authenticate({ description: reason, fallbackEnabled: false })
     .then((r: any) => {
-      Vibration.vibrate(3, false);
       onSuccess && onSuccess();
     }).catch((err: any) => {
       onFail && onFail();
@@ -128,16 +132,16 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
     this.setState({ dialogActivated: true });
 
     request.then((r: any) => {
-      Vibration.vibrate(3, false)
       onSuccess && onSuccess();
     }).catch((err: any) => {
-      Vibration.vibrate([0, 3, 0, 3, 0, 3], false);
+      // Vibration.vibrate([0, 3, 0, 3, 0, 3], false);
       onFail && onFail('withError');
     });
   }
 
   private androidFingerprintOnAttempt = (err: { message: string }): void => {
-    this.setState({ androidAlertFingerprintDescr: {
+    this.setState({
+      androidAlertFingerprintDescr: {
         ...this.state.androidAlertFingerprintDescr,
         intl: {
           id: 'fingerprint.no.match',
