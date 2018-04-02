@@ -59,6 +59,15 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     );
   }
 
+  if (action.payload.composite) {
+    yield put(
+      transaction.actions.runCompositeContracts.started(
+        action.payload.composite,
+        action.meta
+      )
+    );
+  }
+
   if (action.payload.page) {
     // Wait when transaction will done
     const transactionResult =

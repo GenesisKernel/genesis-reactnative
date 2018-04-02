@@ -38,6 +38,10 @@ export interface IButtonProps extends IElementProps {
     contract?: string;
     params?: { [key: string]: string };
     pageparams?: { [key: string]: string };
+    composite?: {
+      name: string;
+      data: string; // JSON
+    };
   };
 
   submit(params: any, meta?: any): void;
@@ -48,7 +52,6 @@ class Button extends React.PureComponent<IButtonProps> {
 
   public render() {
     const { style, children, loading } = this.props;
-
     let loadingElement;
 
     if (loading) {
@@ -81,7 +84,7 @@ class Button extends React.PureComponent<IButtonProps> {
 
   private submit = () => {
     const {
-      attr: { page, pageparams, contract, params },
+      attr: { page, pageparams, contract, params, composite },
       componentKey
     } = this.props;
 
@@ -90,7 +93,8 @@ class Button extends React.PureComponent<IButtonProps> {
         page,
         pageparams,
         contract,
-        params
+        params,
+        composite,
       },
       {
         initiator: componentKey

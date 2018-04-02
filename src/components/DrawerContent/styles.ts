@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    paddingBottom: Platform.OS === 'ios' && isIphoneX ? 15 : Platform.OS === 'ios' && !isIphoneX ? 40 : 30,
+    paddingBottom: Platform.OS === 'ios' && isIphoneX ? 25 : Platform.OS === 'ios' && !isIphoneX ? 50 : 30,
   },
   insetContainer: {
     flex: 1,

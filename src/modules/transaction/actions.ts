@@ -20,5 +20,15 @@ export const runTransaction = actionCreator.async<
   },
   string
 >('RUN');
+
+export const runCompositeContracts = actionCreator.async<
+  {
+    name: string;
+    data: string;
+  }[],
+  {}
+>('RUN_COMPOSITE_CONTRACTS');
+
 export const setTransactions = actionCreator<{}>('FILTER');
+
 export const confirmNestedContracts = actionCreator<{ fullForsign: string; signParams: object }>('CONFIRM_NESTED_CONTRACTS');

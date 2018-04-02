@@ -21,7 +21,9 @@ const extractStatus = item => {
     return {
       subtitle: 'Pending',
       icon: {
-        name: 'sync'
+        name: 'sync',
+        type: "material-icons",
+        color: '#fff'
       }
     };
   }
@@ -82,10 +84,10 @@ class Transactions extends React.Component<ITransactionsProps> {
       <View
         style={[styles.row, { backgroundColor: status.background || 'transparent' }]}>
         <Icon
-          {...status.icon}
           size={40}
           iconStyle={styles.icon}
-          type="font-awesome" />
+          type="font-awesome"
+          {...status.icon} />
         <View style={styles.rowText}>
           <Text
             numberOfLines={1}
