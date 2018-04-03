@@ -32,9 +32,9 @@ export function* compositeContractsWorker(action: Action<ICompositeContractsPayl
     contracts.push(...contract);
   });
 
-  let firstPackInWork = true;
+  let isFirstIteration = true;
   while (true) {
-    const itemsToSlice = !firstPackInWork ? 1 : CONTRACTS_PER_TICK;
+    const itemsToSlice = !isFirstIteration ? 1 : CONTRACTS_PER_TICK;
     const newContracts = contracts.splice(0, itemsToSlice);
 
     if (newContracts.length === 0) return;
@@ -57,7 +57,7 @@ export function* compositeContractsWorker(action: Action<ICompositeContractsPayl
     });
 
     if (compositeResult.success) {
-      firstPackInWork = false;
+      isFirstIteration = false;
     }
 
     if (compositeResult.failed) {
