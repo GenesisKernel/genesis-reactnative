@@ -4,6 +4,7 @@ import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
 
 import NestedContractSigningForm from 'components/NestedContractSigningModal';
 import ValidatePasswordForm from 'components/ValidatePasswordForm';
+import RoleSelectForm from 'components/RoleSelectForm';
 import NotificationsPage from 'components/NotificationsPage';
 import Modal from "react-native-modal";
 import styles from './styles';
@@ -44,12 +45,13 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
   public render() {
     const { onClose, modal } = this.props;
     const isNotificationModal = modal && modal.type && modal.type === ModalTypes.NOTIFICATIONS_PAGE;
+    const isRoleSelectModal = modal && modal.type && modal.type === ModalTypes.ROLE_SELECT; // TODO: find better solution
 
     return (
       <Modal
         style={styles.container}
         backdropOpacity={isNotificationModal ? 0 : 0.45}
-        onBackdropPress={isNotificationModal ? onClose : () => null}
+        onBackdropPress={isNotificationModal || isRoleSelectModal ? onClose : () => null}
         onBackButtonPress={onClose}
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
@@ -72,7 +74,9 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
         case ModalTypes.PASSWORD:
           return <ValidatePasswordForm  {...modal.params} onConfirm={onConfirm} onClose={onClose}/>;
         case ModalTypes.NOTIFICATIONS_PAGE:
-          return <NotificationsPage {...modal.params} onConfirm={onConfirm} onClose={onClose}/>
+          return <NotificationsPage {...modal.params} onConfirm={onConfirm} onClose={onClose}/>;
+        case ModalTypes.ROLE_SELECT:
+          return <RoleSelectForm {...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         default:
           return <View />;
       }

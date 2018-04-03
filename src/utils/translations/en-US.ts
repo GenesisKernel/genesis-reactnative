@@ -47,4 +47,6 @@ export default {
   "auth.type.description": 'You can scan QR code for known account or enter your authorization data manualy.',
   "auth.welcome.to": "WELLCOME TO APLA!",
   "auth.authorise.please": 'Please authorize or sign up to start working.',
+  "auth.role.select": `Please, select the role you'd like to login by`,
+  "auth.without.role": "Sign without role",
 }

@@ -47,6 +47,7 @@ export const attachSession = actionCreator<{
   token: string;
   refresh: string;
   key_id: string;
+  currentRole: IRole;
   tokenExpiry?: number;
 }>('ATTATCH_SESSION');
 

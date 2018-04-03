@@ -20,6 +20,11 @@ declare module 'redux-persist';
 declare module 'redux-persist/es/storage';
 declare module 'redux-persist/lib/constants';
 
+declare type IRole = {
+  role_name: string;
+  role_id: number;
+} | undefined;
+
 declare module 'react-native-stylable' {
   export type Rule = {
     style: { [key: string]: any };

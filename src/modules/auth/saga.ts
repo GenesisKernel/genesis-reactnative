@@ -18,11 +18,13 @@ import { getAccount } from 'modules/account/selectors';
 import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
+import { roleSelect } from 'modules/sagas/roles';
 
 export interface IAuthPayload {
   private: string;
   public: string;
   ecosystem: string;
+  roles: IRole[];
   notify_key: string;
   timestamp: string;
   avatar?: string;
@@ -49,14 +51,21 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
   });
 
   apiSetToken(accountData.token);
+  const { key_id, token, refresh, address, notify_key, timestamp, roles, ecosystem_id } = accountData;
+
+  let currentRole: IRole;
+  if (roles && !!roles.length) {
+    currentRole = yield call(roleSelect, roles);
+  }
 
   yield put(
     authActions.attachSession({
-      key_id: accountData.key_id,
-      currentAccountAddress: accountData.address,
-      currentEcosystemId: accountData.ecosystem_id,
-      token: accountData.token,
-      refresh: accountData.refresh,
+      key_id,
+      token,
+      refresh,
+      currentRole,
+      currentAccountAddress: address,
+      currentEcosystemId: ecosystem_id,
       publicKey: payload.public,
     })
   ); // Save token
@@ -70,12 +79,14 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
   }));
 
   return {
-    key_id: accountData.key_id,
-    address: accountData.address,
     publicKey: payload.public,
-    ecosystems: [accountData.ecosystem_id],
-    notify_key: accountData.notify_key,
-    timestamp: accountData.timestamp,
+    ecosystems: [ecosystem_id],
+    key_id,
+    address,
+    notify_key,
+    timestamp,
+    roles: roles || [],
+    currentRole,
     avatar: '',
     username: '',
   };
@@ -288,7 +299,7 @@ export function* logoutWorker() {
   yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: string, address: string }}) {
+export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: string, address: string }>) {
   try {
     const accountData = yield select(accountSelectors.getAccount(action.payload.address));
 
@@ -298,6 +309,11 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
 
       const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
 
+      let currentRole: IRole;
+      if (accountData.roles && !!accountData.roles.length) {
+        currentRole = yield call(roleSelect, accountData.roles);
+      }
+
       yield put(
         authActions.attachSession({
           currentAccountAddress: accountData.address,
@@ -305,7 +321,7 @@ export function* receiveSelectedAccountWorker(action: { payload: { ecosystemId: 
           token: accountData.token,
           refresh: accountData.refresh,
           publicKey: accountData.publicKey,
-
+          currentRole,
           key_id: accountData.key_id,
         })
       );
