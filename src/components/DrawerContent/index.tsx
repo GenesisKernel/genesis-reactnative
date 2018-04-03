@@ -136,6 +136,7 @@ class DrawerContent extends React.Component<
             )
           }
         </View>
+        <AppVersion />
       </SafeAreaView>
     );
   }

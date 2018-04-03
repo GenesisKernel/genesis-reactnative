@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { Colors, FontSizes } from 'components/ui/theme';
 
 export default StyleSheet.create({
   text: {
-    color: '#909FA7'
+    color: Colors.grey,
+    fontSize: FontSizes.smallCommonSize
   }
 });
