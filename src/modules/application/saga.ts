@@ -9,7 +9,7 @@ import { checkTouchIDAvailiability, getCurrentLocale } from 'utils/common';
 import { waitForError } from '../sagas/utils';
 import { navTypes, ERRORS } from '../../constants';
 import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale } from './actions';
-import { getDrawerState } from './selectors';
+import { getDrawerState, getAlert } from './selectors';
 
 import * as auth from 'modules/auth';
 import * as page from 'modules/page';
@@ -88,10 +88,11 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
     'Unexpected error!';
 
   if (message && !(action.meta && action.meta.ignore)) {
-    yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
+    const isActiveAlert = yield select(getAlert);
+    if (!isActiveAlert) {
+      yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
 
-    if (path(['error', 'data', 'error'], action.payload)) {
-      if (action.payload.error.data.error === ERRORS.TOKEN_EXPIRED) {
+      if (path(['error', 'data', 'error'], action.payload) === ERRORS.TOKEN_EXPIRED) {
         yield call(expiredTokenWorker, action.payload.params);
       }
     }

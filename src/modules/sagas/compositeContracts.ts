@@ -15,7 +15,9 @@ type ICompositeContractsPayload = {
 const CONTRACTS_PER_TICK = 5;
 
 export function* compositeContractsWorker(action: Action<ICompositeContractsPayload>) {
-  yield call(requestPrivateKeyWorker);
+  const generatedKey = yield call(requestPrivateKeyWorker);
+  if (!generatedKey) return;
+
   const { meta, payload } = action;
   let contracts: { name: string; data: any, uuid: string; }[] = [];
   payload.forEach((item: any) => {
@@ -51,14 +53,16 @@ export function* compositeContractsWorker(action: Action<ICompositeContractsPayl
 
     const compositeResult = yield race({
       success: take(transaction.actions.runTransaction.done),
-      failed: take(transaction.actions.runCompositeContracts.failed),
+      failed: take(transaction.actions.runTransaction.failed),
     });
 
     if (compositeResult.success) {
       firstPackInWork = false;
     }
 
-    if (compositeResult.failed) return;
+    if (compositeResult.failed) {
+      return;
+    };
   }
 }
 
