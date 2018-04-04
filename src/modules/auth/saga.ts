@@ -36,27 +36,43 @@ export interface IKeyPairs {
   ecosystem?: string;
 }
 
-export function* auth(payload: IAuthPayload | IKeyPairs) {
-  apiDeleteToken(); // Remove previous token
+export function* loginCall(payload: IAuthPayload | IKeyPairs) {
+  try {
+    apiDeleteToken(); // Remove previous token
 
-  const { data: uidParams } = yield call(api.getUid);
-  const signature = yield call(Keyring.sign, uidParams.uid, payload.private);
+    const { data: uidParams } = yield call(api.getUid);
+    const signature = yield call(Keyring.sign, uidParams.uid, payload.private);
 
-  apiSetToken(uidParams.token);
+    apiSetToken(uidParams.token);
 
-  const { data: accountData } = yield call(api.login, {
-    signature,
-    ecosystem: payload.ecosystem || '1',
-    publicKey: payload.public
-  });
+    let { data: accountData } = yield call(api.login, {
+      signature,
+      ecosystem: payload.ecosystem || '1',
+      publicKey: payload.public
+    });
 
-  apiSetToken(accountData.token);
-  const { key_id, token, refresh, address, notify_key, timestamp, roles, ecosystem_id } = accountData;
-
-  let currentRole: IRole;
-  if (roles && !!roles.length) {
-    currentRole = yield call(roleSelect, roles);
+    apiSetToken(accountData.token);
+    return accountData;
+  } catch(err) {
+    console.log('loginCall ERROR AT auth saga =>', err);
+    return null;
   }
+}
+
+export function* auth(payload: IAuthPayload | IKeyPairs) {
+
+  let accountData = yield call(loginCall, payload);
+  if (!accountData) return;
+
+  const { roles } = accountData;
+
+  const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : undefined;
+
+  if (currentRole && currentRole.role_id) {
+    accountData = yield call(loginCall, payload);
+  }
+
+  const { key_id, token, refresh, address, notify_key, timestamp, ecosystem_id } = accountData;
 
   yield put(
     authActions.attachSession({
@@ -73,8 +89,8 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
   const tokenExpiry = yield select(authSelectors.getTokenExpiry);
   yield put(accountActions.saveTokenToAccount({
     currentAccountAddress: accountData.address,
-    token: accountData.token,
-    refresh: accountData.refresh,
+    token,
+    refresh,
     tokenExpiry
   }));
 
