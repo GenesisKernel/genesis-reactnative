@@ -36,7 +36,7 @@ export interface IKeyPairs {
   ecosystem?: string;
 }
 
-export function* loginCall(payload: IAuthPayload | IKeyPairs) {
+export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) {
   try {
     apiDeleteToken(); // Remove previous token
 
@@ -48,7 +48,8 @@ export function* loginCall(payload: IAuthPayload | IKeyPairs) {
     let { data: accountData } = yield call(api.login, {
       signature,
       ecosystem: payload.ecosystem || '1',
-      publicKey: payload.public
+      publicKey: payload.public,
+      role_id,
     });
 
     apiSetToken(accountData.token);
@@ -69,7 +70,7 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
   const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : undefined;
 
   if (currentRole && currentRole.role_id) {
-    accountData = yield call(loginCall, payload);
+    accountData = yield call(loginCall, payload, currentRole.role_id);
   }
 
   const { key_id, token, refresh, address, notify_key, timestamp, ecosystem_id } = accountData;
