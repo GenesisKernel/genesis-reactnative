@@ -13,11 +13,13 @@ export interface InputParams {
   ecosystemId: string;
   password: string;
   privateKey: string;
+  ecosystems: string[]
 }
 
 export interface ISignInProps {
   accountAdress: string;
   ecosystemId: string;
+  ecosystems: string[];
   privateKey: string;
   onSubmit(params: InputParams): void;
   onCancel: () => void;
@@ -78,7 +80,8 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       password: this.state.password,
       accountAdress: this.props.accountAdress,
       privateKey: this.props.privateKey,
-      ecosystemId: this.props.ecosystemId
+      ecosystemId: this.props.ecosystemId,
+      ecosystems: this.props.ecosystems,
     });
   }
 
