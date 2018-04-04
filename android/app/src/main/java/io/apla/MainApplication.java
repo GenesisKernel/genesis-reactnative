@@ -3,6 +3,7 @@ package io.apla;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
 import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
@@ -10,7 +11,6 @@ import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPa
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
 import com.microsoft.codepush.react.CodePush;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -38,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCameraPackage(),
             new ReactNativeFingerprintScannerPackage(),
           new PickerPackage(),
           new AppCenterReactNativePushPackage(MainApplication.this),
@@ -45,7 +46,6 @@ public class MainApplication extends Application implements ReactApplication {
           new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
           new AppCenterReactNativePackage(MainApplication.this),
           new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
-          new RCTCameraPackage(),
           new VectorIconsPackage()
       );
     }

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { View, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { FormattedMessage } from 'react-intl';
-import Camera from 'react-native-camera';
+import { RNCamera } from 'react-native-camera';
+
 import Text from '../ui/Text';
 import Button from '../ui/Button';
 
@@ -43,11 +44,9 @@ class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
         {
           qrCode === null ? (
             <View style={styles.cameraContainer}>
-              <Camera
+              <RNCamera
                 style={styles.camera}
-                aspect={Camera.constants.Aspect.fill}
-                onBarCodeRead={this.handleBarCodeRead}
-                barCodeTypes={[Camera.constants.BarCodeType.qr]}>
+                onBarCodeRead={this.handleBarCodeRead}>
                 <View style={styles.qrContainer}>
                   <View style={styles.qrFrameWrapper}>
                     <ScannerFrame />
@@ -59,7 +58,7 @@ class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
                     intl={cancelTitle}
                   />
                 </View>
-              </Camera>
+              </RNCamera>
             </View>
           )
             : (

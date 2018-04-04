@@ -28,13 +28,13 @@
 		1E6E07F3DCE242C68AF5D0B7 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114971AB84114ABABAD3FF6E /* AppCenter-Config.plist */; };
 		3DA408F328F84CFFAF165450 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C93D11CC984C71BEDDCF81 /* libAppCenterReactNativeAnalytics.a */; };
 		41D77C78649943F5987819F3 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 004F57C5729C44498CF0FB94 /* libAppCenterReactNativeCrashes.a */; };
-		49BB48EAD4154DA1A7916A3C /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C074B02AA9E24D9D9D80D863 /* libRCTCamera.a */; };
 		4F2EF545077A45B58179238E /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AA67EFD13F4581AEB3AE5B /* libAppCenterReactNative.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		754B2A8FEF8235B1F0956DD7 /* libPods-AplaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F2CEEEAC0E02EC0CCE9BFE /* libPods-AplaTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8DEE9EA6441B4B3A916B7353 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F10DDEF3CDB1417EBD5C86BE /* libCodePush.a */; };
 		980A6F31DB21422C8F7796F5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E9D2E8D344DE58F8BA1FE /* libRNVectorIcons.a */; };
+		A3010F8D2074AA8B00C6710B /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3010F8C2074AA2E00C6710B /* libRNCamera.a */; };
 		A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */; };
 		A343F21E20515929001BC59C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A343F21D20515929001BC59C /* Images.xcassets */; };
 		A34D201B202B540D00A42BB5 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */; };
@@ -196,13 +196,6 @@
 			remoteGlobalIDString = 3DBE0D0D1F3B181C0099AA32;
 			remoteInfo = "fishhook-tvOS";
 		};
-		07F912C81FA07DCA003A46E0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9CEEB7C7E0FA477684FB214C /* RCTCamera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
-			remoteInfo = RCTCamera;
-		};
 		07F912D11FA07DCA003A46E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 74DD4D55B6424FB88E097BCE /* RNVectorIcons.xcodeproj */;
@@ -350,6 +343,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		A3010F8B2074AA2E00C6710B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RNCamera;
+		};
 		A321B459206A289D0023CA3A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */;
@@ -446,7 +446,7 @@
 		8608416F4FFD4859A6E560BE /* libAppCenterReactNativePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativePush.a; sourceTree = "<group>"; };
 		8EF7D3F4BB72A09753B5D9A9 /* libPods-Apla-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		968824C5BCED31E1DF5D25BD /* libPods-Apla-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CEEB7C7E0FA477684FB214C /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
+		A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNReactNativeHapticFeedback.xcodeproj; path = "../node_modules/react-native-haptic-feedback/ios/RNReactNativeHapticFeedback.xcodeproj"; sourceTree = "<group>"; };
 		A343F21D20515929001BC59C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Apla/Images.xcassets; sourceTree = "<group>"; };
 		A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -486,6 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3010F8D2074AA8B00C6710B /* libRNCamera.a in Frameworks */,
 				A3AF8BA8206BACF20019D618 /* libReactNativeHaptic.a in Frameworks */,
 				A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -502,7 +503,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				980A6F31DB21422C8F7796F5 /* libRNVectorIcons.a in Frameworks */,
-				49BB48EAD4154DA1A7916A3C /* libRCTCamera.a in Frameworks */,
 				8DEE9EA6441B4B3A916B7353 /* libCodePush.a in Frameworks */,
 				B212A7C68A254B15B588D804 /* libz.tbd in Frameworks */,
 				4F2EF545077A45B58179238E /* libAppCenterReactNative.a in Frameworks */,
@@ -642,14 +642,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		07F912C51FA07DC9003A46E0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				07F912C91FA07DCA003A46E0 /* libRCTCamera.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +720,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */,
 				A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */,
 				A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -743,7 +736,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				74DD4D55B6424FB88E097BCE /* RNVectorIcons.xcodeproj */,
-				9CEEB7C7E0FA477684FB214C /* RCTCamera.xcodeproj */,
 				61D7012D5F31483BB4813079 /* CodePush.xcodeproj */,
 				40398418595944D6B58404AE /* AppCenterReactNative.xcodeproj */,
 				DAF46D0BD9DD43BA9EAB2C17 /* AppCenterReactNativeAnalytics.xcodeproj */,
@@ -787,6 +779,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Apla.app */,
 				00E356EE1AD99517003FC87E /* AplaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A3010F882074AA2E00C6710B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3010F8C2074AA2E00C6710B /* libRNCamera.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -998,10 +998,6 @@
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
 				},
 				{
-					ProductGroup = 07F912C51FA07DC9003A46E0 /* Products */;
-					ProjectRef = 9CEEB7C7E0FA477684FB214C /* RCTCamera.xcodeproj */;
-				},
-				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -1044,6 +1040,10 @@
 				{
 					ProductGroup = A3AF8B73206BACBE0019D618 /* Products */;
 					ProjectRef = A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */;
+				},
+				{
+					ProductGroup = A3010F882074AA2E00C6710B /* Products */;
+					ProjectRef = A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */;
 				},
 				{
 					ProductGroup = A321B428206A289C0023CA3A /* Products */;
@@ -1203,13 +1203,6 @@
 			remoteRef = 07F912BF1FA07DC9003A46E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07F912C91FA07DCA003A46E0 /* libRCTCamera.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCamera.a;
-			remoteRef = 07F912C81FA07DCA003A46E0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		07F912D21FA07DCA003A46E0 /* libRNVectorIcons.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1355,6 +1348,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A3010F8C2074AA2E00C6710B /* libRNCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCamera.a;
+			remoteRef = A3010F8B2074AA2E00C6710B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */ = {
