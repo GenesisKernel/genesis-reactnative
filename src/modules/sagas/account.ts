@@ -23,6 +23,7 @@ export function* removeAccountWorker(action: Action<any>): SagaIterator {
 
   if (result.confirm) {
     const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress);
+
     if (action.payload.accountAddress === currentAccountAddress) {
       yield put(application.actions.toggleDrawer(false));
       yield call(delay, MODAL_ANIMATION_TIME);

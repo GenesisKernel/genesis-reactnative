@@ -19,6 +19,7 @@ import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 import { roleSelect } from 'modules/sagas/roles';
+import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 
 export interface IAuthPayload {
   private: string;
@@ -29,14 +30,15 @@ export interface IAuthPayload {
   timestamp: string;
   avatar?: string;
   username?: string;
+  ecosystems?: string[];
 }
 export interface IKeyPairs {
   private: string;
   public: string;
-  ecosystem?: string;
 }
 
 export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) {
+
   try {
     apiDeleteToken(); // Remove previous token
 
@@ -62,16 +64,17 @@ export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) 
 
 export function* auth(payload: IAuthPayload | IKeyPairs) {
 
-  let accountData = yield call(loginCall, payload);
+  const sessions = yield call(checkEcosystemsAvailiability, { ecosystems: payload.ecosystems || ['1'], privateKey: payload.private, publicKey: payload.public });
+  const availableEcosystems = sessions.map((item: any) => item.ecosystem_id);
+
+  let accountData = sessions[0];
   if (!accountData) return;
 
   const { roles } = accountData;
 
-  const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : undefined;
+  const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : {};
 
-  if (currentRole && currentRole.role_id) {
-    accountData = yield call(loginCall, payload, currentRole.role_id);
-  }
+  accountData = yield call(loginCall, payload, currentRole.role_id);
 
   const { key_id, token, refresh, address, notify_key, timestamp, ecosystem_id } = accountData;
 
@@ -82,6 +85,8 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
       refresh,
       currentRole,
       currentAccountAddress: address,
+      ecosystems: availableEcosystems,
+      sessions,
       currentEcosystemId: ecosystem_id,
       publicKey: payload.public,
     })
@@ -97,7 +102,9 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
 
   return {
     publicKey: payload.public,
-    ecosystems: [ecosystem_id],
+    ecosystems: availableEcosystems,
+    sessions,
+    currentEcosystem: ecosystem_id,
     key_id,
     address,
     notify_key,
@@ -131,7 +138,7 @@ export function* refresh() {
 }
 
 export function* loginByPrivateKeyWorker(action: Action<any>) {
-  const { privateKey, password, ecosystemId } = action.payload;
+  const { privateKey, password, ecosystemId, ecosystems } = action.payload;
 
   try {
     const publicKey = yield call(Keyring.genereatePublicKey, privateKey);
@@ -141,6 +148,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
       public: publicKey,
       private: privateKey,
       ecosystem: ecosystemId,
+      ecosystems,
       avatar: '',
       username: '',
     });
@@ -198,7 +206,7 @@ export function* loginWorker(action: Action<any>): SagaIterator {
     const account = yield call(auth, {
       public: savedAccount.publicKey,
       private: privateKey,
-      ecosystem: action.payload.ecosystemId
+      ecosystems: [action.payload.ecosystemId],
     });
 
     yield put(
@@ -224,6 +232,7 @@ export function* loginWorker(action: Action<any>): SagaIterator {
 }
 
 export function* createAccountWorker(action: Action<any>): SagaIterator {
+
   try {
     const authPayload: IKeyPairs = yield call(
       Keyring.generateKeyPair,
@@ -275,6 +284,7 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
 }
 
 export function* switchAccountWorker(action: Action<any>): SagaIterator {
+
   try {
     const keys = yield all({
       public: select(authSelectors.getPublicKey),
@@ -317,29 +327,33 @@ export function* logoutWorker() {
 }
 
 export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: string, address: string }>) {
+
   try {
     const accountData = yield select(accountSelectors.getAccount(action.payload.address));
+    const requiredSession = accountData.sessions.find((item: any) => item.ecosystem_id === action.payload.ecosystemId);
 
-    if (accountData.token && accountData.tokenExpiry > Date.now()) {
+    if (requiredSession.token && requiredSession.tokenExpiry > Date.now()) {
 
-      apiSetToken(accountData.token);
+      apiSetToken(requiredSession.token);
 
       const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
 
       let currentRole: IRole;
-      if (accountData.roles && !!accountData.roles.length) {
-        currentRole = yield call(roleSelect, accountData.roles);
+      if (requiredSession.roles && !!requiredSession.roles.length) {
+        currentRole = yield call(roleSelect, requiredSession.roles);
       }
 
       yield put(
         authActions.attachSession({
-          currentAccountAddress: accountData.address,
+          currentAccountAddress: requiredSession.address,
           currentEcosystemId: action.payload.ecosystemId,
-          token: accountData.token,
-          refresh: accountData.refresh,
-          publicKey: accountData.publicKey,
+          token: requiredSession.token,
+          refresh: requiredSession.refresh,
+          publicKey: requiredSession.publicKey,
           currentRole,
-          key_id: accountData.key_id,
+          sessions: accountData.sessions,
+          ecosystems: accountData.ecosystems,
+          key_id: requiredSession.key_id,
         })
       );
 
@@ -349,7 +363,7 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
         username: avatarAndUsername.data.value.username || '',
       }));
 
-      yield put(navigatorActions.navigate(navTypes.HOME));
+      yield put(navigatorActions.navigateWithReset( [{ routeName: navTypes.HOME }] ));
     } else {
       yield put(
         navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.address, ecosystemId: action.payload.ecosystemId })

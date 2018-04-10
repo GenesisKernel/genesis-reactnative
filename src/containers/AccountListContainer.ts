@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
   ecosystems: ecosystem.selectors.getEcosystems(state),
   notifications: notifications.selectors.getNotifications(state),
   currentAccountAddress: auth.selectors.getCurrentAccountAddress(state),
+  currentEcosystemId: auth.selectors.getCurrentEcosystemId(state),
   isDrawerOpened: application.selectors.getDrawerState(state),
   isAccountSelectScreen: navigatorSelectors.getCurrentRoute(state).routeName === navTypes.ACCOUNT_SELECT || navigatorSelectors.getCurrentRoute(state).routeName === navTypes.SIGN_UP_WARNING,
 });

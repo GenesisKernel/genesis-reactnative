@@ -17,7 +17,7 @@ export function* attachNewEcosystemWorker(
 
     yield all([
       put(account.actions.attachEcosystem({ accountAddress, ecosystemId })),
-      put(ecosystem.actions.requestEcosystem.started({ id: ecosystemId }))
+      put(ecosystem.actions.requestEcosystem.started({ ecosystems: [ecosystemId] }))
     ]);
   }
 }
@@ -25,7 +25,7 @@ export function* attachNewEcosystemWorker(
 export function* requestNewEcosystemWorker(action: Action<any>) {
   yield put(
     ecosystem.actions.requestEcosystem.started({
-      id: action.payload.currentEcosystemId
+      ecosystems: action.payload.ecosystems || [action.payload.currentEcosystemId],
     })
   );
 }

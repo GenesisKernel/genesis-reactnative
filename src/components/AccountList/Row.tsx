@@ -168,7 +168,7 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private handleRemove = (): void => {
-    this.props.onRemove(this.props.address);
+    this.props.onRemove(this.props.account);
   }
 }
 

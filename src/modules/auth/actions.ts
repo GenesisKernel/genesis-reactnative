@@ -43,6 +43,8 @@ export const switchAccount = actionCreator.async<
 export const attachSession = actionCreator<{
   currentAccountAddress: string;
   currentEcosystemId: string;
+  ecosystems: string[];
+  sessions:  IAccount[];
   publicKey: string;
   token: string;
   refresh: string;
