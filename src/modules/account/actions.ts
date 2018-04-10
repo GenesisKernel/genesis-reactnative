@@ -26,8 +26,7 @@ export const saveTokenToAccount = actionCreator<{
 
 export const setAccountUserdata = actionCreator<{
   address: string;
-  username: string;
-  avatar: string;
+  sessions: IAccount[];
 }>('SET_ACCOUNT_USERDATA');
 
 export const changePassword = actionCreator.async<IAccount | string, any>('CHANGE_PASSWORD');

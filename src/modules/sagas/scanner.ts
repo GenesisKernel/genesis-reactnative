@@ -7,17 +7,21 @@ import { extractParamsFromLink } from 'utils/link';
 import { navTypes } from '../../constants';
 
 export function* qrCodeWorker(action: Action<string>): SagaIterator {
-  const { key, ecosystem } = extractParamsFromLink(action.payload);
+  const extractedData = extractParamsFromLink(action.payload);
 
   try {
-    if (key.length !== 64) {
+    if (!extractedData) throw new Error('Wrong QR-code.');
+    const { privateKey, ecosystems } = extractedData;
+
+    if (privateKey.length !== 64) {
       throw new Error('Its not a private key');
     }
 
     yield put(
       navigate(navTypes.SIGN_IN, {
-        privateKey: key,
-        ecosystemId: ecosystem
+        privateKey,
+        ecosystemId: ecosystems[0],
+        ecosystems,
       })
     );
   } catch (error) {

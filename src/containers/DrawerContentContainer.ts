@@ -8,12 +8,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  switchAccount: (accountAdress: string, ecosystemId: string) =>
-    dispatch(auth.actions.switchAccount.started({ accountAdress, ecosystemId })),
-
-    openModal: () => {
-      dispatch(application.actions.showModal({ type: 'CONTRACT_MODAL', params: { title: '1', field: 'kek', Amount: '123', Recipient: '123123' } }))
-    }
+  openModal: () => {
+    dispatch(application.actions.showModal({ type: 'CONTRACT_MODAL', params: { title: '1', field: 'kek', Amount: '123', Recipient: '123123' } }))
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);

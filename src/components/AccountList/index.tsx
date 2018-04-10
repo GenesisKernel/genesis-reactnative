@@ -17,6 +17,7 @@ export interface IAccountListProps {
   ecosystems: { [id: string]: object };
   noTitle?: boolean | undefined,
   currentAccountAddress: string;
+  currentEcosystemId: string;
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
   notifications: {
@@ -102,7 +103,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
           title={getTitle(account, ecosystem)}
           onPress={this.props.onSelect}
           onRemove={this.props.onRemove}
-          isLoggedAccount={this.props.currentAccountAddress === account.address}
+          isLoggedAccount={this.props.currentAccountAddress === account.address && this.props.currentEcosystemId === ecosystem.id}
           onDisableScroll={this.handlePreventScroll}
           isDrawerOpened={this.props.isDrawerOpened}
         />

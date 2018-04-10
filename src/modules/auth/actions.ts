@@ -32,17 +32,11 @@ export const login = actionCreator.async<
   ILoginResponse & { account: object; privateKey: string }
 >('LOGIN');
 
-export const switchAccount = actionCreator.async<
-  {
-    accountAdress: string;
-    ecosystemId: string;
-  },
-  null
->('SWITCH_ACCOUNT');
-
 export const attachSession = actionCreator<{
   currentAccountAddress: string;
   currentEcosystemId: string;
+  ecosystems: string[];
+  sessions:  IAccount[];
   publicKey: string;
   token: string;
   refresh: string;

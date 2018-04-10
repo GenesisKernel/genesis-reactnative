@@ -16,6 +16,7 @@ interface IScreenProps
       id: string;
       ecosystemId: string;
       privateKey: string;
+      ecosystems: string[];
     }> {}
 
 const Row = ({ children }) => (
@@ -34,7 +35,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
   }
 
   public render() {
-    const { id, ecosystemId, privateKey } = this.props.navigation.state.params;
+    const { id, ecosystemId, privateKey, ecosystems } = this.props.navigation.state.params;
 
     return (
       <KeyboardAwareScrollView>
@@ -60,6 +61,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
         <SingInFormContainer
           accountAdress={id}
           ecosystemId={ecosystemId}
+          ecosystems={ecosystems}
           privateKey={privateKey}
         />
       </KeyboardAwareScrollView>

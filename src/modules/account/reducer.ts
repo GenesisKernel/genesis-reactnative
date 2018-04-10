@@ -1,12 +1,12 @@
 import * as actions from './actions';
-import { mergeDeepWith, union, omit } from 'ramda';
+import { mergeDeepWith, union, unionWith, eqBy, prop, omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setAccountUserdata, changePassword } from './actions';
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccount {
+  currentEcosystem: string;
   address: string;
-  // state: string;
   ecosystems: string[];
   encKey: string;
   publicKey: string;
@@ -15,6 +15,7 @@ export interface IAccount {
   token?: string,
   tokenExpiry?: number,
   refresh?: string;
+  sessions: IAccount[],
 }
 
 export interface IState {
@@ -30,7 +31,9 @@ export default reducerWithInitialState(initialState)
     ...state,
     [payload.result.address]: {
       ...state[payload.result.address],
-      ...payload.result
+      ...payload.result,
+      sessions: unionWith(eqBy(prop('ecosystem_id')), payload.result.sessions, state[payload.result.address].sessions), // merge two arrays without duplicated ecosystems
+      ecosystems: union(state[payload.result.address].ecosystems, payload.result.ecosystems),
     }
   }))
   .case(removeAccount.done, (state, payload) => omit([payload.params.accountAddress])(state))
@@ -55,11 +58,10 @@ export default reducerWithInitialState(initialState)
       ecosystems: [payload.ecosystemId]
     })
   }))
-  .case(setAccountUserdata, (state, payload) => ({
+  .case(setAccountUserdata, (state, payload: any) => ({
     ...state,
     [payload.address]: {
       ...state[payload.address],
-      avatar: payload.avatar,
-      username: payload.username,
+      sessions: payload.sessions,
     }
   }));
