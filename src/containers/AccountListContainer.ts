@@ -10,7 +10,7 @@ import * as notifications from 'modules/notifications';
 import * as application from 'modules/application';
 import * as navigator from 'modules/navigator';
 import * as navigatorSelectors from 'modules/navigator/selectors';
-import { navTypes, MODAL_ANIMATION_TIME } from '../constants';
+import { navTypes, MODAL_ANIMATION_TIME, ModalTypes } from '../constants';
 
 const mapStateToProps = state => ({
   accounts: account.selectors.getAccounts(state),
@@ -29,10 +29,11 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boole
   onRemove: (accountAddress: string) =>
     dispatch(account.actions.removeAccount.started({ accountAddress })),
   onCreateAccount: () => {
-    dispatch(application.actions.toggleDrawer(false));
-    setTimeout(() => {
-      dispatch(navigator.actions.navigate(navTypes.SIGN_UP));
-    }, MODAL_ANIMATION_TIME)
+    dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE }))
+    // dispatch(application.actions.toggleDrawer(false));
+    // setTimeout(() => {
+    //   dispatch(navigator.actions.navigate(navTypes.SIGN_UP));
+    // }, MODAL_ANIMATION_TIME)
   }
 });
 

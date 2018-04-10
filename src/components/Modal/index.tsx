@@ -6,6 +6,8 @@ import NestedContractSigningForm from 'components/NestedContractSigningModal';
 import ValidatePasswordForm from 'components/ValidatePasswordForm';
 import RoleSelectForm from 'components/RoleSelectForm';
 import NotificationsPage from 'components/NotificationsPage';
+import SelectAuthTypeModal from 'components/SelectAuthTypeModal';
+
 import Modal from "react-native-modal";
 import styles from './styles';
 
@@ -77,6 +79,8 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
           return <NotificationsPage {...modal.params} onConfirm={onConfirm} onClose={onClose}/>;
         case ModalTypes.ROLE_SELECT:
           return <RoleSelectForm {...modal.params} onConfirm={onConfirm} onClose={onClose} />;
+        case ModalTypes.SELECT_AUTH_TYPE:
+          return <SelectAuthTypeModal />
         default:
           return <View />;
       }
