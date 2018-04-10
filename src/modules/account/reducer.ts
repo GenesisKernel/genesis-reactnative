@@ -5,6 +5,7 @@ import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setA
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccount {
+  currentEcosystem: string;
   address: string;
   ecosystems: string[];
   encKey: string;
@@ -57,11 +58,10 @@ export default reducerWithInitialState(initialState)
       ecosystems: [payload.ecosystemId]
     })
   }))
-  .case(setAccountUserdata, (state, payload) => ({
+  .case(setAccountUserdata, (state, payload: any) => ({
     ...state,
     [payload.address]: {
       ...state[payload.address],
-      avatar: payload.avatar,
-      username: payload.username,
+      sessions: payload.sessions,
     }
   }));

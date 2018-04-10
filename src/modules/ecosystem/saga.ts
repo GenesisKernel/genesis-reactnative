@@ -7,6 +7,7 @@ import Keyring from 'utils/keyring';
 
 import { requestEcosystem } from './actions';
 import { generateTime } from 'modules/auth/reducer';
+import { getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
 
 const defaultParams: string[] = ['ava', 'key_mask', 'ecosystem_name'];
 
@@ -40,18 +41,18 @@ export function* requestEcosystemWorker(action: Action<any>) {
 
 export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], privateKey: string, publicKey: string }) {
   try {
-    apiDeleteToken(); // Remove previous token
-
     const { privateKey, publicKey } = payload;
     const ecosystems = payload.ecosystems || ['1'];
+
+    yield call(apiDeleteToken); // Remove previous token
 
     const { data: uidParams } = yield call(api.getUid);
 
     const signature = yield call(Keyring.sign, uidParams.uid, privateKey);
-    apiSetToken(uidParams.token);
+
+    yield call(apiSetToken, uidParams.token);
 
     let availableEcosystems = [];
-
     for (let ecosystem of ecosystems) {
       try {
         let { data: accountData } = yield call(api.login, {
@@ -59,12 +60,16 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
           ecosystem: ecosystem,
           publicKey: publicKey,
         });
-        accountData.tokenExpiry = generateTime();
-        accountData.roles = accountData.roles || [];
+        const tokenExpiry = generateTime();
+        const roles = accountData.roles || [];
 
+        const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
+        yield call(apiSetToken, uidParams.token);
+
+        accountData = { ...accountData, ...avatarAndUsername, tokenExpiry, roles };
         availableEcosystems.push(accountData);
       } catch(err) {
-        availableEcosystems.push(null);
+        console.log('checkEcosystemsAvailiability err');
       }
     }
     return availableEcosystems;

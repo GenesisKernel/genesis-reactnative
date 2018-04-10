@@ -48,8 +48,9 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened, account: { avatar } } = this.props;
+    const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened } = this.props;
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
+    const avatar = this.getAvatar();
 
     return (
       <Swipeable
@@ -143,6 +144,15 @@ class Row extends React.PureComponent<IRow> {
       </View>
     ];
     return rightButtons;
+  }
+
+  private getAvatar = () => {
+    const { account: { sessions }, ecosystemId } = this.props;
+    const session = sessions.find((el: any) => el.ecosystem_id === ecosystemId);
+    if (session && session.avatar) {
+      return session.avatar;
+    }
+    return null;
   }
 
   private handleRecenter = () => {

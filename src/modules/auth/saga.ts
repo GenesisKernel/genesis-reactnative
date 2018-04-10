@@ -2,24 +2,26 @@ import { SagaIterator, delay } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { Alert } from 'react-native';
 import { takeEvery, put, call, select, all } from 'redux-saga/effects';
+import { omit } from 'ramda';
 import { NavigationActions } from 'react-navigation';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 import * as application from 'modules/application';
-import * as applicationActions from 'modules/application/actions';
 import * as transactionActions from 'modules/transaction/actions';
 import * as authActions from './actions';
 import * as authSelectors from './selectors';
 import * as accountActions from 'modules/account/actions';
 import * as accountSelectors from 'modules/account/selectors';
 import * as navigatorActions from 'modules/navigator/actions';
+import * as ecosystemSaga from 'modules/ecosystem';
+
 import { getAccount } from 'modules/account/selectors';
-import { receiveEcosystem } from 'modules/ecosystem/actions';
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect } from 'modules/sagas/roles';
+import { roleSelect } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
+import { IAccount } from 'modules/account/reducer';
 
 export interface IAuthPayload {
   private: string;
@@ -63,26 +65,24 @@ export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) 
 }
 
 export function* auth(payload: IAuthPayload | IKeyPairs) {
-
   const sessions = yield call(checkEcosystemsAvailiability, { ecosystems: payload.ecosystems || ['1'], privateKey: payload.private, publicKey: payload.public });
   const availableEcosystems = sessions.map((item: any) => item.ecosystem_id);
 
   let accountData = sessions[0];
+  const { avatar, username } = accountData;
   if (!accountData) return;
 
   const { roles } = accountData;
 
   const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : {};
 
-  accountData = yield call(loginCall, payload, currentRole.role_id);
+  accountData = { avatar, username, ...yield call(loginCall, payload, currentRole.role_id)};
 
   const { key_id, token, refresh, address, notify_key, timestamp, ecosystem_id } = accountData;
 
   yield put(
     authActions.attachSession({
-      key_id,
-      token,
-      refresh,
+      ...omit(['ecosystem_id'], accountData),
       currentRole,
       currentAccountAddress: address,
       ecosystems: availableEcosystems,
@@ -101,18 +101,13 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
   }));
 
   return {
+    ...omit(['ecosystem_id'], accountData),
     publicKey: payload.public,
     ecosystems: availableEcosystems,
     sessions,
     currentEcosystem: ecosystem_id,
-    key_id,
-    address,
-    notify_key,
-    timestamp,
     roles: roles || [],
     currentRole,
-    avatar: '',
-    username: '',
   };
 }
 
@@ -258,7 +253,7 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
     );
 
     yield put(
-      applicationActions.removeSeed()
+      application.actions.removeSeed()
     );
 
     yield put(authActions.saveLastLoggedAccount(account));
@@ -283,53 +278,15 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
   }
 }
 
-export function* switchAccountWorker(action: Action<any>): SagaIterator {
-
-  try {
-    const keys = yield all({
-      public: select(authSelectors.getPublicKey),
-    });
-
-    const account = yield call(auth, {
-      ...keys,
-      ecosystem: action.payload.ecosystemId
-    });
-
-    yield put(
-      authActions.switchAccount.done({
-        params: action.payload,
-        result: null
-      })
-    );
-    yield put(
-      authActions.login.done({
-        params: action.payload,
-        result: {
-          ...account
-        }
-      })
-    );
-
-    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
-  } catch (error) {
-    yield put(
-      authActions.switchAccount.failed({
-        params: action.payload,
-        error
-      })
-    );
-  }
-}
-
 export function* logoutWorker() {
   yield put(authActions.detachSession());
   yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
 export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: string, address: string }>) {
-
   try {
     const accountData = yield select(accountSelectors.getAccount(action.payload.address));
+    const { sessions } = accountData;
     const requiredSession = accountData.sessions.find((item: any) => item.ecosystem_id === action.payload.ecosystemId);
 
     if (requiredSession.token && requiredSession.tokenExpiry > Date.now()) {
@@ -345,22 +302,29 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
 
       yield put(
         authActions.attachSession({
+          ...requiredSession,
           currentAccountAddress: requiredSession.address,
           currentEcosystemId: action.payload.ecosystemId,
-          token: requiredSession.token,
-          refresh: requiredSession.refresh,
-          publicKey: requiredSession.publicKey,
           currentRole,
           sessions: accountData.sessions,
           ecosystems: accountData.ecosystems,
-          key_id: requiredSession.key_id,
         })
       );
 
+      const sessionsWithUserData = sessions.map((item: any) => {
+        if (item.ecosystem_id === action.payload.ecosystemId) {
+          item = {
+            ...item,
+            avatar: avatarAndUsername.data.value.avatar || '',
+            username: avatarAndUsername.data.value.member_name || '',
+          }
+        }
+        return item;
+      });
+
       yield put(accountActions.setAccountUserdata({
         address: accountData.address,
-        avatar: avatarAndUsername.data.value.avatar || '',
-        username: avatarAndUsername.data.value.username || '',
+        sessions: sessionsWithUserData,
       }));
 
       yield put(navigatorActions.navigateWithReset( [{ routeName: navTypes.HOME }] ));
@@ -402,7 +366,6 @@ export function* authSaga(): SagaIterator {
     loginByPrivateKeyWorker
   );
   yield takeEvery(authActions.logout, logoutWorker);
-  yield takeEvery(authActions.switchAccount.started, switchAccountWorker);
   yield takeEvery(
     [
       authActions.attachSession,

@@ -20,7 +20,6 @@ import TransactionsContainer from 'containers/TransactionsContainer';
 
 interface IDrawerContentProps {
   currentAccountAddress: string;
-  switchAccount: (accountAdress: string, ecosystemId: string) => void;
   openModal: () => void;
 }
 
@@ -173,12 +172,6 @@ class DrawerContent extends React.Component<
     this.setState(prevState => ({
       showAccountList: !prevState.showAccountList
     }));
-  }
-
-  private handleAccountSelect = (accountAdress: string, ecosystemId: string) => {
-    this.context.drawer.close(() => {
-      this.props.switchAccount(accountAdress, ecosystemId);
-    });
   }
 }
 
