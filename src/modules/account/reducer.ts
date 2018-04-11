@@ -18,6 +18,19 @@ export interface IAccount {
   sessions: IAccount[],
 }
 
+export interface IAccountSession {
+  ecosystem_id: string;
+  key_id: string;
+  address: string;
+  avatar: string;
+  username: string;
+  token?: string;
+  roles: IRole[];
+  tokenExpiry?: number,
+  refresh?: string;
+  sessions?: IAccountSession[],
+}
+
 export interface IState {
   [id: string]: IAccount;
 }
@@ -47,9 +60,7 @@ export default reducerWithInitialState(initialState)
     ...state,
     [payload.currentAccountAddress]: {
       ...state[payload.currentAccountAddress],
-      token: payload.token,
-      tokenExpiry: payload.tokenExpiry,
-      refresh: payload.refresh,
+      ...omit(['currentAccountAddress'], payload),
     }
   }))
   .case(attachEcosystem, (state, payload) => ({

@@ -16,7 +16,6 @@ import * as accountSelectors from 'modules/account/selectors';
 import * as navigatorActions from 'modules/navigator/actions';
 import * as ecosystemSaga from 'modules/ecosystem';
 
-import { getAccount } from 'modules/account/selectors';
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 import { roleSelect } from 'modules/sagas/sagaHelpers';
@@ -34,9 +33,18 @@ export interface IAuthPayload {
   username?: string;
   ecosystems?: string[];
 }
+
 export interface IKeyPairs {
   private: string;
   public: string;
+}
+
+interface ILoginWorkerPayload {
+  accountAdress: string;
+  ecosystemId: string;
+  ecosystems?: string[];
+  password: string;
+  privateKey: string;
 }
 
 export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) {
@@ -65,6 +73,7 @@ export function* loginCall(payload: IAuthPayload | IKeyPairs, role_id?: number) 
 
 export function* auth(payload: IAuthPayload | IKeyPairs) {
   const sessions = yield call(checkEcosystemsAvailiability, { ecosystems: payload.ecosystems || ['1'], privateKey: payload.private, publicKey: payload.public });
+
   const availableEcosystems = sessions.map((item: any) => item.ecosystem_id);
 
   let accountData = sessions[0];
@@ -89,15 +98,7 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
       currentEcosystemId: ecosystem_id,
       publicKey: payload.public,
     })
-  ); // Save token
-
-  const tokenExpiry = yield select(authSelectors.getTokenExpiry);
-  yield put(accountActions.saveTokenToAccount({
-    currentAccountAddress: accountData.address,
-    token,
-    refresh,
-    tokenExpiry
-  }));
+  ); // save account data in auth reducer
 
   return {
     ...omit(['ecosystem_id'], accountData),
@@ -107,7 +108,7 @@ export function* auth(payload: IAuthPayload | IKeyPairs) {
     currentEcosystem: ecosystem_id,
     roles: roles || [],
     currentRole,
-  };
+  }; // return account to function where it was called
 }
 
 export function* refresh() {
@@ -188,9 +189,11 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
   }
 }
 
-export function* loginWorker(action: Action<any>): SagaIterator {
+export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
-    const savedAccount = yield select(getAccount(action.payload.accountAdress));
+    const savedAccount = yield select(accountSelectors.getAccount(action.payload.accountAdress));
+    const accountSessions = yield select(accountSelectors.getAccountSession(action.payload.accountAdress, savedAccount.currentEcosystem));
+
     const privateKey = yield call(
       Keyring.decryptAES,
       savedAccount.encKey,
@@ -200,7 +203,7 @@ export function* loginWorker(action: Action<any>): SagaIterator {
     const account = yield call(auth, {
       public: savedAccount.publicKey,
       private: privateKey,
-      ecosystems: [action.payload.ecosystemId],
+      ecosystems: action.payload.ecosystems || [action.payload.ecosystemId],
     });
 
     yield put(
@@ -211,6 +214,15 @@ export function* loginWorker(action: Action<any>): SagaIterator {
         }
       })
     );
+
+    const tokenExpiry = yield select(authSelectors.getTokenExpiry);
+    yield put(accountActions.saveTokenToAccount({
+      currentAccountAddress: account.address,
+      token: account.token,
+      refresh: account.refresh,
+      sessions: account.sessions,
+      tokenExpiry,
+    }));
 
     yield put(authActions.saveLastLoggedAccount(account));
 
@@ -251,9 +263,7 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
       })
     );
 
-    yield put(
-      application.actions.removeSeed()
-    );
+    yield put(application.actions.removeSeed());
 
     yield put(authActions.saveLastLoggedAccount(account));
 

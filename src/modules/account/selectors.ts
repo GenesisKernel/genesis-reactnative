@@ -18,3 +18,8 @@ export const getAccount = (address: string) => createSelector(
   (state: IRootState) => state.accounts,
   (accounts: AccountReduceState) => accounts[address]
 );
+
+export const getAccountSession = (address: string, ecosystemId: string) => createSelector(
+  (state: IRootState) => state.accounts,
+  (accounts: AccountReduceState) => accounts[address].sessions.find((el: any ) => el.ecosystem_id === ecosystemId),
+)

@@ -1,6 +1,6 @@
 import actionCreatorFactory from 'typescript-fsa';
 
-import { IAccount } from './reducer';
+import { IAccount, IAccountSession } from './reducer';
 const actionCreator = actionCreatorFactory('ACCOUNT');
 
 export const createAccount = actionCreator.async<
@@ -22,6 +22,7 @@ export const saveTokenToAccount = actionCreator<{
   token: string;
   refresh: string;
   tokenExpiry: number;
+  sessions: IAccountSession[];
 }>('SAVE_TOKEN_TO_ACCOUNT');
 
 export const setAccountUserdata = actionCreator<{
@@ -32,4 +33,5 @@ export const setAccountUserdata = actionCreator<{
 export const changePassword = actionCreator.async<IAccount | string, any>('CHANGE_PASSWORD');
 
 export const cancelChangingPassword = actionCreator('CANCEL_CHANGING_PASSWORD');
+
 export const confirmChangingPassword = actionCreator<string>('CONFIRM_CHANGING_PASSWORD');
