@@ -66,7 +66,7 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
         const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
         yield call(apiSetToken, uidParams.token);
 
-        accountData = { ...accountData, ...avatarAndUsername, tokenExpiry, roles };
+        accountData = { ...accountData, ...avatarAndUsername, tokenExpiry, roles, publicKey };
         availableEcosystems.push(accountData);
       } catch(err) {
         console.log('checkEcosystemsAvailiability err');

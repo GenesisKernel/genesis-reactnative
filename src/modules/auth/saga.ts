@@ -192,7 +192,6 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
     const savedAccount = yield select(accountSelectors.getAccount(action.payload.accountAdress));
-    const accountSessions = yield select(accountSelectors.getAccountSession(action.payload.accountAdress, savedAccount.currentEcosystem));
 
     const privateKey = yield call(
       Keyring.decryptAES,
