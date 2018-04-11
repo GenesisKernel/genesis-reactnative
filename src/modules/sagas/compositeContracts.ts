@@ -6,13 +6,28 @@ import * as uuid from 'uuid';
 import * as transaction from 'modules/transaction';
 import { requestPrivateKeyWorker } from 'modules/sagas/privateKey';
 
-type ICompositeContractsPayload = {
+type ICompositeContract = {
   data: { [name: string]: any; };
   name: string;
   meta: {}
-}[];
+};
+
+type ICompositeContractsPayload = ICompositeContract[];
 
 const CONTRACTS_PER_TICK = 5;
+
+export function* compositeContractsFinishCatcher(itemToStop: number) {
+  let counter = 0;
+  yield takeEvery(transaction.actions.runTransaction.done, function* (contract: any) {
+    counter += 1;
+    if (counter === itemToStop) {
+      yield put(transaction.actions.runCompositeContracts.done({
+        params: { name: 'finished', data: '' },
+        result: {},
+      }));
+    }
+  });
+}
 
 export function* compositeContractsWorker(action: Action<ICompositeContractsPayload>) {
   const generatedKey = yield call(requestPrivateKeyWorker);
@@ -31,6 +46,8 @@ export function* compositeContractsWorker(action: Action<ICompositeContractsPayl
     });
     contracts.push(...contract);
   });
+
+  yield spawn(compositeContractsFinishCatcher, contracts.length);
 
   let isFirstIteration = true;
   while (true) {
@@ -61,6 +78,10 @@ export function* compositeContractsWorker(action: Action<ICompositeContractsPayl
     }
 
     if (compositeResult.failed) {
+      yield put(transaction.actions.runCompositeContracts.failed({
+        params: { name: 'finished', data: '' },
+        error: 'Composite contract run failed.'
+      }));
       return;
     };
   }

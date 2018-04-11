@@ -41,7 +41,7 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     }
   }
 
-  if (action.payload.contract) {
+  if (action.payload.contract && !action.payload.composite) {
     yield put(
       transaction.actions.runTransaction.started(
         {
@@ -54,15 +54,6 @@ export function* pageWorker(action: Action<any>): SagaIterator {
             vde
           }
         },
-        action.meta
-      )
-    );
-  }
-
-  if (action.payload.composite) {
-    yield put(
-      transaction.actions.runCompositeContracts.started(
-        action.payload.composite,
         action.meta
       )
     );
@@ -94,6 +85,42 @@ export function* pageWorker(action: Action<any>): SagaIterator {
         action.meta
       )
     );
+  }
+
+  if (action.payload.composite) {
+    yield put(
+      transaction.actions.runCompositeContracts.started(
+        action.payload.composite,
+        action.meta
+      )
+    );
+
+    if (action.payload.contract) {
+      const { done, failed } = yield race({
+        done: take(transaction.actions.runCompositeContracts.done),
+        failed: take(transaction.actions.runCompositeContracts.failed),
+      });
+
+      if (failed) return;
+
+      if (done) {
+        yield put(
+          transaction.actions.runTransaction.started(
+            {
+              uuid: uuid.v4(),
+              datetime: new Date(),
+              contract: action.payload.contract,
+              params: {
+                ...resolveParams(action.payload.params, formOfCurrentPage),
+                ...formOfCurrentPage,
+                vde
+              }
+            },
+            action.meta
+          )
+        );
+      }
+    }
   }
 }
 
