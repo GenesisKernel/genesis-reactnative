@@ -66,6 +66,11 @@ export default class AnimatedDrawer extends React.Component<IAnimatedDrawerProps
   }
 
   private toggleDrawerHandler = (value: boolean) => {
-    setTimeout(() => { this.props.onToggleDrawer(value) }, 50);
+    const { drawerOpen } = this.props;
+    if (drawerOpen !== value) {
+      setTimeout(() => {
+        this.props.onToggleDrawer(value)
+      }, 50);
+    }
   }
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
+import { path } from 'ramda';
 
 import NestedContractSigningForm from 'components/NestedContractSigningModal';
 import ValidatePasswordForm from 'components/ValidatePasswordForm';
@@ -22,6 +23,8 @@ export interface IModalProps extends IModal {
   touchIdSupport: boolean;
   onConfirm: () => void;
   onClose: (payload?: 'withError' | undefined) => void;
+  onCreateAccountPress: () => void;
+  onKnownAccountPress: () => void;
 }
 
 export default class CommonModal extends React.PureComponent<IModalProps, IModal> {
@@ -46,14 +49,13 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
 
   public render() {
     const { onClose, modal } = this.props;
-    const isNotificationModal = modal && modal.type && modal.type === ModalTypes.NOTIFICATIONS_PAGE;
-    const isRoleSelectModal = modal && modal.type && modal.type === ModalTypes.ROLE_SELECT; // TODO: find better solution
+    const isNotificationModal = path(['modal', 'type'], this.props) === ModalTypes.NOTIFICATIONS_PAGE;
 
     return (
       <Modal
         style={styles.container}
         backdropOpacity={isNotificationModal ? 0 : 0.45}
-        onBackdropPress={isNotificationModal || isRoleSelectModal ? onClose : () => null}
+        onBackdropPress={this.onBackdropPress}
         onBackButtonPress={onClose}
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
@@ -66,7 +68,7 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
   }
 
   private selectModalToRender = (): any => {
-    const { onConfirm, onClose, touchIdSupport } = this.props;
+    const { onConfirm, onClose, touchIdSupport, onCreateAccountPress, onKnownAccountPress } = this.props;
     const { modal } = this.state;
 
     if (modal && modal.type) {
@@ -80,12 +82,21 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
         case ModalTypes.ROLE_SELECT:
           return <RoleSelectForm {...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         case ModalTypes.SELECT_AUTH_TYPE:
-          return <SelectAuthTypeModal />
+          return <SelectAuthTypeModal onCreateAccountPress={onCreateAccountPress} onKnownAccountPress={onKnownAccountPress} />
         default:
           return <View />;
       }
     } else {
       return <View />;
+    }
+  }
+
+  private onBackdropPress = () => {
+    const modal = path(['modal', 'type'], this.props);
+    if (modal === ModalTypes.NOTIFICATIONS_PAGE || ModalTypes.ROLE_SELECT || ModalTypes.SELECT_AUTH_TYPE) {
+      this.props.onClose();
+    } else {
+      () => null;
     }
   }
 }

@@ -28,13 +28,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boole
     dispatch(receiveSelectedAccount.started({ address, ecosystemId })),
   onRemove: (accountAddress: string) =>
     dispatch(account.actions.removeAccount.started({ accountAddress })),
-  onCreateAccount: () => {
-    dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE }))
-    // dispatch(application.actions.toggleDrawer(false));
-    // setTimeout(() => {
-    //   dispatch(navigator.actions.navigate(navTypes.SIGN_UP));
-    // }, MODAL_ANIMATION_TIME)
-  }
+  onCreateAccount: () =>
+    dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountList);

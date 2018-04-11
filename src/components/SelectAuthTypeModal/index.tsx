@@ -14,15 +14,20 @@ const createAccountButtonLabel = {
   defaultMessage: 'CREATE ACCOUNT'
 };
 
-const SelectAuthTypeModal: React.SFC<{}> = () => (
+interface ISelectAuthTypeModal {
+  onCreateAccountPress: () => void;
+  onKnownAccountPress: () => void;
+}
+
+const SelectAuthTypeModal: React.SFC<ISelectAuthTypeModal> = ({onCreateAccountPress, onKnownAccountPress}) => (
   <View style={styles.container}>
     <Button
       buttonStyle={styles.createButton}
-      // onPress={this.handleCreateAccountButtonPress}
+      onPress={onCreateAccountPress}
       intl={createAccountButtonLabel}
     />
     <Button
-      // onPress={this.handleKnownAccountButtonPress}
+      onPress={onKnownAccountPress}
       intl={addAccountButtonLabel}
     />
   </View>
