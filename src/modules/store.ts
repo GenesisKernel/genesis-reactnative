@@ -17,7 +17,8 @@ const config = {
   whitelist: [
     'auth',
     'accounts',
-    'ecosystems'
+    'ecosystems',
+    'nodes',
   ]
 };
 

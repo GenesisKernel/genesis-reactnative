@@ -1,0 +1,1 @@
+export const getNodesList = state => state.nodes.nodesList;

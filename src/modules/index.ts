@@ -9,9 +9,12 @@ import * as ecosystem from './ecosystem';
 import * as page from './page';
 import * as transaction from './transaction';
 import * as notifications from './notifications';
+import * as nodes from './nodes';
+
 import commonSagas from './sagas';
 
 export interface IRootState {
+  nodes: nodes.IState;
   auth: auth.IState;
   application: application.IState;
   accounts: account.IState;
@@ -25,6 +28,7 @@ export interface IRootState {
 export function* rootSaga() {
   yield all([
     application.saga(),
+    nodes.saga(),
     auth.saga(),
     notifications.saga(),
     page.saga(),
@@ -35,6 +39,7 @@ export function* rootSaga() {
 }
 
 export default {
+  nodes: nodes.reducer,
   auth: auth.reducer,
   application: application.reducer,
   accounts: account.reducer,

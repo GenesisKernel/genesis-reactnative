@@ -307,17 +307,16 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
       if (requiredSession.roles && !!requiredSession.roles.length) {
         currentRole = yield call(roleSelect, requiredSession.roles);
       }
+      const newAccount = {
+        ...requiredSession,
+        currentAccountAddress: requiredSession.address,
+        currentEcosystemId: action.payload.ecosystemId,
+        currentRole,
+        sessions: accountData.sessions,
+        ecosystems: accountData.ecosystems,
+      };
 
-      yield put(
-        authActions.attachSession({
-          ...requiredSession,
-          currentAccountAddress: requiredSession.address,
-          currentEcosystemId: action.payload.ecosystemId,
-          currentRole,
-          sessions: accountData.sessions,
-          ecosystems: accountData.ecosystems,
-        })
-      );
+      yield put(authActions.attachSession(newAccount));
 
       const sessionsWithUserData = sessions.map((item: any) => {
         if (item.ecosystem_id === action.payload.ecosystemId) {

@@ -46,6 +46,10 @@ api.addResponseTransform(response => {
   }
 });
 
+export const apiSetUrl = (url: any) => {
+  api.setBaseURL(url);
+}
+
 export const apiSetToken = (token: string) => {
   api.setHeader('Authorization', `Bearer ${token}`);
 };
@@ -159,4 +163,6 @@ export default {
     api.post('/updnotificator', payload),
 
   getAvatarAndUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='avatar,member_name'`, session),
+
+  getFullNodes: () => api.get('/systemparams?names=full_nodes'),
 };

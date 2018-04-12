@@ -25,6 +25,11 @@ declare type IRole = {
   role_id: number;
 } | undefined;
 
+declare type INode = {
+  apiUrl: string;
+  msgUrl?: string;
+}
+
 declare module 'react-native-stylable' {
   export type Rule = {
     style: { [key: string]: any };

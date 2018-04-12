@@ -73,3 +73,14 @@ export const addHistoryMarker = (action: AnyAction) => ({
   [HISTORY_SAGA]: true,
   ...action
 });
+
+export const filterDuplicateNodes = (nodes: INode[]): INode[] => {
+  return nodes.reduce((acc, el) => {
+    acc = acc || [];
+    let duplicate = acc.find((item) => item.apiUrl === el.apiUrl && item.msgUrl === el.msgUrl)
+    if(!duplicate || duplicate.length <= 1) {
+      acc.push(el);
+    }
+    return acc;
+  }, 0);
+}
