@@ -77,7 +77,7 @@ export const addHistoryMarker = (action: AnyAction) => ({
 export const filterDuplicateNodes = (nodes: INode[]): INode[] => {
   return nodes.reduce((acc, el) => {
     acc = acc || [];
-    let duplicate = acc.find((item) => item.apiUrl === el.apiUrl && item.msgUrl === el.msgUrl)
+    let duplicate = acc.find((item) => item.apiUrl === el.apiUrl)
     if(!duplicate || duplicate.length <= 1) {
       acc.push(el);
     }

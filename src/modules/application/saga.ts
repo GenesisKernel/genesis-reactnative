@@ -41,7 +41,7 @@ export function* initWorker(): SagaIterator {
 
   yield call(delay, 300); // Just for visual effect
 
-  if (hasValidToken) {
+  if (false) {
     apiSetToken(token);
 
     yield put(initFinish());
@@ -100,7 +100,7 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
 }
 
 export function* applicationWatcher(): SagaIterator {
-  yield takeEvery(REHYDRATE, persistWorker);
+  // yield takeEvery(REHYDRATE, persistWorker);
   yield takeEvery(initStart, initWorker);
   yield takeEvery(waitForError(), alertWorker);
 }
