@@ -41,7 +41,7 @@ export function* initWorker(): SagaIterator {
 
   yield call(delay, 300); // Just for visual effect
 
-  if (false) {
+  if (hasValidToken) {
     apiSetToken(token);
 
     yield put(initFinish());

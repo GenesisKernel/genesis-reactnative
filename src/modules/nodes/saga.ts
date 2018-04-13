@@ -11,21 +11,30 @@ import * as node from 'modules/nodes';
 
 
 export function* nodesWorker() {
-  const randomNode = yield call(getRandomNode);
   const currentNode = yield select(node.selectors.getCurrentNode);
-  //  here will be node check
-  apiSetUrl(`${randomNode.apiUrl}api/v2`);
 
-  yield put(node.actions.setCurrentNode(randomNode));
+  if (currentNode) {
+    try {
+      apiSetUrl(`${currentNode.apiUrl}api/v2`);
+      yield call(api.getUid);
+      yield put(application.actions.initStart());
+    } catch(err) {
+      yield call(setRandomNode);
+    }
+  } else {
+    yield call(setRandomNode);
+  }
+
   yield put(application.actions.initStart());
 }
 
-export function* getRandomNode() {
+export function* setRandomNode() {
   const nodesList = yield select(node.selectors.getNodesList);
   const filteredNodes = !!nodesList.length ? nodesList : yield call(filterDuplicateNodes, fullNodes);
   const randomNode = filteredNodes[Math.floor(Math.random() * filteredNodes.length)];
 
-  return randomNode;
+  apiSetUrl(`${randomNode.apiUrl}api/v2`);
+  yield put(node.actions.setCurrentNode(randomNode));
 }
 
 export function* getFullNodesWorkerHelper() {
