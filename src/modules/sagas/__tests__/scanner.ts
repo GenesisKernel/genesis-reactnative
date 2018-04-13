@@ -10,7 +10,8 @@ describe('qrCodeWorker', () => {
     expect(iterator.next().value).toEqual(put(
       navigate(navTypes.SIGN_IN, {
         privateKey: 'decryptedValuedecryptedValuedecryptedValuedecryptedValdecrydecry',
-        ecosystemId: '1'
+        ecosystems: ['1'],
+        ecosystemId: '1',
       })
     ));
     expect(iterator.next().value).toEqual(undefined);

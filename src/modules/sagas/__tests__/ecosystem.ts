@@ -24,7 +24,7 @@ describe('attachNewEcosystemWorker should execute NewEcosystem contract', () => 
     iterator.next();
     expect(iterator.next('accountAddress').value).toEqual(all([
       put(account.actions.attachEcosystem({ accountAddress: 'accountAddress', ecosystemId: '2' })),
-      put(ecosystem.actions.requestEcosystem.started({ id: '2' }))
+      put(ecosystem.actions.requestEcosystem.started({ ecosystems: ['2'] }))
     ]));
   });
 });
