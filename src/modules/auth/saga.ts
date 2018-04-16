@@ -18,7 +18,7 @@ import * as ecosystemSaga from 'modules/ecosystem';
 
 import { navTypes, ERRORS } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect } from 'modules/sagas/sagaHelpers';
+import { roleSelect, getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { IAccount } from 'modules/account/reducer';
 
@@ -301,7 +301,7 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
 
       apiSetToken(requiredSession.token);
 
-      const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
+      const { avatar, username } = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
 
       let currentRole: IRole;
       if (requiredSession.roles && !!requiredSession.roles.length) {
@@ -323,8 +323,8 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
         if (item.ecosystem_id === action.payload.ecosystemId) {
           item = {
             ...item,
-            avatar: avatarAndUsername.data.value.avatar || '',
-            username: avatarAndUsername.data.value.member_name || '',
+            avatar,
+            username,
           }
         }
         return item;
