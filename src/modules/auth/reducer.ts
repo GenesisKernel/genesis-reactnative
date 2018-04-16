@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import { pick } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface IState {
@@ -36,7 +37,7 @@ export default reducerWithInitialState(initialState)
   }))
   .case(actions.saveLastLoggedAccount, (state, payload) => ({
     ...state,
-    lastLoggedAccount: payload,
+    lastLoggedAccount: pick(['key_id', 'timestamp', 'notify_key'], payload),
   }))
   .case(actions.refreshSession, (state, paylod) => ({
     ...state,
