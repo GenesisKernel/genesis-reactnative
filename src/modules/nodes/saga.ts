@@ -46,7 +46,7 @@ export function* getFullNodesWorkerHelper() {
   try {
     nodes = JSON.parse(list[0].value);
   } catch(err) {
-    console.log(err, 'ERROR AT getFullNodesWorkerHelper');
+    // console.log(err, 'ERROR AT getFullNodesWorkerHelper');
   }
 
   const allNodes = !!nodesList.length ? nodesList : fullNodes;

@@ -1,6 +1,7 @@
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { takeEvery, put, call } from 'redux-saga/effects';
+import { pick } from 'ramda';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
@@ -8,6 +9,7 @@ import Keyring from 'utils/keyring';
 import { requestEcosystem } from './actions';
 import { generateTime } from 'modules/auth/reducer';
 import { getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
+import { uniqKeyGenerator } from 'utils/common';
 
 const defaultParams: string[] = ['ava', 'key_mask', 'ecosystem_name'];
 
@@ -52,7 +54,8 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
 
     yield call(apiSetToken, uidParams.token);
 
-    let availableEcosystems = [];
+    let availableEcosystems: { [key: string]: any } = {};
+
     for (let ecosystem of ecosystems) {
       try {
         let { data: accountData } = yield call(api.login, {
@@ -60,14 +63,15 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
           ecosystem: ecosystem,
           publicKey: publicKey,
         });
-        const tokenExpiry = generateTime();
+        // const tokenExpiry = generateTime();
         const roles = accountData.roles || [];
 
         const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
         yield call(apiSetToken, uidParams.token);
+        const uniqKey = uniqKeyGenerator(accountData);
 
-        accountData = { ...accountData, ...avatarAndUsername, tokenExpiry, roles, publicKey };
-        availableEcosystems.push(accountData);
+        accountData = { ...accountData, ...avatarAndUsername, roles };
+        availableEcosystems[uniqKey] = accountData;
       } catch(err) {
         console.log('checkEcosystemsAvailiability err');
       }

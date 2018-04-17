@@ -33,16 +33,10 @@ export const login = actionCreator.async<
 >('LOGIN');
 
 export const attachSession = actionCreator<{
-  currentAccountAddress: string;
-  currentEcosystemId: string;
-  ecosystems: string[];
-  sessions:  IAccount[];
-  publicKey: string;
+  currentAccount: string;
   token: string;
   refresh: string;
-  key_id: string;
-  currentRole: IRole;
-  tokenExpiry?: number;
+  ecosystems: string[];
 }>('ATTATCH_SESSION');
 
 export const detachSession = actionCreator('DETACH_SESSION');

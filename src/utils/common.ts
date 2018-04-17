@@ -35,3 +35,8 @@ export const getCurrentLocale = () => {
   }
   return systemLanguage;
 }
+
+export const uniqKeyGenerator = (payload: any ): string => {
+  const { key_id, ecosystem_id, } = payload;
+  return `${key_id}_${ecosystem_id}`;
+}

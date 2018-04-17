@@ -1,16 +1,18 @@
 import * as actions from './actions';
+import { omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface IState {
+  isAuthenticated: boolean;
+  currentAccount?: string;
   token?: string;
   refresh?: string;
   tokenExpiry?: number;
-  publicKey?: string;
-  currentAccountAddress?: string;
-  currentEcosystemId?: string;
-  isAuthenticated?: boolean;
-  lastLoggedAccount?: object;
-  peivateKeyValid?: boolean;
+  // publicKey?: string;
+  // currentAccountAddress?: string;
+  // currentEcosystemId?: string;
+  // lastLoggedAccount?: object;
+  // peivateKeyValid?: boolean;
 }
 
 const initialState: IState = {
@@ -22,13 +24,13 @@ export const generateTime = () => Date.now() + 7776000000;
 export default reducerWithInitialState(initialState)
   .case(actions.attachSession, (state, payload) => ({
     ...state,
-    ...payload,
+    ...omit(['ecosystems'], payload),
     tokenExpiry: generateTime(),
     isAuthenticated: true
   }))
   .case(actions.detachSession, state => ({
     ...initialState,
-    lastLoggedAccount: state.lastLoggedAccount,
+    // lastLoggedAccount: state.lastLoggedAccount,
   }))
   .case(actions.loginRequest, state => ({
     ...state,
