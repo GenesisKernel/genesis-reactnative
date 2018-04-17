@@ -98,10 +98,10 @@ class Row extends React.PureComponent<IRow> {
               </View>
               <View style={styles.rowTextContainer}>
                 <Text numberOfLines={1} style={styles.title}>
-                  {title}
+                  {this.props.account.username || 'no username'}
                 </Text>
                 <Text numberOfLines={1} style={styles.subTitle}>
-                  {address}
+                  {title}
                 </Text>
               </View>
             </View>

@@ -21,6 +21,7 @@ import { waitForActionWithParams } from '../sagas/utils';
 import { roleSelect, getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { IAccount } from 'modules/account/reducer';
+import { validatePassword } from 'modules/sagas/privateKey';
 
 export interface IAuthPayload {
   private: string;
@@ -192,12 +193,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
     const savedAccount = yield select(accountSelectors.getAccount(action.payload.accountAdress));
-
-    const privateKey = yield call(
-      Keyring.decryptAES,
-      savedAccount.encKey,
-      action.payload.password
-    );
+    const privateKey = validatePassword({encKey: savedAccount.encKey, password: action.payload.password});
 
     const account = yield call(auth, {
       public: savedAccount.publicKey,
@@ -297,7 +293,7 @@ export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: stri
     const { sessions } = accountData;
     const requiredSession = accountData.sessions.find((item: any) => item.ecosystem_id === action.payload.ecosystemId);
 
-    if (requiredSession.token && requiredSession.tokenExpiry > Date.now()) {
+    if (requiredSession && requiredSession.token && requiredSession.tokenExpiry > Date.now()) {
 
       apiSetToken(requiredSession.token);
 

@@ -52,9 +52,12 @@ export default StyleSheet.create({
     marginRight: 15,
   },
   input: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: Colors.dark,
     color: Colors.dark,
-    height: 30,
+    height: 50,
+  },
+  invalidInput: {
+    borderBottomColor: Colors.dangerRed,
   }
 });

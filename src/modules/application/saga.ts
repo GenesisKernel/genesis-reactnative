@@ -78,7 +78,7 @@ export function* expiredTokenWorker(params: { address?: string; ecosystemId?: st
   }
 
   yield put(auth.actions.detachSession());
-  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { id: address, ecosystemId}  }]));
+  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { id: address, ecosystemId }  }]));
 }
 
 export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {

@@ -25,7 +25,6 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     onConfirm: (payload: any) => {
       dispatch(application.actions.confirmModal(payload));
-      dispatch(application.actions.closeModal());
     },
     onCreateAccountPress: () => {
       dispatch(application.actions.closeModal());

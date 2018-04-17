@@ -31,13 +31,9 @@ export function* refreshPrivateKeyExpireTime(): SagaIterator {
   }));
 }
 
-export function* validatePassword(data: { encKey: string, password: string }): SagaIterator {
+export function validatePassword(data: { encKey: string, password: string }): any {
   const { encKey, password } = data;
-  const privateKey = yield call(
-    Keyring.decryptAES,
-    encKey,
-    password
-  );
+  const privateKey = Keyring.decryptAES(encKey, password);
 
   if (!!privateKey && Keyring.KEY_LENGTH === privateKey.length && /[a-f0-9]/i.test(privateKey)) {
     return privateKey;
@@ -46,11 +42,15 @@ export function* validatePassword(data: { encKey: string, password: string }): S
   }
 }
 
-export function* validatePrivateKeyWorker(action: { payload: string }) {
-  const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress)
-  const currentAccount = yield select(account.selectors.getAccount(currentAccountAddress));
+export function* validatePrivateKeyWorker(payload: { password?: string; privateKey?: string } ) {
+  let privateKey = payload.privateKey || null;
 
-  const privateKey = yield call(validatePassword, { encKey: currentAccount.encKey, password: action.payload });
+  if (!privateKey && payload.password) {
+    const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress)
+    const currentAccount = yield select(account.selectors.getAccount(currentAccountAddress));
+
+    privateKey = yield call(validatePassword, { encKey: currentAccount.encKey, password: payload.password });
+  }
 
   if (privateKey) {
     const privateKeyData = {
@@ -69,7 +69,8 @@ export function* requestPrivateKeyWorker(): SagaIterator {
   const privateKey: string = path(['privateKey'], getKey);
 
   if (!privateKey || Keyring.KEY_LENGTH !== privateKey.length) {
-    yield put(application.actions.showModal({ type: ModalTypes.PASSWORD }));
+    const acc = yield select(account.selectors.getAccount(yield select(auth.selectors.getCurrentAccountAddress)));
+    yield put(application.actions.showModal({ type: ModalTypes.PASSWORD, params: { encKey: acc.encKey } }));
 
     const modalResponse = yield race({
       success: take(application.actions.confirmModal),
@@ -81,10 +82,11 @@ export function* requestPrivateKeyWorker(): SagaIterator {
     }
 
     if (modalResponse.success) {
-      const newKey = yield call(validatePrivateKeyWorker, modalResponse.success);
+      const newKey = yield call(validatePrivateKeyWorker, modalResponse.success.payload );
       if (!newKey) {
         return yield call(requestPrivateKeyWorker);
       } else {
+        yield put(application.actions.closeModal());
         return newKey;
       }
     }
