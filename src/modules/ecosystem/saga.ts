@@ -67,13 +67,12 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
         const roles = accountData.roles || [];
 
         const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
-        yield call(apiSetToken, uidParams.token);
         const uniqKey = uniqKeyGenerator(accountData);
 
-        accountData = { ...accountData, ...avatarAndUsername, roles };
+        accountData = { ...accountData, ...avatarAndUsername, roles, uniqKey, publicKey };
         availableEcosystems[uniqKey] = accountData;
       } catch(err) {
-        console.log('checkEcosystemsAvailiability err');
+        console.log('checkEcosystemsAvailiability err', err); // we just want to skip an invalid ecosystems
       }
     }
     return availableEcosystems;

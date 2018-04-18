@@ -8,7 +8,7 @@ export const createAccount = actionCreator.async<
   IAccount
 >('CREATE');
 
-export const removeAccount = actionCreator.async<{ accountAddress: string }, any>(
+export const removeAccount = actionCreator.async<{ uniqKey: string }, any>(
   'REMOVE'
 );
 

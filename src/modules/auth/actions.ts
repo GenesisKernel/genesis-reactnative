@@ -16,8 +16,7 @@ export const loginRequest = actionCreator<{ seed: string; password: string }>(
 
 export const receiveSelectedAccount = actionCreator.async<
   {
-    address: string;
-    ecosystemId: string;
+    uniqKey: string;
   },
   null
 >('RECEIVE_SELECTED_ACCOUNT');

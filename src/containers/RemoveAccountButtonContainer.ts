@@ -10,9 +10,9 @@ const mapStateToProps = (state: any, ownProps: any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: { accountAddress: string }) => {
+const mapDispatchToProps = (dispatch: any, ownProps: { uniqKey: string }) => {
   return {
-    onRemove: () => dispatch(removeAccount.started({ accountAddress: ownProps.accountAddress })),
+    onRemove: () => dispatch(removeAccount.started({ uniqKey: ownProps.uniqKey })),
   }
 }
 

@@ -16,8 +16,9 @@ export function* nodesWorker() {
   if (currentNode) {
     try {
       apiSetUrl(`${currentNode.apiUrl}api/v2`);
-      yield call(api.getUid);
+      const kek = yield call(api.getUid);
       yield put(application.actions.initStart());
+      return;
     } catch(err) {
       yield call(setRandomNode);
     }
@@ -31,32 +32,37 @@ export function* nodesWorker() {
 export function* setRandomNode() {
   const nodesList = yield select(node.selectors.getNodesList);
   const filteredNodes = !!nodesList.length ? nodesList : yield call(filterDuplicateNodes, fullNodes);
-  const randomNode = filteredNodes[Math.floor(Math.random() * filteredNodes.length)];
-
+  // const randomNode = filteredNodes[Math.floor(Math.random() * filteredNodes.length)];
+  const randomNode = filteredNodes[0] // TEMPORARY, because we get a shit from backend right now
   apiSetUrl(`${randomNode.apiUrl}api/v2`);
   yield put(node.actions.setCurrentNode(randomNode));
 }
 
 export function* getFullNodesWorkerHelper() {
-  const { data: { list } } = yield call(api.getFullNodes);
-  const nodesList = yield select(node.selectors.getNodesList);
-
-  let nodes = [];
-
   try {
-    nodes = JSON.parse(list[0].value);
-  } catch(err) {
-    // console.log(err, 'ERROR AT getFullNodesWorkerHelper');
-  }
+    const { data: { list } } = yield call(api.getFullNodes);
+    const nodesList = yield select(node.selectors.getNodesList);
 
-  const allNodes = !!nodesList.length ? nodesList : fullNodes;
-  const newNodes = yield call(filterDuplicateNodes, allNodes.concat(nodes.map((item: any) => {
-    return {
-      apiUrl: item[1],
+    let nodes = [];
+
+    try {
+      nodes = JSON.parse(list[0].value);
+    } catch(err) {
+      // console.log(err, 'ERROR AT getFullNodesWorkerHelper');
     }
-  })));
 
-  yield put(node.actions.setNodesList(newNodes));
+    const allNodes = !!nodesList.length ? nodesList : fullNodes;
+    const newNodes = yield call(filterDuplicateNodes, allNodes.concat(nodes.map((item: any) => {
+      return {
+        apiUrl: item[1],
+      }
+    })));
+
+    yield put(node.actions.setNodesList(newNodes));
+  } catch(err) {
+    yield put(auth.actions.logout());
+    // console.error('getFullNodesWorkerHelper err => ', err)
+  }
 }
 
 export function* getFullNodesWorker() {
@@ -75,4 +81,5 @@ export function* getFullNodesWorker() {
 export default function* nodesSaga() {
   yield takeEvery(REHYDRATE, nodesWorker);
   yield takeEvery(application.actions.initFinish, getFullNodesWorker);
+  yield takeEvery(auth.actions.receiveSelectedAccount.started, setRandomNode);
 }

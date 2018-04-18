@@ -65,12 +65,14 @@ export function* persistWorker() {
   yield put(initStart());
 }
 
-export function* expiredTokenWorker(params: { address?: string; ecosystemId?: string }) {
+export function* expiredTokenWorker() {
   yield take(cancelAlert);
-  const { drawerOpen, address, ecosystemId } = yield all({
+  const isAuthed = yield select(auth.selectors.getAuthStatus);
+  if (!isAuthed) return;
+
+  const { drawerOpen, uniqKey } = yield all({
     drawerOpen: select(getDrawerState),
-    address: params.address || (select(auth.selectors.getCurrentAccountAddress)),
-    ecosystemId: params.ecosystemId || (select(auth.selectors.getCurrentEcosystemId)),
+    uniqKey: select(auth.selectors.getCurrentAccount),
   });
 
   if (drawerOpen) {
@@ -78,7 +80,7 @@ export function* expiredTokenWorker(params: { address?: string; ecosystemId?: st
   }
 
   yield put(auth.actions.detachSession());
-  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { id: address, ecosystemId}  }]));
+  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { uniqKey } }]));
 }
 
 export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
@@ -93,7 +95,7 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
       yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
 
       if (path(['error', 'data', 'error'], action.payload) === ERRORS.TOKEN_EXPIRED) {
-        yield call(expiredTokenWorker, action.payload.params);
+        yield call(expiredTokenWorker);
       }
     }
   }

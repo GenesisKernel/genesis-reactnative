@@ -14,9 +14,9 @@ export const getAccounts = createSelector(
   (accounts: AccountReduceState) => accounts
 );
 
-export const getAccount = (address: string) => createSelector(
+export const getAccount = (uniqKey: string) => createSelector(
   (state: IRootState) => state.accounts,
-  (accounts: AccountReduceState) => accounts[address]
+  (accounts: AccountReduceState) => accounts[uniqKey]
 );
 
 export const getAccountSession = (address: string, ecosystemId: string) => createSelector(

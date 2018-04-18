@@ -16,18 +16,15 @@ const mapStateToProps = state => ({
   accounts: account.selectors.getAccounts(state),
   ecosystems: ecosystem.selectors.getEcosystems(state),
   notifications: notifications.selectors.getNotifications(state),
-  currentAccountAddress: auth.selectors.getCurrentAccountAddress(state),
-  currentEcosystemId: auth.selectors.getCurrentEcosystemId(state),
+  currentAccount: auth.selectors.getCurrentAccount(state),
   isDrawerOpened: application.selectors.getDrawerState(state),
   isAccountSelectScreen: navigatorSelectors.getCurrentRoute(state).routeName === navTypes.ACCOUNT_SELECT || navigatorSelectors.getCurrentRoute(state).routeName === navTypes.SIGN_UP_WARNING,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boolean }) => ({
   noTitle: ownProps.noTitle,
-  onSelect: (address: string, ecosystemId: string) =>
-    dispatch(receiveSelectedAccount.started({ address, ecosystemId })),
-  onRemove: (accountAddress: string) =>
-    dispatch(account.actions.removeAccount.started({ accountAddress })),
+  onSelect: (uniqKey: string) =>
+    dispatch(receiveSelectedAccount.started({ uniqKey })),
   onCreateAccount: () =>
     dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE })),
 });

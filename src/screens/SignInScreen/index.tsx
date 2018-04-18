@@ -13,10 +13,10 @@ import styles from './styles';
 
 interface IScreenProps
   extends NavigationScreenProps<{
-      id: string;
-      ecosystemId: string;
+      uniqKey?: string;
       privateKey: string;
       ecosystems: string[];
+      ecosystemId: string;
     }> {}
 
 const Row = ({ children }) => (
@@ -35,7 +35,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
   }
 
   public render() {
-    const { id, ecosystemId, privateKey, ecosystems } = this.props.navigation.state.params;
+    const { uniqKey, privateKey, ecosystems, ecosystemId } = this.props.navigation.state.params;
 
     return (
       <KeyboardAwareScrollView>
@@ -59,7 +59,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
         )}
 
         <SingInFormContainer
-          accountAdress={id}
+          uniqKey={uniqKey}
           ecosystemId={ecosystemId}
           ecosystems={ecosystems}
           privateKey={privateKey}

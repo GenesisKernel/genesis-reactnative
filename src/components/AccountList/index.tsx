@@ -14,10 +14,8 @@ import styles from './styles';
 
 export interface IAccountListProps {
   accounts: { [id: string]: object };
-  ecosystems: { [id: string]: object };
   noTitle?: boolean | undefined,
-  currentAccountAddress: string;
-  currentEcosystemId: string;
+  currentAccount: string;
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
   notifications: {
@@ -31,25 +29,9 @@ export interface IAccountListProps {
       };
     };
   };
-  onSelect(address: string, ecosystemId: string): void;
-  onRemove(): void;
+  onSelect(uniqKey: string): void;
   onCreateAccount: () => void;
 }
-
-const findEcosystemName = (parameter: any) =>
-  parameter.name === 'ecosystem_name';
-
-const getTitle = (account: any, ecosystem: any) => {
-  if (!ecosystem) {
-    return `${account.state || ''} (${account.address})`;
-  }
-
-  const nameParameter = ecosystem.parameters.find(findEcosystemName);
-
-  return (
-    (nameParameter && nameParameter.value) || `${ecosystem.id} (${account.address})`
-  );
-};
 
 class AccountList extends React.Component<IAccountListProps, {isScrollAvailable: boolean}> {
   state = {
@@ -61,6 +43,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
       return <View style={styles.container} />;
     }
     const { isAccountSelectScreen } = this.props;
+
     return (
       <View style={styles.container}>
         {!this.props.noTitle && (
@@ -68,42 +51,27 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
             style={styles.loginAs}
             intl={{ id: "account.list.login.as", defaultMessage: "Login as" }}/>
         )}
+
         <ScrollView
           scrollEnabled={this.state.isScrollAvailable}
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          {Object.values(this.props.accounts).map(this.iterateEcosystems)}
+          {Object.values(this.props.accounts).map(this.renderAccount)}
         </ScrollView>
+
         {!isAccountSelectScreen && (<CreateAccountButton onPress={this.props.onCreateAccount} />)}
       </View>
     );
   }
 
-  private iterateEcosystems = (account: any) => {
-    if (account.ecosystems) {
-      return account.ecosystems.map((ecosystem: string) => {
-        return this.renderAccountPerEcosystem(account, this.props.ecosystems[ecosystem], path(['groupedByEcosystemId', `${ecosystem}`, `${account.address}`, 'count'],this.props.notifications));
-      });
-    }
-  }
-
-  private renderAccountPerEcosystem = (account: any, ecosystem: any, notificationsCount: number | undefined) => {
-    if (!ecosystem) {
-      return null;
-    }
-
+  private renderAccount = (account: any) => {
     return (
-      <View key={`${account.address}_${ecosystem.id}`}>
+      <View key={account.uniqKey}>
         <Row
           account={account}
-          address={account.address}
-          ecosystemId={ecosystem.id}
-          notificationsCount={notificationsCount}
-          title={getTitle(account, ecosystem)}
           onPress={this.props.onSelect}
-          onRemove={this.props.onRemove}
-          isLoggedAccount={this.props.currentAccountAddress === account.address && this.props.currentEcosystemId === ecosystem.id}
+          isLoggedAccount={account.uniqKey === this.props.currentAccount}
           onDisableScroll={this.handlePreventScroll}
           isDrawerOpened={this.props.isDrawerOpened}
         />

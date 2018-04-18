@@ -60,23 +60,14 @@ export function* changePasswordWorker(action: { payload: IExtendedAccount }) {
 
         yield put(changePassword.done({ params: '', result: accountWithNewKey }));
 
-        const loggedAccountAddress = yield select(auth.selectors.getCurrentAccountAddress);
-
-        if (loggedAccountAddress === accountWithNewKey.address) {
-          yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.HOME }]));
-        } else {
-          yield put(navigator.actions.navigateWithReset([
-            {
-              routeName: navTypes.SIGN_IN,
-              params: {
-                ecosystemId: action.payload.ecosystemId,
-                password: confirm.payload,
-                id: accountWithNewKey.address,
-              }
-            }
-          ]));
-        }
+        yield put(navigator.actions.navigateWithReset([
+          {
+            routeName: navTypes.SIGN_IN,
+            params: { uniqKey: accountWithNewKey.uniqKey }
+          }
+        ]));
       }
+
     }
   }
 }

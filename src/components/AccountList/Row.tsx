@@ -27,14 +27,10 @@ const avatarDefaultProps = {
 
 export interface IRow {
   account: IAccount;
-  address: string;
-  title: string;
-  ecosystemId: string;
   notificationsCount?: number;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
-  onPress(address: string, ecosystemId: string): void;
-  onRemove(address: string): void;
+  onPress(uniqKey: string): void;
   onDisableScroll(value: boolean): void;
 }
 
@@ -48,9 +44,10 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { title, address, notificationsCount, isLoggedAccount, isDrawerOpened } = this.props;
+    const { account: { avatar, username, uniqKey, address, ecosystem_id },
+    notificationsCount, isLoggedAccount, isDrawerOpened } = this.props;
+
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
-    const avatar = this.getAvatar();
 
     return (
       <Swipeable
@@ -98,7 +95,7 @@ class Row extends React.PureComponent<IRow> {
               </View>
               <View style={styles.rowTextContainer}>
                 <Text numberOfLines={1} style={styles.title}>
-                  {title}
+                  {username || `eco: ${ecosystem_id}`}
                 </Text>
                 <Text numberOfLines={1} style={styles.subTitle}>
                   {address}
@@ -112,7 +109,7 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
-    const { isLoggedAccount, isDrawerOpened, address, account, ecosystemId } = this.props;
+    const { isLoggedAccount, isDrawerOpened, account: { address, ecosystem_id } } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
 
@@ -125,12 +122,13 @@ class Row extends React.PureComponent<IRow> {
           : <ChangePasswordButtonContainer
             recenter={this.handleRecenter}
             buttonWidth={buttonWidth}
-            account={{ ...account, ecosystemId }} />
+            account={this.props.account}
+          />
         }
 
         <RemoveAccountButtonContainer
           recenter={this.handleRecenter}
-          accountAddress={address}
+          uniqKey={this.props.account.uniqKey}
           buttonWidth={buttonWidth} />
 
         {isLoggedAccount
@@ -138,21 +136,13 @@ class Row extends React.PureComponent<IRow> {
             <ChangePasswordButtonContainer
               recenter={this.handleRecenter}
               buttonWidth={buttonWidth}
-              account={{ ...account, ecosystemId }} />
+              account={this.props.account}
+            />
           )
         }
       </View>
     ];
     return rightButtons;
-  }
-
-  private getAvatar = () => {
-    const { account: { sessions }, ecosystemId } = this.props;
-    const session = sessions.find((el: any) => el.ecosystem_id === ecosystemId);
-    if (session && session.avatar) {
-      return session.avatar;
-    }
-    return null;
   }
 
   private handleRecenter = () => {
@@ -171,14 +161,10 @@ class Row extends React.PureComponent<IRow> {
 
   private handlePress = (): void => {
     if (!this.props.isLoggedAccount) {
-      this.props.onPress(this.props.address, this.props.ecosystemId);
+      this.props.onPress(this.props.account.uniqKey);
     } else {
       this.swipeable && this.swipeable.recenter();
     }
-  }
-
-  private handleRemove = (): void => {
-    this.props.onRemove(this.props.account);
   }
 }
 

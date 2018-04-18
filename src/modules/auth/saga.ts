@@ -35,11 +35,8 @@ export interface IKeyPairs {
 }
 
 interface ILoginWorkerPayload {
-  accountAdress: string;
-  ecosystemId: string;
-  ecosystems?: string[];
+  uniqKey: string;
   password: string;
-  privateKey: string;
 }
 
 export function* loginCall(payload: IAuthPayload, role_id?: number) {
@@ -95,6 +92,9 @@ export function* auth(payload: IAuthPayload) {
     })
   ); // save account data in auth reducer
 
+  Object.keys(accounts).forEach(el => {
+    accounts[el] = pick(['key_id', 'ecosystem_id', 'address', 'uniqKey', 'avatar', 'username', 'roles', 'publicKey'], accounts[el]);
+  });
   return accounts; // return account to function where it was called
 }
 
@@ -120,7 +120,7 @@ export function* refresh() {
 }
 
 export function* loginByPrivateKeyWorker(action: Action<any>) {
-  const { privateKey, password, ecosystemId, ecosystems } = action.payload;
+  const { privateKey, password, ecosystems } = action.payload;
 
   try {
     const publicKey = yield call(Keyring.genereatePublicKey, privateKey);
@@ -129,7 +129,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
     const accounts = yield call(auth, {
       public: publicKey,
       private: privateKey,
-      ecosystems,
+      ecosystems: ecosystems || ['1'],
     });
 
     Object.values(accounts).forEach(el => el.encKey = encKey);
@@ -170,8 +170,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 
 export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
-    const savedAccount = yield select(accountSelectors.getAccount(action.payload.accountAdress));
-
+    const savedAccount = yield select(accountSelectors.getAccount(action.payload.uniqKey));
     const privateKey = yield call(
       Keyring.decryptAES,
       savedAccount.encKey,
@@ -181,7 +180,7 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
     const account = yield call(auth, {
       public: savedAccount.publicKey,
       private: privateKey,
-      ecosystems: action.payload.ecosystems || [action.payload.ecosystemId],
+      ecosystems: [savedAccount.ecosystem_id],
     });
 
     yield put(
@@ -193,18 +192,9 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
       })
     );
 
-    const tokenExpiry = yield select(authSelectors.getTokenExpiry);
-    yield put(accountActions.saveTokenToAccount({
-      currentAccountAddress: account.address,
-      token: account.token,
-      refresh: account.refresh,
-      sessions: account.sessions,
-      tokenExpiry,
-    }));
+    // yield put(authActions.saveLastLoggedAccount(account));
 
-    yield put(authActions.saveLastLoggedAccount(account));
-
-    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }])); // Navigate to home screen
+    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }]));
   } catch (error) {
     yield put(
       authActions.login.failed({
@@ -216,7 +206,6 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
 }
 
 export function* createAccountWorker(action: Action<any>): SagaIterator {
-
   try {
     const authPayload: IKeyPairs = yield call(
       Keyring.generateKeyPair,
@@ -267,63 +256,12 @@ export function* logoutWorker() {
   yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: Action<{ ecosystemId: string, address: string }>) {
-  // try {
-    // const accountData = yield select(accountSelectors.getAccount(action.payload.address));
-    // const { sessions } = accountData;
-    // const requiredSession = accountData.sessions.find((item: any) => item.ecosystem_id === action.payload.ecosystemId);
-
-    // if (requiredSession.token && requiredSession.tokenExpiry > Date.now()) {
-
-    //   apiSetToken(requiredSession.token);
-
-    //   const avatarAndUsername = yield call(api.getAvatarAndUsername, accountData.token, accountData.key_id);
-
-    //   let currentRole: IRole;
-    //   if (requiredSession.roles && !!requiredSession.roles.length) {
-    //     currentRole = yield call(roleSelect, requiredSession.roles);
-    //   }
-    //   const newAccount = {
-    //     ...requiredSession,
-    //     currentAccountAddress: requiredSession.address,
-    //     currentEcosystemId: action.payload.ecosystemId,
-    //     currentRole,
-    //     sessions: accountData.sessions,
-    //     ecosystems: accountData.ecosystems,
-    //   };
-
-    //   yield put(authActions.attachSession(newAccount));
-
-    //   const sessionsWithUserData = sessions.map((item: any) => {
-    //     if (item.ecosystem_id === action.payload.ecosystemId) {
-    //       item = {
-    //         ...item,
-    //         avatar: avatarAndUsername.data.value.avatar || '',
-    //         username: avatarAndUsername.data.value.member_name || '',
-    //       }
-    //     }
-    //     return item;
-    //   });
-
-    //   yield put(accountActions.setAccountUserdata({
-    //     address: accountData.address,
-    //     sessions: sessionsWithUserData,
-    //   }));
-
-    //   yield put(navigatorActions.navigateWithReset( [{ routeName: navTypes.HOME }] ));
-    // } else {
-      yield put(application.actions.toggleDrawer(false))
-      yield call(delay, 350);
-      yield put(
-        navigatorActions.navigate(navTypes.SIGN_IN, { id: action.payload.address, ecosystemId: action.payload.ecosystemId })
-      );
-    // }
-  // } catch (error) {
-  //   yield put(authActions.receiveSelectedAccount.failed({
-  //     params: action.payload,
-  //     error,
-  //   }));
-  // }
+export function* receiveSelectedAccountWorker(action: Action<any>) {
+  yield put(application.actions.toggleDrawer(false))
+  yield call(delay, 350);
+  yield put(
+    navigatorActions.navigate(navTypes.SIGN_IN, { uniqKey: action.payload.uniqKey })
+  );
 }
 
 export function* tokenWorker() {
@@ -343,7 +281,7 @@ export function* tokenWorker() {
 export function* authSaga(): SagaIterator {
   yield takeEvery(accountActions.createAccount.started, createAccountWorker);
   yield takeEvery(
-    waitForActionWithParams(authActions.login.started.type, ['accountAdress']),
+    waitForActionWithParams(authActions.login.started.type, ['uniqKey']),
     loginWorker
   );
   yield takeEvery(

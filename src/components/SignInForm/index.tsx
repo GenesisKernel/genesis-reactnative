@@ -9,7 +9,7 @@ import Field from 'components/ui/Field';
 import styles from './styles';
 
 export interface InputParams {
-  accountAdress: string;
+  uniqKey: string;
   ecosystemId: string;
   password: string;
   privateKey: string;
@@ -17,7 +17,7 @@ export interface InputParams {
 }
 
 export interface ISignInProps {
-  accountAdress: string;
+  uniqKey: string;
   ecosystemId: string;
   ecosystems: string[];
   privateKey: string;
@@ -78,7 +78,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
 
     this.props.onSubmit({
       password: this.state.password,
-      accountAdress: this.props.accountAdress,
+      uniqKey: this.props.uniqKey,
       privateKey: this.props.privateKey,
       ecosystemId: this.props.ecosystemId,
       ecosystems: this.props.ecosystems,

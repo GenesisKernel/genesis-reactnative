@@ -7,7 +7,7 @@ import * as account from 'modules/account';
 import * as application from 'modules/application';
 import * as auth from 'modules/auth';
 
-export function* removeAccountWorker(action: Action<any>): SagaIterator {
+export function* removeAccountWorker(action: Action<{uniqKey: string}>): SagaIterator {
   yield put(
     application.actions.receiveAlert({
       title: "alert.title.warning",
@@ -22,9 +22,9 @@ export function* removeAccountWorker(action: Action<any>): SagaIterator {
   });
 
   if (result.confirm) {
-    const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress);
+    const currentAccount = yield select(auth.selectors.getCurrentAccount);
 
-    if (action.payload.accountAddress === currentAccountAddress) {
+    if (action.payload.uniqKey === currentAccount) {
       yield put(application.actions.toggleDrawer(false));
       yield call(delay, MODAL_ANIMATION_TIME);
       yield put(auth.actions.logout());

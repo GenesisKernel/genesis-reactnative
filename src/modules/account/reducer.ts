@@ -5,8 +5,7 @@ import { createAccount, removeAccount, attachEcosystem, saveTokenToAccount, setA
 import { getTokenExpiry } from 'modules/auth/selectors';
 
 export interface IAccount {
-  token: string;
-  refresh: string;
+  uniqKey: string;
   avatar: string;
   username: string;
   ecosystem_id: string;
@@ -14,21 +13,8 @@ export interface IAccount {
   address: string;
   roles: string[];
   encKey: string;
+  publicKey: string;
 }
-
-// export interface IAccountSession {
-//   ecosystem_id: string;
-//   key_id: string;
-//   address: string;
-//   avatar: string;
-//   username: string;
-//   token?: string;
-//   roles: IRole[];
-//   tokenExpiry?: number,
-//   refresh?: string;
-//   sessions?: IAccountSession[],
-//   publicKey: string;
-// }
 
 export interface IState {
   [id: string]: IAccount;
@@ -43,11 +29,11 @@ export default reducerWithInitialState(initialState)
     ...state,
     ...payload.result,
   }))
-  .case(removeAccount.done, (state, payload) => omit([payload.params.accountAddress])(state))
-  .case(changePassword.done, (state, payload) =>({
+  .case(removeAccount.done, (state, payload) => omit([payload.params.uniqKey])(state))
+  .case(changePassword.done, (state, payload: any) =>({
     ...state,
-    [payload.result.address]: {
-      ...payload.result
+    [payload.result.uniqKey]: {
+      ...payload.result,
     }
   }))
   .case(saveTokenToAccount, (state, payload: any) => ({
