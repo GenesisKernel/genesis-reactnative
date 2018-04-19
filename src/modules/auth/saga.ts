@@ -16,7 +16,7 @@ import * as accountSelectors from 'modules/account/selectors';
 import * as navigatorActions from 'modules/navigator/actions';
 import * as ecosystemSaga from 'modules/ecosystem';
 
-import { navTypes, ERRORS } from '../../constants';
+import { navTypes, ERRORS, MODAL_ANIMATION_TIME } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
 import { roleSelect } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';

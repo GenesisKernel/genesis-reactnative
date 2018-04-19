@@ -37,8 +37,6 @@ export function* initWorker(): SagaIterator {
   yield put(setCurrentLocale(currentLocale));
   yield put(checkForTouchID(isTouchIDAvailable));
 
-  const { accounts } = yield select((state) => state);
-
   yield call(delay, 300); // Just for visual effect
 
   if (hasValidToken) {

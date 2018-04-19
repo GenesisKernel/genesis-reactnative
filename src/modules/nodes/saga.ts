@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select, take } from 'redux-saga/effects';
+import { call, put, takeEvery, select, take, all } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist';
 
 import { fullNodes } from '../../fullNodes';
@@ -16,7 +16,7 @@ export function* nodesWorker() {
   if (currentNode) {
     try {
       apiSetUrl(`${currentNode.apiUrl}api/v2`);
-      const kek = yield call(api.getUid);
+      yield call(api.getUid);
       yield put(application.actions.initStart());
       return;
     } catch(err) {
@@ -30,11 +30,19 @@ export function* nodesWorker() {
 }
 
 export function* setRandomNode() {
-  const nodesList = yield select(node.selectors.getNodesList);
+  const { nodesList, isAuthenticated } = yield all({
+    nodesList: select(node.selectors.getNodesList),
+    isAuthenticated: select(auth.selectors.getAuthStatus),
+  })
   const filteredNodes = !!nodesList.length ? nodesList : yield call(filterDuplicateNodes, fullNodes);
+
   // const randomNode = filteredNodes[Math.floor(Math.random() * filteredNodes.length)];
   const randomNode = filteredNodes[0] // TEMPORARY, because we get a shit from backend right now
+
   apiSetUrl(`${randomNode.apiUrl}api/v2`);
+
+  if (isAuthenticated) yield put(auth.actions.detachSession());
+
   yield put(node.actions.setCurrentNode(randomNode));
 }
 
@@ -61,7 +69,6 @@ export function* getFullNodesWorkerHelper() {
     yield put(node.actions.setNodesList(newNodes));
   } catch(err) {
     yield put(auth.actions.logout());
-    // console.error('getFullNodesWorkerHelper err => ', err)
   }
 }
 
