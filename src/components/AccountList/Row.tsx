@@ -30,7 +30,7 @@ export interface IRow {
   notificationsCount?: number;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
-  onPress(uniqKey: string): void;
+  onPress(payload: { uniqKey: string; encKey: string; }): void;
   onDisableScroll(value: boolean): void;
 }
 
@@ -161,7 +161,9 @@ class Row extends React.PureComponent<IRow> {
 
   private handlePress = (): void => {
     if (!this.props.isLoggedAccount) {
-      this.props.onPress(this.props.account.uniqKey);
+      const { uniqKey, encKey } = this.props.account;
+
+      this.props.onPress({ uniqKey, encKey });
     } else {
       this.swipeable && this.swipeable.recenter();
     }

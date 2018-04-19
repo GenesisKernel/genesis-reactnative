@@ -68,9 +68,10 @@ export function* expiredTokenWorker() {
   const isAuthed = yield select(auth.selectors.getAuthStatus);
   if (!isAuthed) return;
 
-  const { drawerOpen, uniqKey } = yield all({
+  const uniqKey = yield select(auth.selectors.getCurrentAccount);
+  const { drawerOpen, encKey } = yield all({
     drawerOpen: select(getDrawerState),
-    uniqKey: select(auth.selectors.getCurrentAccount),
+    encKey: select(account.selectors.getAccountEncKey(uniqKey))
   });
 
   if (drawerOpen) {
@@ -78,7 +79,7 @@ export function* expiredTokenWorker() {
   }
 
   yield put(auth.actions.detachSession());
-  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { uniqKey } }]));
+  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { uniqKey, encKey } }]));
 }
 
 export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {

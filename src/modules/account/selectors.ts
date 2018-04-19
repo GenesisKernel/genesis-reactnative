@@ -13,3 +13,8 @@ export const getAccount = (uniqKey: string) => createSelector(
   (state: IRootState) => state.accounts,
   (accounts: AccountReduceState) => accounts[uniqKey]
 );
+
+export const getAccountEncKey = (uniqKey: string) => createSelector(
+  (state: IRootState) => state.accounts,
+  (accounts: AccountReduceState) => accounts[uniqKey].encKey,
+)

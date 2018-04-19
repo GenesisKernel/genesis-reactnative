@@ -37,4 +37,7 @@ export default StyleSheet.create({
     fontSize: FontSizes.mediumCommonSize,
     color: Colors.white,
   },
+  invalidInput: {
+    backgroundColor: Colors.underlayRedLessOpacity,
+  },
 });

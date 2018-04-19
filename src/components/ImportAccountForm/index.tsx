@@ -13,6 +13,7 @@ import styles from './styles';
 export interface InputParams {
   password: string;
   privateKey?: string;
+  byPrivateKey: boolean;
 }
 
 export interface ISignUpProps {
@@ -102,7 +103,8 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
 
     this.props.onSubmit({
       privateKey: this.state.seed,
-      password: this.state.password
+      password: this.state.password,
+      byPrivateKey: true,
     });
   }
 

@@ -17,13 +17,8 @@ interface IScreenProps
       privateKey: string;
       ecosystems: string[];
       ecosystemId: string;
+      encKey: string;
     }> {}
-
-const Row = ({ children }) => (
-  <Text style={styles.row} numberOfLines={1} ellipsizeMode="middle">
-    {children}
-  </Text>
-);
 
 class SignInScreen extends React.Component<IScreenProps, object> {
   public static navigationOptions = ({ navigationOptions }): NavigationStackScreenOptions => {
@@ -35,7 +30,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
   }
 
   public render() {
-    const { uniqKey, privateKey, ecosystems, ecosystemId } = this.props.navigation.state.params;
+    const { uniqKey, privateKey, ecosystems, ecosystemId, encKey } = this.props.navigation.state.params;
 
     return (
       <KeyboardAwareScrollView>
@@ -63,6 +58,7 @@ class SignInScreen extends React.Component<IScreenProps, object> {
           ecosystemId={ecosystemId}
           ecosystems={ecosystems}
           privateKey={privateKey}
+          encKey={encKey}
         />
       </KeyboardAwareScrollView>
     );

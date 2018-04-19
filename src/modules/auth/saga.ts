@@ -38,6 +38,7 @@ export interface IKeyPairs {
 interface ILoginWorkerPayload {
   uniqKey: string;
   password: string;
+  privateKey: string;
 }
 
 export function* loginCall(payload: IAuthPayload, role_id?: number) {
@@ -149,8 +150,6 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
       })
     );
 
-    // yield put(authActions.saveLastLoggedAccount(account));
-
     yield put(
       navigatorActions.navigateWithReset([
         {
@@ -172,7 +171,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
     const savedAccount = yield select(accountSelectors.getAccount(action.payload.uniqKey));
-    const privateKey = validatePassword({ encKey: savedAccount.encKey, password: action.payload.password });
+    const { privateKey } = action.payload;
 
     const account = yield call(auth, {
       public: savedAccount.publicKey,
@@ -188,8 +187,6 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
         }
       })
     );
-
-    // yield put(authActions.saveLastLoggedAccount(account));
 
     yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }]));
   } catch (error) {
@@ -227,7 +224,6 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
 
     yield put(application.actions.removeSeed());
 
-    // yield put(authActions.saveLastLoggedAccount(account));
     yield put(
       navigatorActions.navigateWithReset([
         {
@@ -253,11 +249,11 @@ export function* logoutWorker() {
   yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.ACCOUNT_SELECT }]));
 }
 
-export function* receiveSelectedAccountWorker(action: Action<any>) {
+export function* receiveSelectedAccountWorker(action: Action<{uniqKey: string; encKey: string;}>) {
   yield put(application.actions.toggleDrawer(false))
   yield call(delay, 350);
   yield put(
-    navigatorActions.navigate(navTypes.SIGN_IN, { uniqKey: action.payload.uniqKey })
+    navigatorActions.navigate(navTypes.SIGN_IN, action.payload)
   );
 }
 
@@ -282,7 +278,7 @@ export function* authSaga(): SagaIterator {
     loginWorker
   );
   yield takeEvery(
-    waitForActionWithParams(authActions.login.started.type, ['privateKey']),
+    waitForActionWithParams(authActions.login.started.type, ['byPrivateKey']),
     loginByPrivateKeyWorker
   );
   yield takeEvery(authActions.logout, logoutWorker);

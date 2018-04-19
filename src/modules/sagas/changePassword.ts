@@ -59,7 +59,7 @@ export function* changePasswordWorker(action: { payload: IExtendedAccount }) {
         yield put(navigator.actions.navigateWithReset([
           {
             routeName: navTypes.SIGN_IN,
-            params: { uniqKey: accountWithNewKey.uniqKey }
+            params: { uniqKey: accountWithNewKey.uniqKey, encKey }
           }
         ]));
       }

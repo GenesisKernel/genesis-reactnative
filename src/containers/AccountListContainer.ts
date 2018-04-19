@@ -23,8 +23,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boolean }) => ({
   noTitle: ownProps.noTitle,
-  onSelect: (uniqKey: string) =>
-    dispatch(receiveSelectedAccount.started({ uniqKey })),
+  onSelect: (payload: { uniqKey: string; encKey: string; }) =>
+    dispatch(receiveSelectedAccount.started(payload)),
   onCreateAccount: () =>
     dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE })),
 });

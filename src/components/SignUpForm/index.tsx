@@ -70,7 +70,8 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
         <View style={styles.firstContainer}>
           <Field>
             <Input
-              style={[styles.input, !passwordMatch ? styles.invalidInput : {}]}
+              style={styles.input}
+              isInvalid={!passwordMatch}
               secureTextEntry
               onChangeText={this.handlePasswordConfirmChange}
               intl={passwordInput}
@@ -78,8 +79,9 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
           </Field>
           <Field>
             <Input
-              style={[styles.input, !passwordMatch ? styles.invalidInput : {}]}
+              style={styles.input}
               secureTextEntry
+              isInvalid={!passwordMatch}
               onChangeText={this.handlePasswordChange}
               intl={passwordConfirmInput}
             />

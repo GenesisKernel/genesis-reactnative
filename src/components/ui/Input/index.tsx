@@ -12,10 +12,11 @@ interface IInputProps extends TextInputProperties {
   selectionColor?: string;
   labelStyle?: object;
   containerStyle?: object;
+  isInvalid?: boolean;
 }
 
 const Input: React.SFC<IInputProps> = props => {
-  const { intl, selectionColor, labelStyle, rightIcon, containerStyle, ...inputProps } = props;
+  const { intl, selectionColor, labelStyle, rightIcon, containerStyle, isInvalid, ...inputProps } = props;
 
   return (
     <FormattedMessage {...intl}>
@@ -33,6 +34,7 @@ const Input: React.SFC<IInputProps> = props => {
                 inputProps.style,
                 props.multiline && styles.multiline,
                 !!rightIcon && styles.rightIcon,
+                isInvalid ? styles.invalidInput : {},
               ]}
               underlineColorAndroid="transparent"
               autoCapitalize="none"

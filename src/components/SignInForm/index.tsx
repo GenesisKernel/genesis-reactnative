@@ -7,17 +7,20 @@ import Button from 'components/ui/Button';
 import Input from 'components/ui/Input';
 import Field from 'components/ui/Field';
 import styles from './styles';
+import { validatePassword } from 'modules/sagas/privateKey';
 
 export interface InputParams {
   uniqKey: string;
   ecosystemId: string;
   password: string;
   privateKey: string;
-  ecosystems: string[]
+  ecosystems: string[];
+  byPrivateKey: boolean | undefined;
 }
 
 export interface ISignInProps {
   uniqKey: string;
+  encKey: string;
   ecosystemId: string;
   ecosystems: string[];
   privateKey: string;
@@ -31,7 +34,8 @@ const cancelTitle = {
 };
 
 export interface ISignInState {
-  password?: string;
+  password?: string | null;
+  passwordValid: boolean;
 }
 
 class SignIn extends React.Component<ISignInProps, ISignInState> {
@@ -39,7 +43,8 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     super(props);
 
     this.state = {
-      password: undefined
+      password: null,
+      passwordValid: true,
     };
   }
 
@@ -48,6 +53,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       <View style={styles.container}>
         <Field>
           <Input
+            isInvalid={!this.state.passwordValid}
             secureTextEntry
             onChangeText={this.handlePasswordChange}
             intl={{
@@ -72,17 +78,24 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
   }
 
   private submit = (): void => {
-    if (!this.state.password) {
-      return;
-    }
+    const { password, passwordValid } = this.state;
+    if (password) {
+      const { encKey } = this.props;
+      const privateKey = encKey ? validatePassword({ encKey, password }) : this.props.privateKey;
 
-    this.props.onSubmit({
-      password: this.state.password,
-      uniqKey: this.props.uniqKey,
-      privateKey: this.props.privateKey,
-      ecosystemId: this.props.ecosystemId,
-      ecosystems: this.props.ecosystems,
-    });
+      if (!!privateKey) {
+        this.props.onSubmit({
+          password,
+          privateKey: privateKey,
+          uniqKey: this.props.uniqKey,
+          ecosystemId: this.props.ecosystemId,
+          ecosystems: this.props.ecosystems,
+          byPrivateKey: !!!encKey || undefined,
+        });
+      } else {
+        passwordValid && this.setState({ passwordValid: false });
+      }
+    }
   }
 
   private handlePasswordChange = (password: string): void => {

@@ -29,7 +29,7 @@ export interface IAccountListProps {
       };
     };
   };
-  onSelect(uniqKey: string): void;
+  onSelect(payload: { uniqKey: string; encKey: string; }): void;
   onCreateAccount: () => void;
 }
 
