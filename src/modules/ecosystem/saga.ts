@@ -48,22 +48,22 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
 
     yield call(apiDeleteToken); // Remove previous token
 
-    const { data: uidParams } = yield call(api.getUid);
-
-    const signature = yield call(Keyring.sign, uidParams.uid, privateKey);
-
-    yield call(apiSetToken, uidParams.token);
-
     let availableEcosystems: { [key: string]: any } = {};
 
     for (let ecosystem of ecosystems) {
       try {
+        const { data: uidParams } = yield call(api.getUid);
+
+        const signature = yield call(Keyring.sign, uidParams.uid, privateKey);
+
+        yield call(apiSetToken, uidParams.token);
+
         let { data: accountData } = yield call(api.login, {
           signature,
           ecosystem: ecosystem,
           publicKey: publicKey,
         });
-        // const tokenExpiry = generateTime();
+
         const roles = accountData.roles || [];
 
         const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
@@ -71,6 +71,7 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
 
         accountData = { ...accountData, ...avatarAndUsername, roles, uniqKey, publicKey };
         availableEcosystems[uniqKey] = accountData;
+        yield call(apiDeleteToken)
       } catch(err) {
         console.log('checkEcosystemsAvailiability err', err); // we just want to skip an invalid ecosystems
       }

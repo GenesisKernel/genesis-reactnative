@@ -13,22 +13,9 @@ export const removeAccount = actionCreator.async<{ uniqKey: string }, any>(
 );
 
 export const attachEcosystem = actionCreator<{
-  accountAddress: string;
+  uniqKey: string;
   ecosystemId: string;
 }>('ATTACH_ECOSYSTEM');
-
-export const saveTokenToAccount = actionCreator<{
-  currentAccountAddress: string;
-  token: string;
-  refresh: string;
-  tokenExpiry: number;
-  // sessions: IAccountSession[];
-}>('SAVE_TOKEN_TO_ACCOUNT');
-
-export const setAccountUserdata = actionCreator<{
-  address: string;
-  sessions: IAccount[];
-}>('SET_ACCOUNT_USERDATA');
 
 export const changePassword = actionCreator.async<IAccount | string, any>('CHANGE_PASSWORD');
 
