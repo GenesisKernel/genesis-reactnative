@@ -3,6 +3,7 @@ import { View, TouchableHighlight, Image, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 
+import Avatar from './Avatar';
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors, openDrawerOffset } from 'components/ui/theme';
@@ -16,16 +17,9 @@ import styles from './styles';
 
 const { width } = Dimensions.get('window');
 
-const avatarDefaultProps = {
-  iconStyle: {
-    color: '#fff'
-  },
-  type: 'font-awesome',
-  name: 'user-circle'
-};
-
 export interface IRow {
   account: IAccount;
+  currentNode: INode;
   notificationsCount?: number;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
@@ -44,7 +38,7 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { account: { avatar, username, uniqKey, address, ecosystem_id },
-    notificationsCount, isLoggedAccount, isDrawerOpened } = this.props;
+    notificationsCount, isLoggedAccount, isDrawerOpened, account } = this.props;
 
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
 
@@ -79,18 +73,9 @@ class Row extends React.PureComponent<IRow> {
                     <Text style={styles.notificationText}>{notificationsCount.toString()}</Text>
                   </View>
                 )}
-                <View style={styles.avatarImageWrapper}>
-                {!!avatar
-                  ? (
-                      <Image
-                        resizeMode="cover"
-                        style={styles.avatarImage}
-                        source={{ uri: avatar }}
-                      />
-                    )
-                  : ( <Icon size={40} {...avatarDefaultProps} /> )
-                }
-                </View>
+                <Avatar
+                  account={account}
+                  currentNode={this.props.currentNode} />
               </View>
               <View style={styles.rowTextContainer}>
                 <Text numberOfLines={1} style={styles.title}>

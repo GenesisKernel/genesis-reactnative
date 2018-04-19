@@ -6,15 +6,14 @@ import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 
 import * as application from 'modules/application';
 
-export function* getAvatarAndUsername(token: string, key_id: string) {
+export function* getUsername(token: string, key_id: string) {
   apiDeleteToken();
   apiSetToken(token);
 
-  const avatarAndUsername = yield call(api.getAvatarAndUsername, token, key_id);
+  const username = yield call(api.getUsername, token, key_id);
 
   return {
-    avatar: path(['data', 'value', 'avatar'], avatarAndUsername) || '',
-    username: path(['data', 'value', 'member_name'], avatarAndUsername) || '',
+    username: path(['data', 'value', 'member_name'], username) || '',
   };
 }
 

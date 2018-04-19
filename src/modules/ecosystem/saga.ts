@@ -6,7 +6,7 @@ import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 
 import { requestEcosystem } from './actions';
-import { getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
+import { getUsername } from 'modules/sagas/sagaHelpers';
 import { uniqKeyGenerator } from 'utils/common';
 
 const defaultParams: string[] = ['ava', 'key_mask', 'ecosystem_name'];
@@ -44,7 +44,7 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
     const { privateKey, publicKey } = payload;
     const ecosystems = payload.ecosystems || ['1'];
 
-    yield call(apiDeleteToken); // Remove previous token
+    yield call(apiDeleteToken);
 
     let availableEcosystems: { [key: string]: any } = {};
 
@@ -64,7 +64,7 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
 
         const roles = accountData.roles || [];
 
-        const avatarAndUsername = yield call(getAvatarAndUsername, accountData.token, accountData.key_id);
+        const avatarAndUsername = yield call(getUsername, accountData.token, accountData.key_id);
         const uniqKey = uniqKeyGenerator(accountData);
 
         accountData = { ...accountData, ...avatarAndUsername, roles, uniqKey, publicKey };

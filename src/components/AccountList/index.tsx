@@ -18,6 +18,7 @@ export interface IAccountListProps {
   currentAccount: string;
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
+  currentNode: INode;
   notifications: {
     groupedByEcosystemId: {
       [id: string]: {
@@ -36,6 +37,11 @@ export interface IAccountListProps {
 class AccountList extends React.Component<IAccountListProps, {isScrollAvailable: boolean}> {
   state = {
     isScrollAvailable: true,
+  }
+
+  public shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.isDrawerOpened !== nextProps.isDrawerOpened) return false;
+    return true;
   }
 
   public render() {
@@ -74,6 +80,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
           isLoggedAccount={account.uniqKey === this.props.currentAccount}
           onDisableScroll={this.handlePreventScroll}
           isDrawerOpened={this.props.isDrawerOpened}
+          currentNode={this.props.currentNode}
         />
       </View>
     );

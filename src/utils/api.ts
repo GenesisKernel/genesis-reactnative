@@ -162,7 +162,7 @@ export default {
   updateNotifications: (payload: object) =>
     api.post('/updnotificator', payload),
 
-  getAvatarAndUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='avatar,member_name'`, session),
+  getUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session),
 
   getFullNodes: () => api.get('/systemparams?names=full_nodes'),
 };

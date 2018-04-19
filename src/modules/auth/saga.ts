@@ -18,7 +18,7 @@ import * as ecosystemSaga from 'modules/ecosystem';
 
 import { navTypes, ERRORS, MODAL_ANIMATION_TIME } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect, getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
+import { roleSelect } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { uniqKeyGenerator } from 'utils/common';
 import { validatePassword } from 'modules/sagas/privateKey';
@@ -94,7 +94,7 @@ export function* auth(payload: IAuthPayload) {
   ); // save account data in auth reducer
 
   Object.keys(accounts).forEach(el => {
-    accounts[el] = pick(['key_id', 'ecosystem_id', 'address', 'uniqKey', 'avatar', 'username', 'roles', 'publicKey'], accounts[el]);
+    accounts[el] = pick(['key_id', 'ecosystem_id', 'address', 'uniqKey', 'username', 'roles', 'publicKey'], accounts[el]);
   });
   return accounts; // return account to function where it was called
 }

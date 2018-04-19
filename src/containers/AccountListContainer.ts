@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { receiveSelectedAccount } from 'modules/auth/actions';
 import AccountList from 'components/AccountList';
 
+import * as nodes from 'modules/nodes';
 import * as auth from 'modules/auth';
 import * as account from 'modules/account';
 import * as ecosystem from 'modules/ecosystem';
@@ -18,6 +19,7 @@ const mapStateToProps = state => ({
   notifications: notifications.selectors.getNotifications(state),
   currentAccount: auth.selectors.getCurrentAccount(state),
   isDrawerOpened: application.selectors.getDrawerState(state),
+  currentNode: nodes.selectors.getCurrentNode(state),
   isAccountSelectScreen: navigatorSelectors.getCurrentRoute(state).routeName === navTypes.ACCOUNT_SELECT || navigatorSelectors.getCurrentRoute(state).routeName === navTypes.SIGN_UP_WARNING,
 });
 
