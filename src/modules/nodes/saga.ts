@@ -33,17 +33,26 @@ export function* setRandomNode() {
   const { nodesList, isAuthenticated } = yield all({
     nodesList: select(node.selectors.getNodesList),
     isAuthenticated: select(auth.selectors.getAuthStatus),
-  })
+  });
+
   const filteredNodes = !!nodesList.length ? nodesList : yield call(filterDuplicateNodes, fullNodes);
-
-  // const randomNode = filteredNodes[Math.floor(Math.random() * filteredNodes.length)];
-  const randomNode = filteredNodes[0] // TEMPORARY, because we get a shit from backend right now
-
-  apiSetUrl(`${randomNode.apiUrl}api/v2`);
+  yield call(checkNodeValidity, filteredNodes);
 
   if (isAuthenticated) yield put(auth.actions.detachSession());
+}
 
-  yield put(node.actions.setCurrentNode(randomNode));
+export function* checkNodeValidity(allNodes: any) {
+  while(true) {
+    try {
+      const randomNode = allNodes[Math.floor(Math.random() * allNodes.length)];
+      apiSetUrl(`${randomNode.apiUrl}api/v2`);
+      yield call(api.getUid);
+      yield put(node.actions.setCurrentNode(randomNode));
+      return;
+    } catch(err) {
+      console.log(err, 'err')
+    }
+  }
 }
 
 export function* getFullNodesWorkerHelper() {
@@ -59,7 +68,7 @@ export function* getFullNodesWorkerHelper() {
       // console.log(err, 'ERROR AT getFullNodesWorkerHelper');
     }
 
-    const allNodes = !!nodesList.length ? nodesList : fullNodes;
+    const allNodes = nodesList.concat(fullNodes);
     const newNodes = yield call(filterDuplicateNodes, allNodes.concat(nodes.map((item: any) => {
       return {
         apiUrl: item[1],
