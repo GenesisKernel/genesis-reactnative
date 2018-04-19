@@ -11,9 +11,12 @@ import * as node from 'modules/nodes';
 
 
 export function* nodesWorker() {
-  const currentNode = yield select(node.selectors.getCurrentNode);
+  const { currentNode, isAuthenticated } = yield all({
+    currentNode: select(node.selectors.getCurrentNode),
+    isAuthenticated: select(auth.selectors.getAuthStatus)
+  });
 
-  if (currentNode) {
+  if (currentNode && isAuthenticated) {
     try {
       apiSetUrl(`${currentNode.apiUrl}api/v2`);
       yield call(api.getUid);
