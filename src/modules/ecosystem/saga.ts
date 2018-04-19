@@ -1,13 +1,11 @@
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { pick } from 'ramda';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 
 import { requestEcosystem } from './actions';
-import { generateTime } from 'modules/auth/reducer';
 import { getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
 import { uniqKeyGenerator } from 'utils/common';
 

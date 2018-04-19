@@ -30,6 +30,18 @@ declare type INode = {
   msgUrl?: string;
 }
 
+declare type IAccount = {
+  uniqKey: string;
+  avatar: string;
+  username: string;
+  ecosystem_id: string;
+  key_id: string;
+  address: string;
+  roles: string[];
+  encKey: string;
+  publicKey: string;
+}
+
 declare module 'react-native-stylable' {
   export type Rule = {
     style: { [key: string]: any };

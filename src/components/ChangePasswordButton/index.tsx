@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Button from 'components/ui/Button';
 import styles from './styles';
-import { IAccount } from 'modules/account/reducer';
 
 const changePasswordButton = {
   intl: {

@@ -46,8 +46,8 @@ export function* validatePrivateKeyWorker(payload: { password?: string; privateK
   let privateKey = payload.privateKey || null;
 
   if (!privateKey && payload.password) {
-    const currentAccountAddress = yield select(auth.selectors.getCurrentAccountAddress)
-    const currentAccount = yield select(account.selectors.getAccount(currentAccountAddress));
+    const uniqKey = yield select(auth.selectors.getCurrentAccount)
+    const currentAccount = yield select(account.selectors.getAccount(uniqKey));
 
     privateKey = yield call(validatePassword, { encKey: currentAccount.encKey, password: payload.password });
   }
@@ -69,7 +69,9 @@ export function* requestPrivateKeyWorker(): SagaIterator {
   const privateKey: string = path(['privateKey'], getKey);
 
   if (!privateKey || Keyring.KEY_LENGTH !== privateKey.length) {
-    const acc = yield select(account.selectors.getAccount(yield select(auth.selectors.getCurrentAccountAddress)));
+    const uniqKey = yield select(auth.selectors.getCurrentAccount)
+    const acc = yield select(account.selectors.getAccount(uniqKey));
+
     yield put(application.actions.showModal({ type: ModalTypes.PASSWORD, params: { encKey: acc.encKey } }));
 
     const modalResponse = yield race({

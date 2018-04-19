@@ -18,14 +18,19 @@ const linkingChanel = eventChannel(emitter => {
 
 export function* navigateToRoute(extraUrl: string): SagaIterator {
   const url = extraUrl.replace(`${URL_PREFIX}code/`, '');
-  const { key, ecosystem } = extractParamsFromLink(url);
+  const extractResult = extractParamsFromLink(url);
 
-  yield put(
-    navigate(navTypes.SIGN_IN, {
-      privateKey: key,
-      ecosystemId: ecosystem
-    })
-  );
+  if (extractResult) {
+    const { privateKey, ecosystems } = extractResult;
+
+    yield put(
+      navigate(navTypes.SIGN_IN, {
+        privateKey,
+        ecosystems,
+        ecosystemId: ecosystems[0],
+      })
+    );
+  }
 }
 
 export function* linkingWorker(extraUrl: string): SagaIterator {

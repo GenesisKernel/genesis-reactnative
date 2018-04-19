@@ -2,7 +2,6 @@ import { path } from 'ramda';
 import { Action } from 'typescript-fsa';
 import { delay, SagaIterator } from 'redux-saga';
 import { takeEvery, put, call, select, all, take } from 'redux-saga/effects';
-import { REHYDRATE } from 'redux-persist/lib/constants';
 
 import { apiSetToken } from 'utils/api';
 import { checkTouchIDAvailiability, getCurrentLocale } from 'utils/common';
@@ -12,7 +11,6 @@ import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, togg
 import { getDrawerState, getAlert } from './selectors';
 
 import * as auth from 'modules/auth';
-import * as page from 'modules/page';
 import * as account from 'modules/account';
 import * as navigator from 'modules/navigator';
 
@@ -101,7 +99,6 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
 }
 
 export function* applicationWatcher(): SagaIterator {
-  // yield takeEvery(REHYDRATE, persistWorker);
   yield takeEvery(initStart, initWorker);
   yield takeEvery(waitForError(), alertWorker);
 }

@@ -1,6 +1,5 @@
 import actionCreatorFactory from 'typescript-fsa';
 
-import { IAccount } from './reducer';
 const actionCreator = actionCreatorFactory('ACCOUNT');
 
 export const createAccount = actionCreator.async<

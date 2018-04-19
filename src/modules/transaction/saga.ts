@@ -1,18 +1,18 @@
 import { Action } from 'typescript-fsa';
 import { SagaIterator, delay } from 'redux-saga';
-import { takeEvery, put, call, select, fork, take, race, cancel } from 'redux-saga/effects';
-import { Alert } from 'react-native';
+import { takeEvery, put, call, select, fork, take, race } from 'redux-saga/effects';
 import { requestPrivateKeyWorker, refreshPrivateKeyExpireTime } from '../sagas/privateKey';
 import { ModalTypes } from '../../constants';
 
 import * as auth from 'modules/auth';
-import * as applicationActions from 'modules/application/actions';
+import * as application from 'modules/application';
+import * as account from 'modules/account';
+
 import api from 'utils/api';
 import Keyring from 'utils/keyring';
 import { getCurrentLocale } from 'utils/common';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
-import { getPrivateKey } from 'modules/application/selectors';
 
 class StatusError extends Error {}
 export interface IPrepareData {
@@ -47,14 +47,14 @@ export function* signsWorker(prepareData: IPrepareData, params: any, privateKey:
 
   if (prepareData.signs) {
     for (const el of prepareData.signs) {
-      yield put(applicationActions.showModal({ type: ModalTypes.CONTRACT, params: {
+      yield put(application.actions.showModal({ type: ModalTypes.CONTRACT, params: {
         ...el,
         ...params
       }})); // modal, where user can confirm or cancel signing of nested contracts
 
       const result = yield race({
-        confirm: take(applicationActions.confirmModal),
-        cancel: take(applicationActions.closeModal),
+        confirm: take(application.actions.confirmModal),
+        cancel: take(application.actions.closeModal),
       });
 
       if (result.confirm) {
@@ -93,7 +93,7 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
 export function* contractWorker(action: Action<any>): SagaIterator {
   try {
     const getKey = yield call(requestPrivateKeyWorker);
-    const locale = yield call(getCurrentLocale);
+    const locale = yield select(application.selectors.getCurrentLocale);
 
     if (!getKey) {
       yield call(filterTransactions, action.payload.uuid);
@@ -116,7 +116,8 @@ export function* contractWorker(action: Action<any>): SagaIterator {
 
     if (signingResult.valid) {
       const { fullForsign, signParams } = signingResult.valid.payload;
-      const publicKey = yield select(auth.selectors.getPublicKey);
+      const uniqKey = yield select(auth.selectors.getCurrentAccount);
+      const { publicKey } = yield select(account.selectors.getAccount(uniqKey));
 
       const signature = yield call(Keyring.sign, fullForsign, privateKey); // generate the signature
 
@@ -151,7 +152,7 @@ export function* contractWorker(action: Action<any>): SagaIterator {
     }
 
     if (signingResult.invalid) {
-      yield put(applicationActions.closeModal());
+      yield put(application.actions.closeModal());
       return;
     }
   } catch (error) {

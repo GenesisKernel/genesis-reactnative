@@ -1,6 +1,5 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { ILoginResponse } from '../../utils/api';
-import { IAccount } from 'modules/account/reducer';
 
 const actionCreator = actionCreatorFactory('AUTH');
 
@@ -46,5 +45,3 @@ export const refreshSession = actionCreator<{
 }>('REFRESH_SESSION');
 
 export const logout = actionCreator('LOGOUT');
-
-export const saveLastLoggedAccount = actionCreator<IAccount>('SAVE_LAST_LOGGED_ACCOUNT');

@@ -42,7 +42,7 @@ export function* removeAccountWorker(action: Action<{uniqKey: string}>): SagaIte
       account.actions.removeAccount.failed(
         {
           params: action.payload,
-          error: 'User rejected the action!'
+          error: 'User has reject the action!'
         },
         { ignore: true }
       )

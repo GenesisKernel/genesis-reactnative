@@ -1,27 +1,16 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View, DeviceInfo, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { View as AnimatableView } from 'react-native-animatable';
 
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import ReactNativeHaptic from 'react-native-haptic';
-
-import MenuContainer from 'containers/MenuContainer';
 import AccountListContainer from 'containers/AccountListContainer';
-import Button from 'components/ui/Button';
 import Text from 'components/ui/Text';
 import AppVersion from 'components/AppVersion';
 import Logo from 'components/ui/Logo';
 
 import styles from './styles';
 import TransactionsContainer from 'containers/TransactionsContainer';
-
-interface IDrawerContentProps {
-  currentAccountAddress: string;
-  openModal: () => void;
-}
 
 interface IDrawerContentState {
   showAccountList: boolean;
@@ -56,15 +45,9 @@ const tabButtons = [
   },
 ];
 
-class DrawerContent extends React.Component<
-  IDrawerContentProps,
-  IDrawerContentState
-> {
-  public static contextTypes = {
-    drawer: PropTypes.object
-  };
+class DrawerContent extends React.Component<{}, IDrawerContentState> {
 
-  constructor(props: IDrawerContentProps) {
+  constructor(props: {}) {
     super(props);
 
     this.state = {
@@ -73,10 +56,6 @@ class DrawerContent extends React.Component<
       activeTab: 'accounts',
       showDecor: 'fadeOut',
     };
-  }
-
-  static prepare() {
-    ReactNativeHaptic.prepare();
   }
 
   public render() {
@@ -88,8 +67,6 @@ class DrawerContent extends React.Component<
         forceInset={{ top: 'always', bottom: 'never', horizontal: 'never' }}>
         <View style={[styles.insetContainer, { paddingBottom: isIphoneX ? 34 : 0 }]}>
           <Logo />
-          {/* <Button title="test vibration" onPress={this.kek}/>
-          <Button title="test vibration1" onPress={this.kek1}/> */}
           <View style={styles.switcher}>
             {tabButtons.map((item, i) => {
               return (
@@ -138,18 +115,6 @@ class DrawerContent extends React.Component<
         <AppVersion />
       </SafeAreaView>
     );
-  }
-
-  private kek = () => {
-    ReactNativeHaptic.generate('notification');
-    // ReactNativeHapticFeedback.trigger('notificationWarning');
-    // this.props.openModal();
-  }
-
-  private kek1 = () => {
-    ReactNativeHaptic.generate('impact');
-    // ReactNativeHapticFeedback.trigger('impactHeavy');
-    // this.props.openModal();
   }
 
   private handleUnderlay = (value: string) => {

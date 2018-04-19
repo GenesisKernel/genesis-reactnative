@@ -2,7 +2,6 @@ import * as React from 'react';
 import { View, TouchableHighlight, Image, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
-import { IAccount } from 'modules/account/reducer';
 
 import Swipeable from 'react-native-swipeable-row';
 

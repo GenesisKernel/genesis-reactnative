@@ -3,18 +3,6 @@ import { omit } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { createAccount, removeAccount, attachEcosystem, changePassword } from './actions';
 
-export interface IAccount {
-  uniqKey: string;
-  avatar: string;
-  username: string;
-  ecosystem_id: string;
-  key_id: string;
-  address: string;
-  roles: string[];
-  encKey: string;
-  publicKey: string;
-}
-
 export interface IState {
   [id: string]: IAccount;
 }

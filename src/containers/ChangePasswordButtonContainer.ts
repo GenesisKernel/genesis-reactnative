@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { IAccount } from 'modules/account/reducer';
 import { changePassword } from 'modules/account/actions';
 import ChangePasswordButton from 'components/ChangePasswordButton';
 

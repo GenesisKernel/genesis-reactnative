@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { takeEvery } from 'redux-saga/effects';
-import { IAccount } from 'modules/account/reducer';
+import { Action } from 'typescript-fsa';
 
 import { put, race, cancel, take, call, select } from 'redux-saga/effects';
 import { ModalTypes, navTypes, MODAL_ANIMATION_TIME } from '../../constants';
@@ -17,7 +17,7 @@ interface IExtendedAccount extends IAccount {
   ecosystemId: string;
 }
 
-export function* changePasswordWorker(action: { payload: IExtendedAccount }) {
+export function* changePasswordWorker(action: Action<IAccount>) {
   yield put(application.actions.showModal({ type: ModalTypes.PASSWORD, params: { encKey: action.payload.encKey } }));
 
   const { cancel, confirm } = yield race({

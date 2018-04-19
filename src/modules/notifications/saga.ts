@@ -123,7 +123,7 @@ export function* socketWorker() {
 }
 
 export default function* notificationsSaga() {
-  yield takeEvery([applicationActions.initFinish, authActions.saveLastLoggedAccount], socketWorker);
+  yield takeEvery([applicationActions.initFinish], socketWorker);
   yield takeEvery(applicationActions.setChannelSubscribtionStatus, updateNotificationsWorker);
 }
 

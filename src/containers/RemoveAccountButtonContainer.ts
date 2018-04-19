@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import RemoveAccountButton from 'components/RemoveAccountButton';
-import { getCurrentAccountAddress } from 'modules/auth/selectors';
 import { removeAccount } from 'modules/account/actions';
 
 const mapStateToProps = (state: any, ownProps: any) => {
