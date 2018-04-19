@@ -18,7 +18,7 @@ interface IExtendedAccount extends IAccount {
 }
 
 export function* changePasswordWorker(action: { payload: IExtendedAccount }) {
-  yield put(application.actions.showModal({ type: ModalTypes.PASSWORD }));
+  yield put(application.actions.showModal({ type: ModalTypes.PASSWORD, params: { encKey: action.payload.encKey } }));
 
   const { cancel, confirm } = yield race({
     cancel: take(application.actions.closeModal),
@@ -28,14 +28,10 @@ export function* changePasswordWorker(action: { payload: IExtendedAccount }) {
   if (cancel) return;
 
   if (confirm) {
-    const privateKey = yield call(validatePassword,
-      {
-        encKey: action.payload.encKey,
-        password: confirm.payload
-      }
-    );
+    const { privateKey } = confirm.payload;
 
     if (!!privateKey) {
+      yield put(application.actions.closeModal());
       yield call(delay, MODAL_ANIMATION_TIME); // closing modal animation
       yield put(application.actions.toggleDrawer(false));
       yield call(delay, MODAL_ANIMATION_TIME); // closing drawer animation

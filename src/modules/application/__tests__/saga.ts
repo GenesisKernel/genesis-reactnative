@@ -83,10 +83,18 @@ const errorAction = {
 };
 
 describe('alertWorker', () => {
-  it('alertWorker with error === ERRORS.TOKEN_EXPIRED', () => {
+  it('alertWorker with error === ERRORS.TOKEN_EXPIRED, isActiveAlert === false', () => {
     const iterator = alertWorker(errorAction);
-    expect(iterator.next(errorAction.payload).value).toEqual(put(receiveAlert({ title: 'Server error!', message: 'its error', type: 'error' })));
+    iterator.next();
+    expect(iterator.next(false).value).toEqual(put(receiveAlert({ title: 'Server error!', message: 'its error', type: 'error' })));
     expect(iterator.next().value).toEqual(call(expiredTokenWorker, errorAction.payload.params))
+    expect(iterator.next().value).toEqual(undefined);
+  });
+
+  it('alertWorker with error === ERRORS.TOKEN_EXPIRED, isActiveAlert === true', () => {
+    const iterator = alertWorker(errorAction);
+    iterator.next();
+    expect(iterator.next(true).value).toEqual(undefined);
   });
 
   it('expiredTokenWorker', () => {

@@ -25,7 +25,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = false, !action.payload.contract, !action.payload.page', () => {
+  it('pageWorker -> hasForm = false, !action.payload.contract, !action.payload.page, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {},
@@ -39,7 +39,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = true, formSubmitResult = failure, !action.payload.contract, !action.payload.page', () => {
+  it('pageWorker -> hasForm = true, formSubmitResult = failure, !action.payload.contract, !action.payload.page, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {},
@@ -58,7 +58,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = true, formSubmitResult = success, !action.payload.contract, !action.payload.page', () => {
+  it('pageWorker -> hasForm = true, formSubmitResult = success, !action.payload.contract, !action.payload.page, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {},
@@ -77,7 +77,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = true, formSubmitResult = success, action.payload.contract = true, !action.payload.page', () => {
+  it('pageWorker -> hasForm = true, formSubmitResult = success, action.payload.contract = true, !action.payload.page, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {
@@ -118,7 +118,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = true, formSubmitResult = success, !action.payload.contract, action.payload.page = true', () => {
+  it('pageWorker -> hasForm = true, formSubmitResult = success, !action.payload.contract, action.payload.page = true, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {
@@ -156,7 +156,7 @@ describe('pageWorker resolving pages', () => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  it('pageWorker -> hasForm = true, formSubmitResult = success, action.payload.contract = true, action.payload.page = true, transactionResult = success', () => {
+  it('pageWorker -> hasForm = true, formSubmitResult = success, action.payload.contract = true, action.payload.page = true, transactionResult = success, !action.payload.composite', () => {
     const action = {
       type: application.actions.receivePageParams,
       payload: {
@@ -193,6 +193,60 @@ describe('pageWorker resolving pages', () => {
         action.meta
       )
     ));
+    expect(iterator.next().value).toEqual(undefined);
+  });
+
+  it('action.payload.composite && !, !action.payload.contract', () => {
+    const action = {
+      type: application.actions.receivePageParams,
+      payload: {
+        composite: {},
+      },
+      meta: {}
+    }
+    const iterator = pageWorker(action);
+
+    iterator.next();
+    iterator.next({ isVDEMode: false, hasForm: false });
+    iterator.next() // put(transaction.actions.runCompositeContracts.started)
+    expect(iterator.next().value).toEqual(undefined);
+  });
+
+  it('action.payload.composite && !, !action.payload.contract, failed', () => {
+    const action = {
+      type: application.actions.receivePageParams,
+      payload: {
+        composite: {},
+        contract: 'true',
+      },
+      meta: {}
+    }
+    const iterator = pageWorker(action);
+
+    iterator.next();
+    iterator.next({ isVDEMode: false, hasForm: false });
+    iterator.next() // put(transaction.actions.runCompositeContracts.started)
+    iterator.next();
+    expect(iterator.next({ failed: {} }).value).toEqual(undefined);
+  });
+
+  it('action.payload.composite && !, !action.payload.contract, done', () => {
+    const action = {
+      type: application.actions.receivePageParams,
+      payload: {
+        composite: {},
+        contract: 'true',
+      },
+      meta: {}
+    }
+    const iterator = pageWorker(action);
+
+    iterator.next();
+    iterator.next({ isVDEMode: false, hasForm: false });
+    iterator.next() // put(transaction.actions.runCompositeContracts.started)
+    iterator.next();
+    iterator.next({ done: {} });
+    iterator.next(); // put(transaction.actions.runTransaction.started)
     expect(iterator.next().value).toEqual(undefined);
   });
 });

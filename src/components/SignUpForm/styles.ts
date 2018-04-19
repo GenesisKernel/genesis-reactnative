@@ -18,6 +18,9 @@ export default StyleSheet.create({
     paddingTop: 5,
     paddingHorizontal: 15,
   },
+  invalidInput: {
+    backgroundColor: Colors.underlayRedLessOpacity,
+  },
   inputLabel: {
     fontFamily: Fonts.bold,
     paddingLeft: 10,

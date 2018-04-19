@@ -27,6 +27,7 @@ export interface ISignUpProps {
 export interface ISignUpState {
   password?: string;
   passwordConfirm?: string;
+  passwordMatch: boolean;
 }
 
 const passwordInput = {
@@ -55,19 +56,21 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
 
     this.state = {
       password: undefined,
-      passwordConfirm: undefined
+      passwordConfirm: undefined,
+      passwordMatch: true,
     };
   }
 
   public render() {
     const { changePassword } = this.props.params;
+    const { passwordMatch } = this.state;
 
     return (
       <View style={styles.container}>
         <View style={styles.firstContainer}>
           <Field>
             <Input
-              style={styles.input}
+              style={[styles.input, !passwordMatch ? styles.invalidInput : {}]}
               secureTextEntry
               onChangeText={this.handlePasswordConfirmChange}
               intl={passwordInput}
@@ -75,7 +78,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
           </Field>
           <Field>
             <Input
-              style={styles.input}
+              style={[styles.input, !passwordMatch ? styles.invalidInput : {}]}
               secureTextEntry
               onChangeText={this.handlePasswordChange}
               intl={passwordConfirmInput}
@@ -102,20 +105,28 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   }
 
   private handleChangePassword = () => {
+    const { passwordMatch } = this.state;
     if (this.state.password && this.state.password === this.state.passwordConfirm) {
+      !passwordMatch && this.setState({ passwordMatch: true });
       this.props.onChangePassword(this.state.password)
+    } else {
+      passwordMatch && this.setState({ passwordMatch: false });
     }
   }
 
   private submit = (): void => {
+    const { passwordMatch } = this.state;
     if (
       this.state.password &&
       this.state.password === this.state.passwordConfirm
     ) {
+      !passwordMatch && this.setState({ passwordMatch: true });
       this.props.onSubmit({
         seed: this.props.seed,
         password: this.state.password
       });
+    } else {
+      passwordMatch && this.setState({ passwordMatch: false });
     }
   }
 

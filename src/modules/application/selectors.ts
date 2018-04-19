@@ -56,4 +56,4 @@ export const getDrawerState = createSelector(
 export const getCurrentLocale = createSelector(
   getApplication,
   application => application.currentLocale
-)
+);

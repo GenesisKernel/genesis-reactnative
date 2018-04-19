@@ -18,10 +18,11 @@ import * as ecosystemSaga from 'modules/ecosystem';
 
 import { navTypes, ERRORS, MODAL_ANIMATION_TIME } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect } from 'modules/sagas/sagaHelpers';
+import { roleSelect, getAvatarAndUsername } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { IAccount } from 'modules/account/reducer';
 import { uniqKeyGenerator } from 'utils/common';
+import { validatePassword } from 'modules/sagas/privateKey';
 
 export interface IAuthPayload {
   private: string;
@@ -171,11 +172,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
 export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator {
   try {
     const savedAccount = yield select(accountSelectors.getAccount(action.payload.uniqKey));
-    const privateKey = yield call(
-      Keyring.decryptAES,
-      savedAccount.encKey,
-      action.payload.password
-    );
+    const privateKey = validatePassword({ encKey: savedAccount.encKey, password: action.payload.password });
 
     const account = yield call(auth, {
       public: savedAccount.publicKey,
