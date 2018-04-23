@@ -5,6 +5,7 @@ export const URL_PREFIX = Platform.OS === 'android' ? 'apla://apla/' : 'apla://'
 export const DEFAULT_PAGE = 'default_page';
 export const DEFAULT_TITLE = 'Home';
 export const MODAL_ANIMATION_TIME = 350;
+export const REQUIRED_ALIVE_NODES_COUNT = 2;
 
 export const NAV = {
   AUTH: 'AUTH',

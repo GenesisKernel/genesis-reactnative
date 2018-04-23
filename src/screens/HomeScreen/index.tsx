@@ -9,6 +9,7 @@ import Logo from 'components/ui/Logo';
 import MenuGridContainer from 'containers/MenuGridContainer';
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 import NotificationsIconContainer from 'containers/NotificationsIconContainer';
+import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
 import styles from './styles';
 
 import { DEFAULT_PAGE } from '../../constants';
@@ -28,7 +29,8 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     return (
       <View style={styles.container}>
         <Logo type="black"/>
-        <MenuGridContainer pageName={DEFAULT_PAGE} />
+        <ProtypoContainer />
+        {/* <MenuGridContainer pageName={DEFAULT_PAGE} /> */}
       </View>
     );
   }

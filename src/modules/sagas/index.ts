@@ -5,6 +5,7 @@ import linking from './linking';
 import scanner from './scanner';
 import routes from './routes';
 import page from './page';
+import privateKey from './privateKey';
 import ecosystem from './ecosystem';
 import network from './network';
 import account from './account';
@@ -23,6 +24,7 @@ export default function commonSaga() {
     routes(),
     ecosystem(),
     page(),
+    privateKey(),
     network(),
     account(),
     navigation(),

@@ -1,6 +1,6 @@
 import { SagaIterator, delay } from 'redux-saga';
 import { path } from 'ramda';
-import { select, call, put, race, take, spawn } from 'redux-saga/effects';
+import { select, call, put, race, take, spawn, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { ModalTypes } from '../../constants';
 
@@ -94,4 +94,12 @@ export function* requestPrivateKeyWorker(): SagaIterator {
     }
   }
   return getKey;
+}
+
+export function* removePrivateKeyWorker() {
+  yield put(application.actions.setPrivateKey(null));
+}
+
+export default function* privateKeySaga() {
+  yield takeEvery(auth.actions.detachSession, removePrivateKeyWorker);
 }

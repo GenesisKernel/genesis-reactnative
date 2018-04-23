@@ -1,16 +1,18 @@
 import { Action } from 'typescript-fsa';
 import { SagaIterator, delay } from 'redux-saga';
-import { takeEvery, put, call, select, fork, take, race } from 'redux-saga/effects';
+import { takeEvery, put, call, select, fork, take, race, all } from 'redux-saga/effects';
 import { requestPrivateKeyWorker, refreshPrivateKeyExpireTime } from '../sagas/privateKey';
 import { ModalTypes } from '../../constants';
 
 import * as auth from 'modules/auth';
 import * as application from 'modules/application';
 import * as account from 'modules/account';
+import * as nodes from 'modules/nodes';
 
-import api from 'utils/api';
+import api, { apiSetUrl, apiSetToken } from 'utils/api';
 import Keyring from 'utils/keyring';
-import { getCurrentLocale } from 'utils/common';
+import { REQUIRED_ALIVE_NODES_COUNT } from '../../constants';
+import { checkNodeValidity } from 'modules/sagas/sagaHelpers';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
 
@@ -90,6 +92,58 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
   yield put(setTransactions(transactions)); // removing transaction which was canceled
 }
 
+export function* validateContractWorker(action: Action<any>, locale: string, privateKey: string) {
+  const { nodesList, currentNode, token, uniqKey } = yield all({
+    nodesList: select(nodes.selectors.getNodesList),
+    currentNode: select(nodes.selectors.getCurrentNode),
+    uniqKey: select(auth.selectors.getCurrentAccount),
+    token: select(auth.selectors.getToken),
+  });
+
+  const currentAcc = yield select(account.selectors.getAccount(uniqKey));
+  const validNodes = yield call(checkNodeValidity, nodesList, REQUIRED_ALIVE_NODES_COUNT, token, currentNode, true);
+
+  if (!validNodes.length || validNodes.length !== REQUIRED_ALIVE_NODES_COUNT) return false;
+  let validatedContracts = [];
+
+  for (const node of validNodes) {
+    try {
+      yield call(apiSetToken, node.signature.token);
+      yield call(apiSetUrl, `${node.apiUrl}api/v2`);
+      const signature = yield call(Keyring.sign, node.signature.uid, privateKey);
+
+      let { data: accountData } = yield call(api.login, {
+        signature,
+        ecosystem: currentAcc.ecosystem_id,
+        publicKey: currentAcc.publicKey,
+      });
+      yield call(apiSetToken, accountData.token);
+
+      const { data: prepareData } = yield call(
+        api.prepareContract,
+        action.payload.contract,
+        { ...action.payload.params, Lang: locale },
+      );
+
+      prepareData.forsign = prepareData.forsign.replace(/,(\d+),/, ',');
+      validatedContracts.push(prepareData);
+    } catch (err) {
+      yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
+      yield call(apiSetToken, token);
+      return false;
+    }
+  }
+
+  yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
+  yield call(apiSetToken, token);
+
+  if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(validatedContracts[0].time - validatedContracts[1].time) <= 60) {
+    return true;
+  }
+
+  return false;
+}
+
 export function* contractWorker(action: Action<any>): SagaIterator {
   try {
     const getKey = yield call(requestPrivateKeyWorker);
@@ -97,10 +151,14 @@ export function* contractWorker(action: Action<any>): SagaIterator {
 
     if (!getKey) {
       yield call(filterTransactions, action.payload.uuid);
-      return; // if no no key we need to clear transactions
+      return; // if no key we need to clear transactions
     }
 
     const { privateKey } = getKey;
+    const isContractValid = yield call(validateContractWorker, action, locale, privateKey);
+
+    if (!isContractValid) throw new Error(`Contract isn't valid.`);
+
     const { data: prepareData } = yield call(
       api.prepareContract,
       action.payload.contract,

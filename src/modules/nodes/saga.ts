@@ -3,6 +3,7 @@ import { REHYDRATE } from 'redux-persist';
 
 import { fullNodes } from '../../fullNodes';
 import { filterDuplicateNodes } from '../sagas/utils';
+import { checkNodeValidity } from 'modules/sagas/sagaHelpers';
 import api, { apiSetUrl, apiSetToken, apiDeleteToken } from '../../utils/api';
 
 import * as application from 'modules/application';
@@ -39,23 +40,12 @@ export function* setRandomNode() {
   });
 
   const filteredNodes = !!nodesList.length ? nodesList : yield call(filterDuplicateNodes, fullNodes);
-  yield call(checkNodeValidity, filteredNodes);
+
+  const checkedNodes = yield call(checkNodeValidity, filteredNodes, 1);
+
+  yield put(node.actions.setCurrentNode(checkedNodes[0]));
 
   if (isAuthenticated) yield put(auth.actions.detachSession());
-}
-
-export function* checkNodeValidity(allNodes: any) {
-  while(true) {
-    try {
-      const randomNode = allNodes[Math.floor(Math.random() * allNodes.length)];
-      apiSetUrl(`${randomNode.apiUrl}api/v2`);
-      yield call(api.getUid);
-      yield put(node.actions.setCurrentNode(randomNode));
-      return;
-    } catch(err) {
-      console.log(err, 'err')
-    }
-  }
 }
 
 export function* getFullNodesWorkerHelper() {
@@ -68,7 +58,7 @@ export function* getFullNodesWorkerHelper() {
     try {
       nodes = JSON.parse(list[0].value);
     } catch(err) {
-      // console.log(err, 'ERROR AT getFullNodesWorkerHelper');
+
     }
 
     const allNodes = nodesList.concat(fullNodes);
