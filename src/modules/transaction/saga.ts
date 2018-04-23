@@ -28,7 +28,6 @@ export interface IPrepareData {
 export function* getTransactionStatus(hash: string) {
   while (true) {
     const response = yield call(api.transactionStatus, hash);
-
     yield put(checkTransactionStatus(response.data));
 
     if (response.data.errmsg) {
@@ -110,7 +109,7 @@ export function* validateContractWorker(action: Action<any>, locale: string, pri
     try {
       yield call(apiSetToken, node.signature.token);
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
-      const signature = yield call(Keyring.sign, node.signature.uid, privateKey);
+      const signature = yield call(Keyring.sign, `LOGIN${node.signature.uid}`, privateKey);
 
       let { data: accountData } = yield call(api.login, {
         signature,
@@ -125,7 +124,7 @@ export function* validateContractWorker(action: Action<any>, locale: string, pri
         { ...action.payload.params, Lang: locale },
       );
 
-      prepareData.forsign = prepareData.forsign.replace(/,(\d+),/, ',');
+      prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
       validatedContracts.push(prepareData);
     } catch (err) {
       yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
@@ -137,7 +136,7 @@ export function* validateContractWorker(action: Action<any>, locale: string, pri
   yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
   yield call(apiSetToken, token);
 
-  if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(validatedContracts[0].time - validatedContracts[1].time) <= 60) {
+  if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(Number(validatedContracts[0].time) - Number(validatedContracts[1].time)) <= 60) {
     return true;
   }
 
@@ -181,14 +180,11 @@ export function* contractWorker(action: Action<any>): SagaIterator {
 
       const { data: contractData } = yield call(
         api.runContract,
-        action.payload.contract,
+        prepareData.request_id,
         {
-          ...action.payload.params,
           signature,
           time: prepareData.time,
-          ...signParams,
           pubkey: publicKey,
-          Lang: locale,
         }
       ); // run contract
 

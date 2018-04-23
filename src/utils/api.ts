@@ -153,6 +153,9 @@ export default {
   prepareContract: (name: string, params: { [key: string]: any }) =>
     api.post<ITxPrepareResponse>(`prepare/${name}`, params),
 
+  // runContract: (name: string, params: { [key: string]: any }) =>
+  //   api.post(`contract/${name}`, params),
+
   runContract: (name: string, params: { [key: string]: any }) =>
     api.post(`contract/${name}`, params),
 

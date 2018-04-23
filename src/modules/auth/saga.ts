@@ -45,7 +45,7 @@ export function* loginCall(payload: IAuthPayload, role_id?: number) {
     apiDeleteToken(); // Remove previous token
 
     const { data: uidParams } = yield call(api.getUid);
-    const signature = yield call(Keyring.sign, uidParams.uid, payload.private);
+    const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, payload.private);
 
     apiSetToken(uidParams.token);
 

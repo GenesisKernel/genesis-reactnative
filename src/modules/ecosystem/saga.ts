@@ -52,7 +52,7 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
       try {
         const { data: uidParams } = yield call(api.getUid);
 
-        const signature = yield call(Keyring.sign, uidParams.uid, privateKey);
+        const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, privateKey);
 
         yield call(apiSetToken, uidParams.token);
 
