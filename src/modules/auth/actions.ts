@@ -44,4 +44,6 @@ export const refreshSession = actionCreator<{
   refresh: string;
 }>('REFRESH_SESSION');
 
+export const setRole = actionCreator<IRole>('SET_ROLE');
+
 export const logout = actionCreator('LOGOUT');

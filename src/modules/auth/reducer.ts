@@ -8,6 +8,7 @@ export interface IState {
   token?: string;
   refresh?: string;
   tokenExpiry?: number;
+  currentRole?: IRole;
 }
 
 const initialState: IState = {
@@ -36,4 +37,8 @@ export default reducerWithInitialState(initialState)
     token: paylod.token,
     refresh: paylod.refresh,
     tokenExpiry: generateTime()
+  }))
+  .case(actions.setRole, (state, payload) => ({
+    ...state,
+    currentRole: payload,
   }))

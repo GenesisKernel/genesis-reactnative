@@ -18,7 +18,7 @@ import * as ecosystemSaga from 'modules/ecosystem';
 
 import { navTypes, ERRORS, MODAL_ANIMATION_TIME } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect } from 'modules/sagas/sagaHelpers';
+import { roleSelect, loginCall } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { uniqKeyGenerator } from 'utils/common';
 import { validatePassword } from 'modules/sagas/privateKey';
@@ -38,30 +38,6 @@ interface ILoginWorkerPayload {
   uniqKey: string;
   password: string;
   privateKey: string;
-}
-
-export function* loginCall(payload: IAuthPayload, role_id?: number) {
-  try {
-    apiDeleteToken(); // Remove previous token
-
-    const { data: uidParams } = yield call(api.getUid);
-    const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, payload.private);
-
-    apiSetToken(uidParams.token);
-
-    let { data: accountData } = yield call(api.login, {
-      signature,
-      ecosystem: payload.ecosystems[0] || '1',
-      publicKey: payload.public,
-      role_id,
-    });
-
-    apiSetToken(accountData.token);
-    return accountData;
-  } catch(err) {
-    console.log('loginCall ERROR AT auth saga =>', err);
-    return null;
-  }
 }
 
 export function* auth(payload: IAuthPayload) {

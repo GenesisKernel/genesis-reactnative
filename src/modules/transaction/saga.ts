@@ -12,7 +12,7 @@ import * as nodes from 'modules/nodes';
 import api, { apiSetUrl, apiSetToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 import { REQUIRED_ALIVE_NODES_COUNT } from '../../constants';
-import { checkNodeValidity } from 'modules/sagas/sagaHelpers';
+import { checkNodeValidity, loginCall } from 'modules/sagas/sagaHelpers';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
 
@@ -107,16 +107,8 @@ export function* validateContractWorker(action: Action<any>, locale: string, pri
 
   for (const node of validNodes) {
     try {
-      yield call(apiSetToken, node.signature.token);
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
-      const signature = yield call(Keyring.sign, `LOGIN${node.signature.uid}`, privateKey);
-
-      let { data: accountData } = yield call(api.login, {
-        signature,
-        ecosystem: currentAcc.ecosystem_id,
-        publicKey: currentAcc.publicKey,
-      });
-      yield call(apiSetToken, accountData.token);
+      yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature );
 
       const { data: prepareData } = yield call(
         api.prepareContract,

@@ -6,7 +6,7 @@ import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 
 import { requestEcosystem } from './actions';
-import { getUsername } from 'modules/sagas/sagaHelpers';
+import { getUsername, loginCall } from 'modules/sagas/sagaHelpers';
 import { uniqKeyGenerator } from 'utils/common';
 
 const defaultParams: string[] = ['ava', 'key_mask', 'ecosystem_name'];
@@ -44,23 +44,11 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
     const { privateKey, publicKey } = payload;
     const ecosystems = payload.ecosystems || ['1'];
 
-    yield call(apiDeleteToken);
-
     let availableEcosystems: { [key: string]: any } = {};
 
     for (let ecosystem of ecosystems) {
       try {
-        const { data: uidParams } = yield call(api.getUid);
-
-        const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, privateKey);
-
-        yield call(apiSetToken, uidParams.token);
-
-        let { data: accountData } = yield call(api.login, {
-          signature,
-          ecosystem: ecosystem,
-          publicKey: publicKey,
-        });
+        let accountData = yield call(loginCall, { ecosystems: [ecosystem], private: payload.privateKey, public: payload.publicKey });
 
         const roles = accountData.roles || [];
 

@@ -1,10 +1,14 @@
+import Keyring from 'utils/keyring';
 import { takeEvery, put, race, take, call, select, all } from 'redux-saga/effects';
 import { path } from 'ramda';
 import { delay } from 'redux-saga';
 import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
 import api, { apiSetToken, apiDeleteToken, apiSetUrl } from 'utils/api';
 
+import { IAuthPayload } from 'modules/auth/saga';
+
 import * as application from 'modules/application';
+import * as auth from 'modules/auth';
 
 export function* getUsername(token: string, key_id: string) {
   apiDeleteToken();
@@ -15,6 +19,31 @@ export function* getUsername(token: string, key_id: string) {
   return {
     username: path(['data', 'value', 'member_name'], username) || '',
   };
+}
+
+export function* loginCall(payload: IAuthPayload, role_id?: number, signParams?: any) {
+  try {
+    yield call(apiDeleteToken); // Remove previous token
+
+    const { data: uidParams } = signParams || (yield call(api.getUid));
+
+    yield call(apiSetToken, uidParams.token);
+
+    const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, payload.private);
+
+    let { data: accountData } = yield call(api.login, {
+      signature,
+      ecosystem: payload.ecosystems[0] || '1',
+      publicKey: payload.public,
+      role_id,
+    });
+
+    yield call(apiSetToken, accountData.token);
+    return accountData;
+  } catch(err) {
+    console.log('loginCall ERROR AT loginCall =>', err);
+    return null;
+  }
 }
 
 export function* roleSelect(roles: IRole[]) {
@@ -30,6 +59,7 @@ export function* roleSelect(roles: IRole[]) {
   if (roleSelected.failed) return;
 
   if (roleSelected.success) {
+    yield put(auth.actions.setRole(roleSelected.success.payload));
     return roleSelected.success.payload;
   };
 }
@@ -56,7 +86,7 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
       const uid = yield call(api.getUid);
 
       if (withSignature) {
-        randomNode = { ...randomNode, signature: uid.data }
+        randomNode = { ...randomNode, signature: uid }
       }
 
       checkedNodes.push(randomNode);
