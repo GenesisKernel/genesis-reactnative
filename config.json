@@ -1,8 +1,8 @@
 {
-  "secret": "testing",
+  "secret": "127.0.0.1",
   "web": true,
   "admin_password": "password",
-  "admin_secret": "testing",
+  "admin_secret": "test",
   "namespaces": [
     {
       "name": "public",

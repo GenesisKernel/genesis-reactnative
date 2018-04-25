@@ -33,10 +33,10 @@ export interface IState {
   installId?: string;
   isVDEMode: boolean;
   socketConnectedAccounts: {
-    [addres: string]: boolean;
+    [uniqKey: string]: boolean;
   };
   channelSubscribedAccounts: {
-    [addres: string]: boolean;
+    [uniqKey: string]: boolean;
   };
   privateKey: null | {
     privateKey: string;
@@ -120,14 +120,14 @@ export default reducerWithInitialState<IState>(initialState)
     ...state,
     socketConnectedAccounts: {
       ...state.socketConnectedAccounts,
-      [payload.accountAddress]: payload.status,
+      [payload.uniqKey]: payload.status,
     }
   }))
   .case(actions.setChannelSubscribtionStatus, (state, payload) => ({
     ...state,
     channelSubscribedAccounts: {
       ...state.channelSubscribedAccounts,
-      [payload.accountAddress]: payload.status,
+      [payload.uniqKey]: payload.status,
     }
   }))
   .case(actions.closeModal, (state) => ({

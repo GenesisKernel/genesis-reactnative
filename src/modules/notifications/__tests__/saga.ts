@@ -3,7 +3,6 @@ import api from '../../../utils/api';
 import * as accountSelectors from 'modules/account/selectors';
 import * as applicationSelectors from 'modules/application/selectors';
 
-import { SOCKET_URL } from '../../../config';
 import { call, select, setContext } from 'redux-saga/effects';
 
 

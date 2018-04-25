@@ -168,4 +168,6 @@ export default {
   getUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session),
 
   getFullNodes: () => api.get('/systemparams?names=full_nodes'),
+
+  getCentrifugoUrl: () => api.get('/config/centrifugo'),
 };

@@ -1,25 +1,14 @@
-// import * as Centrifuge from 'centrifuge'
 const Centrifuge = require('centrifuge');
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, select, getContext, setContext } from 'redux-saga/effects';
-import { SOCKET_URL } from '../../config';
 
-import api from '../../utils/api';
-import * as applicationActions from '../application/actions';
+import api, { apiDeleteToken } from '../../utils/api';
+import * as Account from 'modules/account';
+import * as application from 'modules/application';
 import * as notificationsActions from './actions';
-import * as authActions from '../auth/actions';
-import * as accountSelectors from '../account/selectors';
-import * as authSelectors from '../auth/selectors';
-import * as applicationSelectors from '../application/selectors';
+import { loginByGuestKey } from 'modules/sagas/sagaHelpers';
 
 import { INotification } from './reducer';
-
-interface IAccount {
-  key_id: string;
-  timestamp: string;
-  notify_key: string;
-  address: string;
-}
 
 interface ISocketInit {
   account: IAccount;
@@ -35,9 +24,11 @@ const centrifuge_instance = 'CENTRIFUGE_INSTANCE';
 
 export function socketInit(payload: ISocketInit) {
   const { account, centrifuge } = payload;
+  const { uniqKey } = account;
+
   return eventChannel(emitter => {
     centrifuge.on('connect', () => {
-      emitter(applicationActions.setSocketConnectionStatus({ accountAddress: account.address, status: true }));
+      emitter(application.actions.setSocketConnectionStatus({ uniqKey, status: true }));
       console.log('centrifuge CONNECTED');
     });
 
@@ -47,20 +38,22 @@ export function socketInit(payload: ISocketInit) {
 
     centrifuge.on('disconnect', () => {
       console.log('centrifuge DISCONNECTED');
-      emitter(applicationActions.setSocketConnectionStatus({ accountAddress: account.address, status: false }));
+      emitter(application.actions.setSocketConnectionStatus({ uniqKey, status: false }));
     });
 
     const subscribtion = centrifuge.subscribe(`client${account.key_id}`, (message: INotification) => {
       console.log(`got message in ${message.channel}`);
-      emitter(notificationsActions.receiveNotification({ ...message, address: account.address }));
+      emitter(notificationsActions.receiveNotification({ ...message, uniqKey }));
     });
 
     subscribtion.on('subscribe', () => {
-      emitter(applicationActions.setChannelSubscribtionStatus({ accountAddress: account.address, status: true }));
+      emitter(application.actions.setChannelSubscribtionStatus({ uniqKey, status: true }));
+      console.log('centrifuge - SUBSCRIBED -')
     });
 
     subscribtion.on('error', () => {
-      emitter(applicationActions.setChannelSubscribtionStatus({ accountAddress: account.address, status: false }));
+      emitter(application.actions.setChannelSubscribtionStatus({ uniqKey, status: false }));
+      console.log('centrifuge - SUBSCRIBE ERROR -')
     });
 
     centrifuge.connect();
@@ -72,17 +65,15 @@ export function socketInit(payload: ISocketInit) {
 }
 
 export function* updateNotificationsWorker() {
-  const subscribedAccounts = Object.values(yield select(applicationSelectors.getChannelSubscribedAccounts));
-  const totalAccounts = Object.values(yield select(accountSelectors.getAccounts));
+  const subscribedAccounts = Object.values(yield select(application.selectors.getChannelSubscribedAccounts));
+  const totalAccounts = Object.values(yield select(Account.selectors.getAccounts));
 
   if (subscribedAccounts.length === totalAccounts.length && subscribedAccounts.every(el => el)) {
     let accounts: ITestAccount[] = [];
-    for (let account in totalAccounts) {
-      totalAccounts[account].ecosystems.forEach((el: string) => {
-        accounts.push({
-          id: totalAccounts[account].key_id,
-          ecosystem: el,
-        });
+    for (let account of totalAccounts) {
+      accounts.push({
+        id:account.key_id,
+        ecosystem: account.ecosystem_id,
       });
     }
     yield call(api.updateNotifications, { ids: JSON.stringify(accounts) });
@@ -90,16 +81,17 @@ export function* updateNotificationsWorker() {
 }
 
 export function* socketWorker() {
-  const lastLoggedAccount = yield select(authSelectors.getLastLoggedAccount);
-
-  if (lastLoggedAccount) {
+  try {
     let centrifuge = yield getContext(centrifuge_instance);
-    const accounts = yield select(accountSelectors.getAccounts);
-    const socketConnectedAccounts = yield select(applicationSelectors.getSocketConnectedAccounts);
+    const accounts = yield select(Account.selectors.getAccounts);
+    const socketConnectedAccounts = yield select(application.selectors.getSocketConnectedAccounts);
 
     if (!centrifuge) {
+      const lastLoggedAccount = yield call(loginByGuestKey);
+      yield call(apiDeleteToken);
+      const url = yield call(api.getCentrifugoUrl);
       centrifuge = new Centrifuge({
-        url: SOCKET_URL,
+        url: url.data,
         user: lastLoggedAccount.key_id,
         timestamp: lastLoggedAccount.timestamp,
         token: lastLoggedAccount.notify_key,
@@ -111,19 +103,20 @@ export function* socketWorker() {
     }
 
     for (let account in accounts) {
-      if (!socketConnectedAccounts[accounts[account].address]) {
-
+      if (!socketConnectedAccounts[account]) {
         const channel = yield call(socketInit, { account: accounts[account], centrifuge });
         yield takeEvery(channel, function* (action) {
           yield put(action);
         });
       }
     }
+  } catch(err) {
+    console.log(err, 'socketInit error')
   }
+
 }
 
 export default function* notificationsSaga() {
-  yield takeEvery([applicationActions.initFinish], socketWorker);
-  yield takeEvery(applicationActions.setChannelSubscribtionStatus, updateNotificationsWorker);
+  yield takeEvery([application.actions.initFinish, Account.actions.createAccount.done], socketWorker);
+  yield takeEvery(application.actions.setChannelSubscribtionStatus, updateNotificationsWorker);
 }
-

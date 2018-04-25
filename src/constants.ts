@@ -6,6 +6,10 @@ export const DEFAULT_PAGE = 'default_page';
 export const DEFAULT_TITLE = 'Home';
 export const MODAL_ANIMATION_TIME = 350;
 export const REQUIRED_ALIVE_NODES_COUNT = 2;
+export const GUEST_KEY_PAIR = {
+  private: "e5a87a96a445cb55a214edaad3661018061ef2936e63a0a93bdb76eb28251c1f",
+  public: "--489347a1205c818d9a02f285faaedd0122a56138e3d985f5e1b4f6a9470f90f692a00a3453771dd7feea388ceb7aefeaf183e299c70ad1aecb7f870bfada3b86", // -- in the beginning of the string because in api.login we got slice(2) for publicKey, its not a part of key
+};
 
 export const NAV = {
   AUTH: 'AUTH',

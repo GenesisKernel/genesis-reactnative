@@ -30,6 +30,12 @@ declare type INode = {
   msgUrl?: string;
 }
 
+declare type INotificationData = {
+  role_id: number;
+  ecosystem: number;
+  count: number;
+}
+
 declare type IAccount = {
   uniqKey: string;
   avatar: string;

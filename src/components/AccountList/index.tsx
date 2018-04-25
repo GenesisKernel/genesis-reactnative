@@ -19,17 +19,7 @@ export interface IAccountListProps {
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
   currentNode: INode;
-  notifications: {
-    groupedByEcosystemId: {
-      [id: string]: {
-        [address: string]: {
-          role_id: number;
-          ecosystem: number;
-          count: number;
-        };
-      };
-    };
-  };
+  notifications: {[uniqKey: string]: INotificationData};
   onSelect(payload: { uniqKey: string; encKey: string; }): void;
   onCreateAccount: () => void;
 }
@@ -76,6 +66,7 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
       <View key={account.uniqKey}>
         <Row
           account={account}
+          notification={this.props.notifications[account.uniqKey]}
           onPress={this.props.onSelect}
           isLoggedAccount={account.uniqKey === this.props.currentAccount}
           onDisableScroll={this.handlePreventScroll}

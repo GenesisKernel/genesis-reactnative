@@ -121,10 +121,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 123,
-    top: 5,
-    right: 5,
+    top: 3,
+    right: 3,
   },
   notificationText: {
+    paddingLeft: 1,
+
     color: Colors.white,
     fontSize: FontSizes.smallCommonSize,
   },

@@ -2,41 +2,26 @@ import * as actions from './actions';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface INotification {
-  data: {
-    role_id: number;
-    ecosystem: number;
-    count: number;
-  },
+  data: INotificationData,
   channel: string;
   uid: string;
-  address: string;
+  uniqKey: string;
 }
 
 export interface IState {
-  groupedByEcosystemId: {
-    [id: string]: {
-      role_id: number;
-      ecosystem: number;
-      count: number;
-    };
-  };
+  [uniqKey: string]: INotificationData;
 }
 
 const initialState: IState = {
-  groupedByEcosystemId: {},
+
 };
 
 export default reducerWithInitialState(initialState)
 .case(actions.receiveNotification, (state, payload: INotification) => {
   return {
     ...state,
-    groupedByEcosystemId: {
-      [payload.data.ecosystem]: {
-        ...state.groupedByEcosystemId[payload.data.ecosystem],
-        [payload.address]: {
-          ...payload.data
-        }
-      }
+    [payload.uniqKey]: {
+      ...payload.data,
     }
   }
 });

@@ -20,7 +20,7 @@ const { width } = Dimensions.get('window');
 export interface IRow {
   account: IAccount;
   currentNode: INode;
-  notificationsCount?: number;
+  notification?: INotificationData;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
   onPress(payload: { uniqKey: string; encKey: string; }): void;
@@ -38,7 +38,7 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { account: { avatar, username, uniqKey, address, ecosystem_id },
-    notificationsCount, isLoggedAccount, isDrawerOpened, account } = this.props;
+    notification, isLoggedAccount, isDrawerOpened, account } = this.props;
 
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
 
@@ -68,9 +68,9 @@ class Row extends React.PureComponent<IRow> {
 
             <View style={styles.rowContainer}>
               <View style={styles.avatar}>
-                {notificationsCount && (
+                {notification && notification.count && (
                   <View style={styles.notificationCircle}>
-                    <Text style={styles.notificationText}>{notificationsCount.toString()}</Text>
+                    <Text style={styles.notificationText}>{notification.count.toString()}</Text>
                   </View>
                 )}
                 <Avatar

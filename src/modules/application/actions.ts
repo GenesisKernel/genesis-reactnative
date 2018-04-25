@@ -49,12 +49,12 @@ export const receivePushNotification = actionCreator(
 export const receiveVDEMode = actionCreator<boolean>('TOGGLE_VDE_MODE');
 
 export const setSocketConnectionStatus = actionCreator<{
-  accountAddress: string;
+  uniqKey: string;
   status: boolean;
 }>('SET_SOCKET_CONNECTION_STATUS');
 
 export const setChannelSubscribtionStatus = actionCreator<{
-  accountAddress: string;
+  uniqKey: string;
   status: boolean;
 }>('SET_CHANNEL_SUBSCRIPTION_STATUS');
 
