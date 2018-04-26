@@ -19,7 +19,17 @@ interface IAvatarProps {
 
 export default class Avatar extends React.PureComponent<IAvatarProps> {
   state = {
-    avatarExists: true,
+    avatarExists: false,
+  }
+
+  public componentDidMount() {
+    const { currentNode, account } = this.props;
+
+    try {
+      const avatar = `${currentNode.apiUrl}api/v2/avatar/${account.ecosystem_id}/${account.key_id}`;
+    } catch (err) {
+
+    }
   }
 
   public render() {
@@ -36,7 +46,7 @@ export default class Avatar extends React.PureComponent<IAvatarProps> {
               resizeMode="cover"
               style={styles.avatarImage}
               source={{ uri: avatar }}
-              onError={this.handleAvatarError}
+              onLoad={this.handleAvatarLoad}
             />
           )
           : (<Icon size={40} {...avatarDefaultProps} />)
@@ -45,8 +55,8 @@ export default class Avatar extends React.PureComponent<IAvatarProps> {
     )
   }
 
-  private handleAvatarError = (err: any) => {
+  private handleAvatarLoad = () => {
     const { avatarExists } = this.state;
-    avatarExists && this.setState({ avatarExists: false });
+    !avatarExists && this.setState({ avatarExists: true });
   }
 }
