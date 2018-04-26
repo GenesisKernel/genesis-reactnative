@@ -1,11 +1,13 @@
 const Centrifuge = require('centrifuge');
 import { eventChannel } from 'redux-saga';
-import { put, call, takeEvery, select, getContext, setContext } from 'redux-saga/effects';
+import { put, call, takeEvery, select, getContext, setContext, all } from 'redux-saga/effects';
+import { create } from 'apisauce';
 
-import api, { apiDeleteToken } from '../../utils/api';
+import api, { apiDeleteToken, apiFactory } from '../../utils/api';
 import * as Account from 'modules/account';
 import * as application from 'modules/application';
 import * as notificationsActions from './actions';
+import * as nodes from 'modules/nodes';
 import { loginByGuestKey } from 'modules/sagas/sagaHelpers';
 
 import { INotification } from './reducer';
@@ -82,14 +84,26 @@ export function* updateNotificationsWorker() {
 
 export function* socketWorker() {
   try {
-    let centrifuge = yield getContext(centrifuge_instance);
-    const accounts = yield select(Account.selectors.getAccounts);
-    const socketConnectedAccounts = yield select(application.selectors.getSocketConnectedAccounts);
+    let { centrifuge, accounts, socketConnectedAccounts } = yield all({
+      centrifuge: getContext(centrifuge_instance),
+      accounts: select(Account.selectors.getAccounts),
+      socketConnectedAccounts: select(application.selectors.getSocketConnectedAccounts),
+    });
 
     if (!centrifuge) {
       const lastLoggedAccount = yield call(loginByGuestKey);
-      yield call(apiDeleteToken);
-      const url = yield call(api.getCentrifugoUrl);
+      const currentNode = yield select(nodes.selectors.getCurrentNode);
+
+      const apiInstance = create({
+        baseURL: `${currentNode.apiUrl}api/v2`,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        }
+      });
+
+      const Api = new apiFactory(apiInstance);
+      const url = yield call(Api.getCentrifugoUrl);
+
       centrifuge = new Centrifuge({
         url: url.data,
         user: lastLoggedAccount.key_id,

@@ -1,6 +1,8 @@
 import { pick, pickBy, contains } from 'ramda';
 import { Action, AnyAction } from 'typescript-fsa';
 import { NavigationAction } from 'react-navigation';
+import { create } from 'apisauce';
+import { HOST } from 'config';
 
 interface IWaitForRoute {
   routeName: string;
@@ -75,9 +77,9 @@ export const addHistoryMarker = (action: AnyAction) => ({
 });
 
 export const filterDuplicateNodes = (nodes: INode[]): INode[] => {
-  return nodes.reduce((acc, el) => {
+  return nodes.reduce((acc: any, el: INode) => {
     acc = acc || [];
-    let duplicate = acc.find((item) => item.apiUrl === el.apiUrl)
+    let duplicate = acc.find((item: INode) => item.apiUrl === el.apiUrl)
     if(!duplicate || duplicate.length <= 1) {
       acc.push(el);
     }

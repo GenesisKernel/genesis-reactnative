@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { create } from 'apisauce';
+import { create, ApisauceInstance } from 'apisauce';
 import { memoize } from 'ramda';
 import { HOST } from '../config';
 // Workaround. url-search-params very old.
@@ -11,38 +11,6 @@ const api = create({
   baseURL: HOST,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  }
-});
-
-api.addRequestTransform(request => {
-  if (request.method === 'post' && request.data) {
-    const data = { ...request.data };
-    const params = new URLSearchParams();
-    const keys = Object.keys(data);
-
-    keys.forEach(key => {
-      if (data[key] === undefined) {
-        return;
-      }
-
-      params.append(key, data[key]);
-    });
-
-    request.data = params.toString();
-  }
-});
-
-api.addResponseTransform(response => {
-  if (!response.ok) {
-    const message: string =
-      (response.data && response.data.msg) || response.problem;
-    const error = new Error(message);
-
-    error.message = message;
-    error.data = response.data;
-    error.status = response.status;
-
-    throw error;
   }
 });
 
@@ -110,64 +78,83 @@ export interface ITxPrepareResponse extends IResponse {
   time: number;
 }
 
-export default {
-  getUid: () => api.get<IUidResponse>('/getuid'),
+export class apiFactory {
+  constructor(api: ApisauceInstance) {
+    api.addRequestTransform(request => {
+      if (request.method === 'post' && request.data) {
+        const data = { ...request.data };
+        const params = new URLSearchParams();
+        const keys = Object.keys(data);
 
-  login: (payload: {
-    publicKey: string;
-    signature: string;
-    ecosystem: string;
-  }) =>
-    api.post<ILoginResponse>('/login', {
-      pubkey: payload.publicKey.slice(2),
-      signature: payload.signature,
-      ecosystem: payload.ecosystem || '0'
-    }),
+        keys.forEach(key => {
+          if (data[key] === undefined) {
+            return;
+          }
 
-  refresh: (payload: {
-    token: string;
-  }) =>
-    api.post<IRefreshResponse>('/refresh', payload),
+          params.append(key, data[key]);
+        });
 
-  getEcosystemParameters: (id: string, params: string[] = []) =>
-    api
-      .get<IParameterResponse[]>(
-        `ecosystemparams?ecosystem=${id}&names=${params.join(',')}`
-      )
-      .then(response => ({ ...response, data: response.data.list })),
+        request.data = params.toString();
+      }
+    });
+    api.addResponseTransform(response => {
+      if (!response.ok) {
+        const message: string =
+          (response.data && response.data.msg) || response.problem;
+        const error = new Error(message);
 
-  getContentOfPage: (name: string, params: { [key: string]: any } = {}) =>
-    api
-      .post<IContentResponse>(`content/page/${name}`, params)
-      .then(response => ({
-        ...response,
-        data: {
-          name,
-          tree: response.data.tree,
-          menuTree: response.data.menutree,
-          // tree: memoTree(response.data.tree),
-          // menuTree: memoTree(response.data.menutree)
-        }
-      })),
+        error.message = message;
+        error.data = response.data;
+        error.status = response.status;
 
-  prepareContract: (name: string, params: { [key: string]: any }) =>
-    api.post<ITxPrepareResponse>(`prepare/${name}`, params),
+        throw error;
+      }
+    });
 
-  // runContract: (name: string, params: { [key: string]: any }) =>
-  //   api.post(`contract/${name}`, params),
+    this.getUid = () => api.get<IUidResponse>('/getuid');
+    this.login = (payload: {
+      publicKey: string;
+      signature: string;
+      ecosystem: string;
+    }) =>
+      api.post<ILoginResponse>('/login', {
+        pubkey: payload.publicKey.slice(2),
+        signature: payload.signature,
+        ecosystem: payload.ecosystem || '0'
+      });
 
-  runContract: (name: string, params: { [key: string]: any }) =>
-    api.post(`contract/${name}`, params),
+    this.getCentrifugoUrl = () => api.get('/config/centrifugo');
+    this.refresh = (payload: { token: string;}) => api.post<IRefreshResponse>('/refresh', payload);
 
-  transactionStatus: (hash: string) =>
-    api.get<ITxStatusResponse>(`/txstatus/${hash}`),
+    this.getEcosystemParameters = (id: string, params: string[] = []) =>
+      api.get<IParameterResponse[]>(
+          `ecosystemparams?ecosystem=${id}&names=${params.join(',')}`).then(response => ({ ...response, data: response.data.list }));
 
-  updateNotifications: (payload: object) =>
-    api.post('/updnotificator', payload),
+    this.getContentOfPage = (name: string, params: { [key: string]: any } = {}) =>
+      api.post<IContentResponse>(`content/page/${name}`, params).then(response => ({
+          ...response,
+          data: {
+            name,
+            tree: response.data.tree,
+            menuTree: response.data.menutree,
+          }
+        }));
 
-  getUsername: (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session),
+    this.prepareContract = (name: string, params: { [key: string]: any }) =>
+      api.post<ITxPrepareResponse>(`prepare/${name}`, params);
 
-  getFullNodes: () => api.get('/systemparams?names=full_nodes'),
+    this.runContract = (name: string, params: { [key: string]: any }) => api.post(`contract/${name}`, params);
 
-  getCentrifugoUrl: () => api.get('/config/centrifugo'),
-};
+    this.transactionStatus = (hash: string) => api.get<ITxStatusResponse>(`/txstatus/${hash}`);
+
+    this.updateNotifications = (payload: object) => api.post('/updnotificator', payload);
+
+    this.getUsername = (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session);
+
+    this.getFullNodes = () => api.get('/systemparams?names=full_nodes');
+  };
+}
+
+const apiInstance: any = new apiFactory(api);
+
+export default apiInstance;

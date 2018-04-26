@@ -4,7 +4,7 @@ import { takeEvery, put, race, take, call, select, all } from 'redux-saga/effect
 import { path } from 'ramda';
 import { delay } from 'redux-saga';
 import { ModalTypes, MODAL_ANIMATION_TIME, GUEST_KEY_PAIR } from '../../constants';
-import api, { apiSetToken, apiDeleteToken, apiSetUrl } from 'utils/api';
+import api, { apiSetToken, apiDeleteToken, apiSetUrl, apiFactory } from 'utils/api';
 
 import { IAuthPayload } from 'modules/auth/saga';
 
@@ -26,59 +26,30 @@ export function* getUsername(token: string, key_id: string) {
 export function* loginByGuestKey() {
   const currentNode = yield select(nodes.selectors.getCurrentNode);
 
-  let Api = create({
+  let apiInstance = create({
     baseURL: `${currentNode.apiUrl}api/v2`,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     }
   });
-  Api.addRequestTransform(request => {
-    if (request.method === 'post' && request.data) {
-      const data = { ...request.data };
-      const params = new URLSearchParams();
-      const keys = Object.keys(data);
+  const Api: any = new apiFactory(apiInstance);
 
-      keys.forEach(key => {
-        if (data[key] === undefined) {
-          return;
-        }
-
-        params.append(key, data[key]);
-      });
-
-      request.data = params.toString();
-    }
-  });
-
-  Api.addResponseTransform(response => {
-    if (!response.ok) {
-      const message: string =
-        (response.data && response.data.msg) || response.problem;
-      const error = new Error(message);
-
-      error.message = message;
-      error.data = response.data;
-      error.status = response.status;
-
-      throw error;
-    }
-  });
-
-  const getUid = () => Api.get('/getuid');
-  const login = (payload: any) => Api.post('/login', payload);
   try {
-    const { data: uidParams } = yield call(getUid);
-    Api.setHeader('Authorization', `Bearer ${uidParams.token}`);
+    const { data: uidParams } = yield call(Api.getUid);
+
+    apiInstance.setHeader('Authorization', `Bearer ${uidParams.token}`);
+
     const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, GUEST_KEY_PAIR.private);
 
-    const { data: accountData } = yield call(login, {
-      pubkey: GUEST_KEY_PAIR.public.slice(2),
+    const { data: accountData } = yield call(Api.login, {
+      publicKey: GUEST_KEY_PAIR.public,
       ecosystem: '1',
       signature,
     });
 
     return accountData;
   } catch (err) {
+    console.log(err, 'login by guest key err')
     return null;
   }
 }
