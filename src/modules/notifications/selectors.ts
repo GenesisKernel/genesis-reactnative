@@ -11,7 +11,6 @@ export const getNotifications = createSelector(
 
 export const getNotificationsCount = createSelector(
   (state: IRootState) => state.notifications,
-  (state: IRootState) => state.auth.currentEcosystemId,
-  (state: IRootState) => state.auth.currentAccountAddress,
-  (notifications: AccountReduceState, currentEcosystemId: any, currentAccountAddress: any) => path(['groupedByEcosystemId', `${currentEcosystemId}`, `${currentAccountAddress}`, 'count'], notifications)
+  (state: IRootState) => state.auth.currentAccount,
+  (notifications: AccountReduceState, currentAccount: any) => path([`${currentAccount}, count`], notifications),
 );

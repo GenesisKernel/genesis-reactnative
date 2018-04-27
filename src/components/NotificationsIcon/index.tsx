@@ -15,6 +15,7 @@ class StatusIcon extends React.Component<IStatusIconProps, object> {
 
   public render() {
     const { count, showNotificationsPage } = this.props;
+    console.log(count, 'count')
     return (
       <View style={styles.icon}>
         <AnimatableView
