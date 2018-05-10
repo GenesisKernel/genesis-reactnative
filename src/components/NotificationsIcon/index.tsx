@@ -11,11 +11,11 @@ interface IStatusIconProps {
   showNotificationsPage: () => void;
 }
 
-class StatusIcon extends React.Component<IStatusIconProps, object> {
+class StatusIcon extends React.Component<IStatusIconProps> {
 
   public render() {
     const { count, showNotificationsPage } = this.props;
-    console.log(count, 'count')
+
     return (
       <View style={styles.icon}>
         <AnimatableView

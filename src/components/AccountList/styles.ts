@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts, FontSizes } from '../ui/theme';
+import { Colors, Fonts, FontSizes, accountRowHeight } from '../ui/theme';
 
 export const mainRightButton = {
   borderRadius: 0,
-  height: 70,
+  height: accountRowHeight,
   borderLeftWidth: 4,
   padding: 10,
 };
 
 export const mainRightButtonContainer = {
-  height: 50,
+  height: accountRowHeight - 20, // marginVertical*2
   marginVertical: 10
 }
 
@@ -46,7 +46,7 @@ export default StyleSheet.create({
     textAlign: 'right'
   },
   rightButtonsContainer: {
-    height: 70,
+    height: accountRowHeight,
     alignItems: 'flex-start',
     backgroundColor: 'rgba(0,0,0, .1)',
     flexWrap: 'wrap',
@@ -60,15 +60,14 @@ export default StyleSheet.create({
   },
 
   rowContainer: {
-    height: 70,
+    height: accountRowHeight,
     flex: 1,
     backgroundColor: 'transparent',
     paddingVertical: 10,
-    paddingRight: 30,
-    paddingLeft: 20,
+    paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   decorStick: {
     backgroundColor: Colors.green,
@@ -77,34 +76,52 @@ export default StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 5,
-    height: 70,
+    height: accountRowHeight,
     borderTopRightRadius: 3,
     borderBottomRightRadius: 3,
+  },
+  firstRow: {
+    height: '70%',
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  titleSubTitleContainer: {
+    paddingLeft: 20,
+  },
+  secondRow: {
+    height: '30%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   rowTextContainer: {
     flex: 1,
     paddingLeft: 10,
   },
   title: {
-    fontSize: FontSizes.commonSize,
+    fontSize: FontSizes.smallCommonSize,
     color: Colors.white,
-    marginBottom: 5,
   },
   subTitle: {
+    fontSize: FontSizes.commonSize,
+    color: Colors.white,
+  },
+  secondTitle: {
     fontSize: FontSizes.smallCommonSize,
     color: Colors.white,
   },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 40,
+    height: 40,
   },
   avatarImageWrapper: {
     width: 40,
     height: 40,
     borderRadius: 180,
+    marginRight: 20,
     position: 'relative',
-    top: 10,
-    left: 10,
     overflow: 'hidden',
   },
   avatarImage: {
@@ -121,8 +138,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 123,
-    top: 3,
-    right: 3,
+    top: -4,
+    right: -4,
   },
   notificationText: {
     paddingLeft: 1,
@@ -134,7 +151,7 @@ export default StyleSheet.create({
     position: 'relative',
   },
   createButtonContainer: {
-    height: 70,
+    height: accountRowHeight,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',

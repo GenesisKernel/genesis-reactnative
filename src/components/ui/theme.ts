@@ -20,6 +20,7 @@ export const buttonsBorderRadius = 8;
 export const authScreenPadding = biggerThenIphone6Width ? 30 : 20;
 // export const homeScreenPadding = biggerThenIphone6Width ? 20 : 10;
 export const openDrawerOffset = 0.12;
+export const accountRowHeight = 85;
 
 
 export const scrollableContainerHeight = Platform.OS === 'android' ? height - headerHeight - statusBarHeight - authScreenPadding : (height - headerHeight - authScreenPadding) - (isIphoneX ? 34 : 0); // using on auth screens (SignIn, SignUp etc.);

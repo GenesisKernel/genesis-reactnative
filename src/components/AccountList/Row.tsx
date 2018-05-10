@@ -67,21 +67,28 @@ class Row extends React.PureComponent<IRow> {
               style={styles.decorStick} />
 
             <View style={styles.rowContainer}>
-              <View style={styles.avatar}>
-                {notification && notification.count && (
-                  <View style={styles.notificationCircle}>
-                    <Text style={styles.notificationText}>{notification.count.toString()}</Text>
-                  </View>
-                )}
-                <Avatar
-                  account={account}
-                  currentNode={this.props.currentNode} />
+              <View style={styles.firstRow}>
+                <View style={styles.avatar}>
+                  {notification && notification.count && (
+                    <View style={styles.notificationCircle}>
+                      <Text style={styles.notificationText}>{notification.count.toString()}</Text>
+                    </View>
+                  )}
+                  <Avatar
+                    account={account}
+                    currentNode={this.props.currentNode} />
+                </View>
+                <View style={styles.titleSubTitleContainer}>
+                  <Text numberOfLines={1} style={styles.title}>
+                    {`eco: ${ecosystem_id}`}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.subTitle}>
+                    {username || 'no username'}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.rowTextContainer}>
-                <Text numberOfLines={1} style={styles.title}>
-                  {username || `eco: ${ecosystem_id}`}
-                </Text>
-                <Text numberOfLines={1} style={styles.subTitle}>
+              <View style={styles.secondRow}>
+                <Text numberOfLines={1} style={styles.secondTitle}>
                   {address}
                 </Text>
               </View>
