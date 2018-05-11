@@ -35,7 +35,7 @@ class AccountSelectScreen extends React.Component<IScreenProps, object> {
       <View style={styles.container}>
         <Logo />
         <Text
-          intl={{ id: 'auth.welcome.to', defaultMessage: 'WELLCOME TO APLA' }}
+          intl={{ id: 'auth.welcome.to', defaultMessage: 'WELCOME TO APLA' }}
           style={styles.title}/>
         <Text
           intl={{

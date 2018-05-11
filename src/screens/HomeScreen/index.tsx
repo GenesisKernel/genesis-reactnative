@@ -9,6 +9,7 @@ import Logo from 'components/ui/Logo';
 import MenuGridContainer from 'containers/MenuGridContainer';
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 import NotificationsIconContainer from 'containers/NotificationsIconContainer';
+import BackupAccountButtonContainer from 'containers/BackupAccountButtonContainer';
 import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
 import styles from './styles';
 
@@ -22,7 +23,10 @@ class HomeScreen extends React.Component<IScreenProps, object> {
     headerBackTitle: null,
     gesturesEnabled: false,
     headerLeft: <DrawerButtonContainer />,
-    headerRight: <NotificationsIconContainer />
+    headerRight: (<View style={styles.rightButtons}>
+        <NotificationsIconContainer />
+        <BackupAccountButtonContainer />
+      </View>)
   })
 
   public render() {

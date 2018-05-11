@@ -11,8 +11,7 @@ export const hasValidToken = state =>
 
 export const getTokenExpiry = state => state.auth.tokenExpiry;
 
-export const getCurrentEcosystemId = state => state.auth.currentEcosystemId;
-
+export const getCurrentEcosystemId = state => state.accounts[state.auth.currentAccount].ecosystem_id;
 export const getAuthStatus = state => state.auth.isAuthenticated;
 
 export const getCurrentAccount = state => state.auth.currentAccount;

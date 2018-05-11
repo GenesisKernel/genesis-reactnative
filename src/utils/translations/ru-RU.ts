@@ -8,6 +8,7 @@ export default {
   "account.button.change.password": 'Изменить пароль',
   "account.button.remove": 'удалить',
   "account.want.to.remove": 'Вы уверены, что хотите удалить этот аккаунт?',
+  "account.backup": 'Пожалуйста, введите ваш e-mail, чтоб мы отправили данные аккаунта',
   "signin.screen.login": "Войти",
   "signin.screen.private.key": "Приватный ключ:",
   "signin.screen.ecosystem": 'Экосистема:',
@@ -16,6 +17,9 @@ export default {
   "modal.window.confirm": 'ОК',
   "modal.password.required": "Требуется пароль",
   "modal.password.to.continue": 'Введите пароль чтобы продолжить.',
+  "modal.email.to.continue": 'Пожалуйста, введите e-mail, чтобы продолжить',
+  "modal.email.required": 'Требуется e-mail',
+  "modal.email": 'e-mail',
   "transactions.list.transactions": "Транзакции",
   "fingerprint.authentication": 'Биометрическая авторизация',
   "fingerprint.scan.to.continue": 'Используйте сканер лица или пальца.',
@@ -49,4 +53,5 @@ export default {
   "auth.authorise.please": 'Пожалуйста, авторизуйтесь или зарегистрируйтесь, чтобы начать работу.',
   "auth.role.select": `Пожалуйста, выберите роль, с которой Вы бы хотели войти в систему`,
   "auth.without.role": "Войти без роли",
+
 }

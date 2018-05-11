@@ -21,3 +21,5 @@ export const changePassword = actionCreator.async<IAccount | string, any>('CHANG
 export const cancelChangingPassword = actionCreator('CANCEL_CHANGING_PASSWORD');
 
 export const confirmChangingPassword = actionCreator<string>('CONFIRM_CHANGING_PASSWORD');
+
+export const backupAccount = actionCreator('BACKUP_ACCOUNT');

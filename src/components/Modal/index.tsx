@@ -8,6 +8,7 @@ import ValidatePasswordForm from 'components/ValidatePasswordForm';
 import RoleSelectForm from 'components/RoleSelectForm';
 import NotificationsPage from 'components/NotificationsPage';
 import SelectAuthTypeModal from 'components/SelectAuthTypeModal';
+import BackupAccountModal from 'components/BackupAccountModal';
 
 import Modal from "react-native-modal";
 import styles from './styles';
@@ -82,7 +83,9 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
         case ModalTypes.ROLE_SELECT:
           return <RoleSelectForm {...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         case ModalTypes.SELECT_AUTH_TYPE:
-          return <SelectAuthTypeModal onCreateAccountPress={onCreateAccountPress} onKnownAccountPress={onKnownAccountPress} />
+          return <SelectAuthTypeModal onCreateAccountPress={onCreateAccountPress} onKnownAccountPress={onKnownAccountPress} />;
+        case ModalTypes.BACKUP_ACCOUNT:
+          return <BackupAccountModal onConfirm={onConfirm} onClose={onClose} />
         default:
           return <View />;
       }

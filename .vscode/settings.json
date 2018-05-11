@@ -9,4 +9,5 @@
   "tslint.enable": true,
   "typescript.autoImportSuggestions.enabled": true,
   "java.configuration.updateBuildConfiguration": "disabled",
+  "editor.tabSize": 2,
 }
