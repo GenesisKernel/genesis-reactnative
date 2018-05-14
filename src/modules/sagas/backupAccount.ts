@@ -1,3 +1,4 @@
+import Mailer from 'react-native-mail';
 import { takeEvery, put, race, take, call, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
@@ -26,7 +27,18 @@ export function* backupAccountWorker() {
 
     const { privateKey } = yield call(requestPrivateKeyWorker);
     const ecosystem = yield select(auth.selectors.getCurrentEcosystemId);
-    console.log(`${privateKey};${ecosystem}`, 'key to export ');
+
+    try {
+      Mailer.mail({
+        subject: 'Your account import key.',
+        body: `Your account key is: \n \n \n ${privateKey};${ecosystem} \n \n \n Just put it into import account field on your client.`,
+        recipients: [email],
+      }, (err: string, event: any) => {
+
+      });
+    } catch(error) {
+      console.error(error);
+    }
   }
 }
 

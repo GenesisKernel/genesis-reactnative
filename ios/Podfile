@@ -16,6 +16,8 @@ target 'Apla' do
 
 
 
+  pod 'react-native-mail', :path => '../node_modules/react-native-mail'
+
   target 'AplaTests' do
     inherit! :search_paths
     # Pods for testing
