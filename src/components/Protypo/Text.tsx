@@ -7,7 +7,7 @@ import defaultStyles from './Text.style';
 export interface ITextProps extends IElementProps {}
 
 const Text: React.SFC<ITextProps> = ({ tag, text, style }) => (
-  <TextDefault style={[defaultStyles.text, style]}>{text}</TextDefault>
+  <TextDefault style={[defaultStyles.text, style]} selectable={true}>{text}</TextDefault>
 );
 
 export default stylable('Text')(Text);
