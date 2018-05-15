@@ -49,7 +49,6 @@ export default class BackupAccountModal extends React.Component<IBackupAccountMo
             style={[styles.input, !validValue ? styles.invalidInput : {}]}
             containerStyle={{ flex: 0 }}
             onChangeText={this.handleInputChange}
-            selectionColor={validValue ? "#231f20" : Colors.dangerRed}
             placeholderTextColor="#ccc"
             placeholder={'e-mail'}
             intl={{ id: "modal.email", defaultMessage: 'e-mail' }}

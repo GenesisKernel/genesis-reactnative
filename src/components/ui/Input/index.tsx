@@ -17,6 +17,7 @@ interface IInputProps extends TextInputProperties {
 
 const Input: React.SFC<IInputProps> = props => {
   const { intl, selectionColor, labelStyle, rightIcon, containerStyle, isInvalid, ...inputProps } = props;
+  const InputProps = { ...inputProps, selectionColor }; // just to avoid warning, while selection color didn't set
 
   return (
     <FormattedMessage {...intl}>
@@ -38,7 +39,6 @@ const Input: React.SFC<IInputProps> = props => {
               ]}
               underlineColorAndroid="transparent"
               autoCapitalize="none"
-              selectionColor={selectionColor || "#fff"}
             />
             {!!rightIcon && (
               <Icon iconStyle={styles.icon} type="font-awesome" name={rightIcon} />
