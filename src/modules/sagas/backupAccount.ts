@@ -1,4 +1,4 @@
-import Mailer from 'react-native-mail';
+import Email from 'react-native-email';
 import { takeEvery, put, race, take, call, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
@@ -29,13 +29,10 @@ export function* backupAccountWorker() {
     const ecosystem = yield select(auth.selectors.getCurrentEcosystemId);
 
     try {
-      Mailer.mail({
-        subject: 'Your account import key.',
+      Email(email, {
+        subject: 'no-reply Apla.io',
         body: `Your account key is: \n \n \n ${privateKey};${ecosystem} \n \n \n Just put it into import account field on your client.`,
-        recipients: [email],
-      }, (err: string, event: any) => {
-
-      });
+      }).catch(console.error);
     } catch(error) {
       console.error(error);
     }

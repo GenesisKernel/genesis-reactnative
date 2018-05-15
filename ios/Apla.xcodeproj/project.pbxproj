@@ -38,7 +38,6 @@
 		A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A321B45A206A289D0023CA3A /* libRNReactNativeHapticFeedback.a */; };
 		A343F21E20515929001BC59C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A343F21D20515929001BC59C /* Images.xcassets */; };
 		A34D201B202B540D00A42BB5 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */; };
-		A385481220A973E900667766 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A385480D20A973CC00667766 /* libRNMail.a */; };
 		A38D0F41202B192600B67045 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A38D0F13202B192600B67045 /* Lato-Thin.ttf */; };
 		A3924BFB202AF97E0060E452 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3924BCC202AF97E0060E452 /* Lato-Bold.ttf */; };
 		A3924BFC202AF97F0060E452 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3924BFA202AF97E0060E452 /* Lato-Regular.ttf */; };
@@ -365,20 +364,6 @@
 			remoteGlobalIDString = 3400A8081CEB54A6008A0BC7;
 			remoteInfo = imageCropPicker;
 		};
-		A385480C20A973CC00667766 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A38547D820A973CC00667766 /* RNMail.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
-			remoteInfo = RNMail;
-		};
-		A385480E20A973CC00667766 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A38547D820A973CC00667766 /* RNMail.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
-			remoteInfo = RNMailTests;
-		};
 		A3AF8BA4206BACBE0019D618 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */;
@@ -465,7 +450,6 @@
 		A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNReactNativeHapticFeedback.xcodeproj; path = "../node_modules/react-native-haptic-feedback/ios/RNReactNativeHapticFeedback.xcodeproj"; sourceTree = "<group>"; };
 		A343F21D20515929001BC59C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Apla/Images.xcassets; sourceTree = "<group>"; };
 		A34D1FED202B540D00A42BB5 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
-		A38547D820A973CC00667766 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		A38D0F13202B192600B67045 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		A3924BCC202AF97E0060E452 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		A3924BFA202AF97E0060E452 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -502,7 +486,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A385481220A973E900667766 /* libRNMail.a in Frameworks */,
 				A3010F8D2074AA8B00C6710B /* libRNCamera.a in Frameworks */,
 				A3AF8BA8206BACF20019D618 /* libReactNativeHaptic.a in Frameworks */,
 				A321B45C206A28E10023CA3A /* libRNReactNativeHapticFeedback.a in Frameworks */,
@@ -737,7 +720,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				A38547D820A973CC00667766 /* RNMail.xcodeproj */,
 				A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */,
 				A3AF8B72206BACBE0019D618 /* ReactNativeHaptic.xcodeproj */,
 				A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */,
@@ -821,15 +803,6 @@
 			isa = PBXGroup;
 			children = (
 				A34258A2202B72B500B2A15E /* libimageCropPicker.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A38547D920A973CC00667766 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A385480D20A973CC00667766 /* libRNMail.a */,
-				A385480F20A973CC00667766 /* RNMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1071,10 +1044,6 @@
 				{
 					ProductGroup = A3010F882074AA2E00C6710B /* Products */;
 					ProjectRef = A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */;
-				},
-				{
-					ProductGroup = A38547D920A973CC00667766 /* Products */;
-					ProjectRef = A38547D820A973CC00667766 /* RNMail.xcodeproj */;
 				},
 				{
 					ProductGroup = A321B428206A289C0023CA3A /* Products */;
@@ -1400,20 +1369,6 @@
 			fileType = archive.ar;
 			path = libimageCropPicker.a;
 			remoteRef = A34258A1202B72B500B2A15E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A385480D20A973CC00667766 /* libRNMail.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNMail.a;
-			remoteRef = A385480C20A973CC00667766 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A385480F20A973CC00667766 /* RNMailTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNMailTests.xctest;
-			remoteRef = A385480E20A973CC00667766 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A3AF8BA5206BACBE0019D618 /* libReactNativeHaptic.a */ = {

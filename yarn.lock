@@ -4615,6 +4615,12 @@ react-native-elements@^0.19.0:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-email@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-email/-/react-native-email-1.0.1.tgz#20eb18d6523e207e4e3e8e9c191a75fa1241ef3c"
+  dependencies:
+    qs "^6.5.1"
+
 react-native-fingerprint-scanner@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-native-fingerprint-scanner/-/react-native-fingerprint-scanner-2.3.2.tgz#f89dd5dcecf5858c005fa583c064ef4d20ea7731"
@@ -4641,10 +4647,6 @@ react-native-keyboard-aware-scroll-view@^0.4.4:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
-
-react-native-mail@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-mail/-/react-native-mail-3.0.6.tgz#5e7b4a89bcbe2218e44331465596966a7ff743ab"
 
 react-native-modal-dropdown@^0.6.2:
   version "0.6.2"
