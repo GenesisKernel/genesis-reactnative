@@ -78,7 +78,13 @@ export function* updateNotificationsWorker() {
         ecosystem: account.ecosystem_id,
       });
     }
-    yield call(api.updateNotifications, { ids: JSON.stringify(accounts) });
+
+    try {
+      yield call(api.updateNotifications, { ids: JSON.stringify(accounts) });
+    } catch(err) {
+      console.log(err, 'ERROR AT updateNotificationsWorker')
+    }
+
   }
 }
 
