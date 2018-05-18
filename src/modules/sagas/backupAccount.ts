@@ -37,8 +37,8 @@ export function* backupAccountWorker() {
       const shareResult = yield call(Share.share,
         {
           message: `${privateKey};${ecosystem}`,
-          title: 'Apla.io',
-          url: ''
+          title: 'apla',
+          url: `${privateKey};${ecosystem}`,
         }
       );
     } catch (error) {
