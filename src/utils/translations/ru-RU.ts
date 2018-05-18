@@ -18,7 +18,7 @@ export default {
   "modal.password.required": "Требуется пароль",
   "modal.password.to.continue": 'Введите пароль чтобы продолжить.',
   "modal.email.to.continue": 'Пожалуйста, введите e-mail, чтобы продолжить',
-  "modal.email.required": 'Требуется e-mail',
+  "modal.email.required": "Верифицируйте свой аккаунт, чтобы получить свой приватный ключ. Пожалуйста, не делитесь этим ключом с третьими лицами.",
   "modal.email": 'e-mail',
   "transactions.list.transactions": "Транзакции",
   "fingerprint.authentication": 'Биометрическая авторизация',

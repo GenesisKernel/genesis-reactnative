@@ -9,10 +9,12 @@ import Button from 'components/ui/Button';
 import Input from 'components/ui/Input';
 import Field from 'components/ui/Field';
 import styles from './styles';
+import { extractParamsFromLink } from 'utils/link';
 
 export interface InputParams {
   password: string;
   privateKey?: string;
+  ecosystems?: string[];
   byPrivateKey: boolean;
 }
 
@@ -101,10 +103,13 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
       return;
     }
 
+    const extractedKey = extractParamsFromLink(this.state.seed);
+    if (!extractedKey) return;
+
     this.props.onSubmit({
-      privateKey: this.state.seed,
       password: this.state.password,
       byPrivateKey: true,
+      ...extractedKey
     });
   }
 

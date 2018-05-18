@@ -15,8 +15,6 @@ declare module 'react-native-fingerprint-scanner';
 declare module 'react-native-haptic';
 declare module 'appcenter';
 declare module 'appcenter-push';
-declare module 'react-native-mail';
-declare module 'react-native-email';
 declare module 'redux-persist';
 declare module 'redux-persist/es/storage';
 declare module 'redux-persist/lib/constants';

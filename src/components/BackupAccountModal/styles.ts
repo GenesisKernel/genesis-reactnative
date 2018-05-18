@@ -27,7 +27,7 @@ export default StyleSheet.create({
     marginBottom: 15,
   },
   secondaryTitle: {
-    fontSize: FontSizes.mediumCommonSize,
+    fontSize: FontSizes.commonSize,
     textAlign: 'center',
     lineHeight: 22
   },

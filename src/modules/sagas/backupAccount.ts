@@ -1,6 +1,8 @@
-import Email from 'react-native-email';
+import { Share } from 'react-native';
+
 import { takeEvery, put, race, take, call, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
+import { path } from 'ramda';
 import { ModalTypes, MODAL_ANIMATION_TIME } from '../../constants';
 
 import { requestPrivateKeyWorker } from 'modules/sagas/privateKey';
@@ -19,24 +21,31 @@ export function* backupAccountWorker() {
   if (cancel) return;
 
   if (confirm) {
-    const email = confirm.payload;
     yield put(application.actions.closeModal());
     yield call(delay, MODAL_ANIMATION_TIME); // closing modal animation
     yield put(application.actions.toggleDrawer(false));
     yield call(delay, MODAL_ANIMATION_TIME); // closing drawer animation
 
-    const { privateKey } = yield call(requestPrivateKeyWorker);
+    const requestKey = yield call(requestPrivateKeyWorker);
+    const privateKey = path(['privateKey'], requestKey);
+
+    if (!privateKey) return;
     const ecosystem = yield select(auth.selectors.getCurrentEcosystemId);
+    yield call(delay, 700); // dont know why, but without delay, or delay < 700, we get some troubles on iOS
 
     try {
-      Email(email, {
-        subject: 'no-reply Apla.io',
-        body: `Your account key is: \n \n \n ${privateKey};${ecosystem} \n \n \n Just put it into import account field on your client.`,
-      }).catch(console.error);
-    } catch(error) {
-      console.error(error);
+      const shareResult = yield call(Share.share,
+        {
+          message: `${privateKey};${ecosystem}`,
+          title: 'Apla.io',
+          url: ''
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
   }
+  return;
 }
 
 export default function* backupAccountSaga() {

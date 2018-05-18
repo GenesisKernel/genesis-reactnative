@@ -17,7 +17,7 @@ export default {
   "modal.password.required": "Password required",
   "modal.password.to.continue": 'To continue please enter your password',
   "modal.email.to.continue": 'To continue please enter your email',
-  "modal.email.required": 'Email required',
+  "modal.email.required": "Verify your account so you will be able to share your private key. Please, Do not share it with 3rd-party persons.",
   "modal.email": 'e-mail',
   "transactions.list.transactions": "Transactions",
   "fingerprint.authentication": 'Biometric authentication',

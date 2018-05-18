@@ -4615,12 +4615,6 @@ react-native-elements@^0.19.0:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
-react-native-email@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-email/-/react-native-email-1.0.1.tgz#20eb18d6523e207e4e3e8e9c191a75fa1241ef3c"
-  dependencies:
-    qs "^6.5.1"
-
 react-native-fingerprint-scanner@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-native-fingerprint-scanner/-/react-native-fingerprint-scanner-2.3.2.tgz#f89dd5dcecf5858c005fa583c064ef4d20ea7731"
