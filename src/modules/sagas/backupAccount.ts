@@ -1,4 +1,4 @@
-import { Share } from 'react-native';
+import { Clipboard } from 'react-native';
 
 import { takeEvery, put, race, take, call, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
@@ -31,19 +31,11 @@ export function* backupAccountWorker() {
 
     if (!privateKey) return;
     const ecosystem = yield select(auth.selectors.getCurrentEcosystemId);
-    yield call(delay, 700); // dont know why, but without delay, or delay < 700, we get some troubles on iOS
+    yield call(delay, MODAL_ANIMATION_TIME);
 
-    try {
-      const shareResult = yield call(Share.share,
-        {
-          message: `${privateKey};${ecosystem}`,
-          title: 'apla',
-          url: `${privateKey};${ecosystem}`,
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    Clipboard.setString(`${privateKey};${ecosystem}`);
+
+    yield put(application.actions.receiveAlert({ type: 'default', message: 'account.key.copied.to.clipboard' }));
   }
   return;
 }

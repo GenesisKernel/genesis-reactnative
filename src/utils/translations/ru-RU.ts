@@ -9,6 +9,7 @@ export default {
   "account.button.remove": 'удалить',
   "account.want.to.remove": 'Вы уверены, что хотите удалить этот аккаунт?',
   "account.backup": 'Пожалуйста, введите ваш e-mail, чтоб мы отправили данные аккаунта',
+  "account.key.copied.to.clipboard": 'Ваш приватный ключ был скопирован в буфер.',
   "signin.screen.login": "Войти",
   "signin.screen.private.key": "Приватный ключ:",
   "signin.screen.ecosystem": 'Экосистема:',

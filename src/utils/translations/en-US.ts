@@ -8,6 +8,7 @@ export default {
   "account.button.change.password": 'change password',
   "account.button.remove": 'remove',
   "account.want.to.remove": 'Do you want to remove this account?',
+  "account.key.copied.to.clipboard": 'Your private key was copied to clipboard.',
   "signin.screen.login": "Login",
   "signin.screen.private.key": "Private key:",
   "signin.screen.ecosystem": 'Ecosystem:',
