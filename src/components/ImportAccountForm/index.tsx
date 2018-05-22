@@ -106,6 +106,8 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
     const extractedKey = extractParamsFromLink(this.state.seed);
     if (!extractedKey) return;
 
+    extractedKey.ecosystems = !extractedKey.ecosystems.length ? ['1'] : extractedKey.ecosystems;
+
     this.props.onSubmit({
       password: this.state.password,
       byPrivateKey: true,
