@@ -9,7 +9,7 @@ import { requestEcosystem } from './actions';
 import { getUsername, loginCall } from 'modules/sagas/sagaHelpers';
 import { uniqKeyGenerator } from 'utils/common';
 
-const defaultParams: string[] = ['ava', 'key_mask', 'ecosystem_name'];
+const defaultParams: string[] = ['ava', 'key_mask', 'name'];
 
 export function* requestEcosystemWorker(action: Action<any>) {
 
