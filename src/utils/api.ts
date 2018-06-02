@@ -145,7 +145,19 @@ export class apiFactory {
 
     this.runContract = (name: string, params: { [key: string]: any }) => api.post(`contract/${name}`, params);
 
+    this.prepareMultiple = (params: { contracts: { contract: string; params: any }[] }) => api.post('prepareMultiple', {
+      data: JSON.stringify(params),
+    });
+
+    this.runMultiple = (request_id: string, params: { [key: string]: any }) => api.post(`contractMultiple/${request_id}`, {
+      data: JSON.stringify(params),
+    });
+
     this.transactionStatus = (hash: string) => api.get<ITxStatusResponse>(`/txstatus/${hash}`);
+
+    this.transactionStatusMultiple = (hashes: string[]) => api.post(`/txstatusMultiple/`, {
+      data: JSON.stringify(hashes),
+    });
 
     this.updateNotifications = (payload: object) => api.post('/updnotificator', payload);
 

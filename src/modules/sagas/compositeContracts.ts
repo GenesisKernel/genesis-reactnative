@@ -1,89 +1,94 @@
 import { Action } from 'typescript-fsa';
-import { SagaIterator } from 'redux-saga';
+import { SagaIterator, delay } from 'redux-saga';
 import { takeEvery, put, call, race, take, spawn } from 'redux-saga/effects';
 import { takeLast } from 'ramda';
 import * as uuid from 'uuid';
 import * as transaction from 'modules/transaction';
-import { requestPrivateKeyWorker } from 'modules/sagas/privateKey';
+import { validateContractWorker } from 'modules/transaction/saga';
+import Keyring from 'utils/keyring';
+import { requestPrivateKeyWorker, refreshPrivateKeyExpireTime } from 'modules/sagas/privateKey';
+import api, { apiSetUrl, apiSetToken } from 'utils/api';
 
+class StatusError extends Error {};
 type ICompositeContract = {
   data: { [name: string]: any; };
   name: string;
   meta: {}
 };
 
-type ICompositeContractsPayload = ICompositeContract[];
+type ICompositeContractsPayload = {
+  composite: ICompositeContract[],
+  uuid: string;
+};
 
-const CONTRACTS_PER_TICK = 5;
+export function* getMultipleTransactionsStatus(hashes: string[]) {
+  while (true) {
+    const response = yield call(api.transactionStatusMultiple, { hashes });
 
-export function* compositeContractsFinishCatcher(itemToStop: number) {
-  let counter = 0;
-  yield takeEvery(transaction.actions.runTransaction.done, function* (contract: any) {
-    counter += 1;
-    if (counter === itemToStop) {
-      yield put(transaction.actions.runCompositeContracts.done({
-        params: { name: 'finished', data: '' },
-        result: {},
-      }));
+    if (response.data.results) {
+      for(let item of Object.values(response.data.results)) {
+        if (item.errmsg) {
+          throw new StatusError(item.errmsg.error);
+        }
+      }
+
+      return Object.values(response.data.results)[0];
     }
-  });
+
+    yield call(delay, 3000);
+  }
 }
 
 export function* compositeContractsWorker(action: Action<ICompositeContractsPayload>) {
   const generatedKey = yield call(requestPrivateKeyWorker);
   if (!generatedKey) return;
 
+  const { privateKey, publicKey } = generatedKey;
+
   const { meta, payload } = action;
-  let contracts: { name: string; data: any, uuid: string; }[] = [];
-  payload.forEach((item: any) => {
-    const id: string = uuid.v4();
-    const contract = item.data.map((el: any) => {
-      return {
-        uuid: id,
-        name: item.name,
-        data: el,
-      }
+  let contracts: { contract: string; params: any }[] = [];
+
+  payload.composite.forEach((contract) => {
+    contract.data.forEach((el: any) => {
+      contracts.push({
+        contract: contract.name,
+        params: el,
+      });
     });
-    contracts.push(...contract);
   });
 
-  yield spawn(compositeContractsFinishCatcher, contracts.length);
+  try {
+    const isContractsValid = yield call(validateContractWorker, { contracts }, privateKey, true);
 
-  let isFirstIteration = true;
-  while (true) {
-    const itemsToSlice = !isFirstIteration ? 1 : CONTRACTS_PER_TICK;
-    const newContracts = contracts.splice(0, itemsToSlice);
+    if (!isContractsValid) throw new Error(`Contract isn't valid.`);
 
-    if (newContracts.length === 0) return;
+    const prepareData = yield call(api.prepareMultiple, { contracts });
 
-    for (const contract of newContracts) {
-      yield put(transaction.actions.runTransaction.started(
-        {
-          uuid: contract.uuid,
-          datetime: new Date(),
-          contract: contract.name,
-          params: contract.data
-        },
-        action.meta,
-      ));
+    let signatures: string[] = [];
+
+    for(let sign of  prepareData.data.forsign) {
+      const signed = yield call(Keyring.sign, sign, privateKey);
+      signatures.push(signed);
+      yield call(delay, 10);
     }
 
-    const compositeResult = yield race({
-      success: take(transaction.actions.runTransaction.done),
-      failed: take(transaction.actions.runTransaction.failed),
-    });
+    const runContract = yield call(api.runMultiple, prepareData.data.request_id, { signatures, time: prepareData.data.time, pubkey: publicKey });
 
-    if (compositeResult.success) {
-      isFirstIteration = false;
-    }
+    const statusData = yield call(getMultipleTransactionsStatus, runContract.data.hashes);
 
-    if (compositeResult.failed) {
-      yield put(transaction.actions.runCompositeContracts.failed({
-        params: { name: 'finished', data: '' },
-        error: 'Composite contract run failed.'
-      }));
-      return;
-    };
+    yield put(
+      transaction.actions.runCompositeContracts.done({
+        params: { composite: { name: 'finished', data: '' }, uuid: payload.uuid },
+        result: 'success',
+      })
+    );
+
+    yield call(refreshPrivateKeyExpireTime);
+  } catch (error) {
+    yield put(transaction.actions.runCompositeContracts.failed({
+      params: { composite: { name: 'finished', data: '' }, uuid: payload.uuid },
+      error: error,
+    }));
   }
 }
 

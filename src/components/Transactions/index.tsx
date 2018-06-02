@@ -12,9 +12,21 @@ const extractError = pathOr('Error executing transaction')([
   'msg'
 ]);
 
-const isSuccess = item => !!item.block;
+const isSuccess = item => {
+  if (item.params && item.params.composite) {
+    return item.result && item.result === 'success';
+  } else {
+    return !!item.block;
+  }
+};
 const isFailure = item => !!item.error;
-const isPending = item => !item.block && !item.error;
+const isPending = item => {
+  if (item.params && item.params.composite) {
+    return !item.error && !item.result;
+  } else {
+    return !item.block && !item.error;
+  }
+}
 
 const extractStatus = item => {
   if (isPending(item)) {
@@ -75,7 +87,7 @@ class Transactions extends React.Component<ITransactionsProps> {
     );
   }
 
-  private keyExtractor = item => item.uuid;
+  private keyExtractor = item => item.uuid || item.params.uuid;
 
   private renderItem = ({ item }) => {
     const status = extractStatus(item);
@@ -92,7 +104,7 @@ class Transactions extends React.Component<ITransactionsProps> {
           <Text
             numberOfLines={1}
             style={styles.title}>
-            {item.contract}
+            {item.contract || pathOr('...', ['params', 'uuid'], item)}
           </Text>
           <Text
             numberOfLines={1}

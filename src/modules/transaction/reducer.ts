@@ -33,6 +33,26 @@ export default reducerWithInitialState(initialState)
       }
     })
   )
+  .case(actions.runCompositeContracts.started, (state, payload) => ({
+    ...state,
+    [payload.uuid]: {
+      ...payload,
+    }
+  }))
+  .case(actions.runCompositeContracts.done, (state, payload) => ({
+    ...state,
+    [payload.params.uuid]: {
+      ...payload,
+      ...payload.result,
+    }
+  }))
+  .case(actions.runCompositeContracts.failed, (state, payload) => ({
+    ...state,
+    [payload.params.uuid]: {
+      ...payload,
+      error: payload.error
+    }
+  }))
   .case(actions.runTransaction.done, (state, payload) => ({
     ...state,
     [payload.params.uuid]: {

@@ -13,6 +13,7 @@ export const runTransaction = actionCreator.async<
       vde?: boolean;
       [name: string]: any;
     };
+    isMultiple?: boolean;
   },
   {
     id: string;
@@ -23,11 +24,14 @@ export const runTransaction = actionCreator.async<
 
 export const runCompositeContracts = actionCreator.async<
   {
-    name: string;
-    data: string;
-  }[] | {
-    name: string;
-    data: string;
+    composite: {
+      name: string;
+      data: string;
+    }[] | {
+      name: string;
+      data: string;
+    };
+    uuid: string;
   },
   {},
   string

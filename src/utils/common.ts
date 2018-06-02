@@ -40,3 +40,15 @@ export const uniqKeyGenerator = (payload: any ): string => {
   const { key_id, ecosystem_id, } = payload;
   return `${key_id}_${ecosystem_id}`;
 }
+
+export const TxDissect = (forsign: string) => {
+  const matches = /([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}),[0-9]+,([0-9]+),(.*)/i.exec(forsign);
+
+  if (matches) {
+    return {
+      requestID: matches[1],
+      timestamp: parseInt(matches[2], 10),
+      body: matches[3]
+    };
+  }
+};

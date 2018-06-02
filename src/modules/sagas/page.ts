@@ -90,7 +90,7 @@ export function* pageWorker(action: Action<any>): SagaIterator {
   if (action.payload.composite) {
     yield put(
       transaction.actions.runCompositeContracts.started(
-        action.payload.composite,
+        { composite: action.payload.composite, uuid: uuid.v4() },
         action.meta
       )
     );

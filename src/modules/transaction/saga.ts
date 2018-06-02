@@ -11,6 +11,8 @@ import * as nodes from 'modules/nodes';
 
 import api, { apiSetUrl, apiSetToken } from 'utils/api';
 import Keyring from 'utils/keyring';
+import { TxDissect } from 'utils/common';
+
 import { REQUIRED_ALIVE_NODES_COUNT } from '../../constants';
 import { checkNodeValidity, loginCall } from 'modules/sagas/sagaHelpers';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
@@ -24,6 +26,8 @@ export interface IPrepareData {
     field: string;
   }[];
 }
+
+
 
 export function* getTransactionStatus(hash: string) {
   while (true) {
@@ -91,33 +95,49 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
   yield put(setTransactions(transactions)); // removing transaction which was canceled
 }
 
-export function* validateContractWorker(action: Action<any>, locale: string, privateKey: string) {
-  const { nodesList, currentNode, token, uniqKey } = yield all({
+export function* validateContractWorker(action: any, privateKey: string, isMultiple = false) {
+  const { nodesList, currentNode, token, uniqKey, locale } = yield all({
     nodesList: select(nodes.selectors.getNodesList),
     currentNode: select(nodes.selectors.getCurrentNode),
     uniqKey: select(auth.selectors.getCurrentAccount),
     token: select(auth.selectors.getToken),
+    locale: select(application.selectors.getCurrentLocale),
   });
 
   const currentAcc = yield select(account.selectors.getAccount(uniqKey));
   const validNodes = yield call(checkNodeValidity, nodesList, REQUIRED_ALIVE_NODES_COUNT, token, currentNode, true);
 
   if (!validNodes.length || validNodes.length !== REQUIRED_ALIVE_NODES_COUNT) return false;
-  let validatedContracts = [];
+  let validatedContracts: any[] = [];
 
   for (const node of validNodes) {
     try {
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
       yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature );
 
-      const { data: prepareData } = yield call(
-        api.prepareContract,
-        action.payload.contract,
-        { ...action.payload.params, Lang: locale },
-      );
+      let prepareResult;
+      if (!isMultiple) {
+        prepareResult = yield call(
+          api.prepareContract,
+          action.payload.contract,
+          { ...action.payload.params, Lang: locale },
+        );
+        const { data: prepareData } = prepareResult;
+        prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
+        validatedContracts.push(prepareData);
+      } else {
+        prepareResult = yield call(
+          api.prepareMultiple,
+          action,
+        );
 
-      prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
-      validatedContracts.push(prepareData);
+        const { data: prepareData } = prepareResult;
+
+        prepareData.forsign.forEach((forsign: string, index: number) => {
+          prepareData.forsign[index] = TxDissect(forsign);
+        });
+        validatedContracts.push(...prepareData.forsign);
+      }
     } catch (err) {
       yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
       yield call(apiSetToken, token);
@@ -128,8 +148,15 @@ export function* validateContractWorker(action: Action<any>, locale: string, pri
   yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
   yield call(apiSetToken, token);
 
-  if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(Number(validatedContracts[0].time) - Number(validatedContracts[1].time)) <= 60) {
-    return true;
+  if (!isMultiple) {
+    if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(Number(validatedContracts[0].time) - Number(validatedContracts[1].time)) <= 60) {
+      return true;
+    }
+  } else {
+    if (validatedContracts.every(item => item.body === validatedContracts[0].body && Math.abs(item.timestamp - validatedContracts[0].timestamp) <= 3
+    )) {
+      return true;
+    }
   }
 
   return false;
@@ -146,7 +173,7 @@ export function* contractWorker(action: Action<any>): SagaIterator {
     }
 
     const { privateKey } = getKey;
-    const isContractValid = yield call(validateContractWorker, action, locale, privateKey);
+    const isContractValid = yield call(validateContractWorker, action, privateKey);
 
     if (!isContractValid) throw new Error(`Contract isn't valid.`);
 
