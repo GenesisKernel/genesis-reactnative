@@ -10,11 +10,11 @@ export const fullNodes =
     // },
     {
       "apiUrl": "https://testnet0.apla.io:7079/",
-      "msgUrl": "ws://testnet0.apla.io:7079"
+      // "msgUrl": "ws://testnet0.apla.io:7079"
     },
     {
       "apiUrl": "https://testnet1.apla.io:7079/",
-      "msgUrl": "ws://testnet1.apla.io:7079"
+      // "msgUrl": "ws://testnet1.apla.io:7079"
     },
     // {
     //   "apiUrl": "http://127.0.0.1:9000/",

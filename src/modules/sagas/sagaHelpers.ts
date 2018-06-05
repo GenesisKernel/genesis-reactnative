@@ -142,3 +142,12 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
     }
   }
 }
+
+export function* defaultPageSetter(role_id?: number | string | undefined) {
+  const currentRole = yield select(auth.selectors.getCurrentRole);
+  if (role_id || currentRole && currentRole.role_id) {
+    const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id || currentRole.role_id);
+
+    yield put(application.actions.setDefaultPage(default_page));
+  }
+}

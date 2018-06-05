@@ -7,7 +7,7 @@ import * as navigator from 'modules/navigator';
 import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  const currentPage = page.selectors.getPage(ownProps.pageName)(state);
+  const currentPage = page.selectors.getPage(state.application.defaultPage)(state);
 
   return {
     menu: ownProps.menu || (currentPage && currentPage.menuTree) || []

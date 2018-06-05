@@ -15,3 +15,5 @@ export const getCurrentEcosystemId = state => state.accounts[state.auth.currentA
 export const getAuthStatus = state => state.auth.isAuthenticated;
 
 export const getCurrentAccount = state => state.auth.currentAccount;
+
+export const getCurrentRole = state => state.auth.currentRole;

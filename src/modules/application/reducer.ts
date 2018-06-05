@@ -2,7 +2,7 @@ import { equals } from 'ramda';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 import * as actions from './actions';
-import { DEFAULT_TITLE } from '../../constants';
+import { DEFAULT_TITLE, DEFAULT_PAGE } from '../../constants';
 
 export interface INetwork {
   pending: boolean;
@@ -44,6 +44,7 @@ export interface IState {
   };
   modalType: null | string;
   drawerOpen: boolean;
+  defaultPage: string;
 }
 
 export const initialState: IState = {
@@ -60,6 +61,7 @@ export const initialState: IState = {
   privateKey: null,
   modalType: null,
   drawerOpen: false,
+  defaultPage: DEFAULT_PAGE,
 };
 
 export default reducerWithInitialState<IState>(initialState)
@@ -150,3 +152,7 @@ export default reducerWithInitialState<IState>(initialState)
     ...state,
     currentLocale: payload,
   }))
+  .case(actions.setDefaultPage, (state, payload) => ({
+    ...state,
+    defaultPage: payload,
+  }));

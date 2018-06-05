@@ -5,9 +5,10 @@ import { takeEvery, put, call, select, all, take } from 'redux-saga/effects';
 
 import { apiSetToken } from 'utils/api';
 import { checkTouchIDAvailiability, getCurrentLocale } from 'utils/common';
+import { defaultPageSetter } from 'modules/sagas/sagaHelpers';
 import { waitForError } from '../sagas/utils';
-import { navTypes, ERRORS } from '../../constants';
-import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale } from './actions';
+import { navTypes, ERRORS, DEFAULT_PAGE } from '../../constants';
+import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale, setDefaultPage } from './actions';
 import { getDrawerState, getAlert } from './selectors';
 
 import * as auth from 'modules/auth';
@@ -39,6 +40,8 @@ export function* initWorker(): SagaIterator {
 
   if (hasValidToken) {
     apiSetToken(token);
+
+    yield call(defaultPageSetter);
 
     yield put(initFinish());
     yield put(
@@ -98,9 +101,14 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
   }
 }
 
+function* resetDefaultPageWorker() {
+  yield put(setDefaultPage(DEFAULT_PAGE));
+}
+
 export function* applicationWatcher(): SagaIterator {
   yield takeEvery(initStart, initWorker);
   yield takeEvery(waitForError(), alertWorker);
+  yield takeEvery(auth.actions.detachSession, resetDefaultPageWorker);
 }
 
 export default applicationWatcher;

@@ -18,7 +18,7 @@ import * as ecosystemSaga from 'modules/ecosystem';
 
 import { navTypes, ERRORS, MODAL_ANIMATION_TIME } from '../../constants';
 import { waitForActionWithParams } from '../sagas/utils';
-import { roleSelect, loginCall } from 'modules/sagas/sagaHelpers';
+import { roleSelect, loginCall, defaultPageSetter } from 'modules/sagas/sagaHelpers';
 import { checkEcosystemsAvailiability } from 'modules/ecosystem/saga';
 import { uniqKeyGenerator } from 'utils/common';
 import { validatePassword } from 'modules/sagas/privateKey';
@@ -52,6 +52,8 @@ export function* auth(payload: IAuthPayload) {
 
   if (currentRole.role_id) {
     const newAcc = yield call(loginCall, payload, currentRole.role_id);
+
+    yield call(defaultPageSetter, currentRole.role_id);
 
     accountData = { ...accountData, ...newAcc };
     accounts[uniqKeyGenerator(accountData)] = accountData;

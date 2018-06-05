@@ -111,6 +111,7 @@ export class apiFactory {
       }
     });
 
+    this.getRow = (table: string, id: string | number) => api.get(`row/${table}/${id}`);
     this.getUid = () => api.get<IUidResponse>('/getuid');
     this.login = (payload: {
       publicKey: string;

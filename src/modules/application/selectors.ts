@@ -57,3 +57,8 @@ export const getCurrentLocale = createSelector(
   getApplication,
   application => application.currentLocale
 );
+
+export const getDefaultPage = createSelector(
+  getApplication,
+  application => application.defaultPage,
+);

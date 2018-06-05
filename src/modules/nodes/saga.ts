@@ -51,6 +51,7 @@ export function* setRandomNode() {
 export function* getFullNodesWorkerHelper() {
   try {
     const { data: { list } } = yield call(api.getFullNodes);
+    console.log(JSON.parse(list[0].value), 'LIST')
     const nodesList = yield select(node.selectors.getNodesList);
 
     let nodes = [];
@@ -64,7 +65,7 @@ export function* getFullNodesWorkerHelper() {
     const allNodes = nodesList.concat(fullNodes);
     const newNodes = yield call(filterDuplicateNodes, allNodes.concat(nodes.map((item: any) => {
       return {
-        apiUrl: item[1],
+        apiUrl: `${item.api_address}/`,
       }
     })));
 
