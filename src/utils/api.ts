@@ -132,7 +132,7 @@ export class apiFactory {
           `ecosystemparams?ecosystem=${id}&names=${params.join(',')}`).then(response => ({ ...response, data: response.data.list }));
 
     this.getContentOfPage = (name: string, params: { [key: string]: any } = {}) =>
-      api.post<IContentResponse>(`content/page/${name}`, params).then(response => ({
+      api.post<IContentResponse>(`content/page/${name}`, { ...params, isMobile: 1 }).then(response => ({
           ...response,
           data: {
             name,

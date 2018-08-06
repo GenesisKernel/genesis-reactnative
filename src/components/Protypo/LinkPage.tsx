@@ -8,6 +8,7 @@ export interface IButtonProps extends IElementProps {
   attr: {
     page?: string;
     params?: { [key: string]: string };
+    pageparams?: { [key: string]: string };
   };
 
   submit(params: any): void;
@@ -29,11 +30,11 @@ class LinkPage extends React.PureComponent<IButtonProps> {
   }
 
   private handleSubmit = () => {
-    const { attr: { page, params }, submit } = this.props;
+    const { attr: { page, params, pageparams }, submit } = this.props;
 
     submit({
       page,
-      pageparams: params
+      pageparams: pageparams || params
     });
   }
 }
