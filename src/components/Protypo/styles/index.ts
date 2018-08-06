@@ -144,13 +144,18 @@ styles.addRules({
       color: '#f05050'
     }
   },
-
+  ['Div.input-group Input']: {
+    style: {
+      marginLeft: 5,
+    }
+  },
   ['Div.input-group']: {
     style: {
       flex: 1,
       flexDirection: 'row',
-      paddingHorizontal: 5
-    }
+      paddingHorizontal: 5,
+      alignItems: 'center',
+    },
   },
   ['Div.input-group-btn']: {
     style: {

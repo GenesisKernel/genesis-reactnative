@@ -7,7 +7,7 @@ import Data from './Data';
 import DBFind from './DBFind';
 import Em from './Em';
 import Form from './Form';
-import Image from './Image';
+// import Image from './Image';
 import Input from './Input';
 import InputError from './InputError';
 import InputImage from './InputImage';
@@ -20,6 +20,7 @@ import Select from './Select';
 import Title from 'containers/Protypo/TitleContainer';
 import RadioGroup from './RadioGroup';
 import * as constatns from './constants';
+import ImageContainer from 'containers/Protypo/ImageContainer';
 
 type ProtypoComponent = React.Component<any> | React.SFC<any>;
 
@@ -31,7 +32,7 @@ const handlers: { [tag: string]: ProtypoComponent } = {
   [constatns.TAG_LABEL]: Label,
   [constatns.TAG_STRONG]: Strong,
   [constatns.TAG_TEXT]: Text,
-  [constatns.TAG_IMAGE]: Image,
+  [constatns.TAG_IMAGE]: ImageContainer,
   [constatns.TAG_FORM]: Form,
   [constatns.TAG_BUTTON]: ButtonContainer,
   [constatns.TAG_LINK_PAGE]: LinkPageContainer,

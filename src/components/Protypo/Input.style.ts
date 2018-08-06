@@ -4,7 +4,7 @@ const ERROR_COLOR = '#f05050';
 
 const styles = StyleSheet.create({
   container: {
-    minWidth: 175
+    minWidth: 175,
   },
   input: {
     padding: 5,
