@@ -46,7 +46,8 @@ class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
             <View style={styles.cameraContainer}>
               <RNCamera
                 style={styles.camera}
-                onBarCodeRead={this.handleBarCodeRead}>
+                onBarCodeRead={this.handleBarCodeRead}
+              >
                 <View style={styles.qrContainer}>
                   <View style={styles.qrFrameWrapper}>
                     <ScannerFrame />

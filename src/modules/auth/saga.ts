@@ -104,11 +104,12 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
   try {
     const publicKey = yield call(Keyring.genereatePublicKey, privateKey);
     const encKey = yield call(Keyring.encryptAES, privateKey, password);
+    const validEcosystems = ecosystems.length ? ecosystems : ['1'];
 
     const accounts = yield call(auth, {
       public: publicKey,
       private: privateKey,
-      ecosystems: ecosystems || ['1'],
+      ecosystems: validEcosystems,
     });
 
     Object.values(accounts).forEach(el => el.encKey = encKey);

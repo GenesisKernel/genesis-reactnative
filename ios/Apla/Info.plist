@@ -78,7 +78,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow access to your camera</string>
+	<string>Apla would like to access your camera to scan QR code!</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
