@@ -26,7 +26,7 @@ interface IColumn {
 
 const RowLabel = ({ children, style }) => (
   <View style={[defaultStyles.rowLabel, style]}>
-    <Text numberOfLines={1} ellipsizeMode="tail">
+    <Text style={defaultStyles.rowLabelText} numberOfLines={1} ellipsizeMode="tail">
       {children}
     </Text>
   </View>

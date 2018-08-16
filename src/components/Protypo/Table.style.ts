@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     borderBottomWidth: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
     borderBottomColor: '#eee'
   },
   rowHead: {
@@ -21,10 +21,14 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: '#eee'
   },
+  rowLabelText: {
+    color: '#888',
+  },
   rowValue: {
     flex: 1,
     padding: 5,
-    paddingVertical: 10
+    paddingVertical: 10,
+    flexDirection: 'row',
   }
 });
 

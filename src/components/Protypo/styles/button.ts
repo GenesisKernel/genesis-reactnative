@@ -32,8 +32,8 @@ export default (styles: Stylesheet) => {
 
     ['Button.btn.btn-default']: {
       style: {
-        backgroundColor: COLORS.WHITE,
-        borderColor: '#cfdbe2',
+        backgroundColor: COLORS.GRAY_BTN_DEFAULT,
+        borderColor: '#dde6e9',
         borderWidth: 1
       }
     },

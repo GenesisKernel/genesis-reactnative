@@ -26,5 +26,6 @@ export const COLORS = {
   GRAY_DARKER: '#232735',
   GRAY_DARK: '#3a3f51',
   GRAY_LIGHT: '#e4eaec',
-  GRAY_LIGHTER: '#edf1f2'
+  GRAY_LIGHTER: '#edf1f2',
+  GRAY_BTN_DEFAULT: '#e9e9e9',
 };

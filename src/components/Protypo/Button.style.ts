@@ -4,7 +4,7 @@ const ERROR_COLOR = '#f05050';
 
 const styles = StyleSheet.create({
   button: {
-    height: 48,
+    height: 40,
     flexDirection: 'row'
   },
   dialog: {

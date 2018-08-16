@@ -83,12 +83,48 @@ styles.addRules({
       color: '#f05050'
     }
   },
+  ['Span.text-bold Text']: {
+    style: {
+      fontWeight: 'bold',
+    }
+  },
   ['Image.img-circle']: {
     style: {
       width: 40,
       height: 40,
       borderRadius: 20,
       marginRight: 15
+    }
+  },
+  ['Image.big_photo']: {
+    style: {
+      width: 200,
+      height: 200,
+    }
+  },
+  ['Div.text-danger Text']: {
+    style: {
+      color: '#f05050'
+    }
+  },
+  ['Div.text-primary Text']: {
+    style: {
+      color: COLORS.PRIMARY
+    }
+  },
+  ['Div.text-success Text']: {
+    style: {
+      color: COLORS.SUCCESS
+    }
+  },
+  ['Div.text-info Text']: {
+    style: {
+      color: COLORS.INFO
+    }
+  },
+  ['Div.text-bold Text']: {
+    style: {
+      fontWeight: 'bold',
     }
   },
   ['Div.pull-right']: {
@@ -166,9 +202,73 @@ styles.addRules({
     style: {
       padding: 5,
       borderBottomWidth: 1,
-      borderBottomColor: '#e4eaec'
+      borderBottomColor: '#e4eaec' //here is kee
     }
-  }
+  },
+  ['Div.list-group-item Div.row.mt-sm']: {
+    style: {
+      flexDirection: 'row',
+    }
+  },
+  ['Div.list-group-item Div.row Div']: {
+    style: {
+      flex: 0.5,
+      paddingVertical: 10,
+    }
+  },
+  ['LinkPage.text-muted Text']: {
+    style: {
+      color: '#909FA7'
+    }
+  },
+  ['LinkPage.text-primary Text']: {
+    style: {
+      color: COLORS.PRIMARY
+    }
+  },
+  ['LinkPage.text-success Text']: {
+    style: {
+      color: COLORS.SUCCESS
+    }
+  },
+  ['LinkPage.text-info Text']: {
+    style: {
+      color: COLORS.INFO
+    }
+  },
+  ['LinkPage.text-warning Text']: {
+    style: {
+      color: COLORS.WARNING
+    }
+  },
+  ['LinkPage.text-danger Text']: {
+    style: {
+      color: '#f05050'
+    }
+  },
+  ['LinkPage.text-bold Text']: {
+    style: {
+      fontWeight: 'bold',
+    }
+  },
+  ['LinkPage.center']: {
+    style: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    }
+  },
+
+  ['Strong Text']: {
+    style: {
+      fontWeight: 'bold',
+    }
+  },
+  ['Div.panel Div.list-group-item']: {
+    style: {
+      flexDirection: 'row',
+      paddingVertical: 10,
+    }
+  },
 });
 
 export default styles;
