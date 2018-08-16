@@ -50,7 +50,7 @@ export function* auth(payload: IAuthPayload) {
   const { roles } = accountData;
   const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : {};
 
-  if (currentRole.role_id) {
+  if (currentRole && currentRole.role_id) {
     const newAcc = yield call(loginCall, payload, currentRole.role_id);
 
     yield call(defaultPageSetter, currentRole.role_id);

@@ -3,7 +3,7 @@ import { create } from 'apisauce';
 import { takeEvery, put, race, take, call, select, all } from 'redux-saga/effects';
 import { path } from 'ramda';
 import { delay } from 'redux-saga';
-import { ModalTypes, MODAL_ANIMATION_TIME, GUEST_KEY_PAIR } from '../../constants';
+import { ModalTypes, MODAL_ANIMATION_TIME, GUEST_KEY_PAIR, DEFAULT_PAGE } from '../../constants';
 import api, { apiSetToken, apiDeleteToken, apiSetUrl, apiFactory } from 'utils/api';
 
 import { IAuthPayload } from 'modules/auth/saga';
@@ -148,6 +148,6 @@ export function* defaultPageSetter(role_id?: number | string | undefined) {
   if (role_id || currentRole && currentRole.role_id) {
     const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id || currentRole.role_id);
 
-    yield put(application.actions.setDefaultPage(default_page));
+    yield put(application.actions.setDefaultPage(default_page || DEFAULT_PAGE));
   }
 }
