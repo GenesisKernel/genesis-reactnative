@@ -18,5 +18,6 @@ export const TAG_TABLE = 'table';
 export const TAG_DBFIND = 'dbfind';
 export const TAG_SELECT = 'select';
 export const FUNCTION_SET_TITLE = 'settitle';
+export const FOR_LIST = 'forlist';
 
 export const HIDDEN_FIELD_CONTRACT = '_contract';

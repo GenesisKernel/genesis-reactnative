@@ -121,7 +121,8 @@ export class apiFactory {
       api.post<ILoginResponse>('/login', {
         pubkey: payload.publicKey.slice(2),
         signature: payload.signature,
-        ecosystem: payload.ecosystem || '0'
+        ecosystem: payload.ecosystem || '0',
+        mobile: 1,
       });
 
     this.getCentrifugoUrl = () => api.get('/config/centrifugo');

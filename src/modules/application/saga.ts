@@ -40,8 +40,12 @@ export function* initWorker(): SagaIterator {
 
   if (hasValidToken) {
     apiSetToken(token);
+    try {
+      yield call(defaultPageSetter);
+    } catch (error) {
+      console.log(error)
+    }
 
-    yield call(defaultPageSetter);
 
     yield put(initFinish());
     yield put(

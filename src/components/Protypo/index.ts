@@ -21,6 +21,7 @@ import Title from 'containers/Protypo/TitleContainer';
 import RadioGroup from './RadioGroup';
 import * as constatns from './constants';
 import ImageContainer from 'containers/Protypo/ImageContainer';
+import Forlist from './Forlist';
 
 type ProtypoComponent = React.Component<any> | React.SFC<any>;
 
@@ -44,7 +45,8 @@ const handlers: { [tag: string]: ProtypoComponent } = {
   [constatns.TAG_TABLE]: Table,
   [constatns.TAG_DBFIND]: DBFind,
   [constatns.TAG_SELECT]: Select,
-  [constatns.FUNCTION_SET_TITLE]: Title
+  [constatns.FUNCTION_SET_TITLE]: Title,
+  [constatns.FOR_LIST]: Forlist,
 };
 
 export const resolveHandler = (tag: string): ProtypoComponent => {
