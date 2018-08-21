@@ -117,11 +117,13 @@ export class apiFactory {
       publicKey: string;
       signature: string;
       ecosystem: string;
+      role_id?: string;
     }) =>
       api.post<ILoginResponse>('/login', {
         pubkey: payload.publicKey.slice(2),
         signature: payload.signature,
         ecosystem: payload.ecosystem || '0',
+        role_id: payload.role_id,
         mobile: 1,
       });
 

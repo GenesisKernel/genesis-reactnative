@@ -63,7 +63,6 @@ export function* loginCall(payload: IAuthPayload, role_id?: number, signParams?:
     yield call(apiSetToken, uidParams.token);
 
     const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, payload.private);
-
     let { data: accountData } = yield call(api.login, {
       signature,
       ecosystem: payload.ecosystems[0] || '1',
