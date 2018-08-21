@@ -9,8 +9,4 @@ export const getNotifications = createSelector(
   (notifications: AccountReduceState) => notifications,
 );
 
-export const getNotificationsCount = createSelector(
-  (state: IRootState) => state.notifications,
-  (state: IRootState) => state.auth.currentAccount,
-  (notifications: AccountReduceState, currentAccount: any) => path([`${currentAccount}, count`], notifications),
-);
+export const getNotificationsCount = (state: any) => path(['notifications', `${state.auth.currentAccount}`, '0', 'count'], state);
