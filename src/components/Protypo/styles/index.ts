@@ -263,12 +263,18 @@ styles.addRules({
       fontWeight: 'bold',
     }
   },
-  ['Div.panel Div.list-group-item']: {
+  ['Div.table-responsive View']: {
     style: {
-      flexDirection: 'row',
-      paddingVertical: 10,
+      flex: 1,
+      flexDirection: 'column'
     }
   },
+  // ['Div.panel Div.list-group-item']: {
+  //   style: {
+  //     flexDirection: 'row',
+  //     paddingVertical: 10,
+  //   }
+  // },
 });
 
 export default styles;
