@@ -35,7 +35,7 @@ export function* getTransactionStatus(hash: string) {
     yield put(checkTransactionStatus(response.data));
 
     if (response.data.errmsg) {
-      throw new StatusError(response.data.errmsg);
+      throw new StatusError(response.data.errmsg.error);
     }
 
     if (response.data.blockid) {
