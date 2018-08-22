@@ -269,11 +269,11 @@ styles.addRules({
       flexDirection: 'column'
     }
   },
-  ['Div.forlist-column Vew']: {
+  ['Div.forlist-column View']: {
     style: {
-      flexDirection: 'column',
+      width: '80%',
     }
-  }
+  },
   // ['Div.panel Div.list-group-item']: {
   //   style: {
   //     flexDirection: 'row',
