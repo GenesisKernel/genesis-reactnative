@@ -23,15 +23,11 @@ class StatusIcon extends React.PureComponent<IStatusIconProps> {
 
     return (
       <View style={styles.icon}>
-        <View
-          style={styles.animationContainer}
-        >
-          {count && (
-            <View style={styles.counter}>
-              <Text style={styles.counterText}>{`${count}`}</Text>
-            </View>
-          )}
-        </View>
+        {count && (
+          <View style={styles.counter}>
+            <Text style={styles.counterText}>{`${count}`}</Text>
+          </View>
+        )}
         <Icon
           name="flag"
           size={22}
