@@ -6,7 +6,7 @@ export interface IForListProps {
 }
 
 const ForList: React.SFC<IForListProps> = ({ children, style }) => (
-  <View style={[style, { flexDirection: 'row' }]}>{children}</View>
+  <View style={[{ flexDirection: 'row' }, style]}>{children}</View>
 );
 
 export default ForList;
