@@ -4,17 +4,22 @@ import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Colors } from 'components/ui/theme';
 import Text from 'components/ui/Text';
+import { navTypes } from '../../constants';
 import styles from './styles';
 
 interface IStatusIconProps {
   count?: number | null;
-  showNotificationsPage: () => void;
+  isHomeRoute: boolean;
+  showNotificationsPage: (withReset?: boolean) => void;
 }
 
 class StatusIcon extends React.PureComponent<IStatusIconProps> {
-
+  showNotificationsPage = () => {
+    const { isHomeRoute, showNotificationsPage } = this.props;
+    showNotificationsPage(!isHomeRoute);
+  }
   public render() {
-    const { count, showNotificationsPage } = this.props;
+    const { count } = this.props;
 
     return (
       <View style={styles.icon}>
@@ -33,7 +38,7 @@ class StatusIcon extends React.PureComponent<IStatusIconProps> {
           color={Colors.dark}
           type="simple-line-icon"
           underlayColor="transparent"
-          onPress={showNotificationsPage}
+          onPress={this.showNotificationsPage}
         />
       </View>
     );
