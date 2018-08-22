@@ -11,29 +11,22 @@ interface IStatusIconProps {
   showNotificationsPage: () => void;
 }
 
-class StatusIcon extends React.Component<IStatusIconProps> {
+class StatusIcon extends React.PureComponent<IStatusIconProps> {
 
   public render() {
     const { count, showNotificationsPage } = this.props;
 
     return (
       <View style={styles.icon}>
-        <AnimatableView
-          animation="bounce"
-          direction="normal"
-          easing="ease-out"
-          duration={400}
-          useNativeDriver
-          iterationCount={1}
+        <View
           style={styles.animationContainer}
-          key={Number(count)}
         >
           {count && (
             <View style={styles.counter}>
               <Text style={styles.counterText}>{`${count}`}</Text>
             </View>
           )}
-        </AnimatableView>
+        </View>
         <Icon
           name="flag"
           size={22}
