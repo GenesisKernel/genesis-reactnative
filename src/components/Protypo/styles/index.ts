@@ -5,6 +5,7 @@ import grid from './grid';
 import panel from './panel';
 import button from './button';
 import alert from './alert';
+import text from './text';
 
 import { COLORS } from './theme';
 
@@ -15,6 +16,7 @@ grid(styles);
 panel(styles);
 button(styles);
 alert(styles);
+text(styles);
 
 styles.addRules({
   ['Span Text']: {
