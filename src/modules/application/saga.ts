@@ -17,6 +17,7 @@ import * as navigator from 'modules/navigator';
 
 interface IErrorAlert {
   error: {
+    title?: string;
     message: string;
     data: {
       error: string;
@@ -93,10 +94,12 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
     path<string>(['error'])(action.payload) ||
     'Unexpected error!';
 
+  const { error: { title = 'Server error!' } } = action.payload;
+
   if (message && !(action.meta && action.meta.ignore)) {
     const isActiveAlert = yield select(getAlert);
     if (!isActiveAlert) {
-      yield put(receiveAlert({ title: 'Server error!', message, type: 'error' }));
+      yield put(receiveAlert({ title, message, type: 'error' }));
 
       if (path(['error', 'data', 'error'], action.payload) === ERRORS.TOKEN_EXPIRED) {
         yield call(expiredTokenWorker);
