@@ -23,22 +23,22 @@ export default (styles: Stylesheet) => {
       },
     },
 
-    ['Span.text-left']: {
+    ['Span.text-left Text']: {
       style: {
         textAlign: 'left',
       },
     },
-    ['Span.text-center']: {
+    ['Span.text-center Text']: {
       style: {
         textAlign: 'center',
       },
     },
-    ['Span.text-right']: {
+    ['Span.text-right Text']: {
       style: {
         textAlign: 'right',
       },
     },
-    ['Span.text-justify']: {
+    ['Span.text-justify Text']: {
       style: {
         textAlign: 'justify',
       },
