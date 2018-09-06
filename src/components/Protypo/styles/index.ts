@@ -6,6 +6,7 @@ import panel from './panel';
 import button from './button';
 import alert from './alert';
 import text from './text';
+import div from './div';
 
 import { COLORS } from './theme';
 
@@ -17,6 +18,7 @@ panel(styles);
 button(styles);
 alert(styles);
 text(styles);
+div(styles);
 
 styles.addRules({
   ['Span Text']: {
@@ -204,7 +206,7 @@ styles.addRules({
     style: {
       padding: 5,
       borderBottomWidth: 1,
-      borderBottomColor: '#e4eaec' //here is kee
+      borderBottomColor: '#e4eaec' // here is kee
     }
   },
   ['Div.list-group-item Div.row.mt-sm']: {
