@@ -7,8 +7,8 @@ export interface IForListProps {
 
 const ForList: React.SFC<IForListProps> = ({ children }) => {
   return (
-    <View  style={[{ flexDirection: 'row', flexWrap: 'wrap' }]}>{children}</View>
-  )
-}
+    <View  style={[{ flexDirection: 'column', flexWrap: 'wrap' }]}>{children}</View>
+  );
+};
 
 export default ForList;

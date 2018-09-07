@@ -2,6 +2,12 @@ import { Stylesheet } from 'react-native-stylable';
 
 export default (styles: Stylesheet) => {
   styles.addRules({
+    ['Div.media-box-body']: {
+      style: {
+        flex: 1,
+      },
+    },
+
     ['Div.pt-sm']: {
       style: {
         paddingTop: 5,

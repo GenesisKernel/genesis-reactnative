@@ -1,16 +1,16 @@
 import { times } from 'ramda';
 import { Stylesheet } from 'react-native-stylable';
 
-const generateGridRules = (className: string, customStyles = {}) => {
+const generateGridRules = (className: string, customStyles: {}) => {
   const columns = 12;
   const arr = times(i => i, columns);
 
   return arr.reduce((acc: any, index) => {
-    acc[`Div.${className}-${index}`] = customStyles
+    acc[`Div.${className}-${index + 1}`] = customStyles
       ? customStyles
       : {
           style: {
-            flex: index / columns
+            flex: (index + 1) / columns
           }
         };
 
@@ -33,8 +33,6 @@ export default (styles: Stylesheet) => {
       }
     },
     ...generateGridRules('col-xs'),
-    ...generateGridRules('col-md', {
-      flex: 1
-    })
+    ...generateGridRules('col-md')
   });
 };
