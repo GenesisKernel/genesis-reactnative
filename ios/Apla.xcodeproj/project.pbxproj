@@ -945,6 +945,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1679,7 +1682,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.apla;
 				PRODUCT_NAME = Apla;
-				PROVISIONING_PROFILE = "b7f869a2-7721-4f02-978d-fe65e51c0986";
+				PROVISIONING_PROFILE = "67f61770-7ded-497d-9f37-829bf7c51178";
 				PROVISIONING_PROFILE_SPECIFIER = "Apla Ad Hoc";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1718,7 +1721,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.apla;
 				PRODUCT_NAME = Apla;
-				PROVISIONING_PROFILE = "d6c8f9c2-4f11-4ea5-95d2-feadca14be61";
+				PROVISIONING_PROFILE = "7400ace1-8a07-446f-b845-435d0d6c19b0";
 				PROVISIONING_PROFILE_SPECIFIER = "Apla App Store";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
