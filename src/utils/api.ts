@@ -82,8 +82,9 @@ export class apiFactory {
   constructor(api: ApisauceInstance) {
     api.addRequestTransform(request => {
       if (request.method === 'post' && request.data) {
+        // const isMuptipart = request.headers['Content-Type'].includes('multipart/form-data');
         const data = { ...request.data };
-        const params = new URLSearchParams();
+        const params = new FormData();
         const keys = Object.keys(data);
 
         keys.forEach(key => {
@@ -93,8 +94,11 @@ export class apiFactory {
 
           params.append(key, data[key]);
         });
-
-        request.data = params.toString();
+        // if (!isMuptipart) {
+        //   request.data = params.toString();
+        // } else {
+          request.data = params;
+        // }
       }
     });
     api.addResponseTransform(response => {
@@ -144,8 +148,12 @@ export class apiFactory {
           }
         }));
 
-    this.prepareContract = (name: string, params: { [key: string]: any }) =>
-      api.post<ITxPrepareResponse>(`prepare/${name}`, params);
+    this.prepareContract = (name: string, params: { [key: string]: any }) => {
+      api.setHeader('Content-Type', 'multipart/form-data');
+      const call = api.post<ITxPrepareResponse>(`prepare/${name}`, params);
+      api.setHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+      return call;
+    };
 
     this.runContract = (name: string, params: { [key: string]: any }) => api.post(`contract/${name}`, params);
 
@@ -168,7 +176,7 @@ export class apiFactory {
     this.getUsername = (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session);
 
     this.getFullNodes = () => api.get('/systemparams?names=full_nodes');
-  };
+  }
 }
 
 const apiInstance: any = new apiFactory(api);

@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { stylable } from 'react-native-stylable';
 import { Field, WrappedFieldProps, BaseFieldProps } from 'redux-form';
+import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 
 import defaultStyles from './Input.style';
 import InputDate from 'components/ui/InputDate';
 
-type InputType = 'date' | 'text';
+type InputType = 'date' | 'text' | 'file';
 
 export interface IInputProps extends IElementProps {
   attr: {
@@ -65,6 +66,43 @@ const InputDateWrapper: React.SFC<IInputProps & WrappedFieldProps> = ({
   );
 };
 
+class FileInput extends React.Component<IInputProps & WrappedFieldProps> {
+  public state = {
+    pickedFile: 'PICK FILE',
+  };
+
+  public setPick = () => {
+    DocumentPicker.show({
+      filetype: [DocumentPickerUtil.allFiles()],
+    }, (error, res) => {
+      if (error) {
+        console.log('ERROR IN FILE PICK');
+        return;
+      }
+      this.setState({ pickedFile: res.uri });
+
+      this.props.input.onChange({
+        uri: res.uri,
+        name: res.fileName,
+        type: res.type,
+      });
+    });
+  }
+
+  public render() {
+    return(
+      <TouchableOpacity
+        style={defaultStyles.filePicker}
+        onPress={this.setPick}
+      >
+        <Text style={defaultStyles.filePickerText}>
+          {this.state.pickedFile}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
 const getInputByType = (type: InputType) => {
   switch (type) {
     case 'date':
@@ -72,6 +110,9 @@ const getInputByType = (type: InputType) => {
 
     case 'text':
       return InputWrapper;
+
+    case 'file':
+      return FileInput;
 
     default:
       return InputWrapper;

@@ -15,11 +15,41 @@ target 'Apla' do
 
 
 
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
 
+  pod 'React',
+    :path => '../node_modules/react-native',
+    :subspecs => [
+      # 'Core',
+      # 'RCTImage',
+      # 'DevSupport'
+      'Core',
+      'RCTActionSheet',
+      'RCTAnimation',
+      'RCTGeolocation',
+      'RCTImage',
+      'RCTLinkingIOS',
+      'RCTNetwork',
+      'RCTSettings',
+      'RCTText',
+      'RCTVibration',
+      'RCTWebSocket',
+      'DevSupport'
+    ]
+
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
   target 'AplaTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'React'
+      target.remove_from_project
+    end
+  end
 end

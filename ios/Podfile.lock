@@ -9,7 +9,43 @@ PODS:
   - AppCenterReactNativeShared (1.0.1):
     - AppCenter/Core (= 1.0.1)
   - QBImagePickerController (3.4.0)
+  - React (0.54.2):
+    - React/Core (= 0.54.2)
+  - react-native-document-picker (2.1.0):
+    - React
+  - React/Core (0.54.2):
+    - yoga (= 0.54.2.React)
+  - React/DevSupport (0.54.2):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.54.2)
+  - React/RCTActionSheet (0.54.2):
+    - React/Core
+  - React/RCTAnimation (0.54.2):
+    - React/Core
+  - React/RCTBlob (0.54.2):
+    - React/Core
+  - React/RCTGeolocation (0.54.2):
+    - React/Core
+  - React/RCTImage (0.54.2):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.54.2):
+    - React/Core
+  - React/RCTNetwork (0.54.2):
+    - React/Core
+  - React/RCTSettings (0.54.2):
+    - React/Core
+  - React/RCTText (0.54.2):
+    - React/Core
+  - React/RCTVibration (0.54.2):
+    - React/Core
+  - React/RCTWebSocket (0.54.2):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
   - RSKImageCropper (1.6.3)
+  - yoga (0.54.2.React)
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.0.1)
@@ -17,14 +53,39 @@ DEPENDENCIES:
   - AppCenter/Push (~> 1.0.1)
   - AppCenterReactNativeShared (~> 1.0.1)
   - QBImagePickerController
+  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
+  - React/Core (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
   - RSKImageCropper
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: ../node_modules/react-native
+  react-native-document-picker:
+    :path: ../node_modules/react-native-document-picker
+  yoga:
+    :path: ../node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
   AppCenter: 1d9e08e4ffe7a8eab6e9741a12d27e44074e73a7
   AppCenterReactNativeShared: d7238832c02bd37019083045ed9fa24ba3193779
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  React: c237e42de9c70e5cac6eeb52b4cfd3a0910c1f00
+  react-native-document-picker: e7934f6a3c898a1b62fa68b1f09371beef6ac51a
   RSKImageCropper: 356e36fc58c57c371b5d8b23d603936d6a73df6c
+  yoga: 55da126afc384965b96bff46652464373b330add
 
-PODFILE CHECKSUM: af7fe853dd368c77f480562af9e832ec4a042bf7
+PODFILE CHECKSUM: 4f2910fd14e3ac4663f8419f677df1edc80588c9
 
 COCOAPODS: 1.4.0

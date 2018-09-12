@@ -3,7 +3,7 @@ import { ruleMap } from './rules';
 
 interface IOptions {
   message: string;
-  value: string | number;
+  value: string | number | object;
 }
 
 class Validators {

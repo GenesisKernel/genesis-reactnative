@@ -25,12 +25,12 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1D63E0490348353D60E119DA /* libPods-AplaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 686E25F11502099A30E032E1 /* libPods-AplaTests.a */; };
 		1E6E07F3DCE242C68AF5D0B7 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114971AB84114ABABAD3FF6E /* AppCenter-Config.plist */; };
 		3DA408F328F84CFFAF165450 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C93D11CC984C71BEDDCF81 /* libAppCenterReactNativeAnalytics.a */; };
 		41D77C78649943F5987819F3 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 004F57C5729C44498CF0FB94 /* libAppCenterReactNativeCrashes.a */; };
 		4F2EF545077A45B58179238E /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AA67EFD13F4581AEB3AE5B /* libAppCenterReactNative.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		754B2A8FEF8235B1F0956DD7 /* libPods-AplaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F2CEEEAC0E02EC0CCE9BFE /* libPods-AplaTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8DEE9EA6441B4B3A916B7353 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F10DDEF3CDB1417EBD5C86BE /* libCodePush.a */; };
 		980A6F31DB21422C8F7796F5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E9D2E8D344DE58F8BA1FE /* libRNVectorIcons.a */; };
@@ -44,8 +44,8 @@
 		A3AF8BA8206BACF20019D618 /* libReactNativeHaptic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AF8BA5206BACBE0019D618 /* libReactNativeHaptic.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B212A7C68A254B15B588D804 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FF8A3F5A92454AB66A5DC7 /* libz.tbd */; };
-		CFC83BACA3FDD8BCA104A7EA /* libPods-Apla.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67521803218BC61F74CCD029 /* libPods-Apla.a */; };
 		F43E012745014AA986768C63 /* libAppCenterReactNativePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8608416F4FFD4859A6E560BE /* libAppCenterReactNativePush.a */; };
+		F9D53299CAFAA76E4B3856B6 /* libPods-Apla.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DE36F45717F22D2A74CF0C /* libPods-Apla.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -412,6 +412,7 @@
 		00E356EE1AD99517003FC87E /* AplaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AplaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AplaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AplaTests.m; sourceTree = "<group>"; };
+		0265ABA0A1D4FD78F167A6F8 /* Pods-Apla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.debug.xcconfig"; sourceTree = "<group>"; };
 		05C93D11CC984C71BEDDCF81 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		06AA67EFD13F4581AEB3AE5B /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		0761C1A11FDEEF2D00286FDA /* Apla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Apla.entitlements; path = Apla/Apla.entitlements; sourceTree = "<group>"; };
@@ -422,7 +423,6 @@
 		0776FD44200741EE00D94337 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		0AC42EE0FFA8426EAA42597B /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		114971AB84114ABABAD3FF6E /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "Apla/AppCenter-Config.plist"; sourceTree = "<group>"; };
-		134C7FE4937F8241D5FCB6A6 /* Pods-Apla-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOS/Pods-Apla-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Apla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Apla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -431,21 +431,20 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Apla/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Apla/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		3874248E6F9A102EFAF322F0 /* Pods-Apla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.release.xcconfig"; sourceTree = "<group>"; };
-		3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.staging.xcconfig"; sourceTree = "<group>"; };
+		246F9A3AD86EBE56B9DA747E /* Pods-Apla.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.staging.xcconfig"; sourceTree = "<group>"; };
 		40398418595944D6B58404AE /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
 		420F0B26B3F946E38AD23D1F /* libReactNativeFingerprintScanner.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeFingerprintScanner.a; sourceTree = "<group>"; };
+		4EB46FD8E371AFF8AA49ECB3 /* Pods-AplaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		59493604C7CC799AA7D74437 /* Pods-AplaTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.staging.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		61D7012D5F31483BB4813079 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
-		61F2CEEEAC0E02EC0CCE9BFE /* libPods-AplaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AplaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		67521803218BC61F74CCD029 /* libPods-Apla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7220348073930A2EEB7A549D /* Pods-Apla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.debug.xcconfig"; sourceTree = "<group>"; };
+		686E25F11502099A30E032E1 /* libPods-AplaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AplaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DD4D55B6424FB88E097BCE /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		8131AB55F66B5E2535BF518D /* Pods-AplaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8608416F4FFD4859A6E560BE /* libAppCenterReactNativePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativePush.a; sourceTree = "<group>"; };
-		8EF7D3F4BB72A09753B5D9A9 /* libPods-Apla-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		968824C5BCED31E1DF5D25BD /* libPods-Apla-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CDAB433751033723D9B30EE /* Pods-Apla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla/Pods-Apla.release.xcconfig"; sourceTree = "<group>"; };
 		A3010F872074AA2E00C6710B /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		A321B427206A289C0023CA3A /* RNReactNativeHapticFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNReactNativeHapticFeedback.xcodeproj; path = "../node_modules/react-native-haptic-feedback/ios/RNReactNativeHapticFeedback.xcodeproj"; sourceTree = "<group>"; };
 		A343F21D20515929001BC59C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Apla/Images.xcassets; sourceTree = "<group>"; };
@@ -460,16 +459,11 @@
 		BA0252904A9F4BEC8DAFA895 /* ReactNativeFingerprintScanner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeFingerprintScanner.xcodeproj; path = "../node_modules/react-native-fingerprint-scanner/ios/ReactNativeFingerprintScanner.xcodeproj"; sourceTree = "<group>"; };
 		C074B02AA9E24D9D9D80D863 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		C12E9D2E8D344DE58F8BA1FE /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		CB7C521369FCAC11371E2AB4 /* Pods-Apla-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOS/Pods-Apla-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.staging.xcconfig"; sourceTree = "<group>"; };
+		C3DE36F45717F22D2A74CF0C /* libPods-Apla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Apla.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06629249EB34F40AFA9AD0B /* AppCenterReactNativePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativePush.xcodeproj; path = "../node_modules/appcenter-push/ios/AppCenterReactNativePush.xcodeproj"; sourceTree = "<group>"; };
-		D2D4C4E35EDC19F095E0B85D /* Pods-Apla-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOSTests/Pods-Apla-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DACC87F15A2144FA905510A5 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		DAF46D0BD9DD43BA9EAB2C17 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
-		DBFF22E4A89B00080B51DE24 /* Pods-Apla-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apla-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apla-tvOSTests/Pods-Apla-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F10DDEF3CDB1417EBD5C86BE /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
-		F4C65CC14B68F2CAB27DD3F0 /* Pods-AplaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.release.xcconfig"; sourceTree = "<group>"; };
-		FE41B420E233CA410BB5529B /* Pods-AplaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AplaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,7 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				754B2A8FEF8235B1F0956DD7 /* libPods-AplaTests.a in Frameworks */,
+				1D63E0490348353D60E119DA /* libPods-AplaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,10 +502,10 @@
 				4F2EF545077A45B58179238E /* libAppCenterReactNative.a in Frameworks */,
 				3DA408F328F84CFFAF165450 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
 				41D77C78649943F5987819F3 /* libAppCenterReactNativeCrashes.a in Frameworks */,
-				CFC83BACA3FDD8BCA104A7EA /* libPods-Apla.a in Frameworks */,
 				F43E012745014AA986768C63 /* libAppCenterReactNativePush.a in Frameworks */,
 				0D2E794924D4421B941AF0E5 /* libimageCropPicker.a in Frameworks */,
 				037A7339BB2D42C5B3ECDEB5 /* libReactNativeFingerprintScanner.a in Frameworks */,
+				F9D53299CAFAA76E4B3856B6 /* libPods-Apla.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,7 +761,7 @@
 				07F912A51FA07DC5003A46E0 /* Recovered References */,
 				A45EC682A0E847BC9CAED5B5 /* Frameworks */,
 				114971AB84114ABABAD3FF6E /* AppCenter-Config.plist */,
-				E62A6534D6AF90EDF8CFFB02 /* Pods */,
+				90C460B5DAC102D87BFF60BD /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -781,6 +775,19 @@
 				00E356EE1AD99517003FC87E /* AplaTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		90C460B5DAC102D87BFF60BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0265ABA0A1D4FD78F167A6F8 /* Pods-Apla.debug.xcconfig */,
+				8CDAB433751033723D9B30EE /* Pods-Apla.release.xcconfig */,
+				246F9A3AD86EBE56B9DA747E /* Pods-Apla.staging.xcconfig */,
+				4EB46FD8E371AFF8AA49ECB3 /* Pods-AplaTests.debug.xcconfig */,
+				8131AB55F66B5E2535BF518D /* Pods-AplaTests.release.xcconfig */,
+				59493604C7CC799AA7D74437 /* Pods-AplaTests.staging.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		A3010F882074AA2E00C6710B /* Products */ = {
@@ -827,10 +834,8 @@
 			isa = PBXGroup;
 			children = (
 				B0FF8A3F5A92454AB66A5DC7 /* libz.tbd */,
-				67521803218BC61F74CCD029 /* libPods-Apla.a */,
-				8EF7D3F4BB72A09753B5D9A9 /* libPods-Apla-tvOS.a */,
-				968824C5BCED31E1DF5D25BD /* libPods-Apla-tvOSTests.a */,
-				61F2CEEEAC0E02EC0CCE9BFE /* libPods-AplaTests.a */,
+				C3DE36F45717F22D2A74CF0C /* libPods-Apla.a */,
+				686E25F11502099A30E032E1 /* libPods-AplaTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -860,23 +865,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		E62A6534D6AF90EDF8CFFB02 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7220348073930A2EEB7A549D /* Pods-Apla.debug.xcconfig */,
-				3874248E6F9A102EFAF322F0 /* Pods-Apla.release.xcconfig */,
-				CB7C521369FCAC11371E2AB4 /* Pods-Apla-tvOS.debug.xcconfig */,
-				134C7FE4937F8241D5FCB6A6 /* Pods-Apla-tvOS.release.xcconfig */,
-				DBFF22E4A89B00080B51DE24 /* Pods-Apla-tvOSTests.debug.xcconfig */,
-				D2D4C4E35EDC19F095E0B85D /* Pods-Apla-tvOSTests.release.xcconfig */,
-				FE41B420E233CA410BB5529B /* Pods-AplaTests.debug.xcconfig */,
-				F4C65CC14B68F2CAB27DD3F0 /* Pods-AplaTests.release.xcconfig */,
-				3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */,
-				CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -884,12 +872,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AplaTests" */;
 			buildPhases = (
-				5D05DB284B76475252202988 /* [CP] Check Pods Manifest.lock */,
+				219129246D44B930ADF95EC3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				9234D41614AB44D77B4D2CF2 /* [CP] Embed Pods Frameworks */,
-				28869D6EFFFCFCE5DDA7281A /* [CP] Copy Pods Resources */,
+				CB51D76D13F0C6C9FF027768 /* [CP] Embed Pods Frameworks */,
+				275F38AED6549A712E2D3A75 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -905,13 +893,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Apla" */;
 			buildPhases = (
-				FCB6D5A64502318CFC5F7295 /* [CP] Check Pods Manifest.lock */,
+				CDF4BC7CADC119437108D345 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5FE6BDFB4509B751E2813E58 /* [CP] Embed Pods Frameworks */,
-				BC9C11D33139686356B7CDF7 /* [CP] Copy Pods Resources */,
+				3C70D2DA907D7B0D938ACEB6 /* [CP] Copy Pods Resources */,
+				229DA8DE3797FA0BCBEC4136 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1452,22 +1440,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		28869D6EFFFCFCE5DDA7281A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5D05DB284B76475252202988 /* [CP] Check Pods Manifest.lock */ = {
+		219129246D44B930ADF95EC3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1485,7 +1458,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FE6BDFB4509B751E2813E58 /* [CP] Embed Pods Frameworks */ = {
+		229DA8DE3797FA0BCBEC4136 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1500,22 +1473,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Apla/Pods-Apla-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9234D41614AB44D77B4D2CF2 /* [CP] Embed Pods Frameworks */ = {
+		275F38AED6549A712E2D3A75 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC9C11D33139686356B7CDF7 /* [CP] Copy Pods Resources */ = {
+		3C70D2DA907D7B0D938ACEB6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1535,7 +1508,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Apla/Pods-Apla-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCB6D5A64502318CFC5F7295 /* [CP] Check Pods Manifest.lock */ = {
+		CB51D76D13F0C6C9FF027768 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDF4BC7CADC119437108D345 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1586,7 +1574,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE41B420E233CA410BB5529B /* Pods-AplaTests.debug.xcconfig */;
+			baseConfigurationReference = 4EB46FD8E371AFF8AA49ECB3 /* Pods-AplaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1620,7 +1608,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4C65CC14B68F2CAB27DD3F0 /* Pods-AplaTests.release.xcconfig */;
+			baseConfigurationReference = 8131AB55F66B5E2535BF518D /* Pods-AplaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1651,7 +1639,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7220348073930A2EEB7A549D /* Pods-Apla.debug.xcconfig */;
+			baseConfigurationReference = 0265ABA0A1D4FD78F167A6F8 /* Pods-Apla.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1691,7 +1679,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3874248E6F9A102EFAF322F0 /* Pods-Apla.release.xcconfig */;
+			baseConfigurationReference = 8CDAB433751033723D9B30EE /* Pods-Apla.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1845,7 +1833,7 @@
 		};
 		A3C503B2201079670008C9EA /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C760BBFF2A9E1A5693B3C32 /* Pods-Apla.staging.xcconfig */;
+			baseConfigurationReference = 246F9A3AD86EBE56B9DA747E /* Pods-Apla.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1884,7 +1872,7 @@
 		};
 		A3C503B3201079670008C9EA /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC260A730D904B637B85B686 /* Pods-AplaTests.staging.xcconfig */;
+			baseConfigurationReference = 59493604C7CC799AA7D74437 /* Pods-AplaTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

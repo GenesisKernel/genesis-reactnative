@@ -125,6 +125,7 @@ export function* validateContractWorker(action: any, privateKey: string, isMulti
           action.payload.contract,
           { ...action.payload.params, Lang: locale },
         );
+
         const { data: prepareData } = prepareResult;
         prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
         validatedContracts.push(prepareData);
@@ -184,7 +185,7 @@ export function* contractWorker(action: Action<any>): SagaIterator {
       api.prepareContract,
       action.payload.contract,
       { ...action.payload.params, Lang: locale },
-    ); // Prepate contract
+    ); // Prepare contract
 
     yield fork(signsWorker, prepareData, { ...action.payload.params, ...action.payload.contract }, privateKey, action.payload.uuid); // checking if there is nested contracts
 
