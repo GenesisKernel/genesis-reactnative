@@ -29,6 +29,8 @@ const mapDispatchToProps = (dispatch: any) => {
     onCreateAccountPress: () => {
       dispatch(application.actions.closeModal());
       dispatch(application.actions.toggleDrawer(false));
+      dispatch(application.actions.setPrivateKey(null));
+
       InteractionManager.runAfterInteractions(() => {
         dispatch(navigator.actions.navigate(navTypes.SIGN_UP_WARNING));
       });
@@ -36,6 +38,8 @@ const mapDispatchToProps = (dispatch: any) => {
     onKnownAccountPress: () => {
       dispatch(application.actions.closeModal());
       dispatch(application.actions.toggleDrawer(false));
+      dispatch(application.actions.setPrivateKey(null));
+
       InteractionManager.runAfterInteractions(() => {
         dispatch(navigator.actions.navigate(navTypes.AUTH));
       });
