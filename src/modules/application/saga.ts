@@ -94,7 +94,7 @@ export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
     path<string>(['error'])(action.payload) ||
     'Unexpected error!';
 
-  const { error: { title = 'Server error!' } } = action.payload;
+  const { error: { title = 'Warning!' } } = action.payload;
 
   if (message && !(action.meta && action.meta.ignore)) {
     const isActiveAlert = yield select(getAlert);

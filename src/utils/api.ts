@@ -129,6 +129,7 @@ export class apiFactory {
         ecosystem: payload.ecosystem || '0',
         role_id: payload.role_id,
         mobile: 1,
+        expire: 30 * 24 * 60 * 60 * 1000,
       });
 
     this.getCentrifugoUrl = () => api.get('/config/centrifugo');
