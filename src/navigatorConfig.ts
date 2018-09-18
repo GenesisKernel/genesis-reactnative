@@ -1,8 +1,5 @@
-import { Easing, Animated } from 'react-native';
 import {
   StackNavigator,
-  StackNavigatorConfig,
-  NavigationStackScreenOptions
 } from 'react-navigation';
 import { navTypes, NAV } from './constants';
 
@@ -35,7 +32,7 @@ export default StackNavigator(
     [navTypes.SIGN_UP_WARNING]: { screen: BackgroundImageHoc(SignUpWarningScreen) },
     [navTypes.ACCOUNT_SELECT]: { screen: BackgroundImageHoc(AccountSelectScreen) },
     [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreen, 'green') },
-    [navTypes.PAGE]: { screen: BackgroundImageHoc(PageScreen, 'green') },
+    [navTypes.PAGE]: { screen:  BackgroundImageHoc(PageScreen, 'green') },
     [navTypes.SUB_MENU]: { screen: BackgroundImageHoc(SubMenuScreen, 'green') },
     [navTypes.LANDING]: { screen: LandingScreen },
   },
