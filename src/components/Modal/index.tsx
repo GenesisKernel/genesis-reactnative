@@ -36,7 +36,6 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
     }
   }
 
-
   componentWillReceiveProps(nextProps: IModalProps) {
     if (this.state.modal !== nextProps.modal) {
       if (nextProps.modal === null) {
