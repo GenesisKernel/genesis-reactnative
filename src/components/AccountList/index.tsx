@@ -29,10 +29,13 @@ class AccountList extends React.Component<IAccountListProps, {isScrollAvailable:
     isScrollAvailable: true,
   }
 
-  public shouldComponentUpdate(nextProps, nextState) {
+  
+  public shouldComponentUpdate(nextProps: any) {
+
     if (this.props.isDrawerOpened !== nextProps.isDrawerOpened) return false;
     return true;
   }
+  
 
   public render() {
     if (isEmpty(this.props.accounts)) {
