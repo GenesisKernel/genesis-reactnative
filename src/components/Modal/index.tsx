@@ -42,7 +42,7 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
       if (nextProps.modal === null) {
         this.anim = setTimeout(() => {
           this.setState({ modal: nextProps.modal });
-        }, 3000);
+        }, MODAL_ANIMATION_TIME);
       } else {
         this.setState({ modal: nextProps.modal });
       }
