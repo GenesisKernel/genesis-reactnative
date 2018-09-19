@@ -69,13 +69,20 @@ DEPENDENCIES:
   - RSKImageCropper
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AppCenter
+    - AppCenterReactNativeShared
+    - QBImagePickerController
+    - RSKImageCropper
+
 EXTERNAL SOURCES:
   React:
-    :path: ../node_modules/react-native
+    :path: "../node_modules/react-native"
   react-native-document-picker:
-    :path: ../node_modules/react-native-document-picker
+    :path: "../node_modules/react-native-document-picker"
   yoga:
-    :path: ../node_modules/react-native/ReactCommon/yoga
+    :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   AppCenter: 1d9e08e4ffe7a8eab6e9741a12d27e44074e73a7
@@ -86,6 +93,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: 356e36fc58c57c371b5d8b23d603936d6a73df6c
   yoga: 55da126afc384965b96bff46652464373b330add
 
-PODFILE CHECKSUM: 4f2910fd14e3ac4663f8419f677df1edc80588c9
+PODFILE CHECKSUM: cc28d492c24f9f0bdf0f919aa1596397bc87d3c3
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
