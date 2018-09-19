@@ -13,7 +13,7 @@ import * as navigator from 'modules/navigator';
 import * as navigatorSelectors from 'modules/navigator/selectors';
 import { navTypes, MODAL_ANIMATION_TIME, ModalTypes } from '../constants';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:any) => ({
   accounts: account.selectors.getAccounts(state),
   ecosystems: ecosystem.selectors.getEcosystems(state),
   notifications: notifications.selectors.getNotifications(state),
@@ -27,8 +27,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: { noTitle?: boole
   noTitle: ownProps.noTitle,
   onSelect: (payload: { uniqKey: string; encKey: string; }) =>
     dispatch(receiveSelectedAccount.started(payload)),
-  onCreateAccount: () =>
-    dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE })),
+  onCreateAccount: () => dispatch(application.actions.showModal({ type: ModalTypes.SELECT_AUTH_TYPE }))
+   ,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountList);

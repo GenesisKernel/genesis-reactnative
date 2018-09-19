@@ -25,16 +25,16 @@ export default class App extends React.Component<{},{}> {
   public render() {
     return (
       <Provider store={store}>
+       <IntlProviderContainer>
         <MainBackgroundImageContainer>
           <StatusBarContainer />
           <AlertContainer />
-          <IntlProviderContainer>
+          <ModalsContainer />
             <AnimatedDrawerContainer>
-              <ModalsContainer />
               <NavigatorContainer uriPrefix={URL_PREFIX} />
             </AnimatedDrawerContainer>
+            </MainBackgroundImageContainer>
           </IntlProviderContainer>
-        </MainBackgroundImageContainer>
       </Provider>
     );
   }

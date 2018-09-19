@@ -1,5 +1,6 @@
 export const fullNodes =
   [
+    // gazprom stuff
     {
       "apiUrl": "http://ru1.gpn.apla.io:7079/",
     },
@@ -9,7 +10,7 @@ export const fullNodes =
     {
       "apiUrl": "http://ru2.gpn.apla.io:7079/",
     },
-    // gazprom stuff
+    // internal stuff
     // {
     //   "apiUrl": "https://testapla0.apla.io:7079/",
     // },
