@@ -35,12 +35,12 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
       modal: props.modal,
     }
   }
-  public anim: any = null
+
 
   componentWillReceiveProps(nextProps: IModalProps) {
     if (this.state.modal !== nextProps.modal) {
       if (nextProps.modal === null) {
-        this.anim = setTimeout(() => {
+        setTimeout(() => {
           this.setState({ modal: nextProps.modal });
         }, MODAL_ANIMATION_TIME);
       } else {
@@ -49,10 +49,6 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
     }
   }
 
-  componentWillUnmount () {
-    clearTimeout(this.anim)
-    this.anim = null
-  }
   public render() {
     const { onClose, modal } = this.props;
     const isNotificationModal = path(['modal', 'type'], this.props) === ModalTypes.NOTIFICATIONS_PAGE;
