@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
 import BackButtonContainer from 'containers/BackButtonContainer'
 import RefreshButtonContainer from 'containers/RefreshButtonContainer'
+import HomeButton from 'components/HomeButton'
 import styles from './styles';
 
 export interface IPageProps {
@@ -29,6 +30,7 @@ class Page extends React.Component<IPageProps, {}> {
             navigation={navigation}
           />
           <RefreshButtonContainer />
+          <HomeButton navigation={navigation} />
         </View>
       </View>
     );
