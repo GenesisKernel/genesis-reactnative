@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { Icon, ListItem } from 'react-native-elements';
-import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { View as AnimatableView } from 'react-native-animatable';
-
-import Mask from 'components/Mask';
 import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
+import BackButtonContainer from 'containers/BackButtonContainer'
+import RefreshButtonContainer from 'containers/RefreshButtonContainer'
 import styles from './styles';
 
-class Page extends React.Component {
+export interface IPageProps {
+  navigation: any
+}
+
+class Page extends React.Component<IPageProps, {}> {
   public render() {
+    const { navigation } = this.props
+
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView
@@ -20,6 +24,12 @@ class Page extends React.Component {
         >
           <ProtypoContainer />
         </KeyboardAwareScrollView>
+        <View style={styles.fotter}>
+          <BackButtonContainer
+            navigation={navigation}
+          />
+          <RefreshButtonContainer />
+        </View>
       </View>
     );
   }

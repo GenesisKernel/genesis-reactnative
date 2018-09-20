@@ -4,18 +4,19 @@ import { Colors } from 'components/ui/theme';
 import { actions } from 'modules/page';
 import styles from './styles';
 
-interface IBackButton {
+interface IRefreshButton {
   navigation: any;
   historyItems: actions.IPagePayload[];
+  currentItem: string;
   requestPageStarted: (pagePayload: actions.IPagePayload) => void;
 }
 
-class BackButton extends React.Component<IBackButton, {}> {
+class RefreshButton extends React.Component<IRefreshButton, {}> {
   public render() {
     return (
       <Icon
         type="simple-line-icon"
-        name="arrow-left"
+        name="refresh"
         size={22}
         color={Colors.dark}
         containerStyle={styles.icon}
@@ -26,19 +27,17 @@ class BackButton extends React.Component<IBackButton, {}> {
   }
 
   private onPress = () => {
-    const { requestPageStarted, historyItems } = this.props;
+    const { requestPageStarted, historyItems, currentItem } = this.props;
 
-    historyItems.pop();
+    const pagePayload: actions.IPagePayload | undefined = historyItems.find(findItem => findItem.name === currentItem);
 
-    if (historyItems.length === 1) {
-      this.props.navigation.goBack();
+    if (pagePayload) {
+      requestPageStarted(pagePayload);
       return;
     }
 
-    const pagePayload: actions.IPagePayload = historyItems[historyItems.length - 1];
-
-    requestPageStarted(pagePayload);
+    this.props.navigation.goBack();
   };
 }
 
-export default BackButton;
+export default RefreshButton;

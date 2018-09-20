@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
 import Navigator from '../navigatorConfig';
 
-const mapStateToProps = ({ navigation }) => ({ navigation });
-const mergeProps = (stateProps, dispatchProps) => Object.assign(
+const mapStateToProps = ({ navigation }: any) => ({ navigation });
+const mergeProps = (stateProps: any, dispatchProps: any) => Object.assign(
   {
     navigation: addNavigationHelpers({
       dispatch: dispatchProps.dispatch,
