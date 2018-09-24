@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-import BackButton from 'components/BackButton'
+import BackButton from 'components/BackButton';
 import { actions } from 'modules/page';
+import { navigateWithReset as reset } from 'modules/navigator/actions';
+import { navTypes } from '../constants';
 
-const mapStateToProps = (state: any, ownProps: any) => ({
+const mapStateToProps = (state: any) => ({
   historyItems: state.application.history,
-  ...ownProps,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   requestPageStarted: (pagePayload: actions.IPagePayload) => {
     dispatch(actions.requestPage.started(pagePayload));
-  }
+  },
+  navigateWithReset: () =>  dispatch(reset([{ routeName: navTypes.HOME }])),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BackButton);

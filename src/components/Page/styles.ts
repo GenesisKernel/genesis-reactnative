@@ -9,14 +9,4 @@ export default StyleSheet.create({
   listItemText: {
     color: '#6c6c6c',
   },
-  fotter: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#FFF',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: 0,
-  },
 });

@@ -5,7 +5,6 @@ import { actions } from 'modules/page';
 import styles from './styles';
 
 interface IRefreshButton {
-  navigation: any;
   historyItems: actions.IPagePayload[];
   currentItem: string;
   requestPageStarted: (pagePayload: actions.IPagePayload) => void;
@@ -35,9 +34,7 @@ class RefreshButton extends React.Component<IRefreshButton, {}> {
       requestPageStarted(pagePayload);
       return;
     }
-
-    this.props.navigation.goBack();
-  };
+  }
 }
 
 export default RefreshButton;

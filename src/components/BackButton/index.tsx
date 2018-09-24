@@ -5,9 +5,9 @@ import { actions } from 'modules/page';
 import styles from './styles';
 
 interface IBackButton {
-  navigation: any;
   historyItems: actions.IPagePayload[];
   requestPageStarted: (pagePayload: actions.IPagePayload) => void;
+  navigateWithReset: () => void;
 }
 
 class BackButton extends React.Component<IBackButton, {}> {
@@ -31,14 +31,14 @@ class BackButton extends React.Component<IBackButton, {}> {
     historyItems.pop();
 
     if (historyItems.length === 1) {
-      this.props.navigation.goBack();
+      this.props.navigateWithReset();
       return;
     }
 
     const pagePayload: actions.IPagePayload = historyItems[historyItems.length - 1];
 
     requestPageStarted(pagePayload);
-  };
+  }
 }
 
 export default BackButton;
