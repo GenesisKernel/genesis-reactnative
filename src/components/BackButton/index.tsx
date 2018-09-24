@@ -12,6 +12,7 @@ interface IBackButton {
 
 class BackButton extends React.Component<IBackButton, {}> {
   public render() {
+    
     return (
       <Icon
         type="simple-line-icon"
