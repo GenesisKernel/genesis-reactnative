@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { NavigationStackScreenOptions, NavigationScreenProps } from 'react-navigation';
-import HomeButton from 'components/HomeButton';
 import PageContainer from 'containers/PageContainer';
 import PageTitleContainer from 'containers/PageTitleContainer';
 import NotificationsIconContainer from 'containers/NotificationsIconContainer';
@@ -23,17 +22,16 @@ class PageScreen extends React.Component<IScreenProps, object> {
         <PageTitleContainer style={navigationOptions.headerTitleStyle} />
       ),
       headerBackTitle: null,
-      headerLeft: <DrawerButtonContainer />,
       headerRight: <NotificationsIconContainer />,
+      headerLeft: <DrawerButtonContainer />,
     };
-  };
+  }
 
   public render() {
-    const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
-        <PageContainer navigation={navigation} />
+        <PageContainer />
       </View>
     );
   }

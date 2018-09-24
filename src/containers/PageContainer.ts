@@ -5,7 +5,7 @@ import * as page from 'modules/page';
 
 const mapStateToProps = (state: any) => {
   return {
-    pending: page.selectors.isFetching(state),
+    pending: page.selectors.isFetching(state)
   };
 };
 

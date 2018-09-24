@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { navigateWithReset } from 'modules/navigator/actions';
 import { Icon } from 'react-native-elements';
 import { Colors } from 'components/ui/theme';
 import styles from './styles';

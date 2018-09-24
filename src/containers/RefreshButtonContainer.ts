@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import { actions } from 'modules/page';
-import RefreshButton from 'components/RefreshButton'
+import RefreshButton from 'components/RefreshButton';
 
-const mapStateToProps = (state: any, ownProps: any) => ({
+const mapStateToProps = (state: any) => ({
   historyItems: state.application.history,
   currentItem: state.application.currentPageId,
-  ...ownProps,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -14,4 +13,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefreshButton)
+export default connect(mapStateToProps, mapDispatchToProps)(RefreshButton);
