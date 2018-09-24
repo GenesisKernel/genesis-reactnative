@@ -19,6 +19,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
 import SignUpWarningScreen from 'screens/SignUpWarningScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
+import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 
 export default StackNavigator(
   {
@@ -69,7 +70,8 @@ export default StackNavigator(
           fontFamily: Fonts.light,
           fontSize: FontSizes.commonSize,
         },
-        headerBackTitle: null
+        headerBackTitle: null,
+        headerLeft: DrawerButtonContainer
       };
     }
   }

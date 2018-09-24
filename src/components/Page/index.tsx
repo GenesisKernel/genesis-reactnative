@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { Icon, ListItem } from 'react-native-elements';
-import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { View as AnimatableView } from 'react-native-animatable';
-
-import Mask from 'components/Mask';
 import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
+import Footer from 'components/Footer';
 import styles from './styles';
 
-class Page extends React.Component {
+class Page extends React.Component<{}, {}> {
   public render() {
     return (
       <View style={styles.container}>
@@ -20,6 +17,7 @@ class Page extends React.Component {
         >
           <ProtypoContainer />
         </KeyboardAwareScrollView>
+        <Footer />
       </View>
     );
   }
