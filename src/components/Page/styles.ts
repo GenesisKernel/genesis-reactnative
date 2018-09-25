@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 import { colors } from 'react-native-elements';
 
 export default StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    paddingBottom: 50,
+  },
   listItem: {
     borderBottomColor: '#e5e5e5',
   },
