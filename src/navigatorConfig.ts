@@ -71,7 +71,6 @@ export default StackNavigator(
           fontSize: FontSizes.commonSize,
         },
         headerBackTitle: null,
-        headerLeft: DrawerButtonContainer
       };
     }
   }
