@@ -15,6 +15,7 @@
       "max-classes-per-file": false,
       "no-unused-expression": true,
       "interface-over-type-literal": false,
-      "no-empty-interface": false
+      "no-empty-interface": false,
+      "max-line-length": [true, 140]
     }
 }
