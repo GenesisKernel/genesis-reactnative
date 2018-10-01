@@ -28,7 +28,6 @@ class PageScreen extends React.Component<IScreenProps, object> {
   }
 
   public render() {
-
     return (
       <View style={styles.container}>
         <PageContainer />
