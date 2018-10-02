@@ -17,12 +17,18 @@ import styles from './styles';
 
 const { width } = Dimensions.get('window');
 
+export interface IEcosystems {
+  id: number | string;
+  parameters: { ecosystem_name?: string; };
+ }
+
 export interface IRow {
   account: IAccount;
   currentNode: INode;
   notification?: INotificationData;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
+  ecosystems?: IEcosystems| any| undefined;
   onPress(payload: { uniqKey: string; encKey: string; }): void;
   onDisableScroll(value: boolean): void;
 }
@@ -37,8 +43,10 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { account: { avatar, username, uniqKey, address, ecosystem_id },
-    notification, isLoggedAccount, isDrawerOpened, account } = this.props;
+    const { account: { avatar, username, uniqKey, address, ecosystem_id  },
+    notification, isLoggedAccount, isDrawerOpened, account, ecosystems } = this.props;
+
+    const  findElmentName = this.findElmentName(ecosystems[ecosystem_id]);
 
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
 
@@ -80,7 +88,7 @@ class Row extends React.PureComponent<IRow> {
                 </View>
                 <View style={styles.titleSubTitleContainer}>
                   <Text numberOfLines={1} style={styles.title}>
-                    {`eco: ${ecosystem_id}`}
+                    {`ecosystem name: ${findElmentName || 'no name'}`}
                   </Text>
                   <Text numberOfLines={1} style={styles.subTitle}>
                     {username || 'no username'}
@@ -97,6 +105,15 @@ class Row extends React.PureComponent<IRow> {
         </TouchableHighlight>
       </Swipeable>
     );
+  }
+
+  private findElmentName = (findElmentName: any) => {
+
+    if (Object.keys(findElmentName).length > 0 && Object.keys(findElmentName.parameters).length > 0)  {
+      return findElmentName.parameters.ecosystem_name;
+    }
+
+    return null;
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {

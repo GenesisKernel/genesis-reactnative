@@ -102,6 +102,7 @@ export class apiFactory {
       }
     });
     api.addResponseTransform(response => {
+
       if (!response.ok) {
         const message: string =
           (response.data && response.data.msg) || response.problem;
@@ -177,7 +178,10 @@ export class apiFactory {
     this.getUsername = (session: string, id: string) => api.get(`row/members/${id}?columns='member_name'`, session);
 
     this.getFullNodes = () => api.get('/systemparams?names=full_nodes');
+
+    this.getEcosystemName = (id: string | number ) => api.get(`/ecosystemname?id=${id}`);
   }
+
 }
 
 const apiInstance: any = new apiFactory(api);
