@@ -7,7 +7,8 @@ import Avatar from './Avatar';
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors, openDrawerOffset } from 'components/ui/theme';
-import { isEmpty } from 'ramda'
+import { isEmpty, path } from 'ramda';
+
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
 import RemoveAccountButtonContainer from 'containers/RemoveAccountButtonContainer';
 import ChangePasswordButtonContainer from 'containers/ChangePasswordButtonContainer';
@@ -34,10 +35,9 @@ export interface IRow {
 }
 
 class Row extends React.PureComponent<IRow> {
-
-  state = {
+  public state = {
     showDecor: 'fadeOut',
-  }
+  };
 
   private swipeable = null;
 
@@ -46,7 +46,7 @@ class Row extends React.PureComponent<IRow> {
     const { account: { avatar, username, uniqKey, address, ecosystem_id  },
     notification, isLoggedAccount, isDrawerOpened, account, ecosystems } = this.props;
 
-    const  findElmentName = this.findElmentName(ecosystems[ecosystem_id]);
+    const  findElmentName = this.findElmentName(path([`${ecosystem_id}`], ecosystems));
 
     const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
 
@@ -88,7 +88,7 @@ class Row extends React.PureComponent<IRow> {
                 </View>
                 <View style={styles.titleSubTitleContainer}>
                   <Text numberOfLines={1} style={styles.title}>
-                    {`ecosystem name: ${findElmentName}`}
+                    {`eco: ${findElmentName}`}
                   </Text>
                   <Text numberOfLines={1} style={styles.subTitle}>
                     {username || 'no username'}
@@ -108,9 +108,10 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private findElmentName = (findElmentName: any) => {
-
-    if (!isEmpty(findElmentName) && !isEmpty(findElmentName.parameters))  {
-      return findElmentName.parameters.ecosystem_name;
+    if (findElmentName) {
+      if (!isEmpty(findElmentName) && !isEmpty(findElmentName.parameters))  {
+        return findElmentName.parameters.ecosystem_name;
+      }
     }
 
     return 'no name';
@@ -122,33 +123,37 @@ class Row extends React.PureComponent<IRow> {
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
 
     const rightButtons = [
-      <View style={styles.rightButtonsContainer}>
-        {isLoggedAccount
-          ? <LogoutButtonContainer
-            recenter={this.handleRecenter}
-            buttonWidth={buttonWidth} />
-          : <ChangePasswordButtonContainer
-            recenter={this.handleRecenter}
-            buttonWidth={buttonWidth}
-            account={this.props.account}
-          />
-        }
-
-        <RemoveAccountButtonContainer
-          recenter={this.handleRecenter}
-          uniqKey={this.props.account.uniqKey}
-          buttonWidth={buttonWidth} />
-
-        {isLoggedAccount
-          && (
-            <ChangePasswordButtonContainer
+      (
+        <View style={styles.rightButtonsContainer} key="1">
+          {isLoggedAccount
+            ? <LogoutButtonContainer
+              recenter={this.handleRecenter}
+              buttonWidth={buttonWidth}
+            />
+            : <ChangePasswordButtonContainer
               recenter={this.handleRecenter}
               buttonWidth={buttonWidth}
               account={this.props.account}
             />
-          )
-        }
-      </View>
+          }
+
+          <RemoveAccountButtonContainer
+            recenter={this.handleRecenter}
+            uniqKey={this.props.account.uniqKey}
+            buttonWidth={buttonWidth}
+          />
+
+          {isLoggedAccount
+            && (
+              <ChangePasswordButtonContainer
+                recenter={this.handleRecenter}
+                buttonWidth={buttonWidth}
+                account={this.props.account}
+              />
+            )
+          }
+        </View>
+      )
     ];
     return rightButtons;
   }

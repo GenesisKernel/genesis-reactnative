@@ -30,10 +30,6 @@ class LinkPage extends React.PureComponent<IButtonProps> {
   }
 
   private handleSubmit = () => {
-
-    const element = this.props.children;
-    console.log(element, 'handleSubmit');
-    // debugger
     const { attr: { page, params, pageparams }, submit } = this.props;
 
     submit({
