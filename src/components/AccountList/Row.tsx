@@ -7,7 +7,7 @@ import Avatar from './Avatar';
 import Swipeable from 'react-native-swipeable-row';
 
 import { Colors, openDrawerOffset } from 'components/ui/theme';
-
+import { isEmpty } from 'ramda'
 import LogoutButtonContainer from 'containers/LogoutButtonContainer';
 import RemoveAccountButtonContainer from 'containers/RemoveAccountButtonContainer';
 import ChangePasswordButtonContainer from 'containers/ChangePasswordButtonContainer';
@@ -28,7 +28,7 @@ export interface IRow {
   notification?: INotificationData;
   isLoggedAccount: boolean;
   isDrawerOpened: boolean;
-  ecosystems?: IEcosystems| any| undefined;
+  ecosystems?: IEcosystems;
   onPress(payload: { uniqKey: string; encKey: string; }): void;
   onDisableScroll(value: boolean): void;
 }
@@ -88,7 +88,7 @@ class Row extends React.PureComponent<IRow> {
                 </View>
                 <View style={styles.titleSubTitleContainer}>
                   <Text numberOfLines={1} style={styles.title}>
-                    {`ecosystem name: ${findElmentName || 'no name'}`}
+                    {`ecosystem name: ${findElmentName}`}
                   </Text>
                   <Text numberOfLines={1} style={styles.subTitle}>
                     {username || 'no username'}
@@ -109,11 +109,11 @@ class Row extends React.PureComponent<IRow> {
 
   private findElmentName = (findElmentName: any) => {
 
-    if (Object.keys(findElmentName).length > 0 && Object.keys(findElmentName.parameters).length > 0)  {
+    if (!isEmpty(findElmentName) && !isEmpty(findElmentName.parameters))  {
       return findElmentName.parameters.ecosystem_name;
     }
 
-    return null;
+    return 'no name';
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {

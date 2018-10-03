@@ -7,7 +7,6 @@ export interface IParameter {
   name: string;
   value: string;
   conditions: string;
-  ecosystem_name?: string;
 }
 
 export interface IEcosystem {
