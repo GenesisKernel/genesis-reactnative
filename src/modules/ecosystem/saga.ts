@@ -15,17 +15,20 @@ export function* requestEcosystemWorker(action: Action<any>) {
 
   try {
     const { ecosystems } = action.payload;
-    for (let ecosystemId of ecosystems) {
+
+    for (const ecosystemId of ecosystems) {
+      const { data: { ecosystem_name }} = yield call(api.getEcosystemName, ecosystemId);
       const { data: parameters } = yield call(
         api.getEcosystemParameters,
         ecosystemId,
-        defaultParams
+        defaultParams,
+        ecosystem_name
       );
 
       yield put(
         requestEcosystem.done({
-          params: action.payload,
-          result: { id: ecosystemId, parameters }
+          params: action.payload ,
+          result: { id: ecosystemId, parameters: {...parameters, ecosystem_name} },
         })
       );
     }
