@@ -24,14 +24,14 @@ const initialState: IState = {};
 
 export default reducerWithInitialState(initialState)
   .caseWithAction(
-    actions.runTransaction.started,
-    (state, { payload, meta }) => ({
-      ...state,
-      [payload.uuid]: {
-        ...payload,
-        meta
-      }
-    })
+  actions.runTransaction.started,
+  (state, { payload, meta }) => ({
+    ...state,
+    [payload.uuid]: {
+      ...payload,
+      meta
+    }
+  })
   )
   .case(actions.runTransaction.done, (state, payload) => ({
     ...state,

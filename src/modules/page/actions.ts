@@ -12,10 +12,20 @@ export interface IPagePayload {
   };
 }
 
+export interface IStaticPagePayload {
+  name: string;
+  ecosystem: string;
+  page?: string;
+}
+
 export const requestPage = actionCreator.async<IPagePayload, IPage>('REQUEST');
 
 export const requestPreviusPage = actionCreator<IPagePayload>(
   'REQUEST_PREVIUS_PAGE'
 );
 
-export const requestPageWithoutRendering = actionCreator<any>('REQUEST_PAGE_WITHOUT_RENDERING')
+export const setStaticPage = actionCreator<IStaticPagePayload>(
+  'STATIC'
+);
+
+export const requestPageWithoutRendering = actionCreator<any>('REQUEST_PAGE_WITHOUT_RENDERING');

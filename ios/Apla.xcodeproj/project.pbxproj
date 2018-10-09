@@ -899,8 +899,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7E0F5024B8E45227F9586B8C /* [CP] Embed Pods Frameworks */,
-				C7E802B1F807192459EAA205 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -922,7 +920,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				3C70D2DA907D7B0D938ACEB6 /* [CP] Copy Pods Resources */,
-				B156B3188B3591EE87DF8118 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1507,51 +1504,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Apla/Pods-Apla-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7E0F5024B8E45227F9586B8C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B156B3188B3591EE87DF8118 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Apla/Pods-Apla-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7E802B1F807192459EAA205 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AplaTests/Pods-AplaTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDF4BC7CADC119437108D345 /* [CP] Check Pods Manifest.lock */ = {

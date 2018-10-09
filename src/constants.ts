@@ -14,7 +14,7 @@ export const GUEST_KEY_PAIR = {
 export const NAV = {
   AUTH: 'AUTH',
   MAIN: 'MAIN'
-}
+};
 
 export const navTypes = {
   AUTH: `${NAV.AUTH}/HOME`,
@@ -46,4 +46,18 @@ export const ModalTypes = {
 
 export const ERRORS = {
   TOKEN_EXPIRED: 'E_TOKENEXPIRED',
+};
+
+export enum STATIC_PAGE {
+  invite = '@invite',
+  editor = 'editor',
+  backup = 'backup',
 }
+
+export interface IStaticPageOption { [name: string]: boolean; }
+
+export const STATIC_PAGES: IStaticPageOption = {
+  '@invite': true,
+  'editor': true,
+  'backup': true,
+};
