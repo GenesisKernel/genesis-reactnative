@@ -3,7 +3,7 @@ import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, select, getContext, setContext, all } from 'redux-saga/effects';
 import { create } from 'apisauce';
 
-import api, { apiDeleteToken, apiFactory } from '../../utils/api';
+import api, { apiDeleteToken, ApiFactory } from '../../utils/api';
 import * as Account from 'modules/account';
 import * as application from 'modules/application';
 import * as notificationsActions from './actions';
@@ -74,14 +74,14 @@ export function* updateNotificationsWorker() {
     let accounts: ITestAccount[] = [];
     for (let account of totalAccounts) {
       accounts.push({
-        id:account.key_id,
+        id: account.key_id,
         ecosystem: account.ecosystem_id,
       });
     }
 
     try {
       yield call(api.updateNotifications, { ids: JSON.stringify(accounts) });
-    } catch(err) {
+    } catch (err) {
       console.log(err, 'ERROR AT updateNotificationsWorker')
     }
 
@@ -107,7 +107,7 @@ export function* socketWorker() {
         }
       });
 
-      const Api = new apiFactory(apiInstance);
+      const Api = new ApiFactory(apiInstance);
       const url = yield call(Api.getCentrifugoUrl);
 
       centrifuge = new Centrifuge({
@@ -130,7 +130,7 @@ export function* socketWorker() {
         });
       }
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err, 'socketInit error')
   }
 

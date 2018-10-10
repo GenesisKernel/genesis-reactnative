@@ -4,7 +4,7 @@ import { takeEvery, put, race, take, call, select, all } from 'redux-saga/effect
 import { path } from 'ramda';
 import { delay } from 'redux-saga';
 import { ModalTypes, MODAL_ANIMATION_TIME, GUEST_KEY_PAIR, DEFAULT_PAGE } from '../../constants';
-import api, { apiSetToken, apiDeleteToken, apiSetUrl, apiFactory } from 'utils/api';
+import api, { apiSetToken, apiDeleteToken, apiSetUrl, ApiFactory } from 'utils/api';
 
 import { IAuthPayload } from 'modules/auth/saga';
 
@@ -26,13 +26,13 @@ export function* getUsername(token: string, key_id: string) {
 export function* loginByGuestKey() {
   const currentNode = yield select(nodes.selectors.getCurrentNode);
 
-  let apiInstance = create({
+  const apiInstance = create({
     baseURL: `${currentNode.apiUrl}api/v2`,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     }
   });
-  const Api: any = new apiFactory(apiInstance);
+  const Api: any = new ApiFactory(apiInstance);
 
   try {
     const { data: uidParams } = yield call(Api.getUid);
@@ -72,14 +72,14 @@ export function* loginCall(payload: IAuthPayload, role_id?: number, signParams?:
 
     yield call(apiSetToken, accountData.token);
     return accountData;
-  } catch(err) {
+  } catch (err) {
     console.log('loginCall ERROR AT loginCall =>', err);
     return null;
   }
 }
 
 export function* roleSelect(roles: IRole[]) {
-  yield put(application.actions.showModal({ type: ModalTypes.ROLE_SELECT, params: {roles} }));
+  yield put(application.actions.showModal({ type: ModalTypes.ROLE_SELECT, params: { roles } }));
 
   const roleSelected = yield race({
     success: take(application.actions.confirmModal),
@@ -108,7 +108,7 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
 
   yield call(apiDeleteToken);
 
-  while(true) {
+  while (true) {
 
     try {
       randomInt = Math.floor(Math.random() * allNodes.length);
@@ -132,7 +132,7 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
         return checkedNodes;
       }
 
-    } catch(err) {
+    } catch (err) {
       allNodes.splice(randomInt, 1); // just remove expired nodes from temporary array
     }
 

@@ -8,7 +8,10 @@ import { checkTouchIDAvailiability, getCurrentLocale } from 'utils/common';
 import { defaultPageSetter } from 'modules/sagas/sagaHelpers';
 import { waitForError } from '../sagas/utils';
 import { navTypes, ERRORS, DEFAULT_PAGE } from '../../constants';
-import { initStart, initFinish, receiveAlert, checkForTouchID, cancelAlert, toggleDrawer, setCurrentLocale, setDefaultPage } from './actions';
+import {
+  initStart, initFinish, receiveAlert, checkForTouchID,
+  cancelAlert, toggleDrawer, setCurrentLocale, setDefaultPage
+} from './actions';
 import { getDrawerState, getAlert } from './selectors';
 
 import * as auth from 'modules/auth';
@@ -44,9 +47,8 @@ export function* initWorker(): SagaIterator {
     try {
       yield call(defaultPageSetter);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
 
     yield put(initFinish());
     yield put(
