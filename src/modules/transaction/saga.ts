@@ -18,7 +18,7 @@ import { checkNodeValidity, loginCall } from 'modules/sagas/sagaHelpers';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
 
-class StatusError extends Error {}
+class StatusError extends Error { }
 export interface IPrepareData {
   forsign: string;
   signs?: {
@@ -26,8 +26,6 @@ export interface IPrepareData {
     field: string;
   }[];
 }
-
-
 
 export function* getTransactionStatus(hash: string) {
   while (true) {
@@ -37,7 +35,7 @@ export function* getTransactionStatus(hash: string) {
     if (response.data.errmsg) {
       throw ({
         title: response.data.errmsg.type,
-        message:  response.data.errmsg.error,
+        message: response.data.errmsg.error,
       });
     }
 
@@ -55,10 +53,12 @@ export function* signsWorker(prepareData: IPrepareData, params: any, privateKey:
 
   if (prepareData.signs) {
     for (const el of prepareData.signs) {
-      yield put(application.actions.showModal({ type: ModalTypes.CONTRACT, params: {
-        ...el,
-        ...params
-      }})); // modal, where user can confirm or cancel signing of nested contracts
+      yield put(application.actions.showModal({
+        type: ModalTypes.CONTRACT, params: {
+          ...el,
+          ...params
+        }
+      })); // modal, where user can confirm or cancel signing of nested contracts
 
       const result = yield race({
         confirm: take(application.actions.confirmModal),
@@ -79,11 +79,11 @@ export function* signsWorker(prepareData: IPrepareData, params: any, privateKey:
   yield put(confirmNestedContracts({ fullForsign, signParams }));
 }
 
-export function* signNestedContractsWorker(sign: { forsign: string } , privateKey: string): SagaIterator {
+export function* signNestedContractsWorker(sign: { forsign: string }, privateKey: string): SagaIterator {
   try {
     const signature = yield call(Keyring.sign, sign.forsign, privateKey); // signing nested contract
     return signature;
-  } catch(err) {
+  } catch (err) {
     console.error(err, 'ERROR AT => getSignParamsWorker');
   }
 }
@@ -116,7 +116,7 @@ export function* validateContractWorker(action: any, privateKey: string, isMulti
   for (const node of validNodes) {
     try {
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
-      yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature );
+      yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature);
 
       let prepareResult;
       if (!isMultiple) {

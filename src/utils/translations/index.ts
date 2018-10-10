@@ -5,7 +5,7 @@ export const SUPPORTED_LOCALES = ['ru', 'en'];
 const locales = {
   enUS,
   ru
-}
+};
 
 export const getTranslations = (locale: string): any => {
   if (locale) {
@@ -16,4 +16,4 @@ export const getTranslations = (locale: string): any => {
       return locales[nonEnglishLocale] || locales['enUS'];
     }
   }
-}
+};
