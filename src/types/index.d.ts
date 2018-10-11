@@ -19,6 +19,8 @@ declare module 'redux-persist';
 declare module 'redux-persist/es/storage';
 declare module 'redux-persist/lib/constants';
 declare module 'react-native-document-picker';
+declare module 'long';
+declare module 'msgpack-lite';
 
 declare type IRole = {
   role_name: string;

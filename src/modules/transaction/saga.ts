@@ -9,6 +9,9 @@ import * as application from 'modules/application';
 import * as account from 'modules/account';
 import * as nodes from 'modules/nodes';
 
+import Contract, { IContractParam } from 'utils/transactions/contract';
+import defaultSchema from 'utils/transactions/schema/defaultSchema';
+import { Alert } from 'react-native';
 import api, { apiSetUrl, apiSetToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 import { TxDissect } from 'utils/common';
@@ -115,7 +118,7 @@ export function* validateContractWorker(action: any, privateKey: string, isMulti
   }
   const validatedContracts: any[] = [];
 
-  for (const node of validNodes) {
+  for (const node of [validNodes[0]]) {
     try {
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
       yield call(loginCall, {
@@ -123,18 +126,47 @@ export function* validateContractWorker(action: any, privateKey: string, isMulti
       }, undefined, node.signature);
 
       let prepareResult;
-      if (!isMultiple) {
-        const prepareResult = yield call(api.getContract, action.payload.contract);
-        console.log(prepareResult);
-        // prepareResult = yield call(
-        //   api.prepareContract,
-        //   action.payload.contract,
-        //   { ...action.payload.params, Lang: locale },
-        // );
 
-        const { data: prepareData } = prepareResult;
-        prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
-        validatedContracts.push(prepareData);
+      if (!isMultiple) {
+        prepareResult = yield call(api.getContract, action.payload.contract);
+        const { data: { fields, id } } = prepareResult;
+
+        const txParams: { [name: string]: IContractParam } = {};
+        const logParams: { [name: string]: IContractParam } = {};
+
+        fields.forEach((field: any) => {
+          txParams[field.name] = {
+            type: field.type,
+            value: action.payload.params[field.name],
+          };
+          logParams[field.name] = {
+            type: field.type,
+            value: action.payload.params[field.name],
+          };
+        });
+
+        const contract = new Contract({
+          id,
+          schema: defaultSchema,
+          ecosystemID: currentAcc.ecosystem_id
+            ? parseInt(currentAcc.ecosystem_id, 10)
+            : 1,
+          fields: txParams,
+        });
+
+        const signedContract = yield call([contract, 'sign'], privateKey);
+        const blob = new Blob([new Array(signedContract.data.byteLength)], { type: 'application/octet-stream' });
+        const request = {
+          [signedContract.hash]: blob,
+        };
+        try {
+          // yield call(apiSetUrl, `http://192.168.4.167:7079/api/v2`);
+          const resp = yield call(api.sendTransaction, request);
+          console.log(resp.data);
+          Alert.alert('resp.data.hashes', JSON.stringify(resp.data));
+        } catch (error) {
+          console.error(error);
+        }
       } else {
         prepareResult = yield call(
           api.prepareMultiple,

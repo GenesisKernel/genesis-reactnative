@@ -183,7 +183,13 @@ export class ApiFactory {
     data: JSON.stringify(hashes),
   })
 
-  // public setTransaction = () => this.api.post('/sendTx');
+  public sendTransaction = (data: { [hash: string]: Blob }) => {
+
+    this.api.setHeader('Content-Type', 'multipart/form-data');
+    const call = this.api.post('/sendTx', data);
+    this.api.setHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    return call;
+  }
 
   public getContract = (name: string) => this.api.get(`/contract/${name}`);
 
