@@ -183,9 +183,9 @@ export class ApiFactory {
     data: JSON.stringify(hashes),
   })
 
-  public setTransaction = () => this.api.post('/api/v2/sendTx');
+  // public setTransaction = () => this.api.post('/sendTx');
 
-  public getContracts = () => this.api.get('/api/v2/contract');
+  public getContract = (name: string) => this.api.get(`/contract/${name}`);
 
   public updateNotifications = (payload: object) => this.api.post('/updnotificator', payload);
 

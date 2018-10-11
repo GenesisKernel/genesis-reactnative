@@ -110,21 +110,27 @@ export function* validateContractWorker(action: any, privateKey: string, isMulti
   const currentAcc = yield select(account.selectors.getAccount(uniqKey));
   const validNodes = yield call(checkNodeValidity, nodesList, REQUIRED_ALIVE_NODES_COUNT, token, currentNode, true);
 
-  if (!validNodes.length || validNodes.length !== REQUIRED_ALIVE_NODES_COUNT) return false;
-  let validatedContracts: any[] = [];
+  if (!validNodes.length || validNodes.length !== REQUIRED_ALIVE_NODES_COUNT) {
+    return false;
+  }
+  const validatedContracts: any[] = [];
 
   for (const node of validNodes) {
     try {
       yield call(apiSetUrl, `${node.apiUrl}api/v2`);
-      yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature);
+      yield call(loginCall, {
+        ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey,
+      }, undefined, node.signature);
 
       let prepareResult;
       if (!isMultiple) {
-        prepareResult = yield call(
-          api.prepareContract,
-          action.payload.contract,
-          { ...action.payload.params, Lang: locale },
-        );
+        const prepareResult = yield call(api.getContract, action.payload.contract);
+        console.log(prepareResult);
+        // prepareResult = yield call(
+        //   api.prepareContract,
+        //   action.payload.contract,
+        //   { ...action.payload.params, Lang: locale },
+        // );
 
         const { data: prepareData } = prepareResult;
         prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
