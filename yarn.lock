@@ -5022,9 +5022,9 @@ react-native-status-bar-height@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.1.0.tgz#cb70fcdbb8dfdf0b9140d77625d27e4ea32fd7f4"
 
-react-native-stylable@^0.2.2:
+"react-native-stylable@https://github.com/2vm/react-native-stylable.git":
   version "0.2.2"
-  resolved "https://registry.yarnpkg.com/react-native-stylable/-/react-native-stylable-0.2.2.tgz#558ef71eea19ac35475ffe1365efaa2569a0e447"
+  resolved "https://github.com/2vm/react-native-stylable.git#1f1100a7ce126b2faa563174e24d07ac8693685a"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     prop-types "^15.6.0"

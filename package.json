@@ -47,7 +47,7 @@
     "react-native-popup-dialog": "^0.11.46",
     "react-native-root-siblings": "^2.2.0",
     "react-native-status-bar-height": "^2.0.0",
-    "react-native-stylable": "^0.2.2",
+    "react-native-stylable": "https://github.com/2vm/react-native-stylable.git",
     "react-native-swipeable-row": "^0.8.1",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "1.0.0-beta.26",
