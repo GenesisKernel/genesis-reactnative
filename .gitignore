@@ -64,3 +64,5 @@ lib/
 # Jest
 #
 .jest/
+# Bundle artifact
+*.jsbundle
