@@ -51,7 +51,7 @@ export function* setRandomNode() {
 export function* getFullNodesWorkerHelper() {
   try {
     const { data: { list } } = yield call(api.getFullNodes);
-    console.log(JSON.parse(list[0].value), 'LIST')
+
     const nodesList = yield select(node.selectors.getNodesList);
 
     let nodes = [];

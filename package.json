@@ -10,7 +10,7 @@
     "deploy": "./deploy.sh"
   },
   "dependencies": {
-    "apisauce": "^0.14.1",
+    "apisauce": "^1.0.0",
     "appcenter": "^1.8.1",
     "appcenter-analytics": "^1.8.1",
     "appcenter-crashes": "^1.8.1",

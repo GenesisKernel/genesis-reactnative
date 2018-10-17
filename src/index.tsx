@@ -45,3 +45,5 @@ AppRegistry.registerComponent('Apla', () =>
     checkFrequency: CodePush.CheckFrequency.MANUAL
   })(App)
 );
+
+console.ignoredYellowBox = ['Require cycle: node_modules'];

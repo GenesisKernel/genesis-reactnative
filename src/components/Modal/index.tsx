@@ -58,11 +58,12 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
         backdropOpacity={isNotificationModal ? 0 : 0.45}
         onBackdropPress={this.onBackdropPress}
         onBackButtonPress={onClose}
-        useNativeDriver={true}
+        useNativeDriver
         hideModalContentWhileAnimating={true}
         animationInTiming={MODAL_ANIMATION_TIME}
         animationOutTiming={MODAL_ANIMATION_TIME}
-        isVisible={!!modal}>
+        isVisible={!!modal}
+      >
         {this.selectModalToRender()}
       </Modal>
     );
@@ -73,7 +74,7 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
     const { modal } = this.state;
 
     if (modal && modal.type) {
-      switch(modal.type) {
+      switch (modal.type) {
         case ModalTypes.CONTRACT:
           return <NestedContractSigningForm touchIdSupport={touchIdSupport} params={...modal.params} onConfirm={onConfirm} onClose={onClose} />;
         case ModalTypes.PASSWORD:
@@ -98,8 +99,6 @@ export default class CommonModal extends React.PureComponent<IModalProps, IModal
     const modal = path(['modal', 'type'], this.props);
     if (modal === ModalTypes.NOTIFICATIONS_PAGE || ModalTypes.ROLE_SELECT || ModalTypes.SELECT_AUTH_TYPE) {
       this.props.onClose();
-    } else {
-      () => null;
     }
   }
 }

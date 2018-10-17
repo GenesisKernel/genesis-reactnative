@@ -1,13 +1,18 @@
 import Keyring from 'utils/keyring';
 import { create } from 'apisauce';
 import { takeEvery, put, race, take, call, select, all } from 'redux-saga/effects';
-import { path } from 'ramda';
+import { path, isEmpty } from 'ramda';
 import { delay } from 'redux-saga';
+
 import { ModalTypes, MODAL_ANIMATION_TIME, GUEST_KEY_PAIR, DEFAULT_PAGE } from '../../constants';
+
+import Contract, { IContractParam } from 'utils/transactions/contract';
+import defaultSchema from 'utils/transactions/schema/defaultSchema';
+import { toHex } from 'utils/transactions/convert';
 import api, { apiSetToken, apiDeleteToken, apiSetUrl, ApiFactory } from 'utils/api';
 
 import { IAuthPayload } from 'modules/auth/saga';
-
+import * as account from 'modules/account';
 import * as application from 'modules/application';
 import * as auth from 'modules/auth';
 import * as nodes from 'modules/nodes';
@@ -148,5 +153,47 @@ export function* defaultPageSetter(role_id?: number | string | undefined) {
     const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id || currentRole.role_id);
 
     yield put(application.actions.setDefaultPage(default_page || DEFAULT_PAGE));
+  }
+}
+
+export function* prepareContractWorker(payload: any, privateKey: string) {
+  const uniqKey = yield select(auth.selectors.getCurrentAccount);
+  const currentAcc = yield select(account.selectors.getAccount(uniqKey));
+
+  try {
+    const request: {[hash: string]: any}  = {};
+    for (const baseContract of payload.contracts) {
+      const prepareResult = yield call(api.getContract, baseContract.contract);
+      const { data: { fields, id } } = prepareResult;
+      const txParams: { [name: string]: IContractParam } = {};
+      const logParams: { [name: string]: IContractParam } = {};
+
+      fields.forEach((field: any) => {
+        txParams[field.name] = {
+          type: field.type,
+          value: baseContract.params[field.name],
+        };
+        logParams[field.name] = {
+          type: field.type,
+          value: baseContract.params[field.name],
+        };
+      });
+
+      const contract = new Contract({
+        id,
+        schema: defaultSchema,
+        ecosystemID: currentAcc.ecosystem_id
+          ? parseInt(currentAcc.ecosystem_id, 10)
+          : 1,
+        fields: txParams,
+      });
+      const signedContract = yield call([contract, 'sign'], privateKey);
+      request[signedContract.hash] = toHex(signedContract.data);
+    }
+    const resp = yield call(api.sendTransaction, request);
+    return !isEmpty(resp.data.hashes) ? resp.data.hashes : null;
+  } catch (error) {
+    console.log(error, 'ERROR AT => prepareContractWorker');
+    return null;
   }
 }

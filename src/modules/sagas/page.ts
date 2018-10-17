@@ -41,18 +41,36 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     }
   }
 
-  if (action.payload.contract && !action.payload.composite) {
+  if (action.payload.contract || action.payload.composite) {
+    const contracts: { contract: string; params: any }[] = [];
+
+    if (action.payload.composite) {
+      action.payload.composite.forEach((contract: any) => {
+        contract.data.forEach((el: any) => {
+          contracts.push({
+            contract: contract.name,
+            params: el,
+          });
+        });
+      });
+    }
+
+    if (action.payload.contract) {
+      contracts.push({
+        contract: action.payload.contract,
+        params: {
+          ...resolveParams(action.payload.params, formOfCurrentPage),
+          ...formOfCurrentPage,
+          vde
+        }
+      });
+    }
     yield put(
       transaction.actions.runTransaction.started(
         {
           uuid: uuid.v4(),
           datetime: new Date(),
-          contract: action.payload.contract,
-          params: {
-            ...resolveParams(action.payload.params, formOfCurrentPage),
-            ...formOfCurrentPage,
-            vde
-          }
+          contracts,
         },
         action.meta
       )
@@ -87,41 +105,6 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     );
   }
 
-  if (action.payload.composite) {
-    yield put(
-      transaction.actions.runCompositeContracts.started(
-        { composite: action.payload.composite, uuid: uuid.v4() },
-        action.meta
-      )
-    );
-
-    if (action.payload.contract) {
-      const { done, failed } = yield race({
-        done: take(transaction.actions.runCompositeContracts.done),
-        failed: take(transaction.actions.runCompositeContracts.failed),
-      });
-
-      if (failed) return;
-
-      if (done) {
-        yield put(
-          transaction.actions.runTransaction.started(
-            {
-              uuid: uuid.v4(),
-              datetime: new Date(),
-              contract: action.payload.contract,
-              params: {
-                ...resolveParams(action.payload.params, formOfCurrentPage),
-                ...formOfCurrentPage,
-                vde
-              }
-            },
-            action.meta
-          )
-        );
-      }
-    }
-  }
 }
 
 export function* historyWorker(action: Action<any>): SagaIterator {

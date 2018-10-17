@@ -21,6 +21,7 @@ export const receivePageParams = actionCreator<{
   vde?: boolean;
   page?: string;
   contract?: string;
+  composite?: any;
   params?: { [name: string]: any };
   pageparams?: { [name: string]: any };
 }>('RECEIVE_PAGE_PARAMS');

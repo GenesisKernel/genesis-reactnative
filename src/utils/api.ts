@@ -85,7 +85,6 @@ export class ApiFactory {
     this.api = api;
     api.addRequestTransform(request => {
       if (request.method === 'post' && request.data) {
-        // const isMuptipart = request.headers['Content-Type'].includes('multipart/form-data');
         const data = { ...request.data };
         const params = new FormData();
         const keys = Object.keys(data);
@@ -97,15 +96,10 @@ export class ApiFactory {
 
           params.append(key, data[key]);
         });
-        // if (!isMuptipart) {
-        //   request.data = params.toString();
-        // } else {
         request.data = params;
-        // }
       }
     });
     api.addResponseTransform(response => {
-
       if (!response.ok) {
         const message: string =
           (response.data && response.data.msg) || response.problem;
@@ -177,7 +171,11 @@ export class ApiFactory {
       data: JSON.stringify(params),
     })
 
-  public transactionStatus = (hash: string) => this.api.get<ITxStatusResponse>(`/txstatus/${hash}`);
+  public transactionStatus = (hashes: string[]) => {
+    return this.api.post<ITxStatusResponse>(`/txstatus`, {
+      data: JSON.stringify({ hashes }),
+    });
+  }
 
   public transactionStatusMultiple = (hashes: string[]) => this.api.post(`/txstatusMultiple/`, {
     data: JSON.stringify(hashes),
