@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { isEmpty } from 'ramda';
 import { Icon, ListItem } from 'react-native-elements';

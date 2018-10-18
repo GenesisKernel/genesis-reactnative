@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as CodePush from 'react-native-code-push';
 import { View } from 'react-native';
 
@@ -7,12 +6,8 @@ import Text from 'components/ui/Text';
 import styles from './styles';
 
 class AppVersion extends React.PureComponent<{}, { version: string }> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      version: '0'
-    };
+  state = {
+    version: '0'
   }
 
   public componentDidMount() {
