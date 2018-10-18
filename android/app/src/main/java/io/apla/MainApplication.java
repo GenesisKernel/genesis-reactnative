@@ -48,7 +48,6 @@ public class MainApplication extends Application implements ReactApplication {
           new AppCenterReactNativePushPackage(MainApplication.this),
           new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
           new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
-          new AppCenterReactNativePackage(MainApplication.this),
           new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
           new VectorIconsPackage()
       );

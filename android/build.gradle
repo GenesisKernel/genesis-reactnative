@@ -18,12 +18,12 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.google.gms:google-services:3.0.0'
-        google()
     }
 }
 
 allprojects {
     repositories {
+        maven { url "https://jitpack.io" }
         mavenLocal()
         jcenter()
         maven {

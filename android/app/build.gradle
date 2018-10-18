@@ -81,7 +81,7 @@ project.ext.react = [
     entryFile: "index.js"
 ]
 
-apply from: "./../variables.gradle"
+apply from: "../variables.gradle"
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
@@ -166,6 +166,7 @@ dependencies {
     implementation project(':react-native-document-picker')
     implementation (project(':react-native-camera')) {
         exclude group: "com.google.android.gms"
+        exclude group: "com.android.support"
         implementation 'com.android.support:exifinterface:27.+'
         implementation ('com.google.android.gms:play-services-vision:9.0.0') {
             force = true
