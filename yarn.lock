@@ -4895,7 +4895,7 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-native-animatable@^1.2.4:
+react-native-animatable@^1.2.4, react-native-animatable@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
   dependencies:
@@ -5020,7 +5020,7 @@ react-native-status-bar-height@^2.0.0:
 
 "react-native-stylable@https://github.com/2vm/react-native-stylable.git":
   version "0.2.2"
-  resolved "https://github.com/2vm/react-native-stylable.git#1f1100a7ce126b2faa563174e24d07ac8693685a"
+  resolved "https://github.com/2vm/react-native-stylable.git#03c7eb977be8eff19acb6ff470d9eed6a1dce218"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     prop-types "^15.6.0"
