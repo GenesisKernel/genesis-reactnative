@@ -228,7 +228,7 @@ export function* logoutWorker() {
 }
 
 export function* receiveSelectedAccountWorker(action: Action<{uniqKey: string; encKey: string;}>) {
-  yield put(application.actions.toggleDrawer(false))
+  yield put(application.actions.toggleDrawer(false));
   yield call(delay, 350);
   yield put(
     navigatorActions.navigate(navTypes.SIGN_IN, action.payload)

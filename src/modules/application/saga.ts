@@ -14,9 +14,10 @@ import {
 } from './actions';
 import { getDrawerState, getAlert } from './selectors';
 
-import * as auth from 'modules/auth';
-import * as account from 'modules/account';
-import * as navigator from 'modules/navigator';
+import * as navigatorActions from 'modules/navigator/actions';
+import * as authActions from 'modules/auth/actions';
+import * as authSelectors from 'modules/auth/selectors';
+import * as accountSelectors from 'modules/account/selectors';
 
 interface IErrorAlert {
   error: {
@@ -31,8 +32,8 @@ interface IErrorAlert {
 
 export function* initWorker(): SagaIterator {
   const { hasValidToken, token, isTouchIDAvailable, currentLocale } = yield all({
-    token: select(auth.selectors.getToken),
-    hasValidToken: select(auth.selectors.hasValidToken),
+    token: select(authSelectors.getToken),
+    hasValidToken: select(authSelectors.hasValidToken),
     isTouchIDAvailable: call(checkTouchIDAvailiability),
     currentLocale: call(getCurrentLocale),
   });
@@ -52,15 +53,15 @@ export function* initWorker(): SagaIterator {
 
     yield put(initFinish());
     yield put(
-      navigator.actions.navigateWithReset([{ routeName: navTypes.HOME }])
+      navigatorActions.navigateWithReset([{ routeName: navTypes.HOME }])
     );
 
     return;
   } else {
-    yield put(auth.actions.detachSession());
+    yield put(authActions.detachSession());
     yield put(initFinish());
     yield put(
-      navigator.actions.navigateWithReset([
+      navigatorActions.navigateWithReset([
         { routeName: navTypes.ACCOUNT_SELECT }
       ])
     );
@@ -73,21 +74,21 @@ export function* persistWorker() {
 
 export function* expiredTokenWorker() {
   yield take(cancelAlert);
-  const isAuthed = yield select(auth.selectors.getAuthStatus);
+  const isAuthed = yield select(authSelectors.getAuthStatus);
   if (!isAuthed) return;
 
-  const uniqKey = yield select(auth.selectors.getCurrentAccount);
+  const uniqKey = yield select(authSelectors.getCurrentAccount);
   const { drawerOpen, encKey } = yield all({
     drawerOpen: select(getDrawerState),
-    encKey: select(account.selectors.getAccountEncKey(uniqKey))
+    encKey: select(accountSelectors.getAccountEncKey(uniqKey))
   });
 
   if (drawerOpen) {
     yield put(toggleDrawer(false));
   }
 
-  yield put(auth.actions.detachSession());
-  yield put(navigator.actions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { uniqKey, encKey } }]));
+  yield put(authActions.detachSession());
+  yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.SIGN_IN, params: { uniqKey, encKey } }]));
 }
 
 export function* alertWorker(action: Action<IErrorAlert>): SagaIterator {
@@ -117,7 +118,7 @@ function* resetDefaultPageWorker() {
 export function* applicationWatcher(): SagaIterator {
   yield takeEvery(initStart, initWorker);
   yield takeEvery(waitForError(), alertWorker);
-  yield takeEvery(auth.actions.detachSession, resetDefaultPageWorker);
+  yield takeEvery(authActions.detachSession, resetDefaultPageWorker);
 }
 
 export default applicationWatcher;

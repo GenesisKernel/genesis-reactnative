@@ -46,4 +46,4 @@ AppRegistry.registerComponent('Apla', () =>
   })(App)
 );
 
-console.ignoredYellowBox = ['Require cycle: node_modules'];
+console.ignoredYellowBox = ['Require cycle: node_modules', 'Header.HEIGHT is deprecated '];

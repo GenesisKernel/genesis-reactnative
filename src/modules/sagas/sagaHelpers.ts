@@ -11,11 +11,13 @@ import defaultSchema from 'utils/transactions/schema/defaultSchema';
 import { toHex } from 'utils/transactions/convert';
 import api, { apiSetToken, apiDeleteToken, apiSetUrl, ApiFactory } from 'utils/api';
 
+import * as authSelectors from 'modules/auth/selectors';
+import * as authActions from 'modules/auth/actions';
+import * as appActions from 'modules/application/actions';
+import * as accountSelectors from 'modules/account/selectors';
+import * as nodesSelectors from 'modules/nodes/selectors';
+
 import { IAuthPayload } from 'modules/auth/saga';
-import * as account from 'modules/account';
-import * as application from 'modules/application';
-import * as auth from 'modules/auth';
-import * as nodes from 'modules/nodes';
 
 export function* getUsername(token: string, key_id: string) {
   apiDeleteToken();
@@ -29,7 +31,7 @@ export function* getUsername(token: string, key_id: string) {
 }
 
 export function* loginByGuestKey() {
-  const currentNode = yield select(nodes.selectors.getCurrentNode);
+  const currentNode = yield select(nodesSelectors.getCurrentNode);
 
   const apiInstance = create({
     baseURL: `${currentNode.apiUrl}api/v2`,
@@ -84,21 +86,21 @@ export function* loginCall(payload: IAuthPayload, role_id?: number, signParams?:
 }
 
 export function* roleSelect(roles: IRole[]) {
-  yield put(application.actions.showModal({ type: ModalTypes.ROLE_SELECT, params: { roles } }));
+  yield put(appActions.showModal({ type: ModalTypes.ROLE_SELECT, params: { roles } }));
 
   const roleSelected = yield race({
-    success: take(application.actions.confirmModal),
-    failed: take(application.actions.closeModal),
+    success: take(appActions.confirmModal),
+    failed: take(appActions.closeModal),
   });
-  yield put(application.actions.closeModal());
+  yield put(appActions.closeModal());
   yield call(delay, MODAL_ANIMATION_TIME + 150);
 
   if (roleSelected.failed) return;
 
   if (roleSelected.success) {
-    yield put(auth.actions.setRole(roleSelected.success.payload));
+    yield put(authActions.setRole(roleSelected.success.payload));
     return roleSelected.success.payload;
-  };
+  }
 }
 
 export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token?: string, currentNode?: INode, withSignature = false) {
@@ -148,17 +150,17 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
 }
 
 export function* defaultPageSetter(role_id?: number | string | undefined) {
-  const currentRole = yield select(auth.selectors.getCurrentRole);
+  const currentRole = yield select(authSelectors.getCurrentRole);
   if (role_id || currentRole && currentRole.role_id) {
     const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id || currentRole.role_id);
 
-    yield put(application.actions.setDefaultPage(default_page || DEFAULT_PAGE));
+    yield put(appActions.setDefaultPage(default_page || DEFAULT_PAGE));
   }
 }
 
 export function* prepareContractWorker(payload: any, privateKey: string) {
-  const uniqKey = yield select(auth.selectors.getCurrentAccount);
-  const currentAcc = yield select(account.selectors.getAccount(uniqKey));
+  const uniqKey = yield select(authSelectors.getCurrentAccount);
+  const currentAcc = yield select(accountSelectors.getAccount(uniqKey));
 
   try {
     const request: {[hash: string]: any}  = {};
