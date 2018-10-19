@@ -17,7 +17,6 @@ class NotificationsIcon extends React.PureComponent<INotificationsIconProps> {
 
   public render() {
     const { count } = this.props;
-    console.log(count, 'count')
     return (
       <View style={styles.icon}>
         {this.renderCount()}

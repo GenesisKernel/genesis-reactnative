@@ -4,11 +4,14 @@ import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
+import { path } from 'ramda';
 
 import { requestEcosystem, addEcosystemToList } from './actions';
 import { navTypes } from '../../constants';
 
+import { auth } from '../auth/saga';
 import { getUsername, loginCall } from 'modules/sagas/sagaHelpers';
+import { requestPrivateKeyWorker } from 'modules/sagas/privateKey';
 import { uniqKeyGenerator, } from 'utils/common';
 
 import * as authSelectors from 'modules/auth/selectors';
@@ -62,8 +65,13 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
         let accountData = yield call(loginCall, { ecosystems: [ecosystem], private: payload.privateKey, public: payload.publicKey });
 
         const roles = accountData.roles || [];
+        let avatarAndUsername;
+        try {
+          avatarAndUsername = yield call(getUsername, accountData.token, accountData.key_id);
+        } catch (error) {
+          console.log(error, 'avatarAndUsername not found');
+        }
 
-        const avatarAndUsername = yield call(getUsername, accountData.token, accountData.key_id);
         const uniqKey = uniqKeyGenerator(accountData);
 
         accountData = { ...accountData, ...avatarAndUsername, roles, uniqKey, publicKey };
@@ -98,8 +106,9 @@ function* addEcosystemToListWorker({ payload }: Action<{ecosystem: string, page?
   }));
 
   if (payload.page) {
-    yield put(navigatorActions.navigate(navTypes.PAGE));
+    yield put(navigatorActions.navigateWithReset([{ routeName: navTypes.PAGE, params: { withGoHomeButton: false } }]));
     yield put(applicationActions.receivePageParams({ page: payload.page }));
+    yield put(applicationActions.receiveTitle(payload.page));
   }
 }
 

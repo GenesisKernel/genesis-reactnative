@@ -114,7 +114,7 @@ class Row extends React.PureComponent<IRow> {
       }
     }
 
-    return 'no name';
+    return `#${this.props.account.ecosystem_id}`;
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
