@@ -28,7 +28,6 @@ export interface IRow {
   currentNode: INode;
   notification?: INotificationData;
   isLoggedAccount: boolean;
-  isDrawerOpened: boolean;
   ecosystems?: IEcosystems;
   onPress(payload: { uniqKey: string; encKey: string; }): void;
   onDisableScroll(value: boolean): void;
@@ -44,17 +43,17 @@ class Row extends React.PureComponent<IRow> {
   public render() {
     const { showDecor } = this.state;
     const { account: { avatar, username, uniqKey, address, ecosystem_id  },
-    notification, isLoggedAccount, isDrawerOpened, account, ecosystems } = this.props;
+    notification, isLoggedAccount, account, ecosystems } = this.props;
 
-    const  findElmentName = this.findElmentName(path([`${ecosystem_id}`], ecosystems));
+    const findElmentName = this.findElmentName(path([`${ecosystem_id}`], ecosystems));
 
-    const rightButtonsContainerWidth = isDrawerOpened ? width - (width * openDrawerOffset) : width;
+    const rightButtonsContainerWidth =  width - (width * openDrawerOffset);
 
     return (
       <Swipeable
         onRef={(ref: any) => this.swipeable = ref}
-        onSwipeStart={() => this.handleSwipe(false)}
-        onSwipeRelease={() => this.handleSwipe(true)}
+        onSwipeStart={this.handleSwipeStart}
+        onSwipeRelease={this.handleSwipeRelease}
         rightButtons={this.getRightButtons(rightButtonsContainerWidth)}
         rightButtonWidth={rightButtonsContainerWidth}>
         <TouchableHighlight
@@ -77,11 +76,7 @@ class Row extends React.PureComponent<IRow> {
             <View style={styles.rowContainer}>
               <View style={styles.firstRow}>
                 <View style={styles.avatar}>
-                  {notification && notification.count && (
-                    <View style={styles.notificationCircle}>
-                      <Text style={styles.notificationText}>{notification.count.toString()}</Text>
-                    </View>
-                  )}
+                  {this.renderNotification()}
                   <Avatar
                     account={account}
                     currentNode={this.props.currentNode} />
@@ -107,6 +102,22 @@ class Row extends React.PureComponent<IRow> {
     );
   }
 
+  private renderNotification = () => {
+    const { notification } = this.props;
+
+    try {
+      if (notification && notification.count) {
+        return (
+          <View style={styles.notificationCircle}>
+            <Text style={styles.notificationText}>{notification.count.toString()}</Text>
+          </View>
+        );
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   private findElmentName = (findElmentName: any) => {
     if (findElmentName) {
       if (!isEmpty(findElmentName) && !isEmpty(findElmentName.parameters))  {
@@ -118,7 +129,7 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
-    const { isLoggedAccount, isDrawerOpened, account: { address, ecosystem_id } } = this.props;
+    const { isLoggedAccount, account: { address, ecosystem_id } } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
 
@@ -162,8 +173,12 @@ class Row extends React.PureComponent<IRow> {
     this.swipeable && this.swipeable.recenter();
   }
 
-  private handleSwipe = (value: boolean): void => {
-    this.props.onDisableScroll(value);
+  private handleSwipeStart = () => {
+    this.props.onDisableScroll(false);
+  }
+
+  private handleSwipeRelease = () => {
+    this.props.onDisableScroll(true);
   }
 
   private handlUnderlay = (value: string): void => {

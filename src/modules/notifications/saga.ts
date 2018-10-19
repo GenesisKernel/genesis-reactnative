@@ -45,7 +45,10 @@ export function socketInit(payload: ISocketInit) {
 
     const subscribtion = centrifuge.subscribe(`client${account.key_id}`, (message: INotification) => {
       console.log(`got message in ${message.channel}`);
-      emitter(notificationsActions.receiveNotification({ ...message, uniqKey }));
+      for (const data of message.data) {
+        const newMessage = { ...message, data };
+        emitter(notificationsActions.receiveNotification({ ...newMessage, uniqKey }));
+      }
     });
 
     subscribtion.on('subscribe', () => {

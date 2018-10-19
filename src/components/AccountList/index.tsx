@@ -3,37 +3,26 @@ import { isEmpty, path } from 'ramda';
 import { View, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import Row, { IEcosystems } from './Row';
-import CreateAccountButton from './CreateAccountButton';
-
+import RowContainer from 'containers/AccountList/RowContainer';
 import Button from 'components/ui/Button';
-import Field from 'components/ui/Field';
 import Text from 'components/ui/Text';
 
+import CreateAccountButton from './CreateAccountButton';
 import styles from './styles';
 
 export interface IAccountListProps {
-  ecosystems?: IEcosystems;
   accounts: { [id: string]: object };
   noTitle?: boolean | undefined;
-  currentAccount: string;
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
-  currentNode: INode;
-  notifications: { [uniqKey: string]: INotificationData };
   onCreateAccount: () => void;
   onSelect(payload: { uniqKey: string; encKey: string }): void;
 }
 
-class AccountList extends React.Component<IAccountListProps, { isScrollAvailable: boolean }> {
+class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvailable: boolean }> {
   state = {
     isScrollAvailable: true,
   };
-
-  public shouldComponentUpdate(nextProps: any) {
-    if (this.props.isDrawerOpened !== nextProps.isDrawerOpened) return false;
-    return true;
-  }
 
   public render() {
     if (isEmpty(this.props.accounts)) {
@@ -65,15 +54,9 @@ class AccountList extends React.Component<IAccountListProps, { isScrollAvailable
   private renderAccount = (account: any) => {
     return (
       <View key={account.uniqKey}>
-        <Row
-          ecosystems={this.props.ecosystems}
-          account={account}
-          notification={this.props.notifications[account.uniqKey]}
-          onPress={this.props.onSelect}
-          isLoggedAccount={account.uniqKey === this.props.currentAccount}
+        <RowContainer
           onDisableScroll={this.handlePreventScroll}
-          isDrawerOpened={this.props.isDrawerOpened}
-          currentNode={this.props.currentNode}
+          uniqKey={account.uniqKey}
         />
       </View>
     );

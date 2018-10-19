@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 import Field from 'components/ui/Field';
 import Button from 'components/ui/Button';
-import AccountListContainer from 'containers/AccountListContainer';
+import AccountListContainer from 'containers/AccountList/AccountListContainer';
 import Logo from 'components/ui/Logo';
 import Text from 'components/ui/Text';
 import TouchIdContainer from 'containers/TouchIdContainer';

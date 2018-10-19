@@ -4,7 +4,7 @@ import { Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { View as AnimatableView } from 'react-native-animatable';
 
-import AccountListContainer from 'containers/AccountListContainer';
+import AccountListContainer from 'containers/AccountList/AccountListContainer';
 import Text from 'components/ui/Text';
 import AppVersion from 'components/AppVersion';
 import Logo from 'components/ui/Logo';

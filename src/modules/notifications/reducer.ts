@@ -18,7 +18,6 @@ const initialState: IState = {
 
 export default reducerWithInitialState(initialState)
 .case(actions.receiveNotification, (state, payload: INotification) => {
-
   return {
     ...state,
     [payload.uniqKey]: {

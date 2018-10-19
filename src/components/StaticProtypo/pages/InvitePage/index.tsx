@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import Text from 'components/ui/Text';
 
 import styles from './styles';
@@ -25,7 +25,9 @@ class StaticInvite extends React.PureComponent<InvitePage> {
             id: "ecosystem.added.to.list",
             defaultMessage: "Ecosystem has been added to your ecosystems list."
           }}
+          style={styles.text}
         />
+        <ActivityIndicator size="large" />
       </View>
     );
   }

@@ -2,18 +2,19 @@ import { connect } from 'react-redux';
 import { getCurrentLocale } from 'modules/application/selectors';
 import Alert from 'components/Alert';
 
-import * as application from 'modules/application';
+import * as applicationSelectors from 'modules/application/selectors';
+import * as applicationActions from 'modules/application/actions';
 
 const mapStateToProps = (state: any) => {
   return {
-    ...application.selectors.getAlert(state),
-    currentLocale: getCurrentLocale(state),
+    ...applicationSelectors.getAlert(state),
+    currentLocale: applicationSelectors.getCurrentLocale(state),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  cancel: () => dispatch(application.actions.cancelAlert()),
-  confirm: () => dispatch(application.actions.confirmAlert())
+  cancel: () => dispatch(applicationActions.cancelAlert()),
+  confirm: () => dispatch(applicationActions.confirmAlert())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alert);
