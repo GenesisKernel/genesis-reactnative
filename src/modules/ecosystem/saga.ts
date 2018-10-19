@@ -1,13 +1,21 @@
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
 
-import { requestEcosystem } from './actions';
+import { requestEcosystem, addEcosystemToList } from './actions';
+import { navTypes } from '../../constants';
+
 import { getUsername, loginCall } from 'modules/sagas/sagaHelpers';
-import { uniqKeyGenerator } from 'utils/common';
+import { uniqKeyGenerator, } from 'utils/common';
+
+import * as authSelectors from 'modules/auth/selectors';
+import * as accountSelectors from 'modules/account/selectors';
+import * as accountActions from 'modules/account/actions';
+import * as navigatorActions from 'modules/navigator/actions';
+import * as applicationActions from 'modules/application/actions';
 
 const defaultParams: string[] = ['ava', 'key_mask', 'name'];
 
@@ -72,8 +80,32 @@ export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], 
 
 }
 
+function* addEcosystemToListWorker({ payload }: Action<{ecosystem: string, page?: string}>) {
+  const uniqKey = yield select(authSelectors.getCurrentAccount);
+  const currentAccount = yield select(accountSelectors.getAccount(uniqKey));
+  const newUniqKey = uniqKeyGenerator({ key_id: currentAccount.key_id, ecosystem_id: payload.ecosystem });
+  const newAccount = {
+    ...currentAccount,
+    uniqKey: newUniqKey,
+    ecosystem_id: payload.ecosystem,
+  }
+
+  yield put(accountActions.createAccount.done({
+    params: {} as any, // forgive me, Father
+    result: {
+      [newUniqKey]: newAccount,
+    } as any,
+  }));
+
+  if (payload.page) {
+    yield put(navigatorActions.navigate(navTypes.PAGE));
+    yield put(applicationActions.receivePageParams({ page: payload.page }));
+  }
+}
+
 export function* ecosystemSaga(): SagaIterator {
   yield takeEvery(requestEcosystem.started, requestEcosystemWorker);
+  yield takeEvery(addEcosystemToList, addEcosystemToListWorker);
 }
 
 export default ecosystemSaga;

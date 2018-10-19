@@ -17,11 +17,4 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  setStaticPage: (pagePayload: page.actions.IStaticPagePayload) => {
-    dispatch(page.actions.requestPage.started(pagePayload));
-    dispatch(navigator.actions.navigate(navTypes.PAGE));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps)(HomeScreen);

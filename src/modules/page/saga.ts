@@ -7,17 +7,16 @@ import { getPage } from './selectors';
 import * as application from 'modules/application';
 import { addHistoryMarker } from '../sagas/utils';
 
-import { STATIC_PAGES, STATIC_PAGE } from '../../constants';
+import { STATIC_PAGES } from '../../constants';
 
 export function* pageWorker(action: Action<any>): SagaIterator {
 
   try {
-    if (STATIC_PAGES[action.payload.name]) {
+    if (STATIC_PAGES.indexOf(action.payload.name) !== -1) {
       yield put(
         setStaticPage({
           name: action.payload.name,
-          ecosystem: action.payload.ecosystem,
-          page: action.payload.page
+          params: action.payload.params || {},
         })
       );
       yield put(application.actions.receiveCurrentPage(action.payload.name));

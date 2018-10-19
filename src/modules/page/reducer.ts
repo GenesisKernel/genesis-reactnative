@@ -22,8 +22,7 @@ export interface IPage {
 
 export interface IStaticPage {
   name: string;
-  ecosystem: string;
-  page?: string;
+  params?: any;
 }
 
 export interface IState {
@@ -64,10 +63,7 @@ export default reducerWithInitialState<IState>(initialState)
     staticPages: {
       ...state.staticPages,
       [payload.name]: {
-        ...state.staticPages.payload,
-        name: payload.name,
-        ecosystem: payload.ecosystem,
-        page: payload.page
-      }
+        ...payload,
+      },
     }
   }));

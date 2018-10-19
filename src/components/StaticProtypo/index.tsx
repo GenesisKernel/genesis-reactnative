@@ -1,38 +1,37 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import StaticInvite from 'components/StaticInvite';
-import StaticBackup from 'components/StaticBackup';
-import StaticEditor from 'components/StaticEditor';
-
-import { STATIC_PAGE } from '../../constants';
+import InvitePage from './pages/InvitePage';
 
 import styles from './styles';
 
 interface IStaticProps {
-  staticPageName: string;
+  pageName: string;
+  page: {
+    params: any;
+    name: string;
+  }
+  addEcosystemToList: (params: any) => void;
 }
 
-export type StaticTemplateOption = { [name: string]: JSX.Element };
-
-const StaticTemplate: StaticTemplateOption = {
-  [STATIC_PAGE.backup]: <StaticBackup /> as JSX.Element,
-  [STATIC_PAGE.invite]: <StaticInvite /> as JSX.Element,
-  [STATIC_PAGE.editor]: <StaticEditor /> as JSX.Element,
-};
-
-class StaticProtypo extends React.Component<IStaticProps, object> {
-
+class StaticProtypo extends React.Component<IStaticProps> {
   public render() {
-    const { staticPageName } = this.props;
-    const renderStaticPage: JSX.Element = StaticTemplate[staticPageName];
-
     return (
       <View style={styles.container}>
-        {renderStaticPage}
+        {this.renderStaticPage()}
       </View>
     );
   }
+
+  private renderStaticPage = (): React.ReactNode => {
+    const { pageName, page, addEcosystemToList } = this.props;
+
+    if (pageName === '@invite') {
+      return <InvitePage params={page.params} addEcosystemToList={addEcosystemToList} />;
+    }
+    return null;
+  }
+
 }
 
 export default StaticProtypo;

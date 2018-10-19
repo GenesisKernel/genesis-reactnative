@@ -14,8 +14,7 @@ export interface IPagePayload {
 
 export interface IStaticPagePayload {
   name: string;
-  ecosystem: string;
-  page?: string;
+  params?: any;
 }
 
 export const requestPage = actionCreator.async<IPagePayload, IPage>('REQUEST');

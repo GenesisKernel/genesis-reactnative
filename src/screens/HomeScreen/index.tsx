@@ -13,7 +13,7 @@ import BackupAccountButtonContainer from 'containers/BackupAccountButtonContaine
 import ProtypoContainer from 'containers/Protypo/ProtypoContainer';
 import Button from '../../components/ui/Button';
 
-import { STATIC_PAGE, DEFAULT_PAGE } from '../../constants';
+import { DEFAULT_PAGE } from '../../constants';
 import * as page from 'modules/page';
 
 import styles from './styles';
@@ -33,14 +33,7 @@ class HomeScreen extends React.Component<IScreenProps, object> {
         <NotificationsIconContainer />
         <BackupAccountButtonContainer />
       </View>)
-  })
-
-  public onTest = (StaticPageName: STATIC_PAGE) => {
-    this.props.setStaticPage({
-      name: StaticPageName, ecosystem: 'ecosystem',
-      page: 'page'
-    });
-  }
+  });
 
   public render() {
 
@@ -48,18 +41,6 @@ class HomeScreen extends React.Component<IScreenProps, object> {
       <View style={styles.container}>
         <Logo type="black" />
         <MenuGridContainer pageName={DEFAULT_PAGE} />
-        <Button
-          title='To Invites'
-          onPress={() => this.onTest(STATIC_PAGE.invite)}
-        />
-        <Button
-          title='To editor'
-          onPress={() => this.onTest(STATIC_PAGE.editor)}
-        />
-        <Button
-          title='To backup'
-          onPress={() => this.onTest(STATIC_PAGE.backup)}
-        />
       </View>
     );
   }

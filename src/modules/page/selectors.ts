@@ -29,3 +29,5 @@ export const isFetching = createSelector(
   state => state.pages.isFetching,
   isFetching => isFetching
 );
+
+export const getStaticPage = (state: any, name: string) => state.pages.staticPages[name];

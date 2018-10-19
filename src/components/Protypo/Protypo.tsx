@@ -4,13 +4,13 @@ import { View, Text, WebView } from 'react-native';
 import { omit } from 'ramda';
 import { StyleProvider } from 'react-native-stylable';
 
+import StaticProtypoContainer from 'containers/StaticProtypoContainer';
+
 import { resolveHandler } from 'components/Protypo';
 import Mask from 'components/Mask';
-import StaticProtypo from 'components/StaticProtypo';
+import { STATIC_PAGES } from "../../constants";
 
 import DataSource from './utils/DataSource';
-import { STATIC_PAGES, STATIC_PAGE } from "../../constants";
-
 import styles from './styles';
 import containerStyles from './protypoContainerStyles';
 
@@ -53,7 +53,7 @@ interface IProtypoProps {
   id: string;
   payload: IElement[];
   pending: boolean;
-  getStaticPage: string;
+  staticPageName: string;
 }
 
 export default class Protypo extends React.PureComponent<IProtypoProps> {
@@ -82,12 +82,13 @@ export default class Protypo extends React.PureComponent<IProtypoProps> {
   public renderElement = (element: IElement) => renderElement(element);
 
   public render() {
-    const { getStaticPage, id, payload, pending } = this.props;
+    const { staticPageName, id, payload, pending } = this.props;
     INNER_ELEMENT_KEY = id;
 
-    if (STATIC_PAGES[getStaticPage]) {
-      return <StaticProtypo staticPageName={getStaticPage} />;
+    if (STATIC_PAGES.indexOf(staticPageName) !== -1) {
+      return <StaticProtypoContainer pageName={staticPageName} />;
     }
+
     if (pending) {
       return (
         <View style={containerStyles.container}>
@@ -95,6 +96,7 @@ export default class Protypo extends React.PureComponent<IProtypoProps> {
         </View>
       );
     }
+
     return (
       <StyleProvider
         style={containerStyles.container}

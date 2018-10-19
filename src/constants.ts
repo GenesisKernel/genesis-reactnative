@@ -48,16 +48,4 @@ export const ERRORS = {
   TOKEN_EXPIRED: 'E_TOKENEXPIRED',
 };
 
-export enum STATIC_PAGE {
-  invite = '@invite',
-  editor = 'editor',
-  backup = 'backup',
-}
-
-export interface IStaticPageOption { [name: string]: boolean; }
-
-export const STATIC_PAGES: IStaticPageOption = {
-  '@invite': true,
-  'editor': true,
-  'backup': true,
-};
+export const STATIC_PAGES = ['@invite'];

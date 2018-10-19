@@ -7,27 +7,20 @@ import Text from 'components/ui/Text';
 import { navTypes } from '../../constants';
 import styles from './styles';
 
-interface IStatusIconProps {
+interface INotificationsIconProps {
   count?: number | null;
   isHomeRoute: boolean;
   showNotificationsPage: (withReset?: boolean) => void;
 }
 
-class StatusIcon extends React.PureComponent<IStatusIconProps> {
-  showNotificationsPage = () => {
-    const { isHomeRoute, showNotificationsPage } = this.props;
-    showNotificationsPage(!isHomeRoute);
-  }
+class NotificationsIcon extends React.PureComponent<INotificationsIconProps> {
+
   public render() {
     const { count } = this.props;
-
+    console.log(count, 'count')
     return (
       <View style={styles.icon}>
-        {count && (
-          <View style={styles.counter}>
-            <Text style={styles.counterText}>{`${count}`}</Text>
-          </View>
-        )}
+        {this.renderCount()}
         <Icon
           name="flag"
           size={22}
@@ -39,6 +32,27 @@ class StatusIcon extends React.PureComponent<IStatusIconProps> {
       </View>
     );
   }
+
+  private showNotificationsPage = () => {
+    const { isHomeRoute, showNotificationsPage } = this.props;
+    showNotificationsPage(!isHomeRoute);
+  }
+
+  private renderCount = () => {
+    try {
+      const { count } = this.props;
+      if (!count) return null;
+
+      return (
+        <View style={styles.counter}>
+          <Text style={styles.counterText}>{`${count}`}</Text>
+        </View>
+      );
+    } catch (error) {
+      console.log(error, 'renderCount');
+    }
+  }
+
 }
 
-export default StatusIcon;
+export default NotificationsIcon;
