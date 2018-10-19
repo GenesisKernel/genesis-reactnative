@@ -53,4 +53,6 @@ export default {
   "auth.authorise.please": 'Please authorize or sign up to start working.',
   "auth.role.select": `Please, select the role you'd like to login by`,
   "auth.without.role": "Sign without role",
+
+  "ecosystem.added.to.list": "Ecosystem  has been added to your ecosystems list."
 }

@@ -14,39 +14,46 @@ import Keyring from 'utils/keyring';
 import { TxDissect } from 'utils/common';
 
 import { REQUIRED_ALIVE_NODES_COUNT } from '../../constants';
-import { checkNodeValidity, loginCall } from 'modules/sagas/sagaHelpers';
+import { checkNodeValidity, loginCall, prepareContractWorker } from 'modules/sagas/sagaHelpers';
 import { runTransaction, checkTransactionStatus, confirmNestedContracts, setTransactions } from './actions';
 import { getTransactions } from './selectors';
+import { toHex } from 'utils/transactions/convert';
 
 class StatusError extends Error { }
 export interface IPrepareData {
   forsign: string;
-  signs?: {
+  signs?: Array<{
     forsign: string;
     field: string;
-  }[];
+  }>;
 }
 
-export function* getTransactionStatus(hash: string) {
+export function* getTransactionStatus(hashes: {[hash: string]: string}) {
   while (true) {
-    const response = yield call(api.transactionStatus, hash);
+    const response = yield call(api.transactionStatus, Object.values(hashes));
     yield put(checkTransactionStatus(response.data));
 
-    if (response.data.errmsg) {
-      throw ({
-        title: response.data.errmsg.type,
-        message: response.data.errmsg.error,
-      });
+    if (response.data.results) {
+      const resultsValues = Object.values(response.data.results);
+      for (const item of resultsValues) {
+        if (item.errmsg) {
+          throw ({
+            title: item.errmsg.type || 'didn\'t get error type',
+            message: item.errmsg.error || 'didn\'t get error message',
+          });
+        }
+      }
+
+      if (resultsValues.every(item => item.blockid)) {
+        return resultsValues;
+      }
     }
 
-    if (response.data.blockid) {
-      return response;
-    }
-
-    yield call(delay, 1500);
+    yield call(delay, 2000);
   }
 }
 
+/* L E G A C Y
 export function* signsWorker(prepareData: IPrepareData, params: any, privateKey: string, transactionUuid: string): SagaIterator {
   let fullForsign = prepareData.forsign;
   const signParams: any = {};
@@ -87,10 +94,10 @@ export function* signNestedContractsWorker(sign: { forsign: string }, privateKey
     console.error(err, 'ERROR AT => getSignParamsWorker');
   }
 }
-
+*/
 export function* filterTransactions(transactionToDelete: string): SagaIterator {
-  let transactions = yield select(getTransactions);
-  for (let key in transactions) {
+  const transactions = yield select(getTransactions);
+  for (const key in transactions) {
     if (key === transactionToDelete) {
       delete transactions[key];
     }
@@ -98,75 +105,7 @@ export function* filterTransactions(transactionToDelete: string): SagaIterator {
   yield put(setTransactions(transactions)); // removing transaction which was canceled
 }
 
-export function* validateContractWorker(action: any, privateKey: string, isMultiple = false) {
-  const { nodesList, currentNode, token, uniqKey, locale } = yield all({
-    nodesList: select(nodes.selectors.getNodesList),
-    currentNode: select(nodes.selectors.getCurrentNode),
-    uniqKey: select(auth.selectors.getCurrentAccount),
-    token: select(auth.selectors.getToken),
-    locale: select(application.selectors.getCurrentLocale),
-  });
-
-  const currentAcc = yield select(account.selectors.getAccount(uniqKey));
-  const validNodes = yield call(checkNodeValidity, nodesList, REQUIRED_ALIVE_NODES_COUNT, token, currentNode, true);
-
-  if (!validNodes.length || validNodes.length !== REQUIRED_ALIVE_NODES_COUNT) return false;
-  let validatedContracts: any[] = [];
-
-  for (const node of validNodes) {
-    try {
-      yield call(apiSetUrl, `${node.apiUrl}api/v2`);
-      yield call(loginCall, { ecosystems: [currentAcc.ecosystem_id], public: currentAcc.publicKey, private: privateKey }, undefined, node.signature);
-
-      let prepareResult;
-      if (!isMultiple) {
-        prepareResult = yield call(
-          api.prepareContract,
-          action.payload.contract,
-          { ...action.payload.params, Lang: locale },
-        );
-
-        const { data: prepareData } = prepareResult;
-        prepareData.forsign = prepareData.forsign.replace(/^(\w+-\w+-\w+-\w+-\w+,\d+,\d+)/, ',');
-        validatedContracts.push(prepareData);
-      } else {
-        prepareResult = yield call(
-          api.prepareMultiple,
-          action,
-        );
-
-        const { data: prepareData } = prepareResult;
-
-        prepareData.forsign.forEach((forsign: string, index: number) => {
-          prepareData.forsign[index] = TxDissect(forsign);
-        });
-        validatedContracts.push(...prepareData.forsign);
-      }
-    } catch (err) {
-      yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
-      yield call(apiSetToken, token);
-      return false;
-    }
-  }
-
-  yield call(apiSetUrl, `${currentNode.apiUrl}api/v2`);
-  yield call(apiSetToken, token);
-
-  if (!isMultiple) {
-    if (validatedContracts[0].forsign === validatedContracts[1].forsign && Math.abs(Number(validatedContracts[0].time) - Number(validatedContracts[1].time)) <= 60) {
-      return true;
-    }
-  } else {
-    if (validatedContracts.every(item => item.body === validatedContracts[0].body && Math.abs(item.timestamp - validatedContracts[0].timestamp) <= 3
-    )) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-export function* contractWorker(action: Action<any>): SagaIterator {
+export function* contractWorker(action: Action<ITransactionStarted>): SagaIterator {
   try {
     const getKey = yield call(requestPrivateKeyWorker);
     const locale = yield select(application.selectors.getCurrentLocale);
@@ -177,61 +116,22 @@ export function* contractWorker(action: Action<any>): SagaIterator {
     }
 
     const { privateKey } = getKey;
-    const isContractValid = yield call(validateContractWorker, action, privateKey);
+    const preparedContracts = yield call(prepareContractWorker, action.payload, privateKey);
+    if (!preparedContracts) throw new Error(`Error while preparing contract`);
 
-    if (!isContractValid) throw new Error(`Contract isn't valid.`);
+    const transactionsStatus = yield call(getTransactionStatus, preparedContracts);
 
-    const { data: prepareData } = yield call(
-      api.prepareContract,
-      action.payload.contract,
-      { ...action.payload.params, Lang: locale },
-    ); // Prepare contract
-
-    yield fork(signsWorker, prepareData, { ...action.payload.params, ...action.payload.contract }, privateKey, action.payload.uuid); // checking if there is nested contracts
-
-    const signingResult = yield race({
-      valid: take(confirmNestedContracts),
-      invalid: take(setTransactions)
-    });
-
-    if (signingResult.valid) {
-      const { fullForsign, signParams } = signingResult.valid.payload;
-      const uniqKey = yield select(auth.selectors.getCurrentAccount);
-      const { publicKey } = yield select(account.selectors.getAccount(uniqKey));
-
-      const signature = yield call(Keyring.sign, fullForsign, privateKey); // generate the signature
-
-      const { data: contractData } = yield call(
-        api.runContract,
-        prepareData.request_id,
-        {
-          signature,
-          time: prepareData.time,
-          pubkey: publicKey,
-        }
-      ); // run contract
-
-      const { data: statusData } = yield call(
-        getTransactionStatus,
-        contractData.hash
-      ); // checking status of contract
-
-      yield put(
-        runTransaction.done({
-          params: action.payload,
-          result: {
-            id: statusData.result,
-            block: statusData.blockid
-          }
-        })
-      );
-      yield call(refreshPrivateKeyExpireTime);
-    }
-
-    if (signingResult.invalid) {
-      yield put(application.actions.closeModal());
-      return;
-    }
+    yield put(
+      runTransaction.done({
+        params: action.payload,
+        result: {
+          id: transactionsStatus[0].result,
+          block: transactionsStatus[0].blockid,
+          contract: action.payload.contracts[0].contract,
+        } // TODO: push all transactions here, instead of first
+      })
+    );
+    yield call(refreshPrivateKeyExpireTime);
   } catch (error) {
     yield put(
       runTransaction.failed({

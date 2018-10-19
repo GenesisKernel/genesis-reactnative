@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Field, WrappedFieldProps, BaseFieldProps } from 'redux-form';
 import ImagePicker from 'react-native-image-crop-picker';

@@ -112,7 +112,6 @@ class TouchId extends React.Component<ITouchIdProps, ITouchState> {
 
   private fingerprintRequest = (): void => {
     Vibration.vibrate(3, false);
-    // here will be the haptic engine
     Platform.OS === 'android' ? this.androidFingerprintRequest() : this.iosFingerprintRequest()
   }
 

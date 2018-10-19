@@ -17,42 +17,22 @@ export interface ITransaction {
 }
 
 export interface IState {
-  [uuid: string]: ITransaction;
+  [uuid: string]: ITransactionStarted | ITransactionDone | ITransactionFailed;
 }
 
 const initialState: IState = {};
 
 export default reducerWithInitialState(initialState)
   .caseWithAction(
-    actions.runTransaction.started,
-    (state, { payload, meta }) => ({
-      ...state,
-      [payload.uuid]: {
-        ...payload,
-        meta
-      }
-    })
-  )
-  .case(actions.runCompositeContracts.started, (state, payload) => ({
+  actions.runTransaction.started,
+  (state, { payload, meta }) => ({
     ...state,
     [payload.uuid]: {
       ...payload,
+      meta
     }
-  }))
-  .case(actions.runCompositeContracts.done, (state, payload) => ({
-    ...state,
-    [payload.params.uuid]: {
-      ...payload,
-      ...payload.result,
-    }
-  }))
-  .case(actions.runCompositeContracts.failed, (state, payload) => ({
-    ...state,
-    [payload.params.uuid]: {
-      ...payload,
-      error: payload.error
-    }
-  }))
+  })
+  )
   .case(actions.runTransaction.done, (state, payload) => ({
     ...state,
     [payload.params.uuid]: {

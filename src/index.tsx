@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as CodePush from 'react-native-code-push';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
@@ -45,3 +44,5 @@ AppRegistry.registerComponent('Apla', () =>
     checkFrequency: CodePush.CheckFrequency.MANUAL
   })(App)
 );
+
+console.ignoredYellowBox = ['Require cycle: node_modules', 'Header.HEIGHT is deprecated '];

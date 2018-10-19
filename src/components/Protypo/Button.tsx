@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';

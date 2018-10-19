@@ -3,7 +3,7 @@ import MenuGrid from 'components/MenuGrid';
 
 import * as application from 'modules/application';
 import * as page from 'modules/page';
-import * as navigator from 'modules/navigator';
+import * as navigatorActions from 'modules/navigator/actions';
 import { navTypes } from '../constants';
 
 const mapStateToProps = (state: any, ownProps: any) => {
@@ -16,9 +16,9 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = dispatch => ({
   navigateToSubMenu: (menu: any) =>
-    dispatch(navigator.actions.navigate(navTypes.SUB_MENU, { menu })),
+    dispatch(navigatorActions.navigate(navTypes.SUB_MENU, { menu })),
   receivePageParams: (params: any) => {
-    dispatch(navigator.actions.navigate(navTypes.PAGE));
+    dispatch(navigatorActions.navigate(navTypes.PAGE));
     dispatch(application.actions.receivePageParams(params));
   }
 });

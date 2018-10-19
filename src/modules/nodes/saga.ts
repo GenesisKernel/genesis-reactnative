@@ -8,12 +8,13 @@ import api, { apiSetUrl, apiSetToken, apiDeleteToken } from '../../utils/api';
 
 import * as application from 'modules/application';
 import * as auth from 'modules/auth';
-import * as node from 'modules/nodes';
+import * as nodesSelectors from './selectors';
+import * as nodesActions from './actions';
 
 
 export function* nodesWorker() {
   const { currentNode, isAuthenticated } = yield all({
-    currentNode: select(node.selectors.getCurrentNode),
+    currentNode: select(nodesSelectors.getCurrentNode),
     isAuthenticated: select(auth.selectors.getAuthStatus)
   });
 
@@ -35,7 +36,7 @@ export function* nodesWorker() {
 
 export function* setRandomNode() {
   const { nodesList, isAuthenticated } = yield all({
-    nodesList: select(node.selectors.getNodesList),
+    nodesList: select(nodesSelectors.getNodesList),
     isAuthenticated: select(auth.selectors.getAuthStatus),
   });
 
@@ -43,7 +44,7 @@ export function* setRandomNode() {
 
   const checkedNodes = yield call(checkNodeValidity, filteredNodes, 1);
 
-  yield put(node.actions.setCurrentNode(checkedNodes[0]));
+  yield put(nodesActions.setCurrentNode(checkedNodes[0]));
 
   if (isAuthenticated) yield put(auth.actions.detachSession());
 }
@@ -51,8 +52,8 @@ export function* setRandomNode() {
 export function* getFullNodesWorkerHelper() {
   try {
     const { data: { list } } = yield call(api.getFullNodes);
-    console.log(JSON.parse(list[0].value), 'LIST')
-    const nodesList = yield select(node.selectors.getNodesList);
+
+    const nodesList = yield select(nodesSelectors.getNodesList);
 
     let nodes = [];
 
@@ -69,7 +70,7 @@ export function* getFullNodesWorkerHelper() {
       }
     })));
 
-    yield put(node.actions.setNodesList(newNodes));
+    yield put(nodesActions.setNodesList(newNodes));
   } catch(err) {
     yield put(auth.actions.logout());
   }

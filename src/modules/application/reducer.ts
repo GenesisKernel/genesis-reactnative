@@ -144,7 +144,7 @@ export default reducerWithInitialState<IState>(initialState)
     ...state,
     privateKey: payload,
   }))
-  .case(actions.toggleDrawer, (state,payload: any) => ({
+  .case(actions.toggleDrawer, (state, payload: any) => ({
     ...state,
     drawerOpen: payload,
   }))

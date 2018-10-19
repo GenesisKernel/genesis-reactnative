@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { WrappedFieldProps } from 'redux-form';
 

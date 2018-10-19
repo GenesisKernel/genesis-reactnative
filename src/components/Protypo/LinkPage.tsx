@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { stylable } from 'react-native-stylable';
 

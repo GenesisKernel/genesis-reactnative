@@ -7,7 +7,6 @@ import Data from './Data';
 import DBFind from './DBFind';
 import Em from './Em';
 import Form from './Form';
-// import Image from './Image';
 import Input from './Input';
 import InputError from './InputError';
 import InputImage from './InputImage';

@@ -13,7 +13,6 @@ import navigation from './navigation';
 import appState from './appState';
 import backButton from './hardwareBackButton';
 import changePassword from './changePassword';
-import compositeContracts from './compositeContracts';
 import backupAccount from './backupAccount';
 
 export default function commonSaga() {
@@ -32,7 +31,6 @@ export default function commonSaga() {
     appState(),
     backButton(),
     changePassword(),
-    compositeContracts(),
     backupAccount(),
   ];
 }

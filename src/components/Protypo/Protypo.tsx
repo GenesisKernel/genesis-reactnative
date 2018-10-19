@@ -3,10 +3,14 @@ import * as PropTypes from 'prop-types';
 import { View, Text, WebView } from 'react-native';
 import { omit } from 'ramda';
 import { StyleProvider } from 'react-native-stylable';
+
+import StaticProtypoContainer from 'containers/StaticProtypoContainer';
+
 import { resolveHandler } from 'components/Protypo';
 import Mask from 'components/Mask';
-import DataSource from './utils/DataSource';
+import { STATIC_PAGES } from "../../constants";
 
+import DataSource from './utils/DataSource';
 import styles from './styles';
 import containerStyles from './protypoContainerStyles';
 
@@ -49,6 +53,7 @@ interface IProtypoProps {
   id: string;
   payload: IElement[];
   pending: boolean;
+  staticPageName: string;
 }
 
 export default class Protypo extends React.PureComponent<IProtypoProps> {
@@ -77,18 +82,27 @@ export default class Protypo extends React.PureComponent<IProtypoProps> {
   public renderElement = (element: IElement) => renderElement(element);
 
   public render() {
-    INNER_ELEMENT_KEY = this.props.id;
-    if (this.props.pending)
+    const { staticPageName, id, payload, pending } = this.props;
+    INNER_ELEMENT_KEY = id;
+
+    if (STATIC_PAGES.indexOf(staticPageName) !== -1) {
+      return <StaticProtypoContainer pageName={staticPageName} />;
+    }
+
+    if (pending) {
       return (
         <View style={containerStyles.container}>
           <Mask />
         </View>
       );
+    }
+
     return (
       <StyleProvider
         style={containerStyles.container}
-        styleSheet={styles}>
-        <View>{this.props.payload.map(this.renderElement)}</View>
+        styleSheet={styles}
+      >
+        <View>{payload.map(this.renderElement)}</View>
       </StyleProvider>
     );
   }

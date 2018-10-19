@@ -7,7 +7,7 @@ import { Colors, Fonts, FontSizes } from 'components/ui/theme';
 import BackgroundImageHoc from 'components/utils/BackgroundImageHoc';
 
 import LandingScreen from 'screens/LandingScreen';
-import HomeScreen from 'screens/HomeScreen';
+import HomeScreenContainer from './containers/HomePageContainer';
 import PageScreen from 'screens/PageScreen';
 import SubMenuScreen from 'screens/SubMenuScreen';
 import ScannerScreen from 'screens/ScannerScreen';
@@ -19,11 +19,12 @@ import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
 import SignUpWarningScreen from 'screens/SignUpWarningScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
+
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 
 export default StackNavigator(
   {
-    [navTypes.AUTH]: { screen: BackgroundImageHoc(AuthTypeScreen)  },
+    [navTypes.AUTH]: { screen: BackgroundImageHoc(AuthTypeScreen) },
     [navTypes.AUTH_SUCCESSFUL]: { screen: BackgroundImageHoc(AuthSuccessfulScreen) },
     [navTypes.SCANNER]: { screen: ScannerScreen },
     [navTypes.SIGN_IN]: { screen: BackgroundImageHoc(SignInScreen) },
@@ -32,8 +33,8 @@ export default StackNavigator(
     [navTypes.SIGN_UP_CONFIRM]: { screen: BackgroundImageHoc(SignUpConfirmScreen) },
     [navTypes.SIGN_UP_WARNING]: { screen: BackgroundImageHoc(SignUpWarningScreen) },
     [navTypes.ACCOUNT_SELECT]: { screen: BackgroundImageHoc(AccountSelectScreen) },
-    [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreen, 'green') },
-    [navTypes.PAGE]: { screen:  BackgroundImageHoc(PageScreen, 'green') },
+    [navTypes.HOME]: { screen: BackgroundImageHoc(HomeScreenContainer, 'green') },
+    [navTypes.PAGE]: { screen: BackgroundImageHoc(PageScreen, 'green') },
     [navTypes.SUB_MENU]: { screen: BackgroundImageHoc(SubMenuScreen, 'green') },
     [navTypes.LANDING]: { screen: LandingScreen },
   },

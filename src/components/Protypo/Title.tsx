@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 export interface ITitleProps extends IElementProps {
   receiveTitle: (title?: string) => void;

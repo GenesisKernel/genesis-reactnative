@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Text } from 'react-native';
 import HeaderTitle from 'react-navigation/lib/views/Header/HeaderTitle';
 
 import styles from './styles';

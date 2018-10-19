@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { View } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';

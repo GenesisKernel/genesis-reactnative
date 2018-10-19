@@ -10,10 +10,10 @@
     "deploy": "./deploy.sh"
   },
   "dependencies": {
-    "apisauce": "^0.14.1",
-    "appcenter": "^1.0.1",
-    "appcenter-analytics": "^1.0.1",
-    "appcenter-crashes": "^1.0.1",
+    "apisauce": "^1.0.0",
+    "appcenter": "^1.8.1",
+    "appcenter-analytics": "^1.8.1",
+    "appcenter-crashes": "^1.8.1",
     "appcenter-push": "^1.0.1",
     "babel-polyfill": "^6.26.0",
     "centrifuge": "^1.4.8",
@@ -22,13 +22,15 @@
     "int64-buffer": "^0.1.10",
     "intl": "^1.2.5",
     "jsrsasign": "^8.0.4",
+    "long": "^4.0.0",
+    "msgpack-lite": "^0.1.26",
     "prop-types": "^15.6.0",
     "ramda": "^0.25.0",
     "random-js": "^1.0.8",
-    "react": "^16.2.0",
+    "react": "16.6.0-alpha.8af6728",
     "react-intl": "^2.4.0",
-    "react-native": "^0.54.2",
-    "react-native-animatable": "^1.2.4",
+    "react-native": "0.57.3",
+    "react-native-animatable": "^1.3.0",
     "react-native-camera": "^1.0.3",
     "react-native-code-push": "^5.3.2",
     "react-native-datepicker": "^1.6.0",
@@ -36,8 +38,6 @@
     "react-native-drawer": "^2.5.0",
     "react-native-elements": "^0.19.0",
     "react-native-fingerprint-scanner": "^2.3.2",
-    "react-native-haptic": "^1.0.5",
-    "react-native-haptic-feedback": "^1.1.0",
     "react-native-image-crop-picker": "0.19.0",
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-modal": "^5.3.0",
@@ -45,10 +45,10 @@
     "react-native-popup-dialog": "^0.11.46",
     "react-native-root-siblings": "^2.2.0",
     "react-native-status-bar-height": "^2.0.0",
-    "react-native-stylable": "^0.2.2",
+    "react-native-stylable": "https://github.com/2vm/react-native-stylable.git",
     "react-native-swipeable-row": "^0.8.1",
     "react-native-vector-icons": "^4.5.0",
-    "react-navigation": "^1.0.0-beta.19",
+    "react-navigation": "1.0.0-beta.26",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
@@ -83,11 +83,11 @@
     "babel-preset-react-native": "4.0.0",
     "jest": "^22.4.2",
     "react-test-renderer": "16.0.0-beta.5",
-    "redux-devtools-extension": "^2.13.2",
+    "redux-devtools-extension": "^2.13.5",
     "ts-jest": "^22.4.1",
     "tslint": "^5.8.0",
     "tslint-react": "^3.2.0",
-    "typescript": "^2.7.2"
+    "typescript": "^3.1.3"
   },
   "jest": {
     "preset": "react-native",
@@ -125,7 +125,11 @@
     },
     "cacheDirectory": ".jest/cache",
     "setupFiles": [
-      "./test-setup.js"
+      "./test-setup.js",
+      "<rootDir>/node_modules/appcenter/test/AppCenterMock.js",
+      "<rootDir>/node_modules/appcenter-analytics/test/AppCenterAnalyticsMock.js",
+      "<rootDir>/node_modules/appcenter-push/test/AppCenterPushMock.js",
+      "<rootDir>/node_modules/appcenter-crashes/test/AppCenterCrashesMock.js"
     ]
   }
 }
