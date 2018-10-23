@@ -32,7 +32,7 @@ const scanAgainTitle = {
 
 class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
 
-  state = {
+  public state = {
     qrCode: null,
   }
 
@@ -91,7 +91,7 @@ class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
     );
   }
 
-  private handleBarCodeRead = (payload: object): void => {
+  private handleBarCodeRead = (payload: any): void => {
     if (payload.data !== this.state.qrCode) {
       this.setState({ qrCode: payload.data }, () => {
         this.props.onScan(payload.data);
@@ -100,7 +100,9 @@ class Scanner extends React.Component<ISignUpProps, {qrCode: string | null}> {
   }
 
   private goToSignInScreen = (): void => {
-    this.props.onScan(this.state.qrCode);
+    if (this.state.qrCode) {
+      this.props.onScan(this.state.qrCode);
+    }
   }
 
   private enableScanner = (): void => {

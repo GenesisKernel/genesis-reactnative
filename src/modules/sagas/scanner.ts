@@ -13,7 +13,7 @@ export function* qrCodeWorker(action: Action<string>): SagaIterator {
     if (!extractedData) throw new Error('Wrong QR-code.');
     const { privateKey, ecosystems } = extractedData;
 
-    if (privateKey.length !== 64) {
+    if (privateKey.length < 64 || privateKey.length > 65) { // its костыль
       throw new Error('Its not a private key');
     }
 
