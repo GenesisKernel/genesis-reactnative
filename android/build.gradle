@@ -9,11 +9,12 @@ buildscript {
         supportLibVersion = "27.1.1"
     }
     repositories {
+        google()
+        jcenter()
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
-        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
@@ -23,16 +24,28 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         maven { url "https://jitpack.io" }
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        google()
         jcenter()
     }
 }
+
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 27 // <-- match this to your project's compileSdkVersion
+                buildToolsVersion '27.0.3' // <-- match this to your project's buildToolsVersion
+            }
+        }
+    }
+}
+
 
 
 task wrapper(type: Wrapper) {
