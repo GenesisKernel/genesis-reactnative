@@ -25,6 +25,8 @@ import * as jsrsasign from 'jsrsasign';
 import * as CryptoJS from 'crypto-js';
 import crc64 from './crc64';
 import * as Long from 'long';
+const crypto = require('isomorphic-webcrypto')
+
 
 const { SHA256, SHA512 } = CryptoJS;
 type LibWordArray = any;
@@ -99,11 +101,5 @@ export const address = (publicKey: string) => {
 };
 
 export const Sha256 = async (data: THashInput) => {
-    if (!window.crypto || !window.crypto.subtle || !window.crypto.subtle.digest) {
-        throw {
-            type: 'E_CRYPTO_UNAVAILABLE'
-        };
-    }
-
     return await crypto.subtle.digest({ name: 'SHA-256' }, data);
 };

@@ -195,7 +195,6 @@ export function* prepareContractWorker(payload: any, privateKey: string) {
     const resp = yield call(api.sendTransaction, request);
     return !isEmpty(resp.data.hashes) ? resp.data.hashes : null;
   } catch (error) {
-    console.log(error, 'ERROR AT => prepareContractWorker');
     return null;
   }
 }
