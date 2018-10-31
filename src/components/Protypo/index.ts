@@ -21,10 +21,11 @@ import RadioGroup from './RadioGroup';
 import * as constatns from './constants';
 import ImageContainer from 'containers/Protypo/ImageContainer';
 import Forlist from './Forlist';
+import DivContainer from 'containers/Protypo/DivContainer';
 
 type ProtypoComponent = React.Component<any> | React.SFC<any>;
 
-const handlers: { [tag: string]: ProtypoComponent } = {
+const handlers: { [tag: string]: ProtypoComponent, } = {
   [constatns.TAG_DIV]: Div,
   [constatns.TAG_P]: P,
   [constatns.TAG_SPAN]: Span,
@@ -48,8 +49,11 @@ const handlers: { [tag: string]: ProtypoComponent } = {
   [constatns.FOR_LIST]: Forlist,
 };
 
-export const resolveHandler = (tag: string): ProtypoComponent => {
-  return handlers[tag];
+export const resolveHandler = (tag: string, interaction?: IInteractions): ProtypoComponent => {
+  if (!interaction) {
+    return handlers[tag];
+  }
+  return DivContainer;
 };
 
 export default Protypo;

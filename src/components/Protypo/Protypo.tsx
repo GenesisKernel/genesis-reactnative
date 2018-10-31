@@ -5,10 +5,11 @@ import { omit } from 'ramda';
 import { StyleProvider } from 'react-native-stylable';
 
 import StaticProtypoContainer from 'containers/StaticProtypoContainer';
-
 import { resolveHandler } from 'components/Protypo';
 import Mask from 'components/Mask';
+
 import { STATIC_PAGES } from "../../constants";
+import { getInteractions } from './utils/common';
 
 import DataSource from './utils/DataSource';
 import styles from './styles';
@@ -26,9 +27,11 @@ export function renderElement(
   element: IElement,
   parent?: IElement
 ): React.ReactNode {
-  const Handler = resolveHandler(element.tag);
-
   const { id, attr, ...tagProps } = element;
+  const interactions: IInteractions | undefined = getInteractions(attr);
+
+  const Handler = resolveHandler(element.tag, interactions);
+
   const key = id || `${INNER_ELEMENT_KEY}_${counter++}`;
 
   if (Handler) {

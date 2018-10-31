@@ -49,3 +49,4 @@ export const ERRORS = {
 };
 
 export const STATIC_PAGES = ['@invite'];
+export const INTERACTIONS: Array<TReaction> = ['show', 'hide'];

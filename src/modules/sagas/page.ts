@@ -20,7 +20,6 @@ export function* pageWorker(action: Action<any>): SagaIterator {
     isVDEMode: select(application.selectors.isVDEMode),
     hasForm: select(page.selectors.hasForm),
   });
-
   const vde = action.payload.vde !== undefined ? action.payload.vde : isVDEMode;
   let formOfCurrentPage;
 

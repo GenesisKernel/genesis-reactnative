@@ -11,9 +11,11 @@ import Validators from './utils/Validators';
 
 export interface IFormProps extends IElementProps {}
 
-const FormInner: React.SFC<IFormProps> = ({ style, children }) => (
-  <View style={[style]}>{children}</View>
-);
+const FormInner: React.SFC<IFormProps> = ({ style, children }) => {
+  return (
+    <View style={[style]}>{children}</View>
+  );
+}
 
 const ReduxForm = compose(reduxForm({}), stylable('Form'))(FormInner);
 
@@ -40,7 +42,6 @@ class Form extends React.PureComponent<{
 
   public render() {
     const { form, ...formProps } = this.props;
-
     return (
       <ReduxForm pure form={form} onSubmit={this.handleSubmit} {...formProps} />
     );

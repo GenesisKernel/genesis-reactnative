@@ -1,6 +1,7 @@
 declare module 'uuid';
 declare module 'Buffer';
 declare module 'jsrsasign';
+declare module 'ramda';
 
 declare module 'react-native-camera';
 declare module 'react-native-code-push';
