@@ -104,7 +104,7 @@ export function* socketWorker() {
       const currentNode = yield select(nodes.selectors.getCurrentNode);
 
       const apiInstance = create({
-        baseURL: `${currentNode.apiUrl}api/v2`,
+        baseURL: `${currentNode.apiUrl}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         }

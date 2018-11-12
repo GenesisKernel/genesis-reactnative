@@ -1,6 +1,6 @@
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import { navTypes } from '../constants';
-import { Platform, NativeModules } from 'react-native';
+import { Platform, NativeModules, AsyncStorage } from 'react-native';
 
 export async function checkTouchIDAvailiability(): Promise<{}> {
   let isSupported: Boolean = false;
@@ -36,9 +36,9 @@ export const getCurrentLocale = () => {
   return systemLanguage;
 }
 
-export const uniqKeyGenerator = (payload: any ): string => {
-  const { key_id, ecosystem_id, } = payload;
-  return `${key_id}_${ecosystem_id}`;
+export const uniqKeyGenerator = (payload: { key_id: string, ecosystem_id: string, role_id: string } ): string => {
+  const { key_id, ecosystem_id, role_id } = payload;
+  return `${key_id}_${ecosystem_id}_${role_id || 0}`;
 }
 
 export const TxDissect = (forsign: string) => {
@@ -52,3 +52,7 @@ export const TxDissect = (forsign: string) => {
     };
   }
 };
+
+export function clearAsyncStorage() {
+  AsyncStorage.getAllKeys().then(r => r.forEach(key => AsyncStorage.removeItem(key)));
+}

@@ -103,7 +103,7 @@ export class ApiFactory {
       if (!response.ok) {
         const message: string =
           (response.data && response.data.msg) || response.problem;
-        const error = new Error(message);
+        const error: any = new Error(message);
 
         error.message = message;
         error.data = response.data;
@@ -127,7 +127,7 @@ export class ApiFactory {
     this.api.post<ILoginResponse>('/login', {
       pubkey: payload.publicKey.slice(2),
       signature: payload.signature,
-      ecosystem: payload.ecosystem || '0',
+      ecosystem: payload.ecosystem || undefined,
       role_id: payload.role_id,
       mobile: 1,
       expire: 30 * 24 * 60 * 60 * 1000,
@@ -139,12 +139,12 @@ export class ApiFactory {
     this.api.post<IRefreshResponse>('/refresh', payload)
 
   public getEcosystemParameters = (id: string, params: string[] = []) =>
-    this.api.get<IParameterResponse[]>(
+    this.api.get<any>(
       `ecosystemparams?ecosystem=${id}&names=${params.join(',')}`).then(response =>
         ({ ...response, data: response.data.list }))
 
   public getContentOfPage = (name: string, params: { [key: string]: any } = {}) =>
-    this.api.post<IContentResponse>(`content/page/${name}`, { ...params, isMobile: 1 }).then(response => ({
+    this.api.post<any>(`content/page/${name}`, { ...params, isMobile: 1 }).then(response => ({
       ...response,
       data: {
         name,
@@ -199,6 +199,8 @@ export class ApiFactory {
   public getFullNodes = () => this.api.get('/systemparams?names=full_nodes');
 
   public getEcosystemName = (id: string | number) => this.api.get(`/ecosystemname?id=${id}`);
+
+  public getAccountInfo = (key_id: string) => this.api.get(`/keyinfo/${key_id}`);
 }
 
 const apiInstance: any = new ApiFactory(api);

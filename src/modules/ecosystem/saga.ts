@@ -4,6 +4,7 @@ import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
+import { address } from 'utils/transactions/crypto';
 import { path } from 'ramda';
 
 import { requestEcosystem, addEcosystemToList } from './actions';
@@ -53,35 +54,16 @@ export function* requestEcosystemWorker(action: Action<any>) {
   }
 }
 
-export function* checkEcosystemsAvailiability(payload: { ecosystems?: string[], privateKey: string, publicKey: string }) {
+export function* getAccountEcosystemsInfo(payload: { key_id?: string, publicKey: string }) {
   try {
-    const { privateKey, publicKey } = payload;
-    const ecosystems = payload.ecosystems || ['1'];
+    const { publicKey } = payload;
+    const key_id = payload.key_id || address(publicKey.slice(2));
+    const ecosystemsInfo = yield call(api.getAccountInfo, key_id);
 
-    let availableEcosystems: { [key: string]: any } = {};
-
-    for (let ecosystem of ecosystems) {
-      try {
-        let accountData = yield call(loginCall, { ecosystems: [ecosystem], private: payload.privateKey, public: payload.publicKey });
-
-        const roles = accountData.roles || [];
-        let avatarAndUsername;
-        try {
-          avatarAndUsername = yield call(getUsername, accountData.token, accountData.key_id);
-        } catch (error) {
-          console.log(error, 'avatarAndUsername not found');
-        }
-
-        const uniqKey = uniqKeyGenerator(accountData);
-
-        accountData = { ...accountData, ...avatarAndUsername, roles, uniqKey, publicKey };
-        availableEcosystems[uniqKey] = accountData;
-        yield call(apiDeleteToken)
-      } catch(err) {
-        console.log('checkEcosystemsAvailiability err', err); // we just want to skip an invalid ecosystems
-      }
-    }
-    return availableEcosystems;
+    return {
+      key_id,
+      ecosystems: ecosystemsInfo.data,
+    };
   } catch(err) {
     console.error(err);
   }

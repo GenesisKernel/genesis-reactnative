@@ -34,7 +34,7 @@ export function* loginByGuestKey() {
   const currentNode = yield select(nodesSelectors.getCurrentNode);
 
   const apiInstance = create({
-    baseURL: `${currentNode.apiUrl}api/v2`,
+    baseURL: `${currentNode.apiUrl}`,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     }
@@ -121,7 +121,7 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
       randomInt = Math.floor(Math.random() * allNodes.length);
       let randomNode = allNodes[randomInt];
 
-      yield call(apiSetUrl, `${randomNode.apiUrl}api/v2`);
+      yield call(apiSetUrl, `${randomNode.apiUrl}`);
       const uid = yield call(api.getUid);
 
       if (withSignature) {

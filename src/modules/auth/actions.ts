@@ -27,7 +27,7 @@ export const login = actionCreator.async<
     ecosystemId?: string;
     privateKey?: string;
   },
-  ILoginResponse & { account: object; privateKey: string }
+  {[uniqKey: string]: IAccount}
 >('LOGIN');
 
 export const attachSession = actionCreator<{

@@ -20,7 +20,7 @@ export function* nodesWorker() {
 
   if (currentNode && isAuthenticated) {
     try {
-      apiSetUrl(`${currentNode.apiUrl}api/v2`);
+      apiSetUrl(`${currentNode.apiUrl}`);
       yield call(api.getUid);
       yield put(application.actions.initStart());
       return;

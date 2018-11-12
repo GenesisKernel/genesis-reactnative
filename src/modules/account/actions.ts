@@ -4,7 +4,7 @@ const actionCreator = actionCreatorFactory('ACCOUNT');
 
 export const createAccount = actionCreator.async<
   { seed: string; password: string },
-  IAccount
+  {[uniqKey: string]: IAccount}
 >('CREATE');
 
 export const removeAccount = actionCreator.async<{ uniqKey: string }, any>(

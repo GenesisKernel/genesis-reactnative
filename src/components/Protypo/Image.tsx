@@ -15,7 +15,7 @@ import defaultStyles from './Image.style';
 
 const Image: React.SFC<IImageProps> = ({ attr, style, currentNode }) => {
   return (
-    <RNImage source={{ uri: `${currentNode.apiUrl}api/v2${attr.src}` }} style={[defaultStyles.image, style]} />
+    <RNImage source={{ uri: `${currentNode.apiUrl}/${attr.src}` }} style={[defaultStyles.image, style]} />
   );
 }
 

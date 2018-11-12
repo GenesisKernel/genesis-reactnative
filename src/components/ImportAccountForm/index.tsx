@@ -14,19 +14,18 @@ import { extractParamsFromLink } from 'utils/link';
 export interface InputParams {
   password: string;
   privateKey?: string;
-  ecosystems?: string[];
   byPrivateKey: boolean;
 }
 
 export interface ISignUpProps {
-  seed?: string;
+  seed: string;
   onSubmit(params: InputParams): void;
   goBack(): void;
 }
 
 export interface ISignUpState {
-  seed?: string;
-  password?: string;
+  seed: string;
+  password: string;
 }
 
 const accountSeedInput = {
@@ -40,14 +39,10 @@ const passwordInput = {
 };
 
 class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
-  constructor(props: ISignUpProps) {
-    super(props);
-
-    this.state = {
-      seed: undefined,
-      password: undefined
-    };
-  }
+  public state = {
+    seed: '',
+    password: '',
+  };
 
   public componentWillReceiveProps(nextProps: ISignUpProps) {
     this.setState(() => ({ seed: nextProps.seed }));
@@ -99,19 +94,20 @@ class ImportAccountForm extends React.Component<ISignUpProps, ISignUpState> {
   }
 
   private submit = (): void => {
-    if (!this.state.seed || !this.state.password) {
+    const { seed } = this.state;
+
+    if (!seed) return;
+
+    const privateKey = seed.trim().substr(0, 64);
+
+    if (!privateKey || privateKey.length !== 64) {
       return;
     }
-
-    const extractedKey = extractParamsFromLink(this.state.seed);
-    if (!extractedKey) return;
-
-    extractedKey.ecosystems = !extractedKey.ecosystems.length ? ['1'] : extractedKey.ecosystems;
 
     this.props.onSubmit({
       password: this.state.password,
       byPrivateKey: true,
-      ...extractedKey
+      privateKey: seed.trim(),
     });
   }
 

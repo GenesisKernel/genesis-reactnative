@@ -69,6 +69,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
   },
+  isFirst: {
+    borderTopWidth: 1,
+    borderTopColor: Colors.grey,
+  },
+  isLast: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.green,
+  },
   decorStick: {
     backgroundColor: Colors.green,
     position: 'absolute',

@@ -76,7 +76,12 @@ class AuthSuccessfulScreen extends React.Component<IScreenProps> {
   }
 
   private handleNextButtonPress = () => {
-    this.props.navigation.navigate(navTypes.HOME);
+    const { navigation } = this.props;
+    if (isKnownAccount(navigation)) {
+      this.props.navigation.navigate(navTypes.HOME);
+    } else {
+      this.props.navigation.navigate(navTypes.ACCOUNT_SELECT);
+    }
   }
 }
 

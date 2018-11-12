@@ -7,6 +7,7 @@ import * as nodesSelectors from 'modules/nodes/selectors';
 import * as notificationsSelectors from 'modules/notifications/selectors';
 import * as authSelectors from 'modules/auth/selectors';
 import * as ecosystemSelectors from 'modules/ecosystem/selectors';
+import * as navigatorSelectors from 'modules/navigator/selectors';
 
 interface IOwnProps {
   onDisableScroll: () => void;
@@ -22,6 +23,7 @@ const mapStateToProps = (state: any, { uniqKey, onDisableScroll }: IOwnProps) =>
     notification: notificationsSelectors.getNotification(state, uniqKey),
     isLoggedAccount: uniqKey === authSelectors.getCurrentAccount(state),
     ecosystems: ecosystemSelectors.getEcosystems(state),
+    currentRoute: navigatorSelectors.getCurrentRoute(state),
   }
 }
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmpty, path } from 'ramda';
+import { isEmpty, path, uniq } from 'ramda';
 import { View, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -11,7 +11,7 @@ import CreateAccountButton from './CreateAccountButton';
 import styles from './styles';
 
 export interface IAccountListProps {
-  accounts: { [id: string]: object };
+  accounts: { [id: string]: IAccount };
   noTitle?: boolean | undefined;
   isDrawerOpened: boolean;
   isAccountSelectScreen: boolean;
@@ -28,7 +28,12 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
     if (isEmpty(this.props.accounts)) {
       return <View style={styles.container} />;
     }
-    const { isAccountSelectScreen } = this.props;
+    const { isAccountSelectScreen, accounts } = this.props;
+
+    const accountKeys: Array<string> = uniq(Object.values(accounts).map(item => item.key_id));
+    const accountsToRender = accountKeys.map(key => {
+      return Object.values(accounts).filter(account => account.key_id === key);
+    });
 
     return (
       <View style={styles.container}>
@@ -43,7 +48,9 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          {Object.values(this.props.accounts).map(this.renderAccount)}
+          {accountsToRender.map(account => {
+            return account.map(this.renderAccount);
+          })}
         </ScrollView>
 
         {!isAccountSelectScreen && <CreateAccountButton onPress={this.props.onCreateAccount} />}
@@ -51,9 +58,12 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
     );
   }
 
-  private renderAccount = (account: any) => {
+  private renderAccount = (account: IAccount, index: number, arr: any) => {
+    const isFirst = index === 0;
+    const isLast = index === arr.length -1;
+
     return (
-      <View key={account.uniqKey}>
+      <View key={account.uniqKey} style={[isFirst && styles.isFirst, isLast && styles.isLast]}>
         <RowContainer
           onDisableScroll={this.handlePreventScroll}
           uniqKey={account.uniqKey}

@@ -29,6 +29,7 @@ export interface IRow {
   notification?: INotificationData;
   isLoggedAccount: boolean;
   ecosystems?: IEcosystems;
+  currentRoute: { key: string, routeName: string };
   onPress(payload: { uniqKey: string; encKey: string; }): void;
   onDisableScroll(value: boolean): void;
 }
@@ -42,12 +43,12 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { account: { avatar, username, uniqKey, address, ecosystem_id  },
-    notification, isLoggedAccount, account, ecosystems } = this.props;
+    const { account: { uniqKey, key_id, ecosystem_id, ecosystem_name, role_id, role_name },
+    notification, isLoggedAccount, account, ecosystems, currentRoute } = this.props;
 
-    const findElmentName = this.findElmentName(path([`${ecosystem_id}`], ecosystems));
+    const isAccountSelectRoute = currentRoute.routeName.lastIndexOf('ACCOUNT_SELECT') !== -1;
 
-    const rightButtonsContainerWidth =  width - (width * openDrawerOffset);
+    const rightButtonsContainerWidth = !isAccountSelectRoute ? width - (width * openDrawerOffset) : width;
 
     return (
       <Swipeable
@@ -83,16 +84,16 @@ class Row extends React.PureComponent<IRow> {
                 </View>
                 <View style={styles.titleSubTitleContainer}>
                   <Text numberOfLines={1} style={styles.title}>
-                    {`eco: ${findElmentName}`}
+                    {`eco: ${ecosystem_name || ecosystem_id}`}
                   </Text>
                   <Text numberOfLines={1} style={styles.subTitle}>
-                    {username || 'no username'}
+                    {`role: ${role_name || role_id}`}
                   </Text>
                 </View>
               </View>
               <View style={styles.secondRow}>
                 <Text numberOfLines={1} style={styles.secondTitle}>
-                  {address}
+                  {key_id}
                 </Text>
               </View>
             </View>
@@ -118,18 +119,8 @@ class Row extends React.PureComponent<IRow> {
     }
   }
 
-  private findElmentName = (findElmentName: any) => {
-    if (findElmentName) {
-      if (!isEmpty(findElmentName) && !isEmpty(findElmentName.parameters))  {
-        return findElmentName.parameters.ecosystem_name;
-      }
-    }
-
-    return `#${this.props.account.ecosystem_id}`;
-  }
-
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
-    const { isLoggedAccount, account: { address, ecosystem_id } } = this.props;
+    const { isLoggedAccount, account: { ecosystem_id } } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
 

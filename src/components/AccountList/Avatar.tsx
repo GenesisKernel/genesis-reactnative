@@ -26,7 +26,7 @@ export default class Avatar extends React.PureComponent<IAvatarProps> {
     const { currentNode, account } = this.props;
 
     try {
-      const avatar = `${currentNode.apiUrl}api/v2/avatar/${account.ecosystem_id}/${account.key_id}`;
+      const avatar = `${currentNode.apiUrl}/avatar/${account.ecosystem_id}/${account.key_id}`;
     } catch (err) {
 
     }
@@ -36,7 +36,7 @@ export default class Avatar extends React.PureComponent<IAvatarProps> {
     const { currentNode, account } = this.props;
     const { avatarExists } = this.state;
 
-    const avatar = currentNode && `${currentNode.apiUrl}api/v2/avatar/${account.ecosystem_id}/${account.key_id}`;
+    const avatar = currentNode && `${currentNode.apiUrl}/avatar/${account.ecosystem_id}/${account.key_id}`;
 
     return (
       <View style={styles.avatarImageWrapper}>
