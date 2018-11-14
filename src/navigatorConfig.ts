@@ -19,6 +19,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 import SignUpConfirmScreen from 'screens/SignUpConfirmScreen';
 import SignUpWarningScreen from 'screens/SignUpWarningScreen';
 import AccountSelectScreen from 'screens/AccountSelectScreen';
+import ActivateAccScreen from 'screens/ActivateAccScreen';
 
 import DrawerButtonContainer from 'containers/DrawerButtonContainer';
 
@@ -37,6 +38,7 @@ export default StackNavigator(
     [navTypes.PAGE]: { screen: BackgroundImageHoc(PageScreen, 'green') },
     [navTypes.SUB_MENU]: { screen: BackgroundImageHoc(SubMenuScreen, 'green') },
     [navTypes.LANDING]: { screen: LandingScreen },
+    [navTypes.ACTIVATE_ACC]: { screen: BackgroundImageHoc(ActivateAccScreen) },
   },
   {
     initialRouteName: navTypes.LANDING,

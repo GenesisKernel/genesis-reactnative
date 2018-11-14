@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as CodePush from 'react-native-code-push';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { AppRegistry, AppState } from 'react-native';
-
+import { AppRegistry, AppState, AsyncStorage } from 'react-native';
+// window.AsyncStorage = AsyncStorage;
 import * as Push from 'appcenter-push';
 
 import store from 'modules/store';

@@ -8,6 +8,9 @@ import * as notificationsSelectors from 'modules/notifications/selectors';
 import * as authSelectors from 'modules/auth/selectors';
 import * as ecosystemSelectors from 'modules/ecosystem/selectors';
 import * as navigatorSelectors from 'modules/navigator/selectors';
+import * as navigatorActions from 'modules/navigator/actions';
+
+import { navTypes } from '../../constants';
 
 interface IOwnProps {
   onDisableScroll: () => void;
@@ -29,7 +32,13 @@ const mapStateToProps = (state: any, { uniqKey, onDisableScroll }: IOwnProps) =>
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onPress: (payload: { uniqKey: string; encKey: string; }) => dispatch(receiveSelectedAccount.started(payload)),
+    onPress: (payload: { uniqKey: string; encKey: string; } | { publicKey: string; }) => {
+      if (!payload.encKey) {
+        dispatch(navigatorActions.navigate(navTypes.ACTIVATE_ACC, payload));
+        return;
+      }
+      dispatch(receiveSelectedAccount.started(payload));
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Row);

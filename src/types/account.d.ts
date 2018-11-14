@@ -7,4 +7,5 @@ declare type IAccount = {
   key_id: string;
   encKey: string;
   publicKey: string;
+  inActive?: boolean;
 }

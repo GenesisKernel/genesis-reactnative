@@ -90,6 +90,10 @@ export default StyleSheet.create({
     borderLeftColor: Colors.green,
     left: 10,
   },
+  inactiveAcc: {
+    color: Colors.dangerRed,
+    fontSize: 14,
+  },
   decorStick: {
     backgroundColor: Colors.green,
     position: 'absolute',

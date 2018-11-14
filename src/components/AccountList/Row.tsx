@@ -30,7 +30,7 @@ export interface IRow {
   isLoggedAccount: boolean;
   ecosystems?: IEcosystems;
   currentRoute: { key: string, routeName: string };
-  onPress(payload: { uniqKey: string; encKey: string; }): void;
+  onPress(payload: { uniqKey: string; encKey: string; } | { publicKey: string }): void;
   onDisableScroll(value: boolean): void;
 }
 
@@ -43,7 +43,7 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { account: { uniqKey, key_id, ecosystem_id, ecosystem_name, role_id, role_name },
+    const { account: { uniqKey, key_id, ecosystem_id, ecosystem_name, role_id, role_name, inActive },
     notification, isLoggedAccount, account, ecosystems, currentRoute } = this.props;
 
     const isAccountSelectRoute = currentRoute.routeName.lastIndexOf('ACCOUNT_SELECT') !== -1;
@@ -75,22 +75,37 @@ class Row extends React.PureComponent<IRow> {
               style={styles.decorStick} />
 
             <View style={styles.rowContainer}>
-              <View style={styles.firstRow}>
-                <View style={styles.avatar}>
-                  {this.renderNotification()}
-                  <Avatar
-                    account={account}
-                    currentNode={this.props.currentNode} />
-                </View>
-                <View style={styles.titleSubTitleContainer}>
-                  <Text numberOfLines={1} style={styles.title}>
-                    {`eco: ${ecosystem_name || ecosystem_id}`}
-                  </Text>
-                  <Text numberOfLines={1} style={styles.subTitle}>
-                    {`role: ${role_name || role_id}`}
-                  </Text>
-                </View>
-              </View>
+              {!inActive
+                ?(
+                  <View style={styles.firstRow}>
+                    <View style={styles.avatar}>
+                      {this.renderNotification()}
+                      <Avatar
+                        account={account}
+                        currentNode={this.props.currentNode} />
+                    </View>
+                    <View style={styles.titleSubTitleContainer}>
+                      <Text numberOfLines={1} style={styles.title}>
+                        {`eco: ${ecosystem_name || ecosystem_id}`}
+                      </Text>
+                      <Text numberOfLines={1} style={styles.subTitle}>
+                        {`role: ${role_name || role_id}`}
+                      </Text>
+                    </View>
+                  </View>
+                ) : (
+                  <View style={styles.firstRow}>
+                    <Text
+                      numberOfLines={2}
+                      style={styles.inactiveAcc}
+                    >
+                      Account is waiting for activation.
+                      Tap to activate.
+                    </Text>
+                  </View>
+                )
+              }
+
               <View style={styles.secondRow}>
                 <Text numberOfLines={1} style={styles.secondTitle}>
                   {key_id}
@@ -181,8 +196,11 @@ class Row extends React.PureComponent<IRow> {
   private handlePress = (): void => {
     if (!this.props.isLoggedAccount) {
       const { uniqKey, encKey } = this.props.account;
+      const payload = this.props.account.inActive
+        ? { publicKey: this.props.account.publicKey }
+        : { uniqKey, encKey };
 
-      this.props.onPress({ uniqKey, encKey });
+      this.props.onPress(payload);
     } else {
       this.swipeable && this.swipeable.recenter();
     }

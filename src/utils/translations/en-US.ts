@@ -54,5 +54,10 @@ export default {
   "auth.role.select": `Please, select the role you'd like to login by`,
   "auth.without.role": "Sign without role",
 
+  "auth.wallet.registration.type.email": "Activate using E-Mail",
+  "auth.wallet.registration.type.email.desc": "To activate using E-Mail copy your public key and send it to apla@snapswap.eu",
+  "auth.wallet.copy.public": "Copy public key",
+  "auth.wallet.registration.type.email.confirm": "Send E-Mail",
+
   "ecosystem.added.to.list": "Ecosystem  has been added to your ecosystems list."
 }

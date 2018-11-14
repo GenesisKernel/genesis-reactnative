@@ -66,7 +66,7 @@ export function* getFullNodesWorkerHelper() {
     const allNodes = nodesList.concat(fullNodes);
     const newNodes = yield call(filterDuplicateNodes, allNodes.concat(nodes.map((item: any) => {
       return {
-        apiUrl: `${item.api_address}/`,
+        apiUrl: `${item.api_address}/api/v2`,
       }
     })));
 

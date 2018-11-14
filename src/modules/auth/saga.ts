@@ -38,6 +38,10 @@ export interface IKeyPairs {
   private: string;
   public: string;
 }
+interface ICreateAccPayload {
+  seed: string;
+  password: string;
+}
 
 interface ILoginWorkerPayload {
   uniqKey: string;
@@ -45,10 +49,24 @@ interface ILoginWorkerPayload {
   privateKey: string;
 }
 
-function* gtAccountsInfo(payload: IGetAccInfo) {
+function* getAccountsInfo(payload: IGetAccInfo) {
   const accounts: IGetAccountEcoInfo = yield call(getAccountEcosystemsInfo, { publicKey: payload.public });
 
-  if (!accounts || accounts && !accounts.ecosystems.length) return;
+  if (!accounts || accounts && !accounts.key_id) return;
+
+  if (!accounts.ecosystems.length) {
+    const uniqKey = uniqKeyGenerator({
+      key_id: accounts.key_id, ecosystem_id: 'un', role_id: 'un'
+    });
+    return {
+      [uniqKey]: {
+        uniqKey,
+        key_id: accounts.key_id,
+        publicKey: payload.public,
+        inActive: true,
+      }
+    }
+  }
 
   let accountsList: IAccInfo = {};
 
@@ -143,7 +161,7 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
     const publicKey = yield call(Keyring.genereatePublicKey, privateKey);
     const encKey = yield call(Keyring.encryptAES, privateKey, password);
 
-    const accounts: { [key: string]: IAccount } = yield call(gtAccountsInfo, {
+    const accounts: { [key: string]: IAccount } = yield call(getAccountsInfo, {
       public: publicKey,
     });
 
@@ -207,25 +225,23 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
   }
 }
 
-export function* createAccountWorker(action: Action<any>): SagaIterator {
+export function* createAccountWorker({ payload }: Action<ICreateAccPayload>): SagaIterator {
   try {
     const authPayload: IKeyPairs = yield call(
       Keyring.generateKeyPair,
-      action.payload.seed
+      payload.seed
     ); // Generate paif of keys
 
     const encKey = yield call(
       Keyring.encryptAES,
       authPayload.private,
-      action.payload.password
+      payload.password
     ); // Encrypt private key
-
-    let accounts = yield call(auth, { ...authPayload, ecosystems: ['1'] });
-    Object.values(accounts).forEach(el => el.encKey = encKey);
+    const accounts = yield call(getAccountsInfo, authPayload);
 
     yield put(
       accountActions.createAccount.done({
-        params: action.payload,
+        params: payload,
         result: accounts
       })
     );
@@ -245,7 +261,7 @@ export function* createAccountWorker(action: Action<any>): SagaIterator {
   } catch (error) {
     yield put(
       accountActions.createAccount.failed({
-        params: action.payload,
+        params: payload,
         error
       })
     );

@@ -55,5 +55,9 @@ export default {
   "auth.role.select": `Пожалуйста, выберите роль, с которой Вы бы хотели войти в систему`,
   "auth.without.role": "Войти без роли",
 
+  "auth.wallet.registration.type.email": "Активация через E-Mail",
+  "auth.wallet.registration.type.email.desc": "Для активации через E-Mail скопируйте свой открытый ключ и отправьте его на почтовый адрес apla@snapswap.eu",
+  "auth.wallet.registration.type.email.confirm": "Отправить E-Mail",
+
   "ecosystem.added.to.list": "Экосистема добавлена в Ваш список экосистем."
 };
