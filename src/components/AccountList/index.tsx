@@ -49,7 +49,7 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
           showsVerticalScrollIndicator={false}
         >
           {accountsToRender.map(account => {
-            return account.map(this.renderAccount);
+            return account.sort((a, b) => a.ecosystem_name > b.ecosystem_name ? 1 : -1).map(this.renderAccount);
           })}
         </ScrollView>
 
@@ -63,7 +63,7 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
     const isLast = index === arr.length -1;
 
     return (
-      <View key={account.uniqKey} style={[isFirst && styles.isFirst, isLast && styles.isLast]}>
+      <View key={account.uniqKey} style={[isFirst && styles.isFirst, isLast && styles.isLast, !isFirst && !isLast && styles.regular]}>
         <RowContainer
           onDisableScroll={this.handlePreventScroll}
           uniqKey={account.uniqKey}

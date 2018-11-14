@@ -17,8 +17,6 @@ import * as appActions from 'modules/application/actions';
 import * as accountSelectors from 'modules/account/selectors';
 import * as nodesSelectors from 'modules/nodes/selectors';
 
-import { IAuthPayload } from 'modules/auth/saga';
-
 export function* getUsername(token: string, key_id: string) {
   apiDeleteToken();
   apiSetToken(token);
@@ -61,20 +59,21 @@ export function* loginByGuestKey() {
   }
 }
 
-export function* loginCall(payload: IAuthPayload, role_id?: number, signParams?: any) {
+export function* loginCall({ privateKey, key_id, role_id, ecosystem_id, publicKey }: IAuthPayload) {
   try {
     yield call(apiDeleteToken); // Remove previous token
 
-    const { data: uidParams } = signParams || (yield call(api.getUid));
+    const { data: uidParams } = yield call(api.getUid);
 
     yield call(apiSetToken, uidParams.token);
 
-    const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, payload.private);
+    const signature = yield call(Keyring.sign, `LOGIN${uidParams.uid}`, privateKey);
+
     let { data: accountData } = yield call(api.login, {
       signature,
-      ecosystem: payload.ecosystems[0] || '1',
-      publicKey: payload.public,
+      ecosystem: ecosystem_id,
       role_id,
+      publicKey,
     });
 
     yield call(apiSetToken, accountData.token);
@@ -149,10 +148,9 @@ export function* checkNodeValidity(nodesArray: INode[], requiredCount = 1, token
   }
 }
 
-export function* defaultPageSetter(role_id?: number | string | undefined) {
-  const currentRole = yield select(authSelectors.getCurrentRole);
-  if (role_id || currentRole && currentRole.role_id) {
-    const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id || currentRole.role_id);
+export function* defaultPageSetter(role_id: string) {
+  if (role_id) {
+    const { data: { value: { default_page } } } = yield call(api.getRow, 'roles', role_id);
 
     yield put(appActions.setDefaultPage(default_page || DEFAULT_PAGE));
   }

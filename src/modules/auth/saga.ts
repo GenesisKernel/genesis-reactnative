@@ -23,11 +23,7 @@ import { getAccountEcosystemsInfo } from 'modules/ecosystem/saga';
 import { uniqKeyGenerator } from 'utils/common';
 import { validatePassword } from 'modules/sagas/privateKey';
 
-export interface IAuthPayload {
-  public: string;
-}
-
-interface IAuthReturn {
+interface IAccInfo {
   [key: string]: {
     role_id: string,
     role_name: string,
@@ -38,7 +34,6 @@ interface IAuthReturn {
     publicKey: string,
   }
 }
-
 export interface IKeyPairs {
   private: string;
   public: string;
@@ -50,13 +45,15 @@ interface ILoginWorkerPayload {
   privateKey: string;
 }
 
-export function* auth(payload: IAuthPayload) {
+function* gtAccountsInfo(payload: IGetAccInfo) {
   const accounts: IGetAccountEcoInfo = yield call(getAccountEcosystemsInfo, { publicKey: payload.public });
+
   if (!accounts || accounts && !accounts.ecosystems.length) return;
-  let accountsList: IAuthReturn = {};
+
+  let accountsList: IAccInfo = {};
 
   accounts.ecosystems.forEach((eco) => {
-    return eco.roles.forEach((role) => {
+    eco.roles.forEach((role) => {
 
       const uniqKey = uniqKeyGenerator({ key_id: accounts.key_id, ecosystem_id: eco.ecosystem, role_id: role.id });
 
@@ -70,46 +67,52 @@ export function* auth(payload: IAuthPayload) {
         uniqKey,
       }
     });
-    // return {
-      // ecosystem_id: eco.ecosystem,
-      // ecosystem_name: eco.name,
-    //   roles: eco.roles,
-    //   key_id: accounts.key_id,
-    //   uniqKey: uniqKeyGenerator()
-    // }
+    const uniqKey = uniqKeyGenerator({ key_id: accounts.key_id, ecosystem_id: eco.ecosystem, role_id: '0' });
+
+    accountsList[uniqKey] = {
+      role_id: '0',
+      role_name: 'Without role',
+      ecosystem_id: eco.ecosystem,
+      ecosystem_name: eco.name,
+      key_id: accounts.key_id,
+      publicKey: payload.public,
+      uniqKey,
+    };
   });
-  console.log(accountsList, 'accountsList')
-  // let accountData = Objec8t.values(accounts)[0]; // if acc > 1 login to first
-  // if (!accountData) return;
 
-  // const { roles } = accountData;
-  // const currentRole = roles && !!roles.length ? yield call(roleSelect, roles) : {};
+  return accountsList;
+}
 
-  // if (currentRole && currentRole.role_id) {
-  //   const newAcc = yield call(loginCall, payload, currentRole.role_id);
+export function* auth(payload: IAccount & IAuthPayload) {
+  const { key_id, role_id, ecosystem_id, publicKey, privateKey } = payload;
 
-  //   yield call(defaultPageSetter, currentRole.role_id);
+  const newAcc = yield call(loginCall, {
+    key_id, role_id, ecosystem_id, publicKey, privateKey
+  });
 
-  //   accountData = { ...accountData, ...newAcc };
-  //   accounts[uniqKeyGenerator(accountData)] = accountData;
-  // } else {
-  //   apiSetToken(accountData.token);
-  // }
+  yield call(defaultPageSetter, payload.role_id);
 
-  // const { token, refresh } = pick<any, any>(['token', 'refresh'], accountData);
+  yield put(
+    authActions.attachSession({
+      currentAccount: uniqKeyGenerator(payload),
+      ecosystem_id,
+      token: newAcc.token,
+    })
+  );
 
-  // yield put(
-  //   authActions.attachSession({
-  //     currentAccount: uniqKeyGenerator(accountData),
-  //     ecosystems: payload.ecosystems,
-  //     token, refresh
-  //   })
-  // ); // save account data in auth reducer
+  const account = {
+    [uniqKeyGenerator(payload)]: {
+      ...newAcc, ...omit(['privateKey', 'roles'], payload),
+    },
+  };
 
-  // Object.keys(accounts).forEach(el => {
-  //   accounts[el] = pick(['key_id', 'ecosystem_id', 'address', 'uniqKey', 'username', 'roles', 'publicKey'], accounts[el]);
-  // });
-  return accountsList; // return account to function where it was called
+  yield put(
+    accountActions.createAccount.done({
+      params: null as any,
+      result: account,
+    })
+  );
+  return account;
 }
 
 export function* refresh() {
@@ -139,14 +142,13 @@ export function* loginByPrivateKeyWorker(action: Action<any>) {
   try {
     const publicKey = yield call(Keyring.genereatePublicKey, privateKey);
     const encKey = yield call(Keyring.encryptAES, privateKey, password);
-    // const validEcosystems = ecosystems.length ? ecosystems : ['1'];
 
-    const accounts: { [key: string]: IAccount } = yield call(auth, {
+    const accounts: { [key: string]: IAccount } = yield call(gtAccountsInfo, {
       public: publicKey,
     });
 
     Object.values(accounts).forEach(el => el.encKey = encKey);
-    console.log(accounts, 'accounts')
+
     yield put(
       accountActions.createAccount.done({
         params: action.payload,
@@ -183,12 +185,7 @@ export function* loginWorker(action: Action<ILoginWorkerPayload>): SagaIterator 
     const savedAccount = yield select(accountSelectors.getAccount(action.payload.uniqKey));
     const { privateKey } = action.payload;
 
-    const account = yield call(auth, {
-      public: savedAccount.publicKey,
-      private: privateKey,
-      key_id: savedAccount.key_id,
-      // ecosystems: [savedAccount.ecosystem_id],
-    });
+    const account = yield call(auth, { ...savedAccount, privateKey });
 
     yield put(
       authActions.login.done({

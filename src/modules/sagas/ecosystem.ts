@@ -25,7 +25,7 @@ export function* attachNewEcosystemWorker(
 export function* requestNewEcosystemWorker(action: Action<any>) {
   yield put(
     ecosystem.actions.requestEcosystem.started({
-      ecosystems: action.payload.ecosystems,
+      ecosystems: [action.payload.ecosystem_id],
     })
   );
 }

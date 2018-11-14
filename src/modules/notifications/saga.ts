@@ -140,6 +140,7 @@ export function* socketWorker() {
 }
 
 export default function* notificationsSaga() {
-  yield takeEvery([application.actions.initFinish, Account.actions.createAccount.done], socketWorker);
-  yield takeEvery(application.actions.setChannelSubscribtionStatus, updateNotificationsWorker);
+  // yield takeEvery([application.actions.initFinish, Account.actions.createAccount.done], socketWorker);
+  // yield takeEvery(application.actions.setChannelSubscribtionStatus, updateNotificationsWorker);
+  // DON'T FORGET TO UNCOMMENT
 }

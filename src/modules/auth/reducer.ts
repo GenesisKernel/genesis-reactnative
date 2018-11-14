@@ -21,7 +21,7 @@ export const generateTime = () => Date.now() + (30 * 24 * 60 * 60 * 1000);
 export default reducerWithInitialState(initialState)
   .case(actions.attachSession, (state, payload) => ({
     ...state,
-    ...omit(['ecosystems'], payload),
+    ...payload,
     tokenExpiry: generateTime(),
     isAuthenticated: true
   }))

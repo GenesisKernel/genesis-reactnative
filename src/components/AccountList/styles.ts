@@ -71,11 +71,24 @@ export default StyleSheet.create({
   },
   isFirst: {
     borderTopWidth: 1,
-    borderTopColor: Colors.grey,
-  },
-  isLast: {
+    borderTopColor: Colors.green,
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.green,
     borderBottomWidth: 1,
     borderBottomColor: Colors.green,
+  },
+  isLast: {
+    borderTopWidth: 1,
+    borderTopColor: Colors.green,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.green,
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.green,
+  },
+  regular: {
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.green,
+    left: 10,
   },
   decorStick: {
     backgroundColor: Colors.green,
