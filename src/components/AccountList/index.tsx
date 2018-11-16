@@ -61,11 +61,12 @@ class AccountList extends React.PureComponent<IAccountListProps, { isScrollAvail
   private renderAccount = (account: IAccount, index: number, arr: any) => {
     const isFirst = index === 0;
     const isLast = index === arr.length -1;
+    const noBorder = isFirst && isLast || arr.length <= 2;
 
     return (
       <View
         key={account.uniqKey}
-        style={[isFirst && styles.isFirst, isLast && styles.isLast, !isFirst && !isLast && styles.regular, isFirst && isLast && styles.noBorders]}>
+        style={[isFirst && styles.isFirst, isLast && styles.isLast, !isFirst && !isLast && styles.regular, noBorder && styles.noBorders]}>
         <RowContainer
           onDisableScroll={this.handlePreventScroll}
           uniqKey={account.uniqKey}
