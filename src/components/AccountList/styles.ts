@@ -90,6 +90,12 @@ export default StyleSheet.create({
     borderLeftColor: Colors.green,
     left: 10,
   },
+  noBorders: {
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderColor: 'transparent',
+  },
   inactiveAcc: {
     color: Colors.dangerRed,
     fontSize: 14,

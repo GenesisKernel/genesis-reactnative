@@ -71,20 +71,23 @@ function* getAccountsInfo(payload: IGetAccInfo) {
   let accountsList: IAccInfo = {};
 
   accounts.ecosystems.forEach((eco) => {
-    eco.roles.forEach((role) => {
+    if (eco.roles && eco.roles.length) {
+      eco.roles.forEach((role) => {
 
-      const uniqKey = uniqKeyGenerator({ key_id: accounts.key_id, ecosystem_id: eco.ecosystem, role_id: role.id });
+        const uniqKey = uniqKeyGenerator({ key_id: accounts.key_id, ecosystem_id: eco.ecosystem, role_id: role.id });
 
-      accountsList[uniqKey] = {
-        role_id: role.id,
-        role_name: role.name,
-        ecosystem_id: eco.ecosystem,
-        ecosystem_name: eco.name,
-        key_id: accounts.key_id,
-        publicKey: payload.public,
-        uniqKey,
-      }
-    });
+        accountsList[uniqKey] = {
+          role_id: role.id,
+          role_name: role.name,
+          ecosystem_id: eco.ecosystem,
+          ecosystem_name: eco.name,
+          key_id: accounts.key_id,
+          publicKey: payload.public,
+          uniqKey,
+        }
+      });
+    }
+
     const uniqKey = uniqKeyGenerator({ key_id: accounts.key_id, ecosystem_id: eco.ecosystem, role_id: '0' });
 
     accountsList[uniqKey] = {

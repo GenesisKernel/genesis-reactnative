@@ -15,7 +15,7 @@ export interface IAnimatedDrawerProps {
   onToggleDrawer: (value: boolean) => void;
 }
 
-export default class AnimatedDrawer extends React.Component<IAnimatedDrawerProps, {}> {
+export default class AnimatedDrawer extends React.PureComponent<IAnimatedDrawerProps, {}> {
 
   public render() {
     const { isAuthRoute, isAuthenticated, onToggleDrawer, drawerOpen } = this.props;

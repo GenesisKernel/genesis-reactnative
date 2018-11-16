@@ -3,6 +3,7 @@ import Row from 'components/AccountList/Row';
 
 import { receiveSelectedAccount } from 'modules/auth/actions';
 import * as accountSelectors from 'modules/account/selectors';
+import * as applicationActions from 'modules/application/actions';
 import * as nodesSelectors from 'modules/nodes/selectors';
 import * as notificationsSelectors from 'modules/notifications/selectors';
 import * as authSelectors from 'modules/auth/selectors';
@@ -34,6 +35,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onPress: (payload: { uniqKey: string; encKey: string; } | { publicKey: string; }) => {
       if (!payload.encKey) {
+        dispatch(applicationActions.toggleDrawer(false));
         dispatch(navigatorActions.navigate(navTypes.ACTIVATE_ACC, payload));
         return;
       }

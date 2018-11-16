@@ -135,9 +135,17 @@ class Row extends React.PureComponent<IRow> {
   }
 
   private getRightButtons = (rightButtonsContainerWidth: number): JSX.Element[] => {
-    const { isLoggedAccount, account: { ecosystem_id } } = this.props;
+    const { isLoggedAccount, account: { ecosystem_id, inActive } } = this.props;
     const buttonsCount = isLoggedAccount ? 3 : 2;
     const buttonWidth = rightButtonsContainerWidth / buttonsCount;
+
+    if (inActive) return (
+      [<RemoveAccountButtonContainer
+        recenter={this.handleRecenter}
+        uniqKey={this.props.account.uniqKey}
+        buttonWidth={rightButtonsContainerWidth}
+      />]
+    );
 
     const rightButtons = [
       (
