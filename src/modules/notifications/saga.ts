@@ -46,9 +46,10 @@ export function socketInit(payload: ISocketInit) {
     });
 
     const subscribtion = centrifuge.subscribe(`client${account.key_id}`, (message: INotification) => {
+      let messages: any = {};
       for (const data of message.data) {
         const newMessage = { ...message, data };
-        const correctUniqKey = uniqKeyGenerator({ ...pick(['key_id', 'role_id'], account), ecosystem_id: data.ecosystem })
+        const correctUniqKey = uniqKeyGenerator({ ...pick(['key_id', 'role_id'], account), ecosystem_id: data.ecosystem });
         emitter(notificationsActions.receiveNotification({ ...newMessage, uniqKey: correctUniqKey }));
       }
     });

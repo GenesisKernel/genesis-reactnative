@@ -1,5 +1,6 @@
 declare interface IGetAccountEcoInfo {
   key_id: string;
+  address: string;
   ecosystems: Array<{
     ecosystem: string,
     name: string,

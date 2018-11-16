@@ -4,7 +4,7 @@ import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import api, { apiSetToken, apiDeleteToken } from 'utils/api';
 import Keyring from 'utils/keyring';
-import { address } from 'utils/transactions/crypto';
+import { address, addressString } from 'utils/transactions/crypto';
 import { path } from 'ramda';
 
 import { requestEcosystem, addEcosystemToList } from './actions';
@@ -58,10 +58,12 @@ export function* getAccountEcosystemsInfo(payload: { key_id?: string, publicKey:
   try {
     const { publicKey } = payload;
     const key_id = payload.key_id || address(publicKey.slice(2));
+    const accAddress = addressString(key_id);
     const ecosystemsInfo = yield call(api.getAccountInfo, key_id);
 
     return {
       key_id,
+      address: accAddress,
       ecosystems: ecosystemsInfo.data,
     };
   } catch(err) {
@@ -70,7 +72,7 @@ export function* getAccountEcosystemsInfo(payload: { key_id?: string, publicKey:
 
 }
 
-function* addEcosystemToListWorker({ payload }: Action<{ecosystem: string, page?: string}>) {
+function* addEcosystemToListWorker({ payload }: Action<{ecosystem: string, page?: string}>) { // legacy?
   const uniqKey = yield select(authSelectors.getCurrentAccount);
   const currentAccount = yield select(accountSelectors.getAccount(uniqKey));
   const newUniqKey = uniqKeyGenerator({ key_id: currentAccount.key_id, ecosystem_id: payload.ecosystem });

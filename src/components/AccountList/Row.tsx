@@ -43,7 +43,7 @@ class Row extends React.PureComponent<IRow> {
 
   public render() {
     const { showDecor } = this.state;
-    const { account: { uniqKey, key_id, ecosystem_id, ecosystem_name, role_id, role_name, inActive },
+    const { account: { uniqKey, address, ecosystem_id, ecosystem_name, role_id, role_name, inActive },
     notification, isLoggedAccount, account, ecosystems, currentRoute } = this.props;
 
     const isAccountSelectRoute = currentRoute.routeName.lastIndexOf('ACCOUNT_SELECT') !== -1;
@@ -108,7 +108,7 @@ class Row extends React.PureComponent<IRow> {
 
               <View style={styles.secondRow}>
                 <Text numberOfLines={1} style={styles.secondTitle}>
-                  {key_id}
+                  {address}
                 </Text>
               </View>
             </View>

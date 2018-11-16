@@ -5,6 +5,7 @@ declare type IAccount = {
   role_id: string;
   role_name: string;
   key_id: string;
+  address: string;
   encKey: string;
   publicKey: string;
   inActive?: boolean;

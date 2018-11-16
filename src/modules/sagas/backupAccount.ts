@@ -33,7 +33,7 @@ export function* backupAccountWorker() {
     const ecosystem = yield select(auth.selectors.getCurrentEcosystemId);
     yield call(delay, MODAL_ANIMATION_TIME);
 
-    Clipboard.setString(`${privateKey};${ecosystem}`);
+    Clipboard.setString(privateKey);
 
     yield put(application.actions.receiveAlert({ type: 'default', message: 'account.key.copied.to.clipboard' }));
   }

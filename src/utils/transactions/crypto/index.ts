@@ -100,6 +100,18 @@ export const address = (publicKey: string) => {
     return crcLong.sub(remainder(crc, 10)).add(addrChecksum).toString();
 };
 
+export const addressString = (addr: string) => {
+    const num = Long.fromString(addr, true, 10).toString();
+    let val = '0'.repeat(20 - num.length) + num;
+    let ret = '';
+
+    for (let i = 0; i < 4; i++) {
+        ret += val.slice(i * 4, (i + 1) * 4) + '-';
+    }
+    ret += val.slice(16);
+    return ret;
+};
+
 export const Sha256 = async (data: THashInput) => {
     return await crypto.subtle.digest({ name: 'SHA-256' }, data);
 };

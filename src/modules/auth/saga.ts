@@ -30,6 +30,7 @@ interface IAccInfo {
     ecosystem_id: string,
     ecosystem_name: string,
     key_id: string,
+    address: string,
     uniqKey: string,
     publicKey: string,
   }
@@ -62,6 +63,7 @@ function* getAccountsInfo(payload: IGetAccInfo) {
       [uniqKey]: {
         uniqKey,
         key_id: accounts.key_id,
+        address: accounts.address,
         publicKey: payload.public,
         inActive: true,
       }
@@ -82,6 +84,7 @@ function* getAccountsInfo(payload: IGetAccInfo) {
           ecosystem_id: eco.ecosystem,
           ecosystem_name: eco.name,
           key_id: accounts.key_id,
+          address: accounts.address,
           publicKey: payload.public,
           uniqKey,
         }
@@ -96,6 +99,7 @@ function* getAccountsInfo(payload: IGetAccInfo) {
       ecosystem_id: eco.ecosystem,
       ecosystem_name: eco.name,
       key_id: accounts.key_id,
+      address: accounts.address,
       publicKey: payload.public,
       uniqKey,
     };
@@ -120,10 +124,11 @@ export function* auth(payload: IAccount & IAuthPayload) {
       token: newAcc.token,
     })
   );
-
+  const keysToOmit = ['privateKey', 'roles', 'token', 'notify_key', 'timestamp'];
   const account = {
     [uniqKeyGenerator(payload)]: {
-      ...newAcc, ...omit(['privateKey', 'roles'], payload),
+      ...omit(keysToOmit, newAcc),
+      ...omit(keysToOmit, payload),
     },
   };
 
