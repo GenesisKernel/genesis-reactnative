@@ -2,6 +2,7 @@ const Centrifuge = require('centrifuge');
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, select, getContext, setContext, all } from 'redux-saga/effects';
 import { create } from 'apisauce';
+import { pick } from 'ramda';
 
 import api, { apiDeleteToken, ApiFactory } from '../../utils/api';
 import * as Account from 'modules/account';
@@ -11,6 +12,7 @@ import * as nodes from 'modules/nodes';
 import { loginByGuestKey } from 'modules/sagas/sagaHelpers';
 
 import { INotification } from './reducer';
+import { uniqKeyGenerator } from 'utils/common';
 
 interface ISocketInit {
   account: IAccount;
@@ -44,10 +46,10 @@ export function socketInit(payload: ISocketInit) {
     });
 
     const subscribtion = centrifuge.subscribe(`client${account.key_id}`, (message: INotification) => {
-      console.log(`got message in ${message.channel}`);
       for (const data of message.data) {
         const newMessage = { ...message, data };
-        emitter(notificationsActions.receiveNotification({ ...newMessage, uniqKey }));
+        const correctUniqKey = uniqKeyGenerator({ ...pick(['key_id', 'role_id'], account), ecosystem_id: data.ecosystem })
+        emitter(notificationsActions.receiveNotification({ ...newMessage, uniqKey: correctUniqKey }));
       }
     });
 
@@ -140,7 +142,6 @@ export function* socketWorker() {
 }
 
 export default function* notificationsSaga() {
-  // yield takeEvery([application.actions.initFinish, Account.actions.createAccount.done], socketWorker);
-  // yield takeEvery(application.actions.setChannelSubscribtionStatus, updateNotificationsWorker);
-  // DON'T FORGET TO UNCOMMENT
+  yield takeEvery([application.actions.initFinish, Account.actions.createAccount.done], socketWorker);
+  yield takeEvery(application.actions.setChannelSubscribtionStatus, updateNotificationsWorker);
 }
