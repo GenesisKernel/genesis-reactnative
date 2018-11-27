@@ -278,6 +278,12 @@ styles.addRules({
       width: '80%',
     }
   },
+  ['Addtoolbutton']: {
+    style: {
+      flexDirection: 'row',
+      alignItems: 'flex-end'
+    },
+  },
   // ['Div.panel Div.list-group-item']: {
   //   style: {
   //     flexDirection: 'row',

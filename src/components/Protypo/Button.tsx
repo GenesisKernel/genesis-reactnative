@@ -50,7 +50,7 @@ class Button extends React.PureComponent<IButtonProps> {
   private alert: any;
 
   public render() {
-    const { style, children, loading } = this.props;
+    const { style, children, loading, attr } = this.props;
     let loadingElement;
 
     if (loading) {
@@ -63,14 +63,13 @@ class Button extends React.PureComponent<IButtonProps> {
         />
       );
     }
-
     return (
       <TouchableOpacity
         activeOpacity={0.8}
         style={[defaultStyles.button, style]}
         onPress={this.handleSubmit}
       >
-        {loading ? loadingElement : children}
+        {loading ? loadingElement : children ? children : <Text>{attr.title}</Text> || null}
       </TouchableOpacity>
     );
   }

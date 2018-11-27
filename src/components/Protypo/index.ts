@@ -47,6 +47,7 @@ const handlers: { [tag: string]: ProtypoComponent, } = {
   [constatns.TAG_SELECT]: Select,
   [constatns.FUNCTION_SET_TITLE]: Title,
   [constatns.FOR_LIST]: Forlist,
+  [constatns.ADD_TOOL_BTN]: ButtonContainer,
 };
 
 export const resolveHandler = (tag: string, interaction?: IInteractions): ProtypoComponent => {
